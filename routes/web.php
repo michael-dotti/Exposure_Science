@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::view('/', 'home');
+Route::view('/team', 'team');
+Route::view('/publications', 'publications');
+Route::view('/news-and-events', 'news-and-events');
+
 // CIAO A TUTTI
 Route::middleware([
     'auth:sanctum',
