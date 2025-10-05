@@ -16,8 +16,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->withPersonalTeam()->create();
 
         User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
+            'first_name' => 'Mario',
+            'last_name' => 'Rossi',
             'email' => 'test@example.com',
+            'password'=>
         ]);
+
+        $this->call(ArticleSeeder::class);
     }
 }
