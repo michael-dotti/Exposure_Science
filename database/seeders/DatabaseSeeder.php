@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'Mario',
             'last_name' => 'Rossi',
             'email' => 'test@example.com',
-            'password'=>
         ]);
 
         $this->call(ArticleSeeder::class);
