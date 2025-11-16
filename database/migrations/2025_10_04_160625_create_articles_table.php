@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('titolo');
+            $table->string('DataPubblicazione');
             //TODO : autori... 
-            $table->string('abstract');
+            $table->string('abstract')->nullable();
             $table->string('data_pubblicazione');
             $table->timestamps();
         });
