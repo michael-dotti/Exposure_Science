@@ -9,4 +9,6 @@ class Research_Area extends Model
 {
     /** @use HasFactory<\Database\Factories\ResearchAreaFactory> */
     use HasFactory;
+
+    protected $guarded = [];
 }

@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('cognome');
-            $table->integer("telefono");
+            $table->integer("telefono")->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken(); /** per la runzionalita "remember user": https://laravel.com/docs/12.x/authentication#remembering-users */
-            $table->string('sitoWeb');
-            $table->string('bio');
+            $table->rememberToken(); /** per la funzionalita' "remember user": https://laravel.com/docs/12.x/authentication#remembering-users */
+            $table->string('sitoWeb')->nullable();
+            $table->string('bio')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps(precision: 0);
+            $table->boolean('admin');
             //TODO corso insegnato
         });
 

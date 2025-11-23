@@ -9,4 +9,6 @@ class Corsi extends Model
 {
     /** @use HasFactory<\Database\Factories\CorsiFactory> */
     use HasFactory;
+
+    protected $guarded = [];
 }

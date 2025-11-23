@@ -9,4 +9,6 @@ class Progetto extends Model
 {
     /** @use HasFactory<\Database\Factories\ProgettoFactory> */
     use HasFactory;
+
+    protected $guarded = [];
 }
