@@ -15,8 +15,6 @@ class ResearchArea extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    protected $table = 'research_areas';
     
     // un'area di ricerca può essere associata a più project
     public function projects(): BelongsToMany
