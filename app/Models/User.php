@@ -54,6 +54,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // per indicare che la colonna "corsi_inseganti" è un array
+
+    protected $casts = [
+        'corsi_insegnati' => 'array',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

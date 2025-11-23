@@ -52,14 +52,12 @@ class UserFactory extends Factory
     }
 
 
-
     public function admin(): static
      {
        return $this->state(fn (array $attributes) => [ 
          'admin' => true,
          ]);
     }
-
 
     public function defaultAdmin(): static
     {
@@ -71,7 +69,6 @@ class UserFactory extends Factory
             'admin' => true,
          ]);
     }
-
     /**
      * Indicate that the user should have a personal team.
      */

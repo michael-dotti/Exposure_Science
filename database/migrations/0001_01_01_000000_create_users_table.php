@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps(precision: 0);
+            $table->json('corsi_insegnati')->nullable();
             $table->boolean('admin');
             //TODO corso insegnato
         });
