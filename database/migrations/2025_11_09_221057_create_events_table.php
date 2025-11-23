@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("dataFine");
             $table->string("luogo");
             // utente che ha generato l'evento
-            $table->foreignId('owner_user_id')->nullable()->constrained('users')->onDelete('set null'); 
+            $table->foreignId('owner_user_id')->constrained('users')->onDelete('set null'); 
         });
     }
 
