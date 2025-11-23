@@ -13,6 +13,6 @@ class ResearchAreaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Research_Area::factory(5)->create();
     }
 }

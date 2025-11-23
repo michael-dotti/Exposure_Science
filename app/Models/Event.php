@@ -11,4 +11,11 @@ class Event extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function user_owner()
+    {
+        // Un Corso APPARTIENE A UN Utente
+        return $this->belongsTo(User::class);
+    }
+
 }

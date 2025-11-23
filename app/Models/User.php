@@ -60,13 +60,18 @@ class User extends Authenticatable
     ];
 
     // indica la relazione tra utente e corsi
-    public function corsi(): HasMany
+    public function course(): HasMany
     {
         // Un Utente HA MOLTI Corsi
         return $this->hasMany(Course::class);
     }
 
-
+    // eventi generati dall'utente (//TODO da verificare che solo l'amministratore possa creare un evento)
+    public function events(): HasMany
+    {
+        // Un Utente HA MOLTI Corsi
+        return $this->hasMany(Event::class);
+    }
 
     /**
      * Gli articoli a cui l'utente ha accesso.

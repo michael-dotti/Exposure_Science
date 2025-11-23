@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('titolo');
             $table->string('descrizione');
             $table->string('stato');
-            // TODO membri del progetto
             $table->timestamps();
         });
     }

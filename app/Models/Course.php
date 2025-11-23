@@ -12,7 +12,7 @@ class Course extends Model
 
     protected $guarded = [];
 
-    public function insegnante()
+    public function teacher()
     {
         // Un Corso APPARTIENE A UN insegnante(=user=ricercatore)
         return $this->belongsTo(User::class);

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Project extends Model
@@ -15,8 +16,14 @@ class Project extends Model
     protected $guarded = [];
 
     // gli utenti che lavorano a questo project
-    public function projects(): BelongsToMany  
+    public function user(): BelongsToMany  
     {
         return $this->belongsToMany(User::class);
+    }
+
+    // un project può appartenere ad 1 o più aree di ricerca
+    public function research_area(): BelongsToMany
+    {
+        return $this->belongsToMany(Research_Area::class);
     }
 }

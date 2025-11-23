@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ArticleSeeder::class);
         User::factory()->defaultAdmin()->create();
+        $this->call(ResearchAreaSeeder::class);
     }
 }
