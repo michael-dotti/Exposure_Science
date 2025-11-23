@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(ArticleSeeder::class);
-        User::factory()->defaultAdmin()->create();
+        User::factory()->defaultAdmin()->withPersonalTeam()->create(); /*NOTA: ho dovuto 
+        aggiungere "withPersonaTeam", perché altrimenti se provato a loggare con admin@example.com 
+         che è un utente senza team(senza l'aggiutna indciata prima) mi dava errore nella 
+         view navigation-menu.blade.php a riga 29 */
         $this->call(ResearchAreaSeeder::class);
     }
 }
