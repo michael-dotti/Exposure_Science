@@ -14,6 +14,7 @@ use App\Models\Course;
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Project;
 
 class User extends Authenticatable
 {
@@ -75,6 +76,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Article::class);
     }
 
+    // I progetti a cui l'utente ha accesso
+    public function projects(): BelongsToMany  
+    {
+        return $this->belongsToMany(Project::class);
+    }
 
     /**
      * Get the attributes that should be cast.
