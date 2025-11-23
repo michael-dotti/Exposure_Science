@@ -11,6 +11,9 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Course;
+use App\Models\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -56,11 +59,22 @@ class User extends Authenticatable
     ];
 
     // indica la relazione tra utente e corsi
-    public function corsi()
+    public function corsi(): HasMany
     {
         // Un Utente HA MOLTI Corsi
         return $this->hasMany(Course::class);
     }
+
+
+
+    /**
+     * Gli articoli a cui l'utente ha accesso.
+     */
+    public function articles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class);
+    }
+
 
     /**
      * Get the attributes that should be cast.

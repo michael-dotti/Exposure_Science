@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Article extends Model
 {
@@ -14,4 +15,12 @@ class Article extends Model
      protected $guarded = [];// dico a queli campi bisogna fare attenzione nell'inizializzarli
     // Inserendo niente nelle quadre di “$guarded” ho praticamente disabilitato questa feature ( se non dico niente non devo controllare nessun campo)
 
+
+    /**
+     * Gli utenti che possiedono/hanno accesso a questo articolo.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
