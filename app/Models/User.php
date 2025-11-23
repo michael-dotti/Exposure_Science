@@ -67,9 +67,8 @@ class User extends Authenticatable
     }
 
     // eventi generati dall'utente (//TODO da verificare che solo l'amministratore possa creare un evento)
-    public function events(): HasMany
+    public function events_created(): HasMany
     {
-        // Un Utente HA MOLTI Corsi
         return $this->hasMany(Event::class);
     }
 
@@ -86,6 +85,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class);
     }
+
+    // Eventi associati a questo user
+    public function events_to_do(): BelongsToMany  
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
 
     /**
      * Get the attributes that should be cast.
