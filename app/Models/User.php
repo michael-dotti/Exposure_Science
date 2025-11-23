@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Course;
 
 class User extends Authenticatable
 {
@@ -54,11 +55,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    // per indicare che la colonna "corsi_inseganti" è un array
-
-    protected $casts = [
-        'corsi_insegnati' => 'array',
-    ];
+    // indica la relazione tra utente e corsi
+    public function corsi()
+    {
+        // Un Utente HA MOLTI Corsi
+        return $this->hasMany(Course::class);
+    }
 
     /**
      * Get the attributes that should be cast.
