@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Research_Area>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ResearchArea>
  */
 class ResearchAreaFactory extends Factory
 {
@@ -28,7 +28,7 @@ class ResearchAreaFactory extends Factory
         ];
         
         return [
-            'title' => $this->faker->randomElement($subjects),
+            'nome' => $this->faker->randomElement($subjects),
             'descrizione' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
                              Rem perspiciatis iure ut laborum inventore et maxime amet.',
         ];

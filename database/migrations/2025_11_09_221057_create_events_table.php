@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string("dataFine");
             $table->string("luogo");
             // utente che ha generato l'evento
-            $table->foreignId('owner_user_id')->constrained('users')->onDelete('set null'); 
+            $table->foreignId('owner_user_id')->nullable()->constrained('users')->onDelete('set null'); 
+            // NOTA: deve essere obbligatorio specificare il owner_user_id sia da isnerire durante la creazione delle'vento, ma se 
+            // l'utente owner viene elimianto l'evento deve poter rimanere, per questo ho inserito "nullable()"
         });
     }
 

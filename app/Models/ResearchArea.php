@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Research_Area extends Model
+class ResearchArea extends Model
 {
     /** @use HasFactory<\Database\Factories\ResearchAreaFactory> */
     use HasFactory;
 
     protected $guarded = [];
 
-
+    protected $table = 'research_areas';
+    
     // un'area di ricerca può essere associata a più project
     public function projects(): BelongsToMany
     {

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Research_Area;
+use App\Models\ResearchArea;
 
 class ResearchAreaSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class ResearchAreaSeeder extends Seeder
      */
     public function run(): void
     {
-        Research_Area::factory(5)->create();
+        ResearchArea::factory(5)->create();
     }
 }

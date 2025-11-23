@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+
 class Project extends Model
 {
     /** @use HasFactory<\Database\Factories\ProgettoFactory> */
@@ -24,6 +25,6 @@ class Project extends Model
     // un project può appartenere ad 1 o più aree di ricerca
     public function research_area(): BelongsToMany
     {
-        return $this->belongsToMany(Research_Area::class);
+        return $this->belongsToMany(ResearchArea::class);
     }
 }
