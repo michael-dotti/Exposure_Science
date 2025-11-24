@@ -27,4 +27,9 @@ class Project extends Model
     {
         return $this->belongsToMany(ResearchArea::class);
     }
+
+    public function news(): BelongsToMany
+    {
+        return $this->belongsToMany(News::class);
+    }
 }
