@@ -19,5 +19,8 @@ class News extends Model
         return $this->belongsToMany(Project::class);
     }
 
-
+    public function cources():BelongsToMany
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }
