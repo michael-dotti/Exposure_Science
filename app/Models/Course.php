@@ -13,10 +13,10 @@ class Course extends Model
 
     protected $guarded = [];
 
-    public function teacher()
+    public function teacher(): BelongsToMany
     {
         // Un Corso APPARTIENE A UN insegnante(=user=ricercatore)
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function news():BelongsToMany

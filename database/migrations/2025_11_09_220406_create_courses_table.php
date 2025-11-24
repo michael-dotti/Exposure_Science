@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string("titolo");
             $table->string("descrizione");
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+
             /*
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            
             Spiegazione dei metodi:
     $table->foreignId('user_id'): creare una colonna user_id di tipo UNSIGNED BIGINT (il tipo predefinito per gli ID).
     ->nullable(): Permette che un corso non abbia un user_id associato.
@@ -26,6 +28,7 @@ return new class extends Migration
                          il campo user_id nei corsi che insegnava verrà automaticamente impostato a NULL   
                          , mantenendo i dati del corso.
             */
+                         
         });
     }
 
