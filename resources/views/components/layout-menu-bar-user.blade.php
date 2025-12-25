@@ -36,16 +36,16 @@
         
         <nav class="mt-8 px-4">
             <div class="space-y-2">
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-home mr-3 text-cordes-accent group-hover:text-white"></i>
+                <a href="/dashboard" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('dashboard')" class="fas fa-user"></x-icon-dashboard>
                     Area Personale {{-- TODO: l'utente può cambiare foto profilo, nome, breve descrizione di se ecc... --}}
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-users mr-3 text-gray-400 group-hover:text-white"></i>
+                <a href="/article" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('article')" class="fas fa-book"></x-icon-dashboard>
                     Articoli
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-white"></i>
+                <a href="/project" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('project')" class="fas fa-chart-bar"></x-icon-dashboard>
                     progetti
                     {{-- 
                     TODO:la pagina caricata varia in base al fatto se l'utente è:
@@ -54,8 +54,8 @@
                     collegare il progetto ad un evento per degli altri utenti
                     --}}
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-shopping-cart mr-3 text-gray-400 group-hover:text-white"></i>
+                <a href="/event" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('event')" class="fas fa-cube"></x-icon-dashboard>
                     Eventi
                     {{-- 
                     TODO:la pagina caricata varia in base al fatto se l'utente è:
@@ -65,17 +65,17 @@
                 </a>
                 {{-- 
                     TODO: se l'utente è amministratore avrà anche le sezioni qui sotto 
-                    TODO: IMPLEMENTARE VERIFICA UTENTE AMMINSITRATORE (con "can"?)--}}
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                    TODO: IMPLEMENTARE VERIFICA UTENTE AMMINISTRATORE (con "can"?)--}}
+                <a href="/user-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('user-management')" class="fas fa-users"></x-icon-dashboard>
                     Gestisci Utenti
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                <a href="/news-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-newspaper"></x-icon-dashboard>
                     Gestisci news
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                <a href="/event-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-cubes"></x-icon-dashboard>
                     Gestisci Eventi
                 </a>
             </div>
