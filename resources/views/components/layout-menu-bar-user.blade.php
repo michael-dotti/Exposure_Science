@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cordes-blue': '#1e40af',
+                        'cordes-dark': '#1e293b',
+                        'cordes-light': '#f8fafc',
+                        'cordes-accent': '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Sidebar -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-cordes-dark shadow-xl z-50">
+        <div class="flex items-center justify-center h-16 bg-cordes-blue">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                    <i class="fas fa-cube text-cordes-blue text-lg"></i>
+                </div>
+                <span class="text-white text-xl font-bold">Dashboard</span>
+            </div>
+        </div>
+        
+        <nav class="mt-8 px-4">
+            <div class="space-y-2">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-home mr-3 text-cordes-accent group-hover:text-white"></i>
+                    Area Personale {{-- TODO: l'utente può cambiare foto profilo, nome, breve descrizione di se ecc... --}}
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-users mr-3 text-gray-400 group-hover:text-white"></i>
+                    Articoli
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-white"></i>
+                    progetti
+                    {{-- 
+                    TODO:la pagina caricata varia in base al fatto se l'utente è:
+                    NO AMMINISTRATORE: vede i progetti assegnatigli
+                    AMMINISTRATORE: vede i progetti assegnatigli e ne può creare dei nuovi, potendo volendo 
+                    collegare il progetto ad un evento per degli altri utenti
+                    --}}
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-shopping-cart mr-3 text-gray-400 group-hover:text-white"></i>
+                    Eventi
+                    {{-- 
+                    TODO:la pagina caricata varia in base al fatto se l'utente è:
+                    NO AMMINISTRATORE: vede gli eventi rivolti a lui
+                    AMMINISTRATORE: vede gli eventi rivolti a lui e ne può creare dei nuovi 
+                    --}}
+                </a>
+                {{-- 
+                    TODO: se l'utente è amministratore avrà anche le sezioni qui sotto 
+                    TODO: IMPLEMENTARE VERIFICA UTENTE AMMINSITRATORE (con "can"?)--}}
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                    Gestisci Utenti
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                    Gestisci news
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <i class="fas fa-box mr-3 text-gray-400 group-hover:text-white"></i>
+                    Gestisci Eventi
+                </a>
+            </div>
+        </nav>
+        
+        {{-- Nome Utente --}}
+        <div class="absolute bottom-4 left-4 right-4">
+            <div class="bg-gray-800 rounded-lg p-4">
+                <div class="flex items-center space-x-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/17003/17003310.png" alt="Admin" class="w-10 h-10 rounded-full">
+                    <div>
+                        <p class="text-white text-sm font-medium">{{ Auth::user()->nome }} {{Auth::user()->cognome }} </p>
+                        @if(auth()->user()->admin)
+                            <p class="text-gray-400 text-xs">Administrator</p>
+                        @endif
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64">
+        <!-- Top Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900">Dashboard Overview</h1>
+                        <p class="text-gray-600 text-sm mt-1">Welcome back, here's what's happening today</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+    {{ $slot }}
+</body>
+</html>
