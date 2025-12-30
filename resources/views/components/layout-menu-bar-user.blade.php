@@ -98,20 +98,20 @@
     </div>
 
     <!-- Main Content -->
-    <div class="ml-64">
+    <div class="ml-64 bg-cordes-dark min-h-screen">
         <!-- Top Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200">
+        <header class="bg-cordes-dark border-b border-white/10">
             <div class="px-6 py-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold text-gray-900">Dashboard Overview</h1>
-                        <p class="text-gray-600 text-sm mt-1">Welcome back, here's what's happening today</p>
+                        <h1 class="text-2xl font-semibold text-white">{{ $title }} Page</h1>
                     </div>
                 </div>
             </div>
         </header>
 
-        
+    <div class="px-6"> 
     {{ $slot }}
+    </div>  
 </body>
 </html>
