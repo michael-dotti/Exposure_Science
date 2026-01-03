@@ -8,6 +8,7 @@ Route::view('/team', 'team');
 Route::view('/publications', 'publications');
 Route::view('/news-and-events', 'news-and-events');
 
+
 /*
 Route::get('/', function () {
     
@@ -22,4 +23,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard'); // do come nome alla rotta "dashboard"
+
+    Route::view('/article', 'article.index');
+    ROute::view('/project','project.index');
+    Route::view('/event', 'event.index');
+    Route::view('/user-management','users-management.index');
+    Route::view('/news-management','news.index');
+    Route::view('/event-management','events-management-index');
 });
