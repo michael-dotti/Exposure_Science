@@ -10,13 +10,17 @@ class ArticleController extends Controller
     // Index = mostra tutti gli articoli
     public function index()
     {
-        //
+         $articles = auth()->user()->articles()->with('users')->simplePaginate(5);
+ 
+         return view('article.index', [
+            'articles'=> $articles
+                ]);
     }
 
     // create= porta alla view di creaizone di un articolo
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     //Show= porta alla view per vedere un singolo articolo

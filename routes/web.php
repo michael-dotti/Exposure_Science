@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ArticleController;
 
 Route::view('/', 'home');
 Route::view('/team', 'team');
@@ -24,10 +25,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard'); // do come nome alla rotta "dashboard"
 
-    Route::view('/article', 'article.index');
-    ROute::view('/project','project.index');
+    Route::get('/article', [ArticleController::class, 'index']);
+    Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    
+    Route::view('/project','project.index');
     Route::view('/event', 'event.index');
     Route::view('/user-management','users-management.index');
     Route::view('/news-management','news.index');
     Route::view('/event-management','events-management-index');
+
+    
 });
