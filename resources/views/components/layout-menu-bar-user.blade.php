@@ -40,12 +40,12 @@
                     <x-icon-dashboard :active="request()->is('dashboard')" class="fas fa-user"></x-icon-dashboard>
                     Area Personale {{-- TODO: l'utente può cambiare foto profilo, nome, breve descrizione di se ecc... --}}
                 </a>
-                <a href="/article" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('article')" class="fas fa-book"></x-icon-dashboard>
+                <a href="/articles" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                    <x-icon-dashboard :active="request()->is('articles')" class="fas fa-book"></x-icon-dashboard>
                     Articoli
                 </a>
                 <a href="/project" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('project')" class="fas fa-chart-bar"></x-icon-dashboard>
+                    <x-icon-dashboard :active="request()->is('projects')" class="fas fa-chart-bar"></x-icon-dashboard>
                     progetti
                     {{-- 
                     TODO:la pagina caricata varia in base al fatto se l'utente è:
@@ -55,7 +55,7 @@
                     --}}
                 </a>
                 <a href="/event" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('event')" class="fas fa-cube"></x-icon-dashboard>
+                    <x-icon-dashboard :active="request()->is('events')" class="fas fa-cube"></x-icon-dashboard>
                     Eventi
                     {{-- 
                     TODO:la pagina caricata varia in base al fatto se l'utente è:

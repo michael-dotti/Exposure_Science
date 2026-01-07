@@ -3,7 +3,7 @@
         Articles 
     </x-slot:title>
     
-    <x-link-button href="article.create" >Nuovo articolo</x-link-button>
+    <x-link-button href="/articles/create" >Nuovo articolo</x-link-button>
     
     <div class="space-y-4">
     @forelse ($articles as $article)
@@ -13,16 +13,16 @@
             </div>
 
             <div>
-                <a href="{{ route('article.show', $article->id) }}" class="hover:underline">
+                <a href="/articles/{{ $article['id'] }}" class="hover:underline">
                     <strong>{{ $article->title }}</strong>
                 </a>
                 : {{ $article->abstract }}
             </div>
 
             <div class="mt-4 flex gap-2">
-                <a href="{{ route('article.edit', $article->id) }}" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
+                <a href="/articles/edit/{{ $article['id'] }}" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
                 
-                <form action="{{ route('article.destroy', $article->id) }}" method="POST">
+                <form action="/articles/destroy/{{ $article['id'] }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="text-xs bg-red-500 text-white px-2 py-1 rounded">Elimina</button>
@@ -38,7 +38,7 @@
             <p class="mt-1 text-sm text-gray-500">Inizia pubblicando la tua prima ricerca scientifica.</p>
             
             <div class="mt-6">
-                <a href="{{ route('article.create') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                <a href="/articles/create" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                     <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>

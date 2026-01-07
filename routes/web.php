@@ -25,11 +25,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard'); // do come nome alla rotta "dashboard"
 
-    Route::get('/article', [ArticleController::class, 'index']);
-    Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::get('/articles', [ArticleController::class, 'index']);
+    Route::get('/articles/create', [ArticleController::class, 'create']);
+    Route::get('/articles/{article}', [ArticleController::class, 'show']);
     
-    Route::view('/project','project.index');
-    Route::view('/event', 'event.index');
+    Route::view('/projects','project.index');
+    Route::view('/events', 'event.index');
     Route::view('/user-management','users-management.index');
     Route::view('/news-management','news.index');
     Route::view('/event-management','events-management-index');
