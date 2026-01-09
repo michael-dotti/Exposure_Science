@@ -33,28 +33,47 @@
         <div class="sm:col-span-3">
           <label for="first-name" class="block text-sm/6 font-medium text-white">First name</label>
           <div class="mt-2">
-            <input id="first-name" type="text" name="first-name" autocomplete="given-name" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+            <input id="first-name"
+            value="{{ auth()->user()->nome }}" 
+            type="text" name="first-name" 
+            autocomplete="given-name" 
+            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
           </div>
         </div>
 
         <div class="sm:col-span-3">
-          <label for="last-name" class="block text-sm/6 font-medium text-white">Last name</label>
+          <label for="last-name" class="block text-sm/6 font-medium text-white" >Last name</label>
           <div class="mt-2">
-            <input id="last-name" type="text" name="last-name" autocomplete="family-name" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+            <input id="last-name" 
+            value="{{ auth()->user()->cognome }}"
+            type="text" 
+            name="last-name" 
+            autocomplete="family-name" 
+            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
           </div>
         </div>
 
         <div class="sm:col-span-4">
           <label for="email" class="block text-sm/6 font-medium text-white">Email address</label>
           <div class="mt-2">
-            <input id="email" type="email" name="email" autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+            <input id="email" 
+            value="{{ auth()->user()->email }}"
+            type="email" 
+            name="email" 
+            autocomplete="email" 
+            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
           </div>
         </div>
 
         <div class="col-span-full">
           <label for="about" class="block text-sm/6 font-medium text-white">About</label>
           <div class="mt-2">
-            <textarea id="about" name="about" rows="3" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"></textarea>
+            <textarea id="about" 
+            name="about" 
+            rows="4" 
+            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6">
+          {{ auth()->user()->bio }}
+          </textarea>
           </div>
           <p class="mt-3 text-sm/6 text-gray-400">Write a few sentences about yourself.</p>
         </div>

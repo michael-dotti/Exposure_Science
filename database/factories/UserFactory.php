@@ -67,6 +67,10 @@ class UserFactory extends Factory
             'email'=>'admin@example.com',
             'password'=>static::$password ??= Hash::make('password'),
             'admin' => true,
+            'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
+            Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
+            Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
+            Sono l'attuale amministratore del gruppo di ricerca ",
          ]);
     }
     /**
