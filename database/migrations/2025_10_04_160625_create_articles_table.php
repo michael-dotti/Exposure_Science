@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('data_pubblicazione');
-            //TODO : autori... 
-            $table->string('abstract')->nullable();
+            $table->string('data_pubblicazione'); 
+            $table->text('abstract');
+            $table->string('file_path')->nullable(); // Salva il percorso del file (es: uploads/articolo.pdf)
+            $table->string('external_url')->nullable(); // Salva il link per l'acquisto
+            $table->string('image_path')->nullable();
             $table->timestamps();
-            //TODO possibilità di inserire dall'esterno un file contenente l'articolo oppure un link al sito dove acquistare l'articolo
         });
     }
 

@@ -7,26 +7,40 @@
     
     <div class="space-y-4">
     @forelse ($articles as $article)
-        <div class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
-            <div class="font-bold text-blue-500 text-sm mb-2"> 
-                Autori: {{ $article->users->pluck('name')->join(', ') }}
-            </div>
+        <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
 
-            <div>
-                <a href="/articles/{{ $article['id'] }}" class="hover:underline">
-                    <strong>{{ $article->title }}</strong>
-                </a>
-                : {{ $article->abstract }}
-            </div>
+            
+            @if($article->image_path)
+                <div class="flex-shrink-0 w-48">
+                    <img src="{{ asset('storage/' . $article->image_path) }}" 
+                         alt="{{ $article->title }}" 
+                         class="w-full h-32 object-cover rounded-md border border-white/10">
+                </div>
+            @endif
+            
+            <div class="block pl-3">
+                <div class="font-bold text-blue-500 text-sm mb-2"> 
+                    Autori: <span class="text-white">{{ $article->users->pluck('nome')->join(', ') }}</span>
+                </div>
 
-            <div class="mt-4 flex gap-2">
-                <a href="/articles/edit/{{ $article['id'] }}" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
-                
-                <form action="/articles/destroy/{{ $article['id'] }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="text-xs bg-red-500 text-white px-2 py-1 rounded">Elimina</button>
-                </form>
+                <div>
+                    <a href="/articles/{{ $article['id'] }}" class="hover:underline">
+                        <strong>{{ $article->title }}</strong>
+                    </a>
+                    :
+                    <br>{{ $article->abstract }}
+                </div>
+
+                <div class="mt-4 flex gap-2">
+                    <a href="/articles/edit/{{ $article['id'] }}" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
+                    
+                    <form action="/articles/destroy/{{ $article['id'] }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="text-xs bg-red-500 text-white px-2 py-1 rounded">Elimina</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     @empty
