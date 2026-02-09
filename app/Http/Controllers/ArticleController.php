@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use app\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -90,6 +91,18 @@ class ArticleController extends Controller
     // destroy = distrugge un articolo
     public function destroy(Article $article)
     {
-        // 
+        // 1) Elimina il file fisico se esiste
+        if ($article->image_path) {
+            Storage::disk('public')->delete($article->image_path);
+        }
+
+        if ($article->file_path) {
+            Storage::disk('public')->delete($article->file_path);
+        }
+
+        // 2) Elimina il record dal database
+        $article->delete();
+
+        return redirect()->back(); 
     }
 }
