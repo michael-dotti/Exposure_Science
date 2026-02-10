@@ -20,7 +20,10 @@ class ArticleFactory extends Factory
         return [
             'title' => fake()->sentence(rand(1, 5)),
             'abstract' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae maiores neque eaque ea odit placeat, tenetur illum distinctio nulla voluptatum a corrupti beatae tempora aperiam quia id aliquam possimus aut.',
-            'data_pubblicazione' => Carbon::now()->format('d/m/Y')
+            'data_pubblicazione' => Carbon::now()->toDateString(),
+            'external_url' => fake()->url(),
+            'image_path' => 'images/default.png'
         ];
+        // NOTA BENE: l'utente di defualt viene collegato nel seeder
     }
 }

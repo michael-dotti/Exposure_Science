@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Article;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use app\Models\User;
 
 class ArticleSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        Article::factory(25)->create();
+        $defaultUser = User::all();
+        Article::factory(25)->hasAttached($defaultUser[0])->create();
     }
 }
