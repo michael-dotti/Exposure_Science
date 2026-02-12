@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <a href="/articles/edit/{{ $article['id'] }}" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
+                    <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
                     
-                    <form action="/articles/destroy/{{ $article['id'] }}" method="POST">
+                    <form action="/articles/{{ $article['id'] }}" method="POST" class="m-0 p-0 flex">
                         @csrf
                         @method('DELETE')
                         <button class="text-xs bg-red-500 text-white px-2 py-1 rounded">Elimina</button>

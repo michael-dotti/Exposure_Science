@@ -35,7 +35,6 @@ class ArticleController extends Controller
     // store = esegue l'autenticazione e poi aggiunge un articolo
     public function store()
     {
-        
         // 1) validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
@@ -59,6 +58,7 @@ class ArticleController extends Controller
         if (request()->hasFile('file_path')) {
             // Salva il PDF e aggiorna il valore nell'array con il percorso stringa
             $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
+            // store() restituisce il percorso del file appena salvato
         }
 
         if (request()->hasFile('image_path')) {
@@ -103,6 +103,6 @@ class ArticleController extends Controller
         // 2) Elimina il record dal database
         $article->delete();
 
-        return redirect()->back(); 
+        return redirect('/articles'); 
     }
 }

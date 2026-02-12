@@ -29,8 +29,11 @@ Route::middleware([
         Route::get('/articles',  'index');
         Route::get('/articles/create',  'create');
         Route::get('/articles/{article}', 'show');
+        Route::get('/articles/{article}/edit','edit');
         Route::post('articles', 'store');
+        Route::delete('/articles/{article}','destroy');
     });
+    
 
     Route::view('/projects','project.index');
     Route::view('/events', 'event.index');
