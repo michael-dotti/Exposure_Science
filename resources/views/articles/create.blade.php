@@ -39,7 +39,7 @@
                                 class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                           
                           <label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
-                              {{ $user->nome }}
+                              {{ $user->name }}
                           </label>
                       </div>
                   @endforeach

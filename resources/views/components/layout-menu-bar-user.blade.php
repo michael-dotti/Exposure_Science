@@ -87,7 +87,7 @@
                 <div class="flex items-center space-x-3">
                     <img src="https://cdn-icons-png.flaticon.com/512/17003/17003310.png" alt="Admin" class="w-10 h-10 rounded-full">
                     <div>
-                        <p class="text-white text-sm font-medium">{{ Auth::user()->nome }} {{Auth::user()->cognome }} </p>
+                        <p class="text-white text-sm font-medium">{{ Auth::user()->name }} {{Auth::user()->surname }} </p>
                         @if(auth()->user()->admin)
                             <p class="text-gray-400 text-xs">Administrator</p>
                         @endif

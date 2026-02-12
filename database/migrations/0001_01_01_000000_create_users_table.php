@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('cognome');
-            $table->integer("telefono")->nullable();
+            $table->string('name');
+            $table->string('surname');
+            $table->integer("phone_number")->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken(); /** per la funzionalita' "remember user": https://laravel.com/docs/12.x/authentication#remembering-users */
-            $table->string('sitoWeb')->nullable();
+            $table->string('website')->nullable();
             $table->text('bio')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

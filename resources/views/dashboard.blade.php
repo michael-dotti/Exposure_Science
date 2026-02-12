@@ -34,7 +34,7 @@
           <label for="first-name" class="block text-sm/6 font-medium text-white">First name</label>
           <div class="mt-2">
             <input id="first-name"
-            value="{{ auth()->user()->nome }}" 
+            value="{{ auth()->user()->name }}" 
             type="text" name="first-name" 
             autocomplete="given-name" 
             class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
@@ -45,7 +45,7 @@
           <label for="last-name" class="block text-sm/6 font-medium text-white" >Last name</label>
           <div class="mt-2">
             <input id="last-name" 
-            value="{{ auth()->user()->cognome }}"
+            value="{{ auth()->user()->surname }}"
             type="text" 
             name="last-name" 
             autocomplete="family-name" 

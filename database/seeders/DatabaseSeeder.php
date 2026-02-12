@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->withPersonalTeam()->create();
 
         User::factory()->withPersonalTeam()->create([
-            'nome' => 'Mario',
-            'cognome' => 'Rossi',
+            'name' => 'Mario',
+            'surname' => 'Rossi',
             'email' => 'test@example.com',
             'password'=>'password',
         ]);

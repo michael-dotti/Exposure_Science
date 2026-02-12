@@ -20,7 +20,7 @@
             
             <div class="block pl-3">
                 <div class="font-bold text-blue-500 text-sm mb-2"> 
-                    Autori: <span class="text-white">{{ $article->users->pluck('nome')->join(', ') }}</span>
+                    Autori: <span class="text-white">{{ $article->users->pluck('name')->join(', ') }}</span>
                 </div>
 
                 <div>
