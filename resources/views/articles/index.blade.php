@@ -14,7 +14,7 @@
                 <div class="flex-shrink-0 w-48">
                     <img src="{{ asset('storage/' . $article->image_path) }}" 
                          alt="{{ $article->title }}" 
-                         class="w-full h-32 object-cover rounded-md border border-white/10">
+                         class="w-full h-40 object-contain rounded-md border border-white/10">
                 </div>
             @endif
             

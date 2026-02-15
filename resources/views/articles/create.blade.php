@@ -4,7 +4,7 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/articles" >Indietro</x-link-button>
+        <x-link-button href="/articles" >back</x-link-button>
     </div>
     
     <form method="post" action="/articles" enctype="multipart/form-data">
@@ -12,8 +12,8 @@
           <div class="space-y-12">
             <div class="border-b border-white/10 pb-12">
               <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
-              <small>1. i campi segnalati con * sono obbligatori</small>
-              <small>2. devi apportare all'articolo un link alla pagina di acquisto o il documento stesso</small>
+              <small>1. Fields marked with * are required</small>
+              <small>2. You must provide the item with a link to the purchase page or the document itself</small>
                
               <div>
                 <label for="title">Title*</label>
@@ -114,7 +114,9 @@
             </div>
             --}}
         <div class="mt-6 flex items-center justify-end gap-x-6">
+          <a href="/articles">
             <x-button type="button" class="bg-red-800">Cancel</x-button>
+          </a>
             <x-button type="submit" class="bg-green-800">Save</x-button>
         </div>
 </form>

@@ -32,6 +32,7 @@ Route::middleware([
         Route::get('/articles/{article}/edit','edit');
         Route::post('articles', 'store');
         Route::delete('/articles/{article}','destroy');
+        Route::patch("/articles/{article}", 'update');
     });
     
 

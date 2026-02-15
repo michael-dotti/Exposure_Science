@@ -22,7 +22,7 @@ class ArticleController extends Controller
     // create= porta alla view di creaizone di un articolo
     public function create()
     {
-        $users = User::all();
+        $users = User::select('id', 'name')->get();
         return view('articles.create', compact('users'));
     }
 
@@ -79,13 +79,47 @@ class ArticleController extends Controller
     // edit =porta alla pagina di modifica articolo
     public function edit(Article $article)
     {
-        //
+        $users = User::select('id', 'name')->get();
+        return view('articles.edit', [
+            'article' => $article,
+            'users' => $users
+            ]);
     }
 
     // update = verifica e aggiorna un articolo
     public function update(Article $article)
     {
-        //
+        $validated = request()->validate([
+        'title' => ['required', 'min:3', 'max:255'],
+        'abstract' => ['required', 'max:5000'],
+        'users' => ['required', 'array', 'min:1'],
+        'file_path' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
+        'external_url' => ['required_without:file_path', 'nullable', 'url'],
+        'image_path' => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        $articleData = collect($validated)->except('users')->toArray();
+
+        if (request()->hasFile('file_path')) {
+            // Elimina il vecchio file se esiste (per non sprecare spazio)
+            if ($article->file_path) {
+                Storage::disk('public')->delete($article->file_path);
+            }
+            $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
+        }
+
+        if (request()->hasFile('image_path')) {
+            // Elimina la vecchia immagine (ma occhio a non eliminare la default.png!)
+            if ($article->image_path && $article->image_path !== 'articles/covers/default.png') {
+                Storage::disk('public')->delete($article->image_path);
+            }
+            $articleData['image_path'] = request()->file('image_path')->store('articles/covers', 'public');
+        }
+
+        $article->update($articleData);
+        $article->users()->sync(request()->users);
+
+        return redirect('/articles');
     }
 
     // destroy = distrugge un articolo
