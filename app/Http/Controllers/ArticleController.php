@@ -19,17 +19,16 @@ class ArticleController extends Controller
                 ]);
     }
 
-    // create= porta alla view di creaizone di un articolo
+    // create = porta alla view di creazione di un articolo
     public function create()
     {
-        $users = User::select('id', 'name')->get();
-        return view('articles.create', compact('users'));
+        return view('articles.create');
     }
 
     //Show= porta alla view per vedere un singolo articolo
     public function show(Article $article)
     {
-        //    
+        return view('articles.show', ['article' => $article]);    
     }
 
     // store = esegue l'autenticazione e poi aggiunge un articolo
@@ -40,8 +39,8 @@ class ArticleController extends Controller
             'title' => ['required','min:3','max:255'],
             'abstract' =>['required','max:5000'],
             'users' => ['required', 'array', 'min:1'],
-            'file_path' =>['required_without:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
-            'external_url' =>['required_without:file_path','nullable','url'],
+            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
+            'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
             'image_path' =>['nullable','image','max:2048'],
         ]);
 
@@ -90,12 +89,12 @@ class ArticleController extends Controller
     public function update(Article $article)
     {
         $validated = request()->validate([
-        'title' => ['required', 'min:3', 'max:255'],
-        'abstract' => ['required', 'max:5000'],
-        'users' => ['required', 'array', 'min:1'],
-        'file_path' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
-        'external_url' => ['required_without:file_path', 'nullable', 'url'],
-        'image_path' => ['nullable', 'image', 'max:2048'],
+            'title' => ['required', 'min:3', 'max:255'],
+            'abstract' => ['required', 'max:5000'],
+            'users' => ['required', 'array', 'min:1'],
+            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
+            'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
+            'image_path' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $articleData = collect($validated)->except('users')->toArray();

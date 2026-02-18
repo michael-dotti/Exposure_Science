@@ -29,10 +29,11 @@ Route::middleware([
         Route::get('/articles',  'index');
         Route::get('/articles/create',  'create');
         Route::get('/articles/{article}', 'show');
-        Route::get('/articles/{article}/edit','edit');
         Route::post('articles', 'store');
-        Route::delete('/articles/{article}','destroy');
+        Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
+        Route::delete('/articles/{article}','destroy');
+
     });
     
 
