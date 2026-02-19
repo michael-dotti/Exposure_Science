@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use app\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ArticleController extends Controller
 {
@@ -22,7 +23,8 @@ class ArticleController extends Controller
     // create = porta alla view di creazione di un articolo
     public function create()
     {
-        return view('articles.create');
+        $users = User::all();
+        return view('articles.create', compact('users'));
     }
 
     //Show= porta alla view per vedere un singolo articolo
@@ -41,7 +43,7 @@ class ArticleController extends Controller
             'users' => ['required', 'array', 'min:1'],
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
-            'image_path' =>['nullable','image','max:2048'],
+            'image_path' =>['nullable','image','max:2048','mimes:jpeg,png,jpg,webp'],
         ]);
 
         // 2) Creazione nuovo articolo con la data di oggi
@@ -61,8 +63,28 @@ class ArticleController extends Controller
         }
 
         if (request()->hasFile('image_path')) {
-            // Salva l'immagine e aggiorna il valore
-            $articleData['image_path'] = request()->file('image_path')->store('articles/covers', 'public');
+
+            /* Uso la libreria Intervention Image per ridurre il
+             peso dell'immagine e convertirla in .webp */
+            $file = request()->file('image_path');
+
+            // Leggi l'immagine
+            $image = Image::read($file);
+
+            // cover(800,450) =  formato 16:9, ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (200px)
+            $image->cover(250,250);
+
+            // Converti in WebP (qualità 80%)
+            $encoded = $image->toWebp(80);
+
+            // Genera un nome unico con estensione .webp
+            $filename = 'articles/covers/' . uniqid() . '.webp';
+            
+            /// Salva fisicamente in storage/app/public/articles/covers/
+            Storage::disk('public')->put($filename, (string) $encoded);
+
+            // Salva il percorso nel database
+            $articleData['image_path'] = $filename;
         }
 
         // Creazione record nel Database

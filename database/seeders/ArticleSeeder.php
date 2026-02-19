@@ -15,6 +15,7 @@ class ArticleSeeder extends Seeder
     public function run(): void
     {
         $defaultUser = User::all();
-        Article::factory(25)->hasAttached($defaultUser[0])->create();
+        Article::factory(10)->hasAttached($defaultUser[0])->create();
+        Article::factory(10)->hasAttached($defaultUser[1])->create();
     }
 }

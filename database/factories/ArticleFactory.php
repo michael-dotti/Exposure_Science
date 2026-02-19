@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
             'abstract' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae maiores neque eaque ea odit placeat, tenetur illum distinctio nulla voluptatum a corrupti beatae tempora aperiam quia id aliquam possimus aut.',
             'data_pubblicazione' => Carbon::now()->toDateString(),
             'external_url' => fake()->url(),
-            'image_path' => 'articles/covers/default.png'
+            'image_path' => 'articles/covers/default.webp'
         ];
         // NOTA BENE: l'utente di defualt viene collegato nel seeder
     }
