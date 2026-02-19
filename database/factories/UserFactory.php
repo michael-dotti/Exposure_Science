@@ -71,6 +71,7 @@ class UserFactory extends Factory
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
             Sono l'attuale amministratore del gruppo di ricerca ",
+            'profile_photo_path' => 'images/defaultUsers/admin.png' 
          ]);
     }
     /**
@@ -92,5 +93,50 @@ class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+
+    public function createDefaultUsers(): void
+    {
+        /*NOTA: ho dovuto 
+        aggiungere "withPersonaTeam", perché altrimenti se provato a loggare con admin@example.com 
+         che è un utente senza team(senza l'aggiutna indciata prima) mi dava errore nella 
+         view navigation-menu.blade.php a riga 29 */
+         
+        $this->withPersonalTeam()->create([
+            'name' => 'Mario',
+            'surname' => 'Rossi',
+            'email' => 'test1@example.com',
+            'password'=>'password',
+            'profile_photo_path' => 'images/defaultUsers/Mario_Rossi.png',
+            'admin' => false,
+            'bio' => <<<EOT
+            Sono Mario Rossi, ho 27 anni e lavoro come Liutaio di Strumenti Elettronici.
+             Fondo il legno pregiato con circuiti analogici fatti a mano per creare sintetizzatori che suonano
+              come violini antichi, dopo aver studiato ingegneria a Milano e falegnameria a Cremona. Amo cucinare piatti della
+               tradizione contadina seguendo ricette scritte in codice binario sul mio blog. Segretamente, ho inserito una frequenza
+                impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
+                 viene suonata una nota specifica.
+            EOT,
+        ]);
+
+        $this->withPersonalTeam()->create([
+            'name' => 'Emilia',
+            'surname' => 'Rossi',
+            'email' => 'test2@example.com',
+            'password' => 'password',
+            'profile_photo_path' => 'images/defaultUsers/Emilia_Rossi.png',
+            'admin' => false,
+            'bio' => <<<EOT
+            Sono Emilia Rossi, 31 anni, e la mia professione è "Designer di Esperienze Olfattive". 
+            Creo profumi non per il corpo, ma per gli spazi: installazioni effimere in gallerie d'arte o ambienti privati,
+             capaci di evocare ricordi specifici o indurre stati d'animo. Il mio naso è il mio strumento principale,
+              affinato da anni di studio in Grasse. Nel tempo libero, compongo fragranze "cattive" che nessuno oserebbe 
+              indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
+               così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
+            EOT,
+        ]);
+
+        $this->defaultAdmin()->withPersonalTeam()->create();
     }
 }
