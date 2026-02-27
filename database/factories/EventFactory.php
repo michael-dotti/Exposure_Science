@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\EventType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
@@ -17,7 +19,10 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(rand(1, 5)),
+            'creator_user_id' => User::find(1),
+            'type' => fake()->randomElement(EventType::cases()),
+            'content' => fake()->paragraph()
         ];
     }
 }
