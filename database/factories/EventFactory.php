@@ -20,7 +20,7 @@ class EventFactory extends Factory
     {
         return [
             'title' => fake()->sentence(rand(1, 5)),
-            'creator_user_id' => User::find(1),
+            'creator_user_id' => User::find(3)->id,
             'type' => fake()->randomElement(EventType::cases()),
             'content' => fake()->paragraph()
         ];

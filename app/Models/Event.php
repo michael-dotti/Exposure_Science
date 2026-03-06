@@ -14,10 +14,10 @@ class Event extends Model
     protected $guarded = [];
 
     // user che ha creato l'evento
-    public function user_owner()
+    public function creator()
     {
         // Un Corso APPARTIENE A UN Utente
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'creator_user_id');
     }
 
     // User collegati a questo evento

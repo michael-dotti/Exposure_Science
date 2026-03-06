@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-use app\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 
 class ArticleController extends Controller
@@ -13,7 +14,13 @@ class ArticleController extends Controller
     // Index = mostra tutti gli articoli
     public function index()
     {
-         $articles = auth()->user()->articles()->with('users')->simplePaginate(5);
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
+        /* ho dovuto fare questo passaggio, invece che scrivere 
+            "$articles = auth()->user()->articles()->with('users')->simplePaginate(5);"
+        Perchè il mio compilatore, erroneamente, mi data errore
+        */        
+        $articles = $user->articles()->with('users')->simplePaginate(5);
  
          return view('articles.index', [
             'articles'=> $articles
