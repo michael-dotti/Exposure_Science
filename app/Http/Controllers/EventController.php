@@ -30,9 +30,7 @@ class EventController extends Controller
     //Show= porta alla view per vedere un singolo articolo
     public function show(Event $event)
     {
-        return view('events.show', [
-            'event'=> $event
-                ]);
+        return view('events.show', ['event'=> $event ]);
     }
 
     // store = esegue l'autenticazione e poi aggiunge un articolo

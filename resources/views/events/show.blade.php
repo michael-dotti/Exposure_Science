@@ -7,13 +7,13 @@
             <h4 class="text-lg text-gray-800 font-bold pb-2 mb-4 border-b-2"> {{ $event->title}} </h4>
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <img src="{{ $event->creator->profile_photo_path}}" class="rounded-full w-8 h-8 border border-gray-500">
+                    <img src="{{ asset($event->creator->profile_photo_path) }}" alt="{{ $event->creator->name }}" class="rounded-full w-8 h-8 border border-gray-500">
                     <div class="flex flex-col ml-2">
                         <span class="text-sm font-semibold">{{ $event->creator->name}} {{ $event->creator->surname}}</span>
                         <span class="text-xs text-gray-400">From: {{ $event->creator->email }} </span>
                     </div>
                 </div>
-                <span class="text-sm text-gray-500">Jan 30, 2022, 10:23 AM</span>
+                <span class="text-sm text-gray-500">{{$event->created_at->format('M d, Y, h:i A')}}</span>
             </div>
             <div class="py-6 pl-2 text-gray-700">
                 {{ $event->content}}

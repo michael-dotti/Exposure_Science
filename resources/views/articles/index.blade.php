@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-                    <a href="/articles/{{ $article['id'] }}" class="hover:underline">
+                    <a href="/articles/{{ $article->id }}" class="hover:underline">
                         <strong>{{ $article->title }}</strong>
                     </a>
                     :

@@ -11,7 +11,7 @@
                 <p>Nessun evento al momento</p>
             @endforelse
             @foreach ($events as $event)
-                <a href="/events/show">
+                <a href="/events/{{$event->id}}">
                     <li class="flex items-center border-y hover:bg-gray-200 px-2">
                         <input type="checkbox" class="focus:ring-0 border-2 border-gray-400" :checked="checkAll">
                         <div x-data="{ messageHover: false }" @mouseover="messageHover = true" @mouseleave="messageHover = false" class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
