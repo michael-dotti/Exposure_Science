@@ -5,7 +5,7 @@
     <x-slot:heading>
         Team Page
     </x-slot:heading>
-    
+    <!--TODO sistema pagina teams-->
         <div class="flex h-full items-start justify-start bg-gray-50 pl-5 ">
             <div class="w-full md:w-1/2 rounded-lg bg-white px-8 py-4 shadow-md m-4">
                 <div class="px-1 py-4">
