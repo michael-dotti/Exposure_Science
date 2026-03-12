@@ -13,17 +13,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('creator_user_id')->nullable()->constrained('users')->onDelete('set null'); // punta all'id dell'amministratore che ha generato l'evento
+            /* nullable()-> se il creatore dell'evento non viene eliminato,
+            constrained('users')-> indica che l'id fa riferimento alla tabella "users"
+            onDelete('setNull')-> quando l'amministratore che ha creato l'evento viene eliminato l'attributo diventa false
+            */ 
+            $table->string("title");
+            $table->string('type'); 
+            $table->text("content");
             $table->timestamps();
-           // TODO: id utente
-            $table->string("titolo");
-            $table->string("descrizione");
-            $table->string("dataInizio");
-            $table->string("dataFine");
-            $table->string("luogo");
-            // utente che ha generato l'evento
-            $table->foreignId('owner_user_id')->nullable()->constrained('users')->onDelete('set null'); 
-            // NOTA: deve essere obbligatorio specificare il owner_user_id sia da isnerire durante la creazione delle'vento, ma se 
-            // l'utente owner viene elimianto l'evento deve poter rimanere, per questo ho inserito "nullable()"
         });
     }
 

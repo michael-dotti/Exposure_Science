@@ -4,6 +4,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EventController;
 
 Route::view('/', 'home');
 
@@ -33,18 +34,26 @@ Route::middleware([
 
     Route::controller(ArticleController::class)->group(function () {
         Route::get('/articles',  'index');
+         Route::get('/articles/{article}', 'show');
         Route::get('/articles/create',  'create');
-        Route::get('/articles/{article}', 'show');
-        Route::post('articles', 'store');
+        Route::post('/articles', 'store');
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
         Route::delete('/articles/{article}','destroy');
 
     });
     
+    Route::controller(EventController::class)->group(function () {
+         Route::get('/events', 'index');
+         Route::get('/events/create', 'create');
+         Route::get('/events/{event}', 'show');
+         Route::post('/events', 'store');
+         Route::get('/events/{event}/edit', 'edit');
+         Route::patch('/events/{event}','update');
+         Route::delete('/events/{event}','destroy');
+    });
 
     Route::view('/projects','project.index');
-    Route::view('/events', 'event.index');
     Route::view('/user-management','users-management.index');
     Route::view('/news-management','news.index');
     Route::view('/event-management','events-management-index');

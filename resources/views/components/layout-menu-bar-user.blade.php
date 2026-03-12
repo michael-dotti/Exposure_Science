@@ -54,7 +54,7 @@
                     collegare il progetto ad un evento per degli altri utenti
                     --}}
                 </a>
-                <a href="/event" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                <a href="/events" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
                     <x-icon-dashboard :active="request()->is('events')" class="fas fa-cube"></x-icon-dashboard>
                     Eventi
                     {{-- 
