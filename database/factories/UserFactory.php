@@ -64,12 +64,12 @@ class UserFactory extends Factory
             'surname'=>'Tramaglino',
             'email'=>'admin@example.com',
             'password'=>static::$password ??= Hash::make('password'),
+            'profile_photo_path' => 'images/defaultUsers/admin.webp',
             'admin' => true,
             'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
-            Sono l'attuale amministratore del gruppo di ricerca ",
-            'profile_photo_path' => 'images/defaultUsers/admin.png' 
+            Sono l'attuale amministratore del gruppo di ricerca " 
          ]);
     }
     /**
@@ -106,7 +106,7 @@ class UserFactory extends Factory
             'surname' => 'Rossi',
             'email' => 'test1@example.com',
             'password'=>'password',
-            'profile_photo_path' => 'images/defaultUsers/Mario_Rossi.png',
+            'profile_photo_path' => 'images/defaultUsers/Mario_Rossi.webp',
             'admin' => false,
             'bio' => <<<EOT
             Sono Mario Rossi, ho 27 anni e lavoro come Liutaio di Strumenti Elettronici.
@@ -123,7 +123,7 @@ class UserFactory extends Factory
             'surname' => 'Rossi',
             'email' => 'test2@example.com',
             'password' => 'password',
-            'profile_photo_path' => 'images/defaultUsers/Emilia_Rossi.png',
+            'profile_photo_path' => 'images/defaultUsers/Emilia_Rossi.webp',
             'admin' => false,
             'bio' => <<<EOT
             Sono Emilia Rossi, 31 anni, e la mia professione è "Designer di Esperienze Olfattive". 

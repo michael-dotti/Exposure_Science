@@ -1,12 +1,18 @@
 <?php
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
 
 Route::view('/', 'home');
-Route::view('/team', 'team');
+
+Route::get('/team',function () {
+    $users = User::all();
+    return view('team', compact('users'));
+});
+
 Route::view('/publications', 'publications');
 Route::view('/news-and-events', 'news-and-events');
 
