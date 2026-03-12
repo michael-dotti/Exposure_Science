@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TeamPageController;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -8,10 +9,11 @@ use App\Http\Controllers\EventController;
 
 Route::view('/', 'home');
 
-Route::get('/team',function () {
-    $users = User::all();
-    return view('team', compact('users'));
+Route::controller(TeamPageController::class)->group( function (){
+    Route::get('/teamPage','index');
+    Route::get('/teamPage/{user}', 'show');
 });
+
 
 Route::view('/publications', 'publications');
 Route::view('/news-and-events', 'news-and-events');
@@ -40,7 +42,6 @@ Route::middleware([
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
         Route::delete('/articles/{article}','destroy');
-
     });
     
     Route::controller(EventController::class)->group(function () {
