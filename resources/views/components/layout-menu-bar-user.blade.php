@@ -85,7 +85,7 @@
         <div class="absolute bottom-4 left-4 right-4">
             <div class="bg-gray-800 rounded-lg p-4">
                 <div class="flex items-center space-x-3">
-                    <img src="https://cdn-icons-png.flaticon.com/512/17003/17003310.png" alt="Admin" class="w-10 h-10 rounded-full">
+                    <img src="{{ asset(Auth::user()->profile_photo_path) }}" alt="Admin" class="w-10 h-10 rounded-full">
                     <div>
                         <p class="text-white text-sm font-medium">{{ Auth::user()->name }} {{Auth::user()->surname }} </p>
                         @if(auth()->user()->admin)
