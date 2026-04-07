@@ -12,7 +12,7 @@
                 <h2 class="mb-6 font-bold text-white">{{ $user->bio }}</h2>
             </div>
             <div>
-                <img src="{{ asset($user->profile_photo_path) }}" alt="" class="md:size-96 size-72 rounded-full " />
+                <img src="{{ asset($user->profile_photo_path) }}" alt="{{ $user->name }}" class="md:size-96 size-72 rounded-full " />
             </div>
             </div>
         </div>
