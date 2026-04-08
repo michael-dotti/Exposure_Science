@@ -1,7 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+    /* Qui definisci i tuoi colori personalizzati */
+    --color-cordes-blue: #1e40af;
+    --color-cordes-dark: #1e293b;
+    --color-cordes-light: #f8fafc;
+    --color-cordes-accent: #3b82f6;
+}
+
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
 
 [x-cloak] {
     display: none;
 }
+
