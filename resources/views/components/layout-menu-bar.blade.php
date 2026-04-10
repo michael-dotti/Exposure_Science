@@ -50,6 +50,7 @@
           </div>
         </div>
         <div class="-mr-2 flex md:hidden">
+          
           <!-- Mobile menu button -->
           <button type="button" command="--toggle" commandfor="mobile-menu" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
             <span class="absolute -inset-0.5"></span>
@@ -106,5 +107,7 @@
   </main>
 </div>
 
+    {{-- @stack('script') lo usiamo per permettere ad una view che utilizza questo script di aggiungere uno script di javascript --}}
+    @stack('script')
     </body>
 </html>

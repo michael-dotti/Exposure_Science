@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 Route::view('/', 'home');
 
@@ -44,6 +45,10 @@ Route::middleware([
         Route::delete('/articles/{article}','destroy');
     });
     
+    Route::controller(UserController::class)->group(function () {
+        Route::patch('/dashboard/{user}', 'update');
+    });
+
     Route::controller(EventController::class)->group(function () {
          Route::get('/events', 'index');
          Route::get('/events/create', 'create');
