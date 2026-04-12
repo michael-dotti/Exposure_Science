@@ -12,7 +12,7 @@
     </div>
 
     {{-- File Input --}}
-    <input class="m-1 p-0.5 border-2 border-solid rounded-sm cursor-pointer" type="file" name="profile_image" id="profile_image" accept="image/*">
+    <input class="m-1 p-0.5 border-2 border-solid rounded-sm cursor-pointer" type="file" name="profile_photo_path" id="profile_photo_path" accept="image/*">
 </div>
 
 @pushOnce('scripts')

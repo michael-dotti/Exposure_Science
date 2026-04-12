@@ -25,6 +25,11 @@
    <form method="POST" action="dashboard/{{ auth()->user()->id}}">
     @csrf
     @method('PATCH')
+    <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     <div class="space-y-12">
       <div class="border-b border-white/10 pb-12">
         <h2 class="text-base/7 font-semibold text-white">Personal Information</h2>
@@ -32,11 +37,11 @@
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
-            <label for="first-name" class="block text-sm/6 font-medium text-white">First name</label>
+            <label for="name" class="block text-sm/6 font-medium text-white">First name</label>
             <div class="mt-2">
-              <input id="first-name"
+              <input id="name"
               value="{{ auth()->user()->name }}" 
-              type="text" name="first-name" 
+              type="text" name="name" 
               autocomplete="given-name"
               required 
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
@@ -44,12 +49,12 @@
           </div>
 
           <div class="sm:col-span-3">
-            <label for="last-name" class="block text-sm/6 font-medium text-white" >Last name</label>
+            <label for="surname" class="block text-sm/6 font-medium text-white" >Last name</label>
             <div class="mt-2">
-              <input id="last-name" 
+              <input id="surname" 
               value="{{ auth()->user()->surname }}"
               type="text" 
-              name="last-name" 
+              name="surname" 
               autocomplete="family-name" 
               required
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
@@ -93,9 +98,9 @@
             </div>
 
             {{-- future put_image_with_preview components--}}
-            <x-put_image_with_preview>
-              
-            </x-put_image_with_preview>
+            <x-put_image_with_preview />
+            {{-- <x-form-error name="profile_photo_path">   --}}
+            
 
           </div>
 

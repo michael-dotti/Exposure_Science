@@ -1,9 +1,9 @@
 //TODO: DA COMPLETARE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-// profile_image == imageUpload 
+//profile_photo_path == imageUpload 
 // image_preview = imagePreview
 
 // prendo gli elementi su cui devo andare a lavorare
-const imageUpload = document.getElementById('profile_image');
+const imageUpload = document.getElementById('profile_photo_path');
 const imagePreview = document.getElementById('image_preview');
 
 // verifico se l'oggetto imageUpload (l'input dell'immagine) viene usato

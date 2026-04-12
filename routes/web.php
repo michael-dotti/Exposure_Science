@@ -37,9 +37,9 @@ Route::middleware([
 
     Route::controller(ArticleController::class)->group(function () {
         Route::get('/articles',  'index');
-         Route::get('/articles/{article}', 'show');
-        Route::get('/articles/create',  'create');
+        Route::get('/articles/create','create');
         Route::post('/articles', 'store');
+        Route::get('/articles/{article}', 'show');
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
         Route::delete('/articles/{article}','destroy');
