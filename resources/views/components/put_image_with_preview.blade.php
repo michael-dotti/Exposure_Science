@@ -1,23 +1,23 @@
-{{--TODO: DA COMPLETARE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--}}
 @props(['name'=>'', 'currentImage' => null])
 
-<div class="m-2 p-2 font-sans max-w-200">
+<div class="m-2 p-2 font-sans max-w-200 flex flex-col">
 
     {{-- Preview container --}}
-    <div class="mt-1.5 p-1 border-2 border-dashed rounded-lg min-h-75 flex flex-col items-center justify-center">
-        <img class="max-w-100% max-h-100 mt-1 rounded-sm shadow-sm " 
+    <div class="w-32 h-32 overflow-hidden border-4 border-solid rounded-full flex justify-center">
+        <img class="size-full max-h-100 shadow-sm object-cover" 
        src="{{ $currentImage ?? asset('images/defaultUsers/no_image_user.webp') }}"  {{--  significato " A ?? B" -> se A != null fai A, altrimenti fai B --}}
         alt="Preview Image" 
-        id="image_preview">
-       
+        id="image_preview"> 
     </div>
 
     {{-- File Input --}}
-    <input class="m-1 p-0.5 border-2 border-solid rounded-sm cursor-pointer" 
-    type="file" 
-    name="{{ $name }}" 
-    id="imageUpload" 
-    accept="image/*">
+    <div class="justify-center bg-linear-to-bl from-violet-500 to-fuchsia-500 ">
+        <input class="text-white  border-2 border-solid rounded-sm cursor-pointer w-20 h-10" 
+        type="file" 
+        name="{{ $name }}" 
+        id="imageUpload" 
+        accept="image/*">
+    </div>
 </div>
 
 @pushOnce('scripts')
