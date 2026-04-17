@@ -98,6 +98,7 @@
 
     <div class="px-6"> 
     {{ $slot }}
-    </div>  
+    </div>
+      @stack('scripts')
 </body>
 </html>

@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 
 Route::view('/', 'home');
 
+
 Route::controller(TeamPageController::class)->group( function (){
     Route::get('/teamPage','index');
     Route::get('/teamPage/{user}', 'show');
@@ -36,7 +37,7 @@ Route::middleware([
     })->name('dashboard'); // do come nome alla rotta "dashboard"
 
     Route::controller(ArticleController::class)->group(function () {
-        Route::get('/articles',  'index');
+        Route::get('/articles', 'index');
         Route::get('/articles/create','create');
         Route::post('/articles', 'store');
         Route::get('/articles/{article}', 'show');

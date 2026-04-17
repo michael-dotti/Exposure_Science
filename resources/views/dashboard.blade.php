@@ -98,7 +98,7 @@
             </div>
 
             {{-- future put_image_with_preview components--}}
-            <x-put_image_with_preview />
+            <x-put_image_with_preview name="profile_photo_path" currentImage="{{ auth()->user()->profile_photo_path }}"/>
             {{-- <x-form-error name="profile_photo_path">   --}}
             
 
