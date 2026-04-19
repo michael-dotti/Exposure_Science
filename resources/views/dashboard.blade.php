@@ -22,14 +22,9 @@
     <x-slot:title>
         Profile
     </x-slot:title>
-   <form method="POST" action="dashboard/{{ auth()->user()->id}}">
+   <form method="POST" action="dashboard/{{ auth()->user()->id}}" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
-    <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
     <div class="space-y-12">
       <div class="border-b border-white/10 pb-12">
         <h2 class="text-base/7 font-semibold text-white">Personal Information</h2>

@@ -46,7 +46,7 @@ class UserController extends Controller
             $image = Image::read($file);
             $image->cover(200,200);
             $encoded = $image->toWebp(80);
-            $fileName = 'profileImage/' . uniqid() . '.webp' ;
+            $fileName = 'uploads/users/profileImage/' . uniqid() . '.webp' ;
             
             // salviamo l'immagine nella cartella public nel percorso scelto prima, mettiamo il percorso nella riga corrispondente della tabella USer
             Storage::disk('public')->put($fileName, $encoded->toString());

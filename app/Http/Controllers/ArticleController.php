@@ -85,7 +85,7 @@ class ArticleController extends Controller
             $encoded = $image->toWebp(80);
 
             // Genera un nome unico con estensione .webp
-            $filename = 'articles/covers/' . uniqid() . '.webp';
+            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
             
             /// Salva fisicamente in storage/app/public/articles/covers/
             Storage::disk('public')->put($filename, $encoded->toString());
@@ -151,7 +151,7 @@ class ArticleController extends Controller
             // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
             // Genera un nome unico con estensione .webp
-            $filename = 'articles/covers/' . uniqid() . '.webp';
+            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
             /// Salva fisicamente in storage/app/public/articles/covers/
             Storage::disk('public')->put($filename, $encoded->toString());
             // Salva il percorso nel database

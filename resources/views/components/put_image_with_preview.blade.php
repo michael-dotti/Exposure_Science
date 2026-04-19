@@ -6,7 +6,9 @@
     <div class="w-32 h-32 overflow-hidden border-4 border-solid rounded-full flex justify-center">
         <img class="size-full max-h-100 shadow-sm object-cover" 
        src="{{ $currentImage ?? asset('images/defaultUsers/no_image_user.webp') }}"  {{--  significato " A ?? B" -> se A != null fai A, altrimenti fai B --}}
-        alt="Preview Image" 
+       {{-- NOTA BENE: l'url $currentImage funziona anche quando l'immagine è in storage se 
+       si usa l'accessor nel model --}} 
+       alt="Preview Image" 
         id="image_preview"> 
     </div>
 
