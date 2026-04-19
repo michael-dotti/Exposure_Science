@@ -86,7 +86,7 @@
           <div class="col-span-full">
             <label for="profile_image" class="block text-sm/6 font-medium text-white">Profile Image</label>
 
-            <x-put_image_with_preview name="profile_photo_path" currentImage="{{ auth()->user()->profile_photo_path }}"/>
+            <x-image-preview-users name="profile_photo_path" currentImage="{{ auth()->user()->profile_photo_path }}"/>
 
           </div>
 

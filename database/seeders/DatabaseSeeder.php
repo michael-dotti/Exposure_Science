@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        if (App::environment('local')) // esegui questo codice solo se l'applicazione è ancora in fase di sviluppo
+        if (App::environment('local')) // esegui questo codice solo se l'applicazione è ancora in fase di sviluppo (controlla che APP_ENV=local in .env)
         {
             // Pulisce la cartella public dello storage prima di creare nuovi dati (ATTENZIONE!!! rimuove tutti i file degli utenti)
             Storage::disk('public')->deleteDirectory('uploads'); // rimuove tutto dalla cartella 'uploads' in storage/app/public/uploads
