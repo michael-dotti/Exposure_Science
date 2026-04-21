@@ -9,7 +9,7 @@ class PublicationsPageController extends Controller
 {
     public function index(){
         $articles = Article::all();
-        dd($articles);
-        return view('publicationPage.index', compact('articles'));
+        //dd($articles);
+        return view('publicationsPage.index', compact('articles'));
     }
 }

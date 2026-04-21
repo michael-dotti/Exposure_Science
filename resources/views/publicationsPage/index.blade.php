@@ -1,3 +1,14 @@
-<div>
-    <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
-</div>
+<x-layout-menu-bar>
+    <x-slot:title>
+        Publications
+    </x-slot:title>
+    <x-slot:heading>
+        Publications Page
+    </x-slot:heading>
+    <div>
+        <table>
+        @foreach ($articles as $artile)
+            <tr> <td class="font-semibold text-white"> {{ $artile->title }} </td> </tr>
+        @endforeach
+    </div>
+</x-layout-menu-bar>
