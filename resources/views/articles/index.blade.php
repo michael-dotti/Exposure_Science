@@ -11,7 +11,7 @@
 
             
             @if($article->image_path)
-                <div class="flex-shrink-0 w-48">
+                <div class="shrink-0 w-48">
                     <img src="{{ asset('storage/' . $article->image_path) }}" 
                          alt="{{ $article->title }}" 
                          class="w-full h-40 object-contain rounded-md border border-white/10">

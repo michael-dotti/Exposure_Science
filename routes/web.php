@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 Route::view('/', 'home');
+
 
 Route::controller(TeamPageController::class)->group( function (){
     Route::get('/teamPage','index');
@@ -35,15 +37,19 @@ Route::middleware([
     })->name('dashboard'); // do come nome alla rotta "dashboard"
 
     Route::controller(ArticleController::class)->group(function () {
-        Route::get('/articles',  'index');
-         Route::get('/articles/{article}', 'show');
-        Route::get('/articles/create',  'create');
+        Route::get('/articles', 'index');
+        Route::get('/articles/create','create');
         Route::post('/articles', 'store');
+        Route::get('/articles/{article}', 'show');
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
         Route::delete('/articles/{article}','destroy');
     });
     
+    Route::controller(UserController::class)->group(function () {
+        Route::patch('/dashboard/{user}', 'update');
+    });
+
     Route::controller(EventController::class)->group(function () {
          Route::get('/events', 'index');
          Route::get('/events/create', 'create');

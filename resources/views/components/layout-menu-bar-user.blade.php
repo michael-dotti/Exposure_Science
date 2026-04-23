@@ -4,23 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'cordes-blue': '#1e40af',
-                        'cordes-dark': '#1e293b',
-                        'cordes-light': '#f8fafc',
-                        'cordes-accent': '#3b82f6'
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <!-- Sidebar -->
@@ -112,6 +98,7 @@
 
     <div class="px-6"> 
     {{ $slot }}
-    </div>  
+    </div>
+      @stack('scripts')
 </body>
 </html>

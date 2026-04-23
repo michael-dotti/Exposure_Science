@@ -85,10 +85,10 @@ class ArticleController extends Controller
             $encoded = $image->toWebp(80);
 
             // Genera un nome unico con estensione .webp
-            $filename = 'articles/covers/' . uniqid() . '.webp';
+            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
             
             /// Salva fisicamente in storage/app/public/articles/covers/
-            Storage::disk('public')->put($filename, (string) $encoded);
+            Storage::disk('public')->put($filename, $encoded->toString());
 
             // Salva il percorso nel database
             $articleData['image_path'] = $filename;
@@ -137,11 +137,25 @@ class ArticleController extends Controller
         }
 
         if (request()->hasFile('image_path')) {
-            // Elimina la vecchia immagine (ma occhio a non eliminare la default.png!)
+            // Elimina la vecchia immagine
             if ($article->image_path && $article->image_path !== 'articles/covers/default.png') {
                 Storage::disk('public')->delete($article->image_path);
             }
-            $articleData['image_path'] = request()->file('image_path')->store('articles/covers', 'public');
+
+            $file = request()->file('image_path');
+
+            // Leggi l'immagine
+            $image = Image::read($file);
+            // ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (250px)
+            $image->cover(250,250);
+            // Converti in WebP (qualità 80%)
+            $encoded = $image->toWebp(80);
+            // Genera un nome unico con estensione .webp
+            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
+            /// Salva fisicamente in storage/app/public/articles/covers/
+            Storage::disk('public')->put($filename, $encoded->toString());
+            // Salva il percorso nel database
+            $articleData['image_path'] = $filename;
         }
 
         $article->update($articleData);
@@ -165,6 +179,7 @@ class ArticleController extends Controller
         // 2) Elimina il record dal database
         $article->delete();
 
+        // 4) redirect
         return redirect('/articles'); 
     }
 }
