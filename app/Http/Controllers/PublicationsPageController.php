@@ -12,4 +12,8 @@ class PublicationsPageController extends Controller
         //dd($articles);
         return view('publicationsPage.index', compact('articles'));
     }
+
+    public function show(Article $article){
+        return view('publicationsPage.show', ['article'=> $article]);
+    }
 }
