@@ -15,6 +15,8 @@ use App\Models\Article;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -105,5 +107,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected function profilePhotoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                // 1) se il percorso nel DB esiste e il file è fisicamente presente nello storage  
+                if($this->profile_photo_path && Storage::disk('public')->exists($this->profile_photo_path)){
+                    return Storage::url($this->profile_photo_path);
+                }
+
+                // 2) Altrimenti restituisci l'immagine di default presente in public per gli user
+                return asset('images/defaultUsers/no_image_user.webp');
+            }
+        );
     }
 }
