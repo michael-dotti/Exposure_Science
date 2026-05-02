@@ -1,6 +1,3 @@
-{{--TODO: da complerare, valutare come caricare URL dell'immagien di article --}} 
-
-
 @props(['name'=>'', 'currentImage' => null])
 
 <div class=" font-sans max-w-200 flex flex-col">
@@ -9,8 +6,6 @@
     <div class="w-32 h-32 overflow-hidden border-4 border-solid rounded-full mt-2 border-white flex justify-center">
         <img class="size-full max-h-100 shadow-sm object-cover" 
        src="{{ $currentImage }}"  {{--  significato " A ?? B" -> se A != null fai A, altrimenti fai B --}}
-       {{-- NOTA BENE: l'url $currentImage funziona anche quando l'immagine è in storage se 
-       si usa l'accessor nel model --}} 
        alt="Preview Image" 
         id="image_preview"> 
     </div>
@@ -22,9 +17,10 @@
         name="{{ $name }}" 
         id="imageUpload" 
         accept="image/*">
+        <x-button type="button" class="bg-red-600 hover:bg-red-400" id="deleteButton">Elimina</x-button>
     </div>
 </div>
 
 @pushOnce('scripts')
-    @vite('resources/js/components/put_image_with_preview.js')  
+    @vite('resources/js/components/image-preview-users.js')  
 @endPushOnce

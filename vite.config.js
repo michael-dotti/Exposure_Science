@@ -9,7 +9,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css', 
                 'resources/js/app.js', 
-                'resources/js/components/put_image_with_preview.js'],
+                'resources/js/components/image-preview-users.js'],
             refresh: true,
         }),
     ],

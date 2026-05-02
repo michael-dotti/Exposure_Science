@@ -1,10 +1,10 @@
-//TODO: DA COMPLETARE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 // prendo il percorso dove si trova l'immagine dell'user senza foto
 import noImageUser from '../../../public/images/defaultUsers/no_image_user.webp';
 
 // prendo gli elementi su cui devo andare a lavorare
 const imageUpload = document.getElementById('imageUpload');
 const imagePreview = document.getElementById('image_preview');
+const deleteButton = document.getElementById('deleteButton');
 
 // verifico se l'oggetto imageUpload (l'input dell'immagine) viene usato
 imageUpload.addEventListener('change', handleFileSelect);
@@ -74,5 +74,16 @@ function displayPreview(file){
 
     // leggi il file come un data URL (base64-encoded string)
     reader.readAsDataURL(file);
+}
+
+// event listener per il tasto "elimina"
+deleteButton.addEventListener('click',resetInputAndImage);
+
+function resetInputAndImage(){
+    // 1) svuota il valore dell'input file
+    imageUpload.value = '';
+
+    // 2) ripristina l'immagine di default nella preview
+    resetPreview();
 }
 
