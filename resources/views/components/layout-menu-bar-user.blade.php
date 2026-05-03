@@ -67,19 +67,26 @@
             </div>
         </nav>
         
-        {{-- Nome Utente --}}
-        <div class="absolute bottom-4 left-4 right-4">
-            <div class="bg-gray-800 rounded-lg p-4">
-                <div class="flex items-center space-x-3">
-                    <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full">
-                    <div>
-                        <p class="text-white text-sm font-medium">{{ Auth::user()->name }} {{Auth::user()->surname }} </p>
-                        @if(auth()->user()->admin)
-                            <p class="text-gray-400 text-xs">Administrator</p>
-                        @endif
+        <div class="flex">
+            {{-- Nome Utente --}}
+            <div class="absolute bottom-4 left-4 right-4">
+                <div class="bg-gray-800 rounded-lg p-3 flex items-center justify-between">
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="text-white text-sm font-medium">{{ Auth::user()->name }} {{Auth::user()->surname }} </p>
+                                @if(auth()->user()->admin)
+                                    <p class="text-gray-400 text-xs">Administrator</p>
+                                @endif
+                                </div>
                         </div>
+                    </div>
+                    <x-nav-link class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-2 rounded-mid text-xs font-bold transition-colors" href="/">BACK</x-nav-link>
                 </div>
             </div>
+
+            
         </div>
     </div>
 
