@@ -5,6 +5,7 @@ import noImageUser from '../../../public/images/defaultUsers/no_image_user.webp'
 const imageUpload = document.getElementById('imageUpload');
 const imagePreview = document.getElementById('image_preview');
 const deleteButton = document.getElementById('deleteButton');
+const removePhotoInput = document.getElementById('remove_photo');
 
 // verifico se l'oggetto imageUpload (l'input dell'immagine) viene usato
 imageUpload.addEventListener('change', handleFileSelect);
@@ -21,7 +22,7 @@ function handleFileSelect(event) {
 
     // verifico, tramite una funzione creata da noi, se il file è del tipo corretto
     if (!isValidImageFile(file)) {
-        alert('Please select a valid image file (JPN, PNG, GIF, etc.)');
+        alert('Please select a valid image file (JPG, PNG, GIF, etc.)');
         resetPreview();
         return;
     }
@@ -40,7 +41,7 @@ function isValidImageFile(file){
     const MAX_SIZE_MB = 5; // 5MB
     const maxSizeBytes = MAX_SIZE_MB * 1024 * 1024;
     if(file.size > maxSizeBytes){
-        alert(`Il file "$(file.name)" e' troppo grande. Dimensioni massime: ${MAX_SIZE_MB}MB.`);
+        alert(`Il file "${file.name}" e' troppo grande. Dimensioni massime: ${MAX_SIZE_MB}MB.`);
         return false;
     } 
 
@@ -77,13 +78,22 @@ function displayPreview(file){
 }
 
 // event listener per il tasto "elimina"
-deleteButton.addEventListener('click',resetInputAndImage);
+deleteButton.addEventListener('click', () =>{
 
-function resetInputAndImage(){
     // 1) svuota il valore dell'input file
     imageUpload.value = '';
 
-    // 2) ripristina l'immagine di default nella preview
+    // 2) segnala al controller che vogliamo rimuovere l'immagine profilo
+    removePhotoInput.value = '1'; 
+
+    // 3) ripristina l'immagine di default nella preview
     resetPreview();
-}
+});
+
+// se l'utente seleziona un nuovo file dopo aver cliccato elimina, resetta il flag
+imageUpload.addEventListener('change', ()=> {
+    if(imageUpload.files.length > 0){
+        removePhotoInput.value = '0';
+    }
+});
 

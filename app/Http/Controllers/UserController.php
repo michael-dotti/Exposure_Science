@@ -34,9 +34,10 @@ class UserController extends Controller
         // Se l'utente carica una nuova foto, la riaggiungeremo dopo.
         unset($validated['profile_photo_path']);
         
-        // upload the image and save the path
+        //Caso 1: l'utente ha caricato una NUOVA immagine
+        // carica l'immagine e salva il path
         if (request()->hasFile('profile_photo_path')) {
-            // Elimina la vecchia immagine (ma occhio a non eliminare la default.png!)
+            // Elimina la vecchia immagine
             if ($user->profile_photo_path) {
                 Storage::disk('public')->delete($user->profile_photo_path);
             }
@@ -51,6 +52,20 @@ class UserController extends Controller
             // salviamo l'immagine nella cartella public nel percorso scelto prima, mettiamo il percorso nella riga corrispondente della tabella USer
             Storage::disk('public')->put($fileName, $encoded->toString());
             $validated['profile_photo_path'] = $fileName;
+        }
+        // Caso 2: L'utente ha cliccato "elimina" (uso il flag hidden)
+        elseif (request()->input('remove_photo') == '1') {
+            if ($user->profile_photo_path){
+                Storage::disk('public')->delete($user->profile_photo_path);
+            }
+
+            // setto a null "l'immagine" nel database
+            $validated['profile_photo_path'] = null;
+        }
+        // Caso 3: l'utente non ha toccato nulla
+        else {
+            // Rimuovo il campo dall'array cosi che il valore attuale non venga modificato
+            unset($validated['profile_photo_path']);
         }
 
         // update user

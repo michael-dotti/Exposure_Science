@@ -18,9 +18,9 @@ class ArticleController extends Controller
         $user = Auth::user(); 
         /* ho dovuto fare questo passaggio, invece che scrivere 
             "$articles = auth()->user()->articles()->with('users')->simplePaginate(5);"
-        Perchè il mio compilatore, erroneamente, mi data errore
+        Perchè il mio compilatore, erroneamente, mi dava errore
         */        
-        $articles = $user->articles()->with('users')->simplePaginate(5);
+        $articles = $user->articles()->with('users')->latest()->simplePaginate(5);
  
          return view('articles.index', [
             'articles'=> $articles
@@ -65,7 +65,7 @@ class ArticleController extends Controller
         // Salvataggio File
         if (request()->hasFile('file_path')) {
             // Salva il PDF e aggiorna il valore nell'array con il percorso stringa
-            $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
+            $articleData['file_path'] = request()->file('file_path')->store('uploads/articles/documents', 'public');
             // store() restituisce il percorso del file appena salvato
         }
 

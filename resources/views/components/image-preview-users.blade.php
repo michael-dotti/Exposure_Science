@@ -17,6 +17,7 @@
         name="{{ $name }}" 
         id="imageUpload" 
         accept="image/*">
+        <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> {{-- serve per gestire il caso in cui l'utente voglia eliminare l'immagine dal database --}}
         <x-button type="button" class="bg-red-600 hover:bg-red-400" id="deleteButton">Elimina</x-button>
     </div>
 </div>
