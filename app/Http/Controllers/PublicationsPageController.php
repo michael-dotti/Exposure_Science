@@ -17,7 +17,7 @@ class PublicationsPageController extends Controller
         //$users = $article->users;
         //dd($users->pluck('name'));
         //return view('publicationsPage.index', compact('articles'));
-        return view('publicationsPage.index', ['articles' => Article::simplePaginate(8)]);
+        return view('publicationsPage.index', ['articles' => Article::paginate(8)]);
     }
 
     /*public function search(Request $request){

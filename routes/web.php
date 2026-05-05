@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicationsPageController;
+use App\Http\Controllers\FileController;
 
 Route::view('/', 'home');
 
@@ -21,6 +22,10 @@ Route::controller(PublicationsPageController::class)->group( function (){
     Route::get('/publications','index');
     //Route::get('/publications/search','search');
     Route::get('/publications/{article}', 'show');
+});
+
+Route::controller(FileController::class)->group( function (){
+    Route::get('/download/{fileName}', 'download');
 });
 
 

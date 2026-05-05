@@ -11,7 +11,22 @@
             <div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
             <div>
                 <p class="mb-6 font-bold text-white">{{ $article->abstract }}</p>
-                <p class="mb-6 text-white">Leggi l'articolo intero: <a class="mb-6 font-bold text-white text-underline" href="{{ $article->external_url }}"> {{ $article->external_url }} </a></p>
+
+                @if($article->file_path)
+                    <p class="mb-6 text-white">
+                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="/download/{{ $article->file_path }}">
+                            Scarica l'articolo intero
+                        </x-nav-link>
+                    </p>
+                @else
+                    <p class="mb-6 text-white">
+                        Leggi l'articolo intero:
+                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="{{ $article->external_url }}"> 
+                            {{ $article->external_url }}
+                        </x-nav-link>
+                    </p>
+                @endif
+
             </div>
             <div class="mb-6 text-small text-white">
                 <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}" class="md:size-96 size-72" />
