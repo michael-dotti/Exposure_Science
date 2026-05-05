@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
             Storage::disk('public')->makeDirectory('uploads'); // ricrea la cartella 'uploads'
 
             // inserisco le immagini di default degli user in storage cosi da poter usare Accessor
-            $images = ['Admin.webp','Emilia_Rossi.webp','Mario_Rossi.webp'];
+            $imagesUsersName = ['Admin.webp','Emilia_Rossi.webp','Mario_Rossi.webp'];
             
-            foreach ($images as $imageName) {
+            foreach ($imagesUsersName as $imageName) {
             $sourcePath = public_path('/images/defaultUsers/'. $imageName); // prendo il percorso del file dentro public
                 if(File::exists($sourcePath)){ // verifico che il file esisti
                     // leggo il contenuto del file file e lo scrivo nel disco public di storage
@@ -35,6 +35,16 @@ class DatabaseSeeder extends Seeder
                         'uploads/defaultUser/'.$imageName, 
                         File::get($sourcePath));
                 }
+
+            $imageArticleName = 'default.webp';
+            $sourcePath = public_path('images/'. $imageArticleName);
+
+            if(File::exists($sourcePath)){
+                Storage::disk('public')->put(
+                    'uploads/articles/covers/'.$imageArticleName, 
+                File::get($sourcePath));
+            }
+
             }
         }
 

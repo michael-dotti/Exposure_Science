@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicationsPageController;
 
 Route::view('/', 'home');
 
@@ -16,8 +17,14 @@ Route::controller(TeamPageController::class)->group( function (){
     Route::get('/teamPage/{user}', 'show');
 });
 
+Route::controller(PublicationsPageController::class)->group( function (){
+    Route::get('/publications','index');
+    //Route::get('/publications/search','search');
+    Route::get('/publications/{article}', 'show');
+});
 
-Route::view('/publications', 'publications');
+
+//Route::view('/publications', 'publications');
 Route::view('/news-and-events', 'news-and-events');
 
 
