@@ -5,7 +5,16 @@
     <x-slot:heading>
         Publications Page
     </x-slot:heading>
-    <div class="relative z-10 flex flex-col justify-center items-center text-center">
+    <div class="relative z-10 flex flex-col justify-center items-center text-center text-white">
+        <div> <br> </div>
+        <form action="/publications/search" class="border border-2 border-white" method="get">
+                <input type="text" placeholder="Cerca Articoli..."
+                       name="title" id='title'>
+                <button>
+                    <i class="bg-white text-black"> cerca </i>
+                </button>
+            </form>
+        <div> <br> </div>
         <div class="text-white grid grid-cols-2 gap-2">
         @foreach ($articles as $article)
             <div class="border border-2 border-black">
@@ -20,10 +29,8 @@
             </div>
         @endforeach
         </div>
-
-        <div>
-            {{ $articles->links() }}
-        </div>
-
+    </div>
+    <div>
+        {{ $articles->links() }}
     </div>
 </x-layout-menu-bar>
