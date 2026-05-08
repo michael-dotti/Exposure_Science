@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\ResearchArea;
 
 class PublicationsPageController extends Controller
 {
@@ -14,12 +15,13 @@ class PublicationsPageController extends Controller
 
         $articles = DB::select('select * from articles');
         $users = User::all();
+        $areas = ResearchArea::all();
 
         //$article = Article::find(1);
         //$users = $article->users;
         //dd($users);
         //return view('publicationsPage.index', compact('articles'));
-        return view('publicationsPage.index', ['articles' => Article::paginate(8)])->with('users', $users);
+        return view('publicationsPage.index', ['articles' => Article::paginate(8)])->with('users', $users)->with('areas', $areas);
     }
 
     public function authorFiltered($id){
@@ -28,8 +30,20 @@ class PublicationsPageController extends Controller
 
         $articles = User::find($id)->articles();
         $users = User::all();
+        $areas = ResearchArea::all();
 
-        return view('publicationsPage.index', ['articles' => $articles->paginate(8)])->with('users', $users);
+        return view('publicationsPage.index', ['articles' => $articles->paginate(8)])->with('users', $users)->with('areas', $areas);
+    }
+
+    public function areaFiltered($id){
+
+        //dd(User::find($id));
+
+        $articles = ResearchArea::find($id)->articles();
+        $users = User::all();
+        $areas = ResearchArea::all();
+
+        return view('publicationsPage.index', ['articles' => $articles->paginate(8)])->with('users', $users)->with('areas', $areas);
     }
 
     /*public function search(Request $request){

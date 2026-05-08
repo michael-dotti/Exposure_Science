@@ -52,12 +52,12 @@
             </button>
 
             <el-menu anchor="bottom end" popover class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-gray-800 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
-            <div class="py-1">    
-                <a href="/publications" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> Tutti </a>
+            <div class="py-1">
+                <a href="/publications" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> Tutte </a>
             </div>
             <div class="py-1">
-                @foreach ($users as $user)
-                    <a href="/publications/author/{{ $user->id }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> {{ $user->name }} {{ $user->surname }} </a>
+                @foreach ($areas as $area)
+                    <a href="/publications/researchAreas/{{ $area->id }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> {{ $area->nome }}  </a>
                 @endforeach
             </div>
             </el-menu>
@@ -76,6 +76,9 @@
                     </div>
                 @endif
                 <small> Autori: {{ $article->users->pluck('name')->join(', ') }} </small>
+                <div>
+                    <small> Area:  {{ $article->researchAreas->pluck('nome')->join(', ') }},  </small>
+                </div>
             </div>
         @endforeach
         </div>

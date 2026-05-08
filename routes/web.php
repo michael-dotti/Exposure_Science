@@ -21,6 +21,7 @@ Route::controller(TeamPageController::class)->group( function (){
 Route::controller(PublicationsPageController::class)->group( function (){
     Route::get('/publications','index');
     Route::get('/publications/author/{author}','authorFiltered');
+    Route::get('/publications/researchAreas/{area}','areaFiltered');
     //Route::get('/publications/search','search');
     Route::get('/publications/{article}', 'show');
 });

@@ -19,7 +19,12 @@ class ArticleSeeder extends Seeder
     {
         $areas = ResearchArea::all();
         $defaultUser = User::all();
-        Article::factory(10)->hasAttached($defaultUser[0])->hasAttached($areas->random(rand(1, 3)))->create();
-        Article::factory(10)->hasAttached($defaultUser[1])->hasAttached($areas->random(rand(1, 3)))->create();
+        for($x = 0; $x < 10; $x++) {
+            Article::factory(1)->hasAttached($defaultUser[0])->hasAttached($areas->random(rand(1, 4)))->create();
+        }
+
+        for($x = 0; $x < 10; $x++) {
+            Article::factory(1)->hasAttached($defaultUser[1])->hasAttached($areas->random(rand(1, 4)))->create();
+        }
     }
 }
