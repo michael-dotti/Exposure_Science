@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\ResearchAreaType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ResearchArea>
@@ -15,20 +16,9 @@ class ResearchAreaFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        $subjects = [
-            'Ingegneria', 
-            'Fisica', 
-            'Matematica', 
-            'Storia', 
-            'Letteratura Italiana', 
-            'Chimica', 
-            'Economia', 
-            'Informatica'
-        ];
-        
+    {   
         return [
-            'nome' => $this->faker->randomElement($subjects),
+            'nome' => $this->faker->randomElement(ResearchAreaType::cases()),
             'descrizione' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
                              Rem perspiciatis iure ut laborum inventore et maxime amet.',
         ];

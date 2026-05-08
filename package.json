@@ -17,5 +17,8 @@
         "postcss": "^8.4.32",
         "tailwindcss": "^4.2.4",
         "vite": "^7.0.4"
+    },
+    "dependencies": {
+        "@tailwindplus/elements": "^1.0.22"
     }
 }

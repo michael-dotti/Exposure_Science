@@ -5,19 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\User;
 
 class PublicationsPageController extends Controller
 {
     public function index(){
-        $articles = Article::all();
+        //$articles = Article::all();
 
-        //$articles = DB::select('select * from articles');
+        $articles = DB::select('select * from articles');
+        $users = User::all();
 
         //$article = Article::find(1);
         //$users = $article->users;
-        //dd($users->pluck('name'));
+        //dd($users);
         //return view('publicationsPage.index', compact('articles'));
-        return view('publicationsPage.index', ['articles' => Article::paginate(8)]);
+        return view('publicationsPage.index', ['articles' => Article::paginate(8)])->with('users', $users);
+    }
+
+    public function authorFiltered($id){
+
+        //dd(User::find($id));
+
+        $articles = User::find($id)->articles();
+        $users = User::all();
+
+        return view('publicationsPage.index', ['articles' => $articles->paginate(8)])->with('users', $users);
     }
 
     /*public function search(Request $request){

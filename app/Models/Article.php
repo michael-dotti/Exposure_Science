@@ -25,7 +25,7 @@ class Article extends Model
     }
 
     // area di ricerca a cui appartiene l'articolo
-    public function research_areas(): BelongsToMany
+    public function researchAreas(): BelongsToMany
     {
         return $this->belongsToMany(ResearchArea::class);
     }

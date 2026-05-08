@@ -20,12 +20,13 @@ Route::controller(TeamPageController::class)->group( function (){
 
 Route::controller(PublicationsPageController::class)->group( function (){
     Route::get('/publications','index');
+    Route::get('/publications/author/{author}','authorFiltered');
     //Route::get('/publications/search','search');
     Route::get('/publications/{article}', 'show');
 });
 
 Route::controller(FileController::class)->group( function (){
-    Route::get('/download/{fileName}', 'download');
+    Route::get('/download/{fileName}', 'download')->where('fileName', '.*');;
 });
 
 

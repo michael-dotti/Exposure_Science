@@ -14,12 +14,12 @@ class FileController extends Controller
         $path = Storage::disk('public')->path($fileName);
 
 
-        dd([
+        /*dd([
             'File cercato' => $fileName,
             'Perc Compl' => $path,
             'Esiste' => Storage::disk('public')->exists($path)
         ]
-        );
+        );*/
 
 
         if(Storage::disk('public')->exists($fileName)){

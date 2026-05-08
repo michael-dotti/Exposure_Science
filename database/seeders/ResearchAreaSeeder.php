@@ -5,14 +5,17 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ResearchArea;
+use App\Enums\ResearchAreaType;
 
 class ResearchAreaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        ResearchArea::factory(5)->create();
+        $cases = ResearchAreaType::cases();
+
+        ResearchArea::factory()
+            ->count(count($cases))
+            ->sequence(fn ($sequence) => ['nome' => $cases[$sequence->index]])
+            ->create();
     }
 }
