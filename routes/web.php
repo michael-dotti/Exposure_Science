@@ -9,8 +9,12 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicationsPageController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
 
-Route::view('/', 'home');
+
+Route::controller(HomeController::class)->group( function (){
+    Route::get('/', 'home');
+});
 
 
 Route::controller(TeamPageController::class)->group( function (){

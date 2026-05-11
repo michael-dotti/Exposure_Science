@@ -102,19 +102,18 @@ class UserFactory extends Factory
          view navigation-menu.blade.php a riga 29 */
          
         $this->withPersonalTeam()->create([
-            'name' => 'Mario',
-            'surname' => 'Rossi',
+            'name' => 'Ercole',
+            'surname' => 'Savignano',
             'email' => 'test1@example.com',
             'password'=>'password',
             'profile_photo_path' => 'uploads/defaultUser/Mario_Rossi.webp',
             'admin' => false,
             'bio' => <<<EOT
-            Sono Mario Rossi, ho 27 anni e lavoro come Liutaio di Strumenti Elettronici.
-             Fondo il legno pregiato con circuiti analogici fatti a mano per creare sintetizzatori che suonano
-              come violini antichi, dopo aver studiato ingegneria a Milano e falegnameria a Cremona. Amo cucinare piatti della
-               tradizione contadina seguendo ricette scritte in codice binario sul mio blog. Segretamente, ho inserito una frequenza
-                impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
-                 viene suonata una nota specifica.
+            Il nome è Ercole Savignano, 36 anni, spadaccino, avventuriero, guascone, romanziere, drammaturgo, autore satirico,
+            epistolografo, poeta, spadaccino, filosofo, pioniere dell'aeronautica, libertino, scienziato, alchimista, spadaccino,
+            astronomo, poeta, filosofo, musicista, cavaliere ardente, che insomma fu un po' tutto e non fu niente.\t
+            Avido viaggiatore e conoscitore di popoli, da questi viaggi sono scaturiti grandi opere tra cui il famoso e ben conosciuto
+            trattato antropologo-culturale "L'autre monde ou Les etats et empires de la lune".
             EOT,
         ]);
 
