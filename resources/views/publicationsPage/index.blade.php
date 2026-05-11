@@ -18,9 +18,10 @@
             </form>
         <div> <br> </div>
 
-        <!-- filtraggio per autore-->
+        <!--filtraggi-->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
         <div class="flex space-x-2 mb-4">
+            <!-- filtraggio per autore-->
             <el-dropdown class="inline-block">
             <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20">
                 Seleziona autore
@@ -67,7 +68,7 @@
         <!--esposizione articoli-->
         <div class="text-white grid grid-cols-2 gap-2">
         @foreach ($articles as $article)
-            <div class="border border-2 border-black">
+            <div class="bg-[#101828] border border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:scale-101 hover:bg-[#161e2e]">
                 <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
                 <p> <small>{{ $article->abstract }}</small> </p>
                 @if($article->image_path)
@@ -75,9 +76,9 @@
                         <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
                     </div>
                 @endif
-                <small> Autori: {{ $article->users->pluck('name')->join(', ') }} </small>
+                <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
                 <div>
-                    <small> Area:  {{ $article->researchAreas->pluck('nome')->join(', ') }},  </small>
+                    <small> Area:  {{ $article->researchAreas->pluck('nome')->join(', ') }}  </small>
                 </div>
             </div>
         @endforeach

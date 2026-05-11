@@ -17,7 +17,7 @@
                 <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">Welcome to Our Awesome Website</h1>
                 <p class="mt-4 text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto drop-shadow-md">Discover amazing features and services that await you.</p>
             </div>
-            <div class="text-white grid grid-cols-3 gap-2 mbs-20">
+            <div class="relative text-white grid grid-cols-3 gap-2 mbs-20">
                 @foreach ($news as $n)
                     <div class="justify-center text-center border border-2 border-black  bg-[#177013] rounded-md">
                         <a href="news-and-events"> {{ $n->titolo }} </a>

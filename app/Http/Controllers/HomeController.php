@@ -11,6 +11,7 @@ class HomeController extends Controller
     public function home(){
         //$articles = Article::all();
 
+        //mostro nella home le tre notizie più nuove
         $news = News::latest()->take(3)->get();
 
         //$article = Article::find(1);
