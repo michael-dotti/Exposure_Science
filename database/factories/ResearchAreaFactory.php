@@ -18,7 +18,7 @@ class ResearchAreaFactory extends Factory
     public function definition(): array
     {   
         return [
-            'nome' => $this->faker->randomElement(ResearchAreaType::cases()),
+            'name' => $this->faker->randomElement(ResearchAreaType::cases()),
             'descrizione' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
                              Rem perspiciatis iure ut laborum inventore et maxime amet.',
         ];
