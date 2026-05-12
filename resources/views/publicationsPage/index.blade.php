@@ -9,7 +9,7 @@
         
         <!-- filtraggio per titolo (NON FUNZIONANTE) -->
         <div> <br> </div>
-        <form action="/publications/search" class="border border-2 border-white" method="get">
+        <form action="/publications/search" class="border-2 border-white" method="get">
                 <input type="text" placeholder="Cerca Articoli..."
                        name="title" id='title'>
                 <button>
@@ -68,7 +68,7 @@
         <!--esposizione articoli-->
         <div class="text-white grid grid-cols-2 gap-2">
         @foreach ($articles as $article)
-            <div class="bg-[#101828] border border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:scale-101 hover:bg-[#161e2e]">
+            <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
                 <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
                 <p> <small>{{ $article->abstract }}</small> </p>
                 @if($article->image_path)
