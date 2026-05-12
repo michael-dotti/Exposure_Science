@@ -22,8 +22,11 @@
                 <div class="font-bold text-blue-500 text-sm mb-2"> 
                     Autori: <span class="text-white">{{ $article->users->pluck('name')->join(', ') }}</span>
                 </div>
+                <div class="font-bold text-blue-500 text-sm mb-2"> 
+                    Argomento di ricerca: <span class="text-white">{{ $article->research_areas->pluck('name')->join(', ') }}</span>
+                </div>
 
-                <div>
+                <div class="text-white" >
                     <a href="/articles/{{ $article->id }}" class="hover:underline">
                         <strong>{{ $article->title }}</strong>
                     </a>

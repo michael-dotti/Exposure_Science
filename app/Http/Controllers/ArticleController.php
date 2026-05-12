@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
+use App\Models\ResearchArea;
 
 class ArticleController extends Controller
 {
@@ -31,7 +32,8 @@ class ArticleController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('articles.create', compact('users'));
+        $areas = ResearchArea::all();
+        return view('articles.create', compact('users','areas'));
     }
 
     //Show= porta alla view per vedere un singolo articolo
@@ -57,7 +59,7 @@ class ArticleController extends Controller
         
         //Rimuovi 'users' dai dati della creazione dell'articolo
         // Usiamo collect($validated)->except('users') per pulire l'array
-        $articleData = collect($validated)->except('users')->toArray();
+        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
 
         //preparo i dati
         $articleData['data_pubblicazione'] = now()->toDateString();
@@ -97,8 +99,9 @@ class ArticleController extends Controller
         // Creazione record nel Database
         $article = Article::create($articleData);
 
-        // Collegamento Autori
+        // Collegamento Autori e aree
         $article->users()->attach(request()->users);
+        $article->research_areas()->attach(request()->areas);
 
         // 3) redirect
         return redirect('/articles');
@@ -108,10 +111,13 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $users = User::select('id', 'name')->get();
-        return view('articles.edit', [
-            'article' => $article,
-            'users' => $users
-            ]);
+        $areas = ResearchArea::select('id', 'name')->get();
+
+        // (non necessario ma consigliato) Caro le relazioni già esistenti per l'articolo
+        // serve a Blade per sapere quali relazioni sono già selezionati senza fare altre query
+        $article->load(['users', 'research_areas']);
+
+        return view('articles.edit', compact('article', 'users', 'areas'));
     }
 
     // update = verifica e aggiorna un articolo
@@ -126,7 +132,7 @@ class ArticleController extends Controller
             'image_path' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $articleData = collect($validated)->except('users')->toArray();
+        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
 
         if (request()->hasFile('file_path')) {
             // Elimina il vecchio file se esiste (per non sprecare spazio)
@@ -160,6 +166,7 @@ class ArticleController extends Controller
 
         $article->update($articleData);
         $article->users()->sync(request()->users);
+        $article->research_areas()->sync(request()->areas);
 
         return redirect('/articles');
     }

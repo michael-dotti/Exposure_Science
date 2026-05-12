@@ -58,7 +58,7 @@
             </div>
             <div class="py-1">
                 @foreach ($areas as $area)
-                    <a href="/publications/researchAreas/{{ $area->id }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> {{ $area->nome }}  </a>
+                    <a href="/publications/researchAreas/{{ $area->id }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white"> {{ $area->name }}  </a>
                 @endforeach
             </div>
             </el-menu>
@@ -78,7 +78,7 @@
                 @endif
                 <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
                 <div>
-                    <small> Area:  {{ $article->researchAreas->pluck('nome')->join(', ') }}  </small>
+                    <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
                 </div>
             </div>
         @endforeach

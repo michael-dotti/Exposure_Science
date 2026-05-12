@@ -9,7 +9,7 @@
     
     <form method="post" action="/articles" enctype="multipart/form-data">
       @csrf
-          <div class="space-y-12">
+          <div class="space-y-12 text-white">
             <div class="border-b border-white/10 pb-12">
               <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
               <small>1. Fields marked with * are required</small>
@@ -44,12 +44,28 @@
                       </div>
                   @endforeach
                    <x-form-error name="users" />
-                </div>
-                
+                </div> 
+              </div>
+
+              <div class="mt-4">
+                <label for="area" class="text-white">Area di ricerca dell'articolo* (minimum 1)</label>
+                <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
+                  @foreach($areas as $area)
+                      <div class="flex items-center gap-x-3 pr-4">
+                          <input id="area-{{ $area->id }}" name="areas[]" value="{{ $area->id }}" type="checkbox" 
+                                class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
+                          
+                          <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
+                              {{ $area->nome }}
+                          </label>
+                      </div>
+                  @endforeach
+                   <x-form-error name="areas" />
+                </div> 
               </div>
 
               <div>
-                <p>Choose between link or document</p>
+                <p>Choose between link or document *</p>
                  <div>
                   <div>
                     <label for="external_url">File URL</label>
