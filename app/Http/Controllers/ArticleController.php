@@ -111,7 +111,7 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $users = User::select('id', 'name')->get();
-        $areas = ResearchArea::select('id', 'nome')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
 
         // (non necessario ma consigliato) Caro le relazioni già esistenti per l'articolo
         // serve a Blade per sapere quali relazioni sono già selezionati senza fare altre query

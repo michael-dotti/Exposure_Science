@@ -67,7 +67,7 @@
                           class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                           
                           <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
-                              {{ $area->nome }}
+                              {{ $area->name }}
                           </label>
                       </div>
                   @endforeach

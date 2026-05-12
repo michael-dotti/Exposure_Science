@@ -19,7 +19,7 @@ class ResearchAreaFactory extends Factory
     {   
         return [
             'name' => $this->faker->randomElement(ResearchAreaType::cases()),
-            'descrizione' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
+            'description' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
                              Rem perspiciatis iure ut laborum inventore et maxime amet.',
         ];
     }

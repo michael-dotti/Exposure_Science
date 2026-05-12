@@ -23,7 +23,7 @@
                     Autori: <span class="text-white">{{ $article->users->pluck('name')->join(', ') }}</span>
                 </div>
                 <div class="font-bold text-blue-500 text-sm mb-2"> 
-                    Argomento di ricerca: <span class="text-white">{{ $article->research_areas->pluck('nome')->join(', ') }}</span>
+                    Argomento di ricerca: <span class="text-white">{{ $article->research_areas->pluck('name')->join(', ') }}</span>
                 </div>
 
                 <div class="text-white" >

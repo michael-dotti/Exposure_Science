@@ -15,7 +15,7 @@ class ResearchAreaSeeder extends Seeder
 
         ResearchArea::factory()
             ->count(count($cases))
-            ->sequence(fn ($sequence) => ['nome' => $cases[$sequence->index]])
+            ->sequence(fn ($sequence) => ['name' => $cases[$sequence->index]])
             ->create();
     }
 }
