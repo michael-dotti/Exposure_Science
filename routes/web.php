@@ -36,7 +36,7 @@ Route::controller(FileController::class)->group( function (){
 
 
 //Route::view('/publications', 'publications');
-Route::view('/news-and-events', 'news-and-events');
+Route::view('/news', 'news');
 
 
 /*
@@ -80,7 +80,7 @@ Route::middleware([
 
     Route::view('/projects','project.index');
     Route::view('/user-management','users-management.index');
-    Route::view('/news-management','news.index');
+    Route::view('/news-management','news-management.index');
     Route::view('/event-management','events-management-index');
 
     

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             // TODO: ID utente
-            $table->string("titolo");
-            $table->string("contenuto");
-            $table->string("dataPubblicazione");
+            $table->string("title");
+            $table->string("content");
+            $table->string("publicationDate");
         });
     }
 

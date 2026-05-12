@@ -1,9 +1,9 @@
-<x-layout-menu-bar>
+<x-layout-menu-bar-public>
     <x-slot:title>
-        Publications
+        Publicazioni
     </x-slot:title>
     <x-slot:heading>
-        Publications Page
+        Publicazioni
     </x-slot:heading>
     <div class="relative z-10 flex flex-col justify-center items-center text-center text-white">
         
@@ -87,4 +87,4 @@
     <div>
         {{ $articles->links() }}
     </div>
-</x-layout-menu-bar>
+</x-layout-menu-bar-public>

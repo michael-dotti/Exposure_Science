@@ -1,4 +1,4 @@
-<x-layout-menu-bar>
+<x-layout-menu-bar-public>
     <x-slot:title>
         Member
     </x-slot:title>
@@ -19,4 +19,4 @@
     </div>
 
     
-</x-layout-menu-bar>
+</x-layout-menu-bar-public>

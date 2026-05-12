@@ -1,14 +1,14 @@
-<x-layout-menu-bar>
+<x-layout-menu-bar-public>
     <x-slot:title>
         Team
     </x-slot:title>
     <x-slot:heading>
-        Team Page
+        Team
     </x-slot:heading>
         <div class="flex h-full items-start justify-start pl-5 ">
             <div class="w-full md:w-1/2 rounded-lg  px-8 py-4 m-4">
                 <div class="px-1 py-4">
-                    <h3 class="font-bold text-2xl font-sans text-amber-300">Our incredible team</h3>
+                    <h3 class="font-bold text-2xl font-sans text-amber-300">Il nostro megamastico e fantasmagorico Team:</h3>
                 </div>
                 <ul class="grid grid-cols-4 gap-2 px-1">
                     @foreach ($users as $user )
@@ -25,4 +25,4 @@
                 </ul>
             </div>
         </div>
-</x-layout-menu-bar>
+</x-layout-menu-bar-public>
