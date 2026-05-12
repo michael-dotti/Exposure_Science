@@ -11,12 +11,6 @@ class PublicationsPageController extends Controller
     public function index(){
         $articles = Article::all();
 
-        //$articles = DB::select('select * from articles');
-
-        //$article = Article::find(1);
-        //$users = $article->users;
-        //dd($users->pluck('name'));
-        //return view('publicationsPage.index', compact('articles'));
         return view('publicationsPage.index', ['articles' => Article::simplePaginate(8)]);
     }
 

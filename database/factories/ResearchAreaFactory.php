@@ -28,7 +28,7 @@ class ResearchAreaFactory extends Factory
         ];
         
         return [
-            'nome' => $this->faker->randomElement($subjects),
+            'name' => $this->faker->randomElement($subjects),
             'descrizione' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
                              Rem perspiciatis iure ut laborum inventore et maxime amet.',
         ];
