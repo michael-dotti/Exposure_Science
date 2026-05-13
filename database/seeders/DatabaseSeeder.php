@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
                         'uploads/defaultUser/'.$imageName, 
                         File::get($sourcePath));
                 }
+            }
 
             $imageArticleName = 'default.webp';
             $sourcePath = public_path('images/'. $imageArticleName);
@@ -45,6 +46,13 @@ class DatabaseSeeder extends Seeder
                 File::get($sourcePath));
             }
 
+            $imageNewsName = 'defaultNews.webp';
+            $sourcePath = public_path('images/'. $imageNewsName);
+
+            if(File::exists($sourcePath)){
+                Storage::disk('public')->put(
+                    'uploads/news/'.$imageNewsName, 
+                    File::get($sourcePath));
             }
         }
 

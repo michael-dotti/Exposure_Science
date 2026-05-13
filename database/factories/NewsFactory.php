@@ -19,15 +19,14 @@ class NewsFactory extends Factory
     {
         $date = $this->faker->unique()->dateTimeInInterval($startDate = '-7 days', $interval = '+ 5 days', $timezone = null);
         $contenents = array('Questo è il contenuto della novità.',
-        'Ragazzo della florida in preda ad allucinazioni sposa il proprio banco scolastico',
+        'Maria dei Medici era la sesta figlia di Francesco I dei Medici , granduca di Toscana, e di Giovanna di Austria, arciduchessa di Austria, figlia di Ferdinando I di Asburgo, imperatore del Sacro Romano Impero, e di Anna Jagellone.',
         'Questa è il contenuto di un notizia diversa.');
 
         return [
-            'titolo' => 'Che notiziona del ' . $date->format('Y-m-d'),
-            'created_at' => $date,
-            'updated_at' => $date,
-            'contenuto' => $contenents[rand(0,2)],
-            'dataPubblicazione' => Carbon::now()->toDateString(),
+            'title' => 'Notiziona del ' . $date->format('Y-m-d'),
+            'content' => $contenents[rand(0,2)],
+            'publicationDate' => $date->format('Y-m-d'),//Carbon::now()->toDateString(),
+            'imagePath' => 'uploads/news/defaultNews.webp'
         ];
     }
 }

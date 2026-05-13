@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("content");
             $table->string("publicationDate");
+            $table->string("imagePath");
         });
     }
 
