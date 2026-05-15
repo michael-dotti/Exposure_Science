@@ -19,15 +19,13 @@
             </div>
             <div class="absolute inset-x-0 bottom-0 text-white grid grid-cols-3 gap-2 mbs-20">
                 @foreach ($news as $n)
-                    <div class="text-center border-2 border-black  bg-[#177013] rounded-md">
+                    <div class="text-center border-2 border-black  bg-[#253041] rounded-md">
                         <a href="news"> {{ $n->title }} </a>
-                        <hr class="bg-[#5a7059] h-px border-0"></hr>
-                        @if($n->imagePath)
-                            <div class="flex justify-center"> 
-                                <img src="{{ Storage::url($n->imagePath) }}" alt="profile_photo" class="object-contain">
-                            </div>
-                        @endif
-                        <hr class="bg-[#5a7059] h-px border-0"></hr>
+                        <hr class="bg-[#253041] h-px border-0"></hr>
+                        <div class="flex justify-center"> 
+                            <img src="{{ Storage::url($n->imagePath) }}" alt="profile_photo" class="object-contain">
+                        </div>
+                        <hr class="bg-[#253041] h-px border-0"></hr>
                             <p>
                                 <span style="color:rgb(255, 99, 71)"> {{ $n->publicationDate }} </span>
                                 @if(strlen($n->content) > 67)
