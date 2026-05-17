@@ -67,22 +67,35 @@
             </div>
         </nav>
         
-        <div class="flex">
-            {{-- Nome Utente --}}
+        <div class="flex w-full">
+            {{-- Contenitore Utente e pulsanti --}}
             <div class="absolute bottom-4 left-4 right-4">
-                <div class="bg-gray-800 rounded-lg p-3 flex items-center justify-between">
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <div class="flex items-center space-x-3">
-                            <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full">
-                            <div>
-                                <p class="text-white text-sm font-medium">{{ Auth::user()->name }} {{Auth::user()->surname }} </p>
-                                @if(auth()->user()->admin)
-                                    <p class="text-gray-400 text-xs">Administrator</p>
-                                @endif
-                                </div>
+                <div class="bg-gray-800 rounded-lg p-3 flex flex-col gap-3 items-center">
+                    
+                    {{-- Sezione Nome e Foto Utente --}}
+                    <div class="flex items-center space-x-3">
+                        <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full shrink-0">
+                        <div>
+                            <p class="text-white text-sm font-medium">
+                                {{ Auth::user()->name }} {{Auth::user()->surname }} 
+                            </p>
+                            @if(auth()->user()->admin)
+                                <p class="text-gray-400 text-xs">Administrator</p>
+                            @endif
                         </div>
                     </div>
-                    <x-nav-link class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-2 rounded-mid text-xs font-bold transition-colors" href="/">BACK</x-nav-link>
+                    
+                    {{-- Sezione Pulsanti Incolonnati --}}
+                    <div class="flex flex-row gap-2 w-full">
+                        <a href="/" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >BACK</a>
+                        <form method="POST" action="{{ route('logout') }}" class="flex-1 m-0 p-0" > {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
+                            @csrf
+                            
+                            <x-button class="w-full bg-rose-400 hover:bg-rose-500 text-white text-center tracking-normal px-2 py-1 font-bold transition-colors justify-center whitespace-nowrap">
+                                Log Out
+                            </x-button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
