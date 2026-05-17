@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicationsPageController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 
 
 Route::controller(HomeController::class)->group( function (){
@@ -31,12 +32,13 @@ Route::controller(PublicationsPageController::class)->group( function (){
 });
 
 Route::controller(FileController::class)->group( function (){
-    Route::get('/download/{fileName}', 'download')->where('fileName', '.*');;
+    Route::get('/download/{fileName}', 'download')->where('fileName', '.*');
 });
 
-
 //Route::view('/publications', 'publications');
-Route::view('/news', 'news');
+Route::controller(NewsController::class)->group( function (){
+    Route::get('/news', 'index');
+});
 
 
 /*
