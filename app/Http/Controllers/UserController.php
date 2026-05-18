@@ -27,13 +27,9 @@ class UserController extends Controller
             'surname' => ['required','min:3', 'max:255'],
             'email' => ['required','email', 'max:255', 'min:5', Rule::unique('users')->ignore($user->id)], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
             'bio' => ['nullable','max:5000'],
-            'profile_photo_path' => ['nullable', 'image', 'max:2048'],
+            'profile_photo_path' => ['nullable', 'image', 'max:5120'],
         ]);
-
-        // Rimuoviamo la foto dall'array principale per evitare che sovrascriva con NULL
-        // Se l'utente carica una nuova foto, la riaggiungeremo dopo.
-        unset($validated['profile_photo_path']);
-        
+ 
         //Caso 1: l'utente ha caricato una NUOVA immagine
         // carica l'immagine e salva il path
         if (request()->hasFile('profile_photo_path')) {

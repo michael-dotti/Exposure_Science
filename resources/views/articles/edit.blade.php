@@ -63,7 +63,7 @@
                           name="areas[]" 
                           value="{{ $area->id }}" 
                           type="checkbox" 
-                           @checked(in_array($area->id, old('areas', $article->research_areas->pluck('id')->toArray())))
+                           @checked(in_array($area->id, old('areas', $article->researchAreas->pluck('id')->toArray())))
                           class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                           
                           <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
@@ -95,8 +95,8 @@
                 <div>
                   @if($article->image_path)
                       <div class="mb-3">
-                        <p class="text-md text-yellow-300">Current image: {{ $article->image_path }}</p>
-                        <img src="{{ asset('storage/'.$article->image_path) }}" alt="Preview" class="max-w-64 h-auto rounded">
+                        <p class="text-md text-yellow-300">Current image:</p>
+                        <x-image-preview-articles name="profile_photo_path" currentImage="{{ Storage::url($article->image_path) }}"/>
                       </div>
                   @endif
                 </div>

@@ -56,7 +56,7 @@
                                 class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                           
                           <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
-                              {{ $area->nome }}
+                              {{ $area->name }}
                           </label>
                       </div>
                   @endforeach
@@ -82,7 +82,7 @@
 
               <div class="mt-6">
                 <label for="image_path">Image</label>
-                <input type="file" name="image_path" accept="image/*">
+                <x-image-preview-articles name="image_path" currentImage=""/>
               </div>
             </div>
               {{--  

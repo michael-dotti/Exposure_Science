@@ -27,6 +27,9 @@ function handleFileSelect(event) {
         return;
     }
 
+    // se l'utente ha selezionare un file valido, azzero il flag di rimozione
+    removePhotoInput.value = '0';
+
     // metodo creato da noi per aggiornare la preview dell'immagine
     displayPreview(file);
 }
@@ -90,10 +93,5 @@ deleteButton.addEventListener('click', () =>{
     resetPreview();
 });
 
-// se l'utente seleziona un nuovo file dopo aver cliccato elimina, resetta il flag
-imageUpload.addEventListener('change', ()=> {
-    if(imageUpload.files.length > 0){
-        removePhotoInput.value = '0';
-    }
-});
+
 

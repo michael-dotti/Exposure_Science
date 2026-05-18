@@ -52,7 +52,8 @@ class ArticleController extends Controller
             'users' => ['required', 'array', 'min:1'],
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
-            'image_path' =>['nullable','image','max:2048','mimes:jpeg,png,jpg,webp'],
+            'image_path' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
+            'areas' => ['required'],
         ]);
 
         // 2) Creazione nuovo articolo con la data di oggi
@@ -101,7 +102,7 @@ class ArticleController extends Controller
 
         // Collegamento Autori e aree
         $article->users()->attach(request()->users);
-        $article->research_areas()->attach(request()->areas);
+        $article->researchAreas()->attach(request()->areas);
 
         // 3) redirect
         return redirect('/articles');
@@ -115,7 +116,7 @@ class ArticleController extends Controller
 
         // (non necessario ma consigliato) Caro le relazioni già esistenti per l'articolo
         // serve a Blade per sapere quali relazioni sono già selezionati senza fare altre query
-        $article->load(['users', 'research_areas']);
+        $article->load(['users', 'researchAreas']);
 
         return view('articles.edit', compact('article', 'users', 'areas'));
     }
@@ -129,7 +130,7 @@ class ArticleController extends Controller
             'users' => ['required', 'array', 'min:1'],
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
-            'image_path' => ['nullable', 'image', 'max:2048'],
+            'image_path' => ['nullable', 'image', 'max:5120'],
         ]);
 
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
@@ -163,10 +164,19 @@ class ArticleController extends Controller
             // Salva il percorso nel database
             $articleData['image_path'] = $filename;
         }
+        elseif (request()->input('remove_photo') == '1'){
+                if($article->image_path){
+                    Storage::disk('public')->delete($article->image_path);
+                }
+                $validated['image_path'] = null;
+        }
+        else {
+            unset($validated['image_path']);
+        }
 
         $article->update($articleData);
         $article->users()->sync(request()->users);
-        $article->research_areas()->sync(request()->areas);
+        $article->researchAreas()->sync(request()->areas);
 
         return redirect('/articles');
     }
