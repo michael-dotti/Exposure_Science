@@ -124,15 +124,15 @@ class ArticleController extends Controller
     // update = verifica e aggiorna un articolo
     public function update(Article $article)
     {
-
-        dd(request());
+        $hasExistingFile = $article->file_path && request()->input('remove_file') !== '1';    
 
         $validated = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'abstract' => ['required', 'max:5000'],
             'users' => ['required', 'array', 'min:1'],
-            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
-            'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
+            'areas' => ['required', 'array', 'min:1'],
+            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
+            'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','nullable','url'],
             'image_path' => ['nullable', 'image', 'max:5120'],
         ]);
 
@@ -143,16 +143,7 @@ class ArticleController extends Controller
             if ($article->file_path) {
                 Storage::disk('public')->delete($article->file_path);
             }
-
-            $articleData['file_path'] = request()->file('file_path')->store('uploads/articles/documents', 'public');
-        } elseif (request()->input('remove_file') == '1'){
-            if ($article->file_path) {
-                Storage::disk('public')->delete($article->file_path);
-            }
-
-            $articleData['file_path'] = null;
-        } else {
-            unset($articleData['file_path']);
+            $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
         }
 
         if (request()->hasFile('image_path')) {
