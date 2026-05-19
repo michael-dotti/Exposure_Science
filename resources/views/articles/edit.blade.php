@@ -85,7 +85,8 @@
                   </div>
                   <div>
                     <label for="file_path">File_path</label>
-                    <input name="file_path" id="file_path" type="file" value="{{ $article->file_path }}">
+                    <input name="file_path" id="file_path" type="file" value="{{ $article->file_path}}">
+                    <input type="hidden" name="remove_file" value="0"/> 
                     <x-form-error name="file_path" />
                   </div>
                 </div>
@@ -96,13 +97,10 @@
                   @if($article->image_path)
                       <div class="mb-3">
                         <p class="text-md text-yellow-300">Current image:</p>
-                        <x-image-preview-articles name="profile_photo_path" currentImage="{{ Storage::url($article->image_path) }}"/>
+                        <x-image-preview-articles name="image_path" currentImage="{{ Storage::url($article->image_path) }}"/>
+                        <x-form-error name="image_path" />
                       </div>
                   @endif
-                </div>
-                <div>
-                  <label for="image_path">Image</label>
-                  <input type="file" name="image_path" accept="image/*">
                 </div>
               </div>
             </div>

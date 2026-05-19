@@ -124,6 +124,9 @@ class ArticleController extends Controller
     // update = verifica e aggiorna un articolo
     public function update(Article $article)
     {
+
+        dd(request());
+
         $validated = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'abstract' => ['required', 'max:5000'],
@@ -140,7 +143,16 @@ class ArticleController extends Controller
             if ($article->file_path) {
                 Storage::disk('public')->delete($article->file_path);
             }
-            $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
+
+            $articleData['file_path'] = request()->file('file_path')->store('uploads/articles/documents', 'public');
+        } elseif (request()->input('remove_file') == '1'){
+            if ($article->file_path) {
+                Storage::disk('public')->delete($article->file_path);
+            }
+
+            $articleData['file_path'] = null;
+        } else {
+            unset($articleData['file_path']);
         }
 
         if (request()->hasFile('image_path')) {
