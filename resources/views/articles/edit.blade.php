@@ -85,7 +85,7 @@
                   </div>
                   <div>
                     <label for="file_path">File_path</label>
-                    <input name="file_path" id="file_path" type="file" value="{{ $article->file_path}}">
+                    <input name="file_path" id="file_path" type="file">
                     <input type="hidden" name="remove_file" value="0"/> 
                     <x-form-error name="file_path" />
                   </div>
