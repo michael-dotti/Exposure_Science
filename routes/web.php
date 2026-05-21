@@ -38,6 +38,8 @@ Route::controller(FileController::class)->group( function (){
 //Route::view('/publications', 'publications');
 Route::controller(NewsController::class)->group( function (){
     Route::get('/news', 'index');
+    Route::get('/news/all', 'all');
+    Route::get('/news/{news}', 'show');
 });
 
 
