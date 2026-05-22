@@ -6,26 +6,29 @@
         Novità
     </x-slot:heading>
 
-    <div class="text-white">
+    <div class="text-white mt-10">
         @if($news)
-            <h3 class="px-1 py-4 font-bold text-2xl font-sans text-amber-300 my-4">Le ultime notizie:</h3>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        @foreach ($news as $n)
-                            <div class="bg-[#253041]/80 border border-gray-500 rounded-lg p-3 flex-1 gap-2 transition hover:-translate-y-1">
-                                <a href="/news/{{ $n->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
-                                    {{ $n->title }}
-                                
-                                <div class="h-24 overflow-hidden rounded">
-                                    <img src="{{ Storage::url($n->imagePath) }}" alt="news_image" class="w-full h-full object-cover">
-                                </div>
-
-                                <p class="text-xs text-gray-300">
-                                    <span class="text-orange-400 font-semibold">{{ $n->publicationDate }}</span>
-                                    {{ Str::limit($n->content, 60) }}
-                                </p>
-                                </a>
+                    
+                    <div class="relative max-w-6xl mx-auto h-[400px] md:h-[550px] rounded-xl overflow-hidden mb-12 shadow-lg">
+                        <img src="{{ Storage::url($news[0]->imagePath)}}"
+                        alt="{{ $news[0]->title }}"
+                        class="absolute inset-0 w-full h-full object-cover object-center -z-20">
+                            <div class="absolute inset-0 bg-black opacity-50 -z-10"></div>
+                            
+                            <!-- Il contenuto (Titolo) -->
+                            <div class="relative z-10 p-10 h-full flex items-end">
+                                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                                    {{ $news[0]->title }}
+                                </h1>
                             </div>
-                        @endforeach
+                    </div>
+
+                    <div class="flex justify-center items-center">
+                        <div class="grid grid-cols-2 gap-4">
+                            @for ($i = 1; $i < count($news); $i++)
+                                <x-news-block :n='$news[$i]'/>
+                            @endfor
+                        </div>
                     </div>
                 
                     <div class="my-4">
