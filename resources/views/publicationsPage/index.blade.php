@@ -84,7 +84,8 @@
         @endforeach
         </div>
     </div>
-    <div>
+    
+    <div class="mt-2">
         {{ $articles->links() }}
     </div>
 </x-layout-menu-bar-public>

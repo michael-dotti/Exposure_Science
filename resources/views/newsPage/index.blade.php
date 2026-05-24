@@ -9,7 +9,8 @@
     <div class="text-white mt-10">
         @if($news)
                     
-                    <div class="relative max-w-6xl mx-auto h-[400px] md:h-[550px] rounded-xl overflow-hidden mb-12 shadow-lg">
+                    <div class="relative max-w-6xl mx-auto h-100 md:h-137.5 rounded-xl overflow-hidden mb-12 shadow-lg transition hover:-translate-y-1">
+                        <a href="/news/{{ $news[0]->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
                         <img src="{{ Storage::url($news[0]->imagePath)}}"
                         alt="{{ $news[0]->title }}"
                         class="absolute inset-0 w-full h-full object-cover object-center -z-20">
@@ -21,6 +22,7 @@
                                     {{ $news[0]->title }}
                                 </h1>
                             </div>
+                    </a>
                     </div>
 
                     <div class="flex justify-center items-center">
@@ -32,9 +34,11 @@
                     </div>
                 
                     <div class="my-4">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <a href="/news/all"> Vedi Storico Notizie </a>
-                        </button>
+                        <a href="/news/all">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Vedi Storico Notizie
+                            </button>
+                        </a>
                     </div>
 
                 @endif

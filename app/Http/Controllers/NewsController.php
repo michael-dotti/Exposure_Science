@@ -26,7 +26,7 @@ class NewsController extends Controller
     public function all(){
         
         //mostro nella home le tre notizie più nuove
-        $news = News::latest()->get();
+        $news = News::latest()->paginate(6);
 
         return view('newsPage.all', ['news' => $news]);
     }
