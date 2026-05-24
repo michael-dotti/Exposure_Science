@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @livewireStyles 
+    {{-- necessario insieme a @livewireScripts, in fondo al tag <body></body>, per caricare Alpine --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -85,7 +88,29 @@
                         </div>
                     </div>
                     
-                    {{-- Sezione Pulsanti Incolonnati --}}
+                    <x-dropdown align="top">
+                        <x-slot name="trigger">
+                            <button class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors">
+                                Opzioni account
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </button>
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-dropdown-link href="/">Home</x-dropdown-link>
+                            <x-dropdown-link href="{{ route('profile.show') }}">Impostazioni avanzate</x-dropdown-link>
+
+                            <div class="border-t border-gray-200"></div>
+
+                            <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
+                                @csrf
+
+                                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    Log Out
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                    <!-- {{-- Sezione Pulsanti Incolonnati --}}
                     <div class="flex flex-row gap-2 w-full">
                         <a href="/" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >BACK</a>
                         <form method="POST" action="{{ route('logout') }}" class="flex-1 m-0 p-0" > {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
@@ -95,7 +120,8 @@
                                 Log Out
                             </x-button>
                         </form>
-                    </div>
+                        <a href="{{ route('profile.show') }}" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >CONFIGURAZIONI ACCOUNT AVANZATE</a>
+                    </div> -->
                 </div>
             </div>
 
@@ -119,6 +145,9 @@
     <div class="px-6"> 
     {{ $slot }}
     </div>
+    @livewireScripts 
+    {{-- necessario insieme a @livewireStyles, nel tag <head>, per caricare Alpine --}}
+    
       @stack('scripts')
 </body>
 </html>

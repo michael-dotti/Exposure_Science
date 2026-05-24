@@ -3,7 +3,7 @@
 @php
 $alignmentClasses = match ($align) {
     'left' => 'ltr:origin-top-left rtl:origin-top-right start-0',
-    'top' => 'origin-top',
+    'top' => 'origin-bottom bottom-full mb-2 left-0',
     'none', 'false' => '',
     default => 'ltr:origin-top-right rtl:origin-top-left end-0',
 };
