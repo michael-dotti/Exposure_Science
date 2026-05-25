@@ -6,6 +6,9 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       @vite('resources/css/app.css')
+
+      @livewireStyles 
+      {{-- necessario insieme a @livewireScripts, in fondo al tag <body></body>, per caricare Alpine --}}
     </head>
     <body class="h-full">
     
@@ -106,6 +109,8 @@
     </div>
   </main>
 </div>
+    @livewireScripts 
+    {{-- necessario insieme a @livewireStyles, nel tag <head>, per caricare Alpine --}}
 
     {{-- @stack('script') lo usiamo per permettere ad una view che utilizza questo script di aggiungere uno script di javascript --}}
     @stack('script')

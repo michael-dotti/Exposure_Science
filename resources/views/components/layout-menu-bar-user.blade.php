@@ -148,6 +148,6 @@
     @livewireScripts 
     {{-- necessario insieme a @livewireStyles, nel tag <head>, per caricare Alpine --}}
     
-      @stack('scripts')
+    @stack('scripts')
 </body>
 </html>
