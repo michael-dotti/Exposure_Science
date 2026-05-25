@@ -40,7 +40,7 @@
                     <form action="/articles/{{ $article['id'] }}" method="POST" class="m-0 p-0 flex">
                         @csrf
                         @method('DELETE')
-                        <button class="text-xs bg-red-500 text-white px-2 py-1 rounded">Elimina</button>
+                        <button class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:cursor-pointer">Elimina</button>
                     </form>
                 </div>
 
