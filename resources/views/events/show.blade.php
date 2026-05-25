@@ -1,4 +1,4 @@
-<x-layout-menu-bar-user>
+<x-layout-menu-bar-private>
     <x-slot:title>
         Events
     </x-slot:title>
@@ -84,4 +84,4 @@
             </div>
         </div>
     </x-email-box>
-</x-layout-menu-bar-user>
+</x-layout-menu-bar-private>

@@ -1,4 +1,4 @@
-<x-layout-menu-bar-user>
+<x-layout-menu-bar-private>
     <x-slot:title>
         Article
     </x-slot:title>
@@ -11,4 +11,4 @@
     
     
     
-</x-layout-menu-bar-user>
+</x-layout-menu-bar-private>

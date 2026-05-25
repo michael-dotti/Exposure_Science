@@ -1,4 +1,4 @@
-<x-layout-menu-bar-user>
+<x-layout-menu-bar-private>
     <x-slot:title>
         Articles 
     </x-slot:title>
@@ -87,4 +87,4 @@
         {{  $articles->links()}} 
     </div>
     --}}
-</x-layout-menu-bar-user>
+</x-layout-menu-bar-private>

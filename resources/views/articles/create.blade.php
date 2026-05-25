@@ -1,4 +1,4 @@
-<x-layout-menu-bar-user>
+<x-layout-menu-bar-private>
     <x-slot:title>
         New Article 
     </x-slot:title>
@@ -137,4 +137,4 @@
         </div>
 </form>
 
-</x-layout-menu-bar-user>
+</x-layout-menu-bar-private>
