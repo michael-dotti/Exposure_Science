@@ -131,8 +131,8 @@ class ArticleController extends Controller
             'abstract' => ['required', 'max:5000'],
             'users' => ['required', 'array', 'min:1'],
             'areas' => ['required', 'array', 'min:1'],
-            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
-            'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','nullable','url'],
+            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:5120'],
+            'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','url', 'max:1024'],
             'image_path' => ['nullable', 'image', 'max:5120'],
         ]);
 
@@ -171,7 +171,8 @@ class ArticleController extends Controller
                 if($article->image_path){
                     Storage::disk('public')->delete($article->image_path);
                 }
-                $validated['image_path'] = null;
+
+                $articleData['image_path']  = null;
         }
         else {
             unset($validated['image_path']);

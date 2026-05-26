@@ -28,25 +28,26 @@
                 @else
                     <p class="mb-6 text-white">
                         Leggi l'articolo intero:
-                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="{{ $article->external_url }}"> 
+                        <x-nav-link class="truncate mb-6 font-bold text-white text-underline" href="{{ $article->external_url }}"> 
                             {{ $article->external_url }}
                         </x-nav-link>
                     </p>
                 @endif
 
             </div>
-            <div class="mb-6 text-small text-white">
-                <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}" class="md:size-96 size-72" />
-            </div>
+            @if($article->image_path)
+                <div class="mb-6 text-small text-white">
+                    <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}" class="md:size-96 size-72" />
+                </div>
+            @endif
             </div>
         </div>
     </div>
 
     
     
-
-    <footer class="absolute bottom-0 flex justify-between items-center pb-4 pr-4">
-        <div class="flex items-center gap-3">
+    <footer>
+        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
             <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 text-black px-2 py-1 rounded">Modifica</a>
             
             <form action="/articles/{{ $article['id'] }}" method="POST" class="m-0 p-0">
@@ -56,8 +57,10 @@
             </form>
         </div>
 
-        <div>
-            <x-link-button href="/articles">back</x-link-button>
+        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
+            <button href="/articles" class="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:cursor-pointer">
+                <a href="/articles"> back </a>
+            </button>
         </div>
     </footer>
     

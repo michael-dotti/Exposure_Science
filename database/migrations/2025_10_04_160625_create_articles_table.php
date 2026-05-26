@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('data_pubblicazione'); 
             $table->text('abstract');
-             $table->string('external_url')->nullable(); // Salva il link per l'acquisto
+            $table->string('external_url', 2048)->nullable(); // Salva il link per l'acquisto
             $table->string('file_path')->nullable(); // Salva il percorso del file (es: uploads/articolo.pdf)
             $table->string('image_path')->nullable();
             $table->timestamps();
