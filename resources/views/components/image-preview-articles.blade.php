@@ -1,5 +1,20 @@
 @props(['name' => '', 'currentImage' => null])
 
+@php
+    // Otteniamo l'URL che Laravel genera quando non c'è nessun file (es. "/storage")
+    $emptyStorageUrl = Storage::url('');
+
+    // L'immagine è valida SOLO SE:
+    // 1. Non è vuota
+    // 2. Non è l'URL del sito
+    // 3. Non è il percorso "vuoto" dello storage (es. "/storage" o "/storage/")
+    $isValidImage = !empty($currentImage) && 
+                    $currentImage !== url('/') && 
+                    $currentImage !== asset('') && 
+                    $currentImage !== $emptyStorageUrl && 
+                    $currentImage !== rtrim($emptyStorageUrl, '/');
+@endphp
+
 <div class="m-2 p-2 font-sans max-w-200 flex flex-col gap-4">
 
     {{-- File Input --}}
@@ -13,7 +28,7 @@
         <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> 
         
         {{--il Pulsante Elimina --}}
-        <div id="deleteButtonWrapper" class="hidden">
+        <div id="deleteButtonWrapper" class="{{ $isValidImage ? '' : 'hidden' }}">
             <x-button type="button" id="deleteButton" class="bg-red-600 hover:bg-red-400">
                 Elimina
             </x-button>
@@ -21,7 +36,7 @@
     </div>
 
     {{-- Preview container --}}
-    <div id="previewContainer" class="hidden w-48 h-48 overflow-hidden border-4 border-solid flex justify-center">
+    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-48 h-48 overflow-hidden border-4 border-solid flex justify-center">
         <img class="size-full max-h-100 shadow-sm object-cover" 
              src="{{ $currentImage ?? '' }}" 
              alt="Preview Image" 

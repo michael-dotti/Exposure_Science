@@ -8,17 +8,6 @@ document.addEventListener('DOMContentLoaded', () => { // eseguie il codice dopo 
     const deleteButtonWrapper = document.getElementById('deleteButtonWrapper');
     const removePhotoInput = document.getElementById('remove_photo');
 
-
-    // Controllo iniziale: se c'è già un'immagine valida precaricata mostra i componenti
-    if (imagePreview) {
-        const currentSrc = imagePreview.getAttribute('src');
-        // Si assicura che il src esista, non sia vuoto e non sia un link del browser alla pagina stessa
-        if (currentSrc && currentSrc.trim() !== '' && currentSrc !== window.location.href) {
-            if (previewContainer) previewContainer.classList.remove('hidden');
-            if (deleteButtonWrapper) deleteButtonWrapper.classList.remove('hidden');
-        }
-    }
-
     // verifico se l'oggetto imageUpload (l'input dell'immagine) viene usato
     imageUpload.addEventListener('change', handleFileSelect);
 
