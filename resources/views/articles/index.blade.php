@@ -37,11 +37,7 @@
                 <div class="mt-4 flex gap-2">
                     <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
                     
-                    <form action="/articles/{{ $article['id'] }}" method="POST" class="m-0 p-0 flex">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:cursor-pointer">Elimina</button>
-                    </form>
+                    <livewire:articles.delete-article-modal :article="$article" wire:key="delete-modal-{{ $article->id }}" />
                 </div>
 
             </div>
