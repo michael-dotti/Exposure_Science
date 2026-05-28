@@ -25,7 +25,7 @@ class NewsFactory extends Factory
         return [
             'title' => fake()->sentence(rand(1, 3)),
             'content' => $contenents[rand(0,2)],
-            'publicationDate' => $date->format('Y-m-d'),//Carbon::now()->toDateString(),
+            //'publicationDate' => $date->format('Y-m-d'),//Carbon::now()->toDateString(),
             'imagePath' => 'uploads/news/defaultNews.webp'
         ];
     }

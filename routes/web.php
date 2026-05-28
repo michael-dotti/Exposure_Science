@@ -11,6 +11,7 @@ use App\Http\Controllers\PublicationsPageController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsManagementController;
 
 
 Route::controller(HomeController::class)->group( function (){
@@ -82,9 +83,14 @@ Route::middleware([
          Route::delete('/events/{event}','destroy');
     });
 
+    Route::controller(NewsManagementController::class)->group(function () {
+        Route::get('/news-management', 'index');
+        Route::get('/news-management/create', 'create');
+        Route::post('/news-management', 'store');
+    });
+
     Route::view('/projects','project.index');
     Route::view('/user-management','users-management.index');
-    Route::view('/news-management','news-management.index');
     Route::view('/event-management','events-management-index');
 
     

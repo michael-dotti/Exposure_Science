@@ -17,7 +17,7 @@ return new class extends Migration
             // TODO: ID utente
             $table->string("title");
             $table->string("content");
-            $table->string("publicationDate");
+            //$table->string("publicationDate");
             $table->string("imagePath");
         });
     }
