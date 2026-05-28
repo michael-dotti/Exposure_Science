@@ -87,6 +87,7 @@ Route::middleware([
         Route::get('/news-management', 'index');
         Route::get('/news-management/create', 'create');
         Route::post('/news-management', 'store');
+        Route::get('/news-management/{news}/edit','edit');
     });
 
     Route::view('/projects','project.index');

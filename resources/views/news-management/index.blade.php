@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <a href="/news/{{ $n['id'] }}/edit" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
+                    <a href="/news-management/{{ $n->id }}/edit" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
                     
                     
                 </div>

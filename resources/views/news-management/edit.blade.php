@@ -1,0 +1,59 @@
+<x-layout-menu-bar-private>
+    <x-slot:title>
+        Modifica Articolo
+    </x-slot:title>
+   
+    <div class="flex justify-end">
+        <x-link-button href="/news-management" >Indietro</x-link-button>
+    </div>
+    
+    <form method="POST" action="/news-management/{{ $news->id }}" enctype="multipart/form-data">
+      @csrf
+       @method('PATCH')
+          <div class="space-y-12 text-white">
+            <div class="border-b border-white/10 pb-12">
+              <h1 class="text-base/7 font-semibold text-white">Modifica Notizia: {{ $news->title }}</h2>
+              <div class="mt-1 mb-8">
+                <small>1. I campi con * sono obbligatori</small>
+            </div>
+
+              
+            <div>
+                <label for="title">Titolo*</label>
+                <input name="title" id="title" type="text" required value="{{ $news->title }}">
+                <x-form-error name="title" />
+            </div>
+              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
+              ma dal sistema guardando la data di oggi --}}
+
+            <div>
+                <label for="content">Contenuto*</label>
+                <input name="content" id="content" type="text" required value="{{ $news->content }}">
+                <x-form-error name="content" />
+                <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
+            </div>
+
+			<div class="mt-6">
+                <div>
+                  
+                      <div class="mb-3">
+                        @if($news->imagePath)
+                          <p class="text-md text-yellow-300">Immagine corrente:</p>
+                        @else
+                          <p class="text-md text-yellow-300">Selezionare immagine:</p>
+                        @endif
+                        <x-image-preview-articles name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
+                        <x-form-error name="imagePath" />
+                      </div>
+                </div>
+            </div>
+              
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          <a href="/news-management">
+            <x-button type="button" class="bg-red-800">Elimina</x-button>
+          </a>
+          <x-button type="submit" class="bg-green-800">Salva</x-button>
+        </div>
+</form>
+
+</x-layout-menu-bar-private>

@@ -29,17 +29,12 @@ class NewsManagementController extends Controller
     public function store()
     {
 
-        //dd("enter here");
-        //dd(request());
-
         // 1) validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
             'content' =>['required','max:5000'],
             'imagePath' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
-
-        //dd(request());
         
         $articleData = collect($validated)->toArray();
 
@@ -73,5 +68,10 @@ class NewsManagementController extends Controller
 
         // 3) redirect
         return redirect('/news-management');
+    }
+
+    public function edit(News $news)
+    {
+        return view('news-management.edit', ['news' => $news]);
     }
 }
