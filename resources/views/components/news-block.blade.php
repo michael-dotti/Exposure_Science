@@ -9,7 +9,7 @@
 		</div>
 
 		<p class="text-xs text-gray-300">
-			<span class="text-orange-400 font-semibold">{{ $n->publicationDate }}</span>
+			<span class="text-orange-400 font-semibold">{{ date('Y-m-d', strtotime($n->created_at)) }}</span>
 			{{ Str::limit($n->content, 60) }}
         </p>
     </a>

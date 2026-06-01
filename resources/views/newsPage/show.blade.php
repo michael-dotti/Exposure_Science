@@ -3,7 +3,7 @@
     </x-slot:title>
     <x-slot:heading>
         <div class="text-white text-3xl"> {{ $n->title }} </div>
-        <pre class="text-sm"> del <span class="text-orange-400"> {{ $n->publicationDate }} <span> </pre>
+        <pre class="text-sm"> del <span class="text-orange-400"> {{ $n->created_at }} <span> </pre>
     </x-slot:heading>
     <div>
         <div class="flex h-screen items-center justify-center bg-gray-900 p-5">
