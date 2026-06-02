@@ -83,16 +83,21 @@ Route::middleware([
          Route::delete('/events/{event}','destroy');
     });
 
-    Route::controller(NewsManagementController::class)->group(function () {
-        Route::get('/news-management', 'index');
-        Route::get('/news-management/create', 'create');
-        Route::post('/news-management', 'store');
-        Route::get('/news-management/{news}/edit','edit');
+    Route::middleware(['role:admin'])->group(function (){
+        Route::controller(NewsManagementController::class)->group(function () {
+            Route::get('/news-management', 'index');
+            Route::get('/news-management/create', 'create');
+            Route::post('/news-management', 'store');
+            Route::get('/news-management/{news}/edit','edit');
+        });
+
+        Route::view('/user-management','users-management.index');
+        Route::view('/event-management','events-management-index');
     });
 
     Route::view('/projects','project.index');
-    Route::view('/user-management','users-management.index');
-    Route::view('/event-management','events-management-index');
+    
+    
 
     
 });
