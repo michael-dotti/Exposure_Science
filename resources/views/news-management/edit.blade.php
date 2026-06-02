@@ -23,8 +23,6 @@
                 <input name="title" id="title" type="text" required value="{{ $news->title }}">
                 <x-form-error name="title" />
             </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
 
             <div>
                 <label for="content">Contenuto*</label>
@@ -35,7 +33,6 @@
 
 			<div class="mt-6">
                 <div>
-                  
                       <div class="mb-3">
                         @if($news->imagePath)
                           <p class="text-md text-yellow-300">Immagine corrente:</p>
@@ -47,7 +44,7 @@
                       </div>
                 </div>
             </div>
-              
+            
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <a href="/news-management">
             <x-button type="button" class="bg-red-800">Elimina</x-button>

@@ -79,6 +79,8 @@ class NewsManagementController extends Controller
 
     public function update(News $news)
     {
+    
+        //dd($_POST['voice']);
 
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
@@ -89,28 +91,27 @@ class NewsManagementController extends Controller
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
 
         if (request()->hasFile('imagePath')) {
+            // Elimina la vecchia immagine
+            if ($nes->imagePath && $article->imagePath !== 'articles/covers/default.png') {
+                Storage::disk('public')->delete($article->imagePath);
+            }
 
-            /* Uso la libreria Intervention Image per ridurre il
-             peso dell'immagine e convertirla in .webp */
             $file = request()->file('imagePath');
 
             // Leggi l'immagine
             $image = Image::read($file);
-
-            // cover(800,450) =  formato 16:9, ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (200px)
+            // ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (250px)
             $image->cover(250,250);
-
             // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
-
             // Genera un nome unico con estensione .webp
-            $filename = 'uploads/news/covers/' . uniqid() . '.webp';
-            
+            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
             /// Salva fisicamente in storage/app/public/articles/covers/
             Storage::disk('public')->put($filename, $encoded->toString());
-
             // Salva il percorso nel database
             $articleData['imagePath'] = $filename;
+        } else {
+            unset($validated['imagePath']);
         }
 
         $article = News::create($articleData);
