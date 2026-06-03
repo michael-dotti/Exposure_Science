@@ -36,7 +36,7 @@ class NewsManagementController extends Controller
             'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
         
-        $articleData = collect($validated)->toArray();
+        $newsData = collect($validated)->toArray();
 
         if (request()->hasFile('imagePath')) {
 
@@ -60,13 +60,13 @@ class NewsManagementController extends Controller
             Storage::disk('public')->put($filename, $encoded->toString());
 
             // Salva il percorso nel database
-            $articleData['imagePath'] = $filename;
+            $newsData['imagePath'] = $filename;
         }
 
-        //$articleData
+        //$newsData
 
         // Creazione record nel Database
-        $article = News::create($articleData);
+        $article = News::create($newsData);
 
         // 3) redirect
         return redirect('/news-management');
@@ -79,39 +79,32 @@ class NewsManagementController extends Controller
 
     public function update(News $news)
     {
+        $imagePath = $news->imagePath;
+        
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
             'content' =>['required','max:5000'],
-            'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
+            'imagePath' =>[$imagePath ? 'nullable' : 'required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
 
-        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
-
         if (request()->hasFile('imagePath')) {
-            // Elimina la vecchia immagine
-            if ($nes->imagePath && $article->imagePath !== 'articles/covers/default.png') {
-                Storage::disk('public')->delete($article->imagePath);
+            if ($news->imagePath && $news->imagePath !== 'news/defaultNews.png') {
+                Storage::disk('public')->delete($news->imagePath);
             }
 
             $file = request()->file('imagePath');
 
-            // Leggi l'immagine
             $image = Image::read($file);
-            // ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (250px)
             $image->cover(250,250);
-            // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
-            // Genera un nome unico con estensione .webp
-            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
-            /// Salva fisicamente in storage/app/public/articles/covers/
+            $filename = 'uploads/news/' . uniqid() . '.webp';
             Storage::disk('public')->put($filename, $encoded->toString());
-            // Salva il percorso nel database
-            $articleData['imagePath'] = $filename;
+            $validated['imagePath'] = $filename;
         } else {
             unset($validated['imagePath']);
         }
 
-        $article = News::create($articleData);
+        $news->update($validated);
 
         return redirect('/news-management');
     }

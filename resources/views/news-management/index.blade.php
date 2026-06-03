@@ -2,7 +2,7 @@
     <x-slot:title>
         Gestione News
     </x-slot:title>
-    <x-link-button href="/news-management/create" >Nuovo articolo</x-link-button>
+    <x-link-button href="/news-management/create" >Nuova Notizia</x-link-button>
     
     <div class="space-y-4">
     @forelse ($news as $n)
