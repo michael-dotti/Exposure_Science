@@ -79,9 +79,6 @@ class NewsManagementController extends Controller
 
     public function update(News $news)
     {
-    
-        //dd($_POST['voice']);
-
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
             'content' =>['required','max:5000'],

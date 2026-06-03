@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -35,7 +37,6 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
-            'admin' =>false,
         ];
     }
 
@@ -65,7 +66,6 @@ class UserFactory extends Factory
             'email'=>'admin@example.com',
             'password'=>static::$password ??= Hash::make('password'),
             'profile_photo_path' => 'uploads/defaultUser/Admin.webp', 
-            'admin' => true,
             'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
@@ -107,7 +107,6 @@ class UserFactory extends Factory
             'email' => 'test1@example.com',
             'password'=>'password',
             'profile_photo_path' => 'uploads/defaultUser/Mario_Rossi.webp',
-            'admin' => false,
             'bio' => <<<EOT
             Sono Mario Rossi, ho 27 anni e lavoro come Liutaio di Strumenti Elettronici.
             Fondo il legno pregiato con circuiti analogici fatti a mano per creare sintetizzatori che suonano
@@ -116,7 +115,7 @@ class UserFactory extends Factory
             impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
             viene suonata una nota specifica.
             EOT,
-        ]);
+        ])->assignRole('researcher');
 
         $this->withPersonalTeam()->create([
             'name' => 'Emilia',
@@ -124,7 +123,6 @@ class UserFactory extends Factory
             'email' => 'test2@example.com',
             'password' => 'password',
             'profile_photo_path' => 'uploads/defaultUser/Emilia_Rossi.webp',
-            'admin' => false,
             'bio' => <<<EOT
             Sono Emilia Rossi, 31 anni, e la mia professione è "Designer di Esperienze Olfattive". 
             Creo profumi non per il corpo, ma per gli spazi: installazioni effimere in gallerie d'arte o ambienti privati,
@@ -133,8 +131,8 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-        ]);
+        ])->assignRole('researcher');
 
-        $this->defaultAdmin()->withPersonalTeam()->create();
+        $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
     }
 }

@@ -52,21 +52,21 @@
                     AMMINISTRATORE: vede gli eventi rivolti a lui e ne può creare dei nuovi 
                     --}}
                 </a>
-                {{-- 
-                    TODO: se l'utente è amministratore avrà anche le sezioni qui sotto 
-                    TODO: IMPLEMENTARE VERIFICA UTENTE AMMINISTRATORE (con "can"?)--}}
-                <a href="/user-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('user-management')" class="fas fa-users"></x-icon-dashboard>
-                    Gestisci Utenti
-                </a>
-                <a href="/news-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-newspaper"></x-icon-dashboard>
-                    Gestisci news
-                </a>
-                <a href="/event-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-cubes"></x-icon-dashboard>
-                    Gestisci Eventi
-                </a>
+
+                @role('admin')             
+                    <a href="/user-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                        <x-icon-dashboard :active="request()->is('user-management')" class="fas fa-users"></x-icon-dashboard>
+                        Gestisci Utenti
+                    </a>
+                    <a href="/news-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                        <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-newspaper"></x-icon-dashboard>
+                        Gestisci news
+                    </a>
+                    <a href="/event-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                        <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-cubes"></x-icon-dashboard>
+                        Gestisci Eventi
+                    </a>
+                @endrole
             </div>
         </nav>
         
@@ -82,9 +82,9 @@
                             <p class="text-white text-sm font-medium">
                                 {{ Auth::user()->name }} {{Auth::user()->surname }} 
                             </p>
-                            @if(auth()->user()->admin)
+                            @role('admin')
                                 <p class="text-gray-400 text-xs">Administrator</p>
-                            @endif
+                            @endrole
                         </div>
                     </div>
                     

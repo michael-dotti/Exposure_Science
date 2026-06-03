@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        
+        $this->call(RoleAndPermissionSeeder::class); // deve essere aggiunto prima della chiamata di UserSeeder, altrimenti assegno agli user di default ruoli che non esistono ancora
         $this->call(ResearchAreaSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(EventSeeder::class);

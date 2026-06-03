@@ -16,9 +16,10 @@
                         <a class="flex items-center flex-col" href="teamPage/{{ $user->id }}">
                             <img src="{{ $user->profilephotourl }}" alt="profile_photo" class="rounded-full w-16 h-16 object-cover">
                             <h5 class="font-semibold text-white">{{ $user->name }} {{ $user->surname }}</h5>
-                            <h6 class="text-sm text-white">@if ( $user->admin)
-                            Team Leader
-                            @endif</h6>
+                            @if ( $user->hasRole('admin'))
+                                <h6 class="text-sm text-white">Team Leader</h6>
+                            @endif
+                            
                         </a>
                     </li>
                     @endforeach
