@@ -93,8 +93,8 @@ Route::middleware([
             Route::delete('/news-management/{news}','destroy');
         });
 
-        Route::view('/user-management','users-management.index');
-        Route::view('/event-management','events-management-index');
+        Route::view('/users-management','users-management.index');
+        Route::view('/events-management','events-management.index');
     });
 
     Route::view('/projects','project.index');

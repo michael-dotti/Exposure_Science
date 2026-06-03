@@ -114,6 +114,7 @@
               
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <a href="/articles">
+            <!--TODO: implementare pulsante elimina-->
             <x-button type="button" class="bg-red-800">Elimina</x-button>
           </a>
           <x-button type="submit" class="bg-green-800">Salva</x-button>
