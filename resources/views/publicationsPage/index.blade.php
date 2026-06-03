@@ -63,7 +63,7 @@
                         
                         <div class="py-1">
                             @foreach ($areas as $area)
-                                <x-dropdown-link href="/publications/author/{{ $area->id }}"> {{ $area->name }} </x-dropdown-link>
+                                <x-dropdown-link href="/publications/researchAreas/{{ $area->id }}"> {{ $area->name }} </x-dropdown-link>
                             @endforeach
                         </div>
                     </div>
