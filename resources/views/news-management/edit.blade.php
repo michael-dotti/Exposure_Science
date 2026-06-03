@@ -42,11 +42,13 @@
             </div>
             
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/news-management">
-            <x-button type="button" class="bg-red-800">Elimina</x-button>
-          </a>
-          <x-button type="submit" class="bg-green-800">Salva</x-button>
+          <x-danger-button form="delete_form" type="submit">Elimina</x-danger-button>
+          <x-save-button>Salva</x-save-button>
         </div>
+</form>
+<form method="POST" action="/news-management/{{ $news->id }}" class="hidden" id="delete_form">
+              @csrf
+              @method('DELETE')
 </form>
 
 </x-layout-menu-bar-private>

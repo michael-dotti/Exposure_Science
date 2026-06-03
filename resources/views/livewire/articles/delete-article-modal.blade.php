@@ -17,11 +17,11 @@
                 Annulla
             </button>
             
-            <button wire:click="deleteArticle"
+            <x-danger-button wire:click="deleteArticle"
                 wire:loading.attr="disabled"
-                class="text-xs bg-red-500 text-white px-2 py-1 rounded hover:cursor-pointer">
+                >
                 Elimina Definitivamente
-            </button>
+            </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
 </div>
