@@ -12,6 +12,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
+use App\Http\Controllers\EventManagementController;
 
 
 Route::controller(HomeController::class)->group( function (){
@@ -93,8 +94,12 @@ Route::middleware([
             Route::delete('/news-management/{news}','destroy');
         });
 
+        Route::controller(EventManagementController::class)->group(function () {
+            Route::get('/events-management','index');
+            Route::get('/events-management/create', 'create');
+        });
+
         Route::view('/users-management','users-management.index');
-        Route::view('/events-management','events-management.index');
     });
 
     Route::view('/projects','project.index');
