@@ -14,7 +14,8 @@
                     <a href="/events/{{ $event->id }}" class="hover:underline">
                         <strong>{{ $event->title }}</strong>
                     </a>
-                    :
+                    <p>da:</p>
+                    <p>a:</p>
                     <br>{{ $event->content }}
                 </div>
 
@@ -47,5 +48,9 @@
             </div>
         </div>
     @endforelse
+    </div>
+
+    <div class="mt-6">
+        {{ $events->links() }}
     </div>
 </x-layout-menu-bar-private>

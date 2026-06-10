@@ -65,22 +65,4 @@
     <div class="mt-6">
         {{ $articles->links() }}
     </div>
-    
-    {{--  
-    <div class="space-y-4">
-        @foreach ( $articles as $article )
-            <a href="/article/{{ $article['id'] }}" class=" block px-4 py-6 border border-gray-200 rounded-lg">
-                <div class="font-bold text-blue-500 text-sm"> 
-                {{ $article->user->name }} 
-            </div>
-                <div>
-                    <strong>{{ $article['title'] }}</strong>:  {{ $article['abstract'] }} .
-                </div>    
-            </a>
-        @endforeach
-    </div>
-    <div>
-        {{  $articles->links()}} 
-    </div>
-    --}}
 </x-layout-menu-bar-private>

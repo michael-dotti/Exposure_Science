@@ -41,8 +41,8 @@
                           </label>
                       </div>
                   @endforeach
-                   <x-form-error name="users" />
                 </div> 
+                   <x-form-error name="users" />
               </div>
 			
 			<div class="mt-4">
@@ -50,7 +50,7 @@
                 <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
                   @foreach($types as $type)
                       <div class="flex items-center gap-x-3 pr-4">
-                          <input id="type-{{ $type }}" name="types[]" value="{{ $type }}" type="checkbox" 
+                          <input id="type-{{ $type }}" name="type" value="{{ $type }}" type="radio" 
                                 class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                           
                           <label for="type-{{ $type }}" class="text-sm text-white whitespace-nowrap">
@@ -58,8 +58,9 @@
                           </label>
                       </div>
                   @endforeach
-                   <x-form-error name="types" />
+                   
                 </div> 
+                <x-form-error name="type" />
             </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
