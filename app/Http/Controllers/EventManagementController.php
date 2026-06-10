@@ -38,21 +38,35 @@ class EventManagementController extends Controller
 
     public function store(Event $event)
     {
-        $validated = request()->validate([
+        
+        request()->validate([
             'title' => ['required','min:3','max:255'],
             'content' =>['required','max:5000'],
             'type' => ['required'],
             'users' => ['required', 'array', 'min:1'],
+            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,png','max:5120'],
         ]);
         
         $event = Event::create([
-            'title' => $validated['title'],
-            'content' => $validated['content'],
-            'type' => $validated['type'],
+            'title' => request()->title,
+            'content' => request()->content,
+            'type' => request()->type,
             'creator_user_id' => Auth::id(),
         ]);
 
         $event->users_related_to_this_event()->attach(request()->users);
+        if(request()->hasFile('documents')) {
+            foreach(request()->file('documents') as $file) {
+
+                $path = $file->store('uploads/event/documents','public');
+
+               
+                $event->documents()->create([
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_path' => $path,
+                ]);
+            }
+        }
 
         return redirect('/events-management');
     }

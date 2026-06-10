@@ -62,7 +62,15 @@
                 </div> 
                 <x-form-error name="type" />
             </div>
-
+        
+        <div class="mt-4">
+          <label for="documents">
+            Allega documenti:
+          </label>
+          <input type="file" name="documents[]" id="documents" multiple="">
+          <x-form-error name="documents" />
+        </div>
+        
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <a href="/events-management">
             <x-button type="button" class="bg-red-800">Annulla</x-button>
