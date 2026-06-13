@@ -85,55 +85,12 @@
                 <x-image-preview-articles name="image_path" currentImage=""/>
               </div>
             </div>
-              {{--  
-              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-4">
-                  <label for="username" class="block text-sm/6 font-medium text-white">Title</label>
-                  <div class="mt-2">
-                    <div class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
-                      <input id="username" type="text" name="username" placeholder="janesmith" class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <label for="users">Autori (seleziona uno o più)</label>
-                    <select name="users" id="users" class="form-control" >
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                    <small>Tieni premuto Ctrl (o Cmd) per selezionare più autori.</small>
-                </div>
-
-
-                <div class="col-span-full">
-                  <label for="abstract" class="block text-sm/6 font-medium text-white">Abstract</label>
-                  <div class="mt-2">
-                    <textarea id="abstract" name="abstract" rows="3" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"></textarea>
-                  </div>
-                  <p class="mt-3 text-sm/6 text-gray-400">Describe with a few words the article</p>
-                </div>
-
-
-                
-                <div class="col-md-6 mb-3">
-                    <label for="file_articolo">Carica il file dell'articolo (PDF, DOC)</label>
-                    <input type="file" name="file_articolo" id="file_articolo" class="form-control">
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="external_url">Oppure inserisci un link esterno (URL)</label>
-                    <input type="url" name="external_url" id="external_url" class="form-control" placeholder="https://example.com/acquisto">
-                </div>
-            
-            </div>
-            --}}
+              
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <a href="/articles">
-            <x-button type="button" class="bg-red-800">Cancel</x-button>
+            <x-danger-button type="button">Cancel</x-danger-button>
           </a>
-            <x-button type="submit" class="bg-green-800">Save</x-button>
+            <x-save-button type="submit" >Save</x-save-button>
         </div>
 </form>
 

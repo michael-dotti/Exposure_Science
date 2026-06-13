@@ -35,15 +35,13 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <x-button class="text-xs bg-yellow-400 hover:bg-yellow-500">
-                        <a href="/articles/{{ $article['id'] }}/edit" class="text-black" >Modifica</a>
-                    </x-button>
-
+                    <x-modify-button-link href="/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
+                    
+                    <x-danger-button form="delete_form" >Elimina</x-danger-button>
                     <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
                         @csrf
                         @method('DELETE')
                     </form>
-                    <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
                 </div>
 
             </div>

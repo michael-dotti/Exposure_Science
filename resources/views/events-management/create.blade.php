@@ -73,9 +73,9 @@
         
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <a href="/events-management">
-            <x-button type="button" class="bg-red-800">Annulla</x-button>
+            <x-danger-button type="button" >Annulla</x-danger-button>
           </a>
-            <x-button type="submit" class="bg-green-800">Salva</x-button>
+            <x-save-button type="submit" >Salva</x-save-button>
         </div>
 </form>
 

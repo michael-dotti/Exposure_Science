@@ -1,6 +1,6 @@
 <x-layout-menu-bar-private>
     <x-slot:title>
-        Modifica Articolo
+        Modifica News
     </x-slot:title>
    
     <div class="flex justify-end">
@@ -43,8 +43,8 @@
           </div>
            
         <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5">
-          <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
-          <x-button type="submit" class="bg-green-800">Salva</x-button>
+          <x-danger-button form="delete_form" >Elimina</x-danger-button>
+          <x-save-button type="submit" >Salva</x-save-button>
         </div>
 </form>
 <form method="POST" action="/news-management/{{ $news->id }}" class="hidden" id="delete_form" >

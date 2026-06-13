@@ -51,15 +51,13 @@
     </form>
     <footer>
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
-            <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 text-black px-2 py-1 rounded">Modifica</a>
+            <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
             
-            <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
+            <x-danger-buttonbutton form="delete_form">Elimina</x-danger-buttonbutton>
         </div>
 
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
-            <button href="/articles" class="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:cursor-pointer">
-                <a href="/articles"> back </a>
-            </button>
+            <x-link-button href="/articles" >back</x-link-button>
         </div>
     </footer>
     

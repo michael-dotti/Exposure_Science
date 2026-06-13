@@ -117,9 +117,9 @@
               
         <div class="mt-6 flex items-center justify-end gap-x-6">
           
-          <x-button form="delete_form" class="bg-red-800">Elimina</x-button>
+          <x-danger-button form="delete_form" >Elimina</x-danger-button>
           
-          <x-button type="submit" class="bg-green-800">Salva</x-button>
+          <x-save-button type="submit" >Salva</x-save-button>
         </div>
 </form>
 
