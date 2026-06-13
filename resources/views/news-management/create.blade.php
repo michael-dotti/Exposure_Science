@@ -30,16 +30,16 @@
               </div>
 
               <div class="mt-6">
-                <label for="imagePath">Image</label>
+                <label for="imagePath">Immagine*</label>
                 <x-image-preview-articles name="imagePath" currentImage=""/>
               </div>
             </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/articles">
-            <x-button type="button" class="bg-red-800">Cancel</x-button>
+          <a href="/news-management">
+            <x-button type="button" class="bg-red-800">Annulla</x-button>
           </a>
-            <x-button type="submit" class="bg-green-800">Save</x-button>
+            <x-button type="submit" class="bg-green-800">Salva</x-button>
         </div>
 </form>
 

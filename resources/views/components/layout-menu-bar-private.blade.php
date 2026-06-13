@@ -54,16 +54,16 @@
                 </a>
 
                 @role('admin')             
-                    <a href="/user-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                        <x-icon-dashboard :active="request()->is('user-management')" class="fas fa-users"></x-icon-dashboard>
+                    <a href="/users-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                        <x-icon-dashboard :active="request()->is('users-management')" class="fas fa-users"></x-icon-dashboard>
                         Gestisci Utenti
                     </a>
                     <a href="/news-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
                         <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-newspaper"></x-icon-dashboard>
                         Gestisci news
                     </a>
-                    <a href="/event-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                        <x-icon-dashboard :active="request()->is('news-management')" class="fas fa-cubes"></x-icon-dashboard>
+                    <a href="/events-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                        <x-icon-dashboard :active="request()->is('events-management')" class="fas fa-cubes"></x-icon-dashboard>
                         Gestisci Eventi
                     </a>
                 @endrole

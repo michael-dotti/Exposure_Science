@@ -34,12 +34,8 @@
 			      <div class="mt-6">
                 <div>
                       <div class="mb-3">
-                        @if($news->imagePath)
-                          <p class="text-md text-yellow-300">Immagine corrente:</p>
-                        @else
-                          <p class="text-md text-yellow-300">Selezionare immagine:</p>
-                        @endif
-                        <x-image-preview-articles name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
+                        <p class="text-md text-yellow-300">Immagine corrente*:</p>
+                        <x-image-preview-news name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
                         <x-form-error name="imagePath" />
                       </div>
                 </div>
