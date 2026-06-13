@@ -89,6 +89,7 @@ Route::middleware([
             Route::get('/news-management/create', 'create');
             Route::post('/news-management', 'store');
             Route::get('/news-management/{news}/edit','edit');
+            Route::delete('/news-management/{news}','destroy');
         });
 
         Route::view('/user-management','users-management.index');

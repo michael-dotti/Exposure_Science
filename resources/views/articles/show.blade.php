@@ -45,12 +45,15 @@
     </div>
 
     
-    
+    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+      @csrf
+      @method('DELETE')
+    </form>
     <footer>
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
             <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 text-black px-2 py-1 rounded">Modifica</a>
             
-            <livewire:articles.delete-article-modal :article="$article" wire:key="delete-modal-{{ $article->id }}"/>
+            <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
         </div>
 
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">

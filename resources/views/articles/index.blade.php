@@ -35,9 +35,15 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 px-2 py-1 rounded">Modifica</a>
-                    
-                    <livewire:articles.delete-article-modal :article="$article" wire:key="delete-modal-{{ $article->id }}" />
+                    <x-button class="text-xs bg-yellow-400 hover:bg-yellow-500">
+                        <a href="/articles/{{ $article['id'] }}/edit" class="text-black" >Modifica</a>
+                    </x-button>
+
+                    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
                 </div>
 
             </div>
@@ -66,21 +72,4 @@
         {{ $articles->links() }}
     </div>
     
-    {{--  
-    <div class="space-y-4">
-        @foreach ( $articles as $article )
-            <a href="/article/{{ $article['id'] }}" class=" block px-4 py-6 border border-gray-200 rounded-lg">
-                <div class="font-bold text-blue-500 text-sm"> 
-                {{ $article->user->name }} 
-            </div>
-                <div>
-                    <strong>{{ $article['title'] }}</strong>:  {{ $article['abstract'] }} .
-                </div>    
-            </a>
-        @endforeach
-    </div>
-    <div>
-        {{  $articles->links()}} 
-    </div>
-    --}}
 </x-layout-menu-bar-private>

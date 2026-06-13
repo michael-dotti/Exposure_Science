@@ -11,12 +11,12 @@
       @csrf
        @method('PATCH')
           <div class="space-y-12 text-white">
-            <div class="border-b border-white/10 pb-12">
-              <h1 class="text-base/7 font-semibold text-white">Modifica Notizia: {{ $news->title }}</h2>
+            <div class="border-b border-white/10 pb-1">
+              <h1 class="text-base/7 font-semibold text-white">Modifica Notizia: {{ $news->title }}</h1>
               <div class="mt-1 mb-8">
                 <small>1. I campi con * sono obbligatori</small>
+              </div>
             </div>
-
               
             <div>
                 <label for="title">Titolo*</label>
@@ -31,7 +31,7 @@
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
             </div>
 
-			<div class="mt-6">
+			      <div class="mt-6">
                 <div>
                       <div class="mb-3">
                         @if($news->imagePath)
@@ -44,13 +44,15 @@
                       </div>
                 </div>
             </div>
-            
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/news-management">
-            <x-button type="button" class="bg-red-800">Elimina</x-button>
-          </a>
+          </div>
+           
+        <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5">
+          <x-button form="delete_form" class="bg-red-500 hover:bg-red-600">Elimina</x-button>
           <x-button type="submit" class="bg-green-800">Salva</x-button>
         </div>
 </form>
-
+<form method="POST" action="/news-management/{{ $news->id }}" class="hidden" id="delete_form" >
+            @csrf
+            @method('DELETE')
+          </form>
 </x-layout-menu-bar-private>

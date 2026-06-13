@@ -102,4 +102,14 @@ class NewsManagementController extends Controller
 
         return redirect('/news-management');
     }
+
+    public function destroy (News $news){
+        if($news->imagePath && $news->imagePath !== 'uploads/news/defaultNews.webp')
+        {
+            Storage::disk('public')->delete($news->imagePath);
+        }
+
+        $news->delete();
+        return redirect('/news-management');
+    }
 }
