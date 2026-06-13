@@ -97,6 +97,7 @@ Route::middleware([
         Route::controller(EventManagementController::class)->group(function () {
             Route::get('/events-management','index');
             Route::get('/events-management/create', 'create');
+            Route::post('/events-management', 'store');
         });
 
         Route::view('/users-management','users-management.index');
