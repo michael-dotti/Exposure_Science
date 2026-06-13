@@ -9,15 +9,9 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class NewsManagementController extends Controller
 {
-    public function index(){
-        
-        //mostro nella home le tre notizie più nuove
+    public function index()
+    {    
         $news = News::latest()->orderBy('created_at', 'desc')->get();
-
-        //$article = Article::find(1);
-        //$users = $article->users;
-        //dd($users);
-        //return view('publicationsPage.index', compact('articles'));
         return view('news-management.index', ['news' => $news]);
     }
 
@@ -85,33 +79,26 @@ class NewsManagementController extends Controller
             'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
 
-        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
-
         if (request()->hasFile('imagePath')) {
             // Elimina la vecchia immagine
-            if ($nes->imagePath && $article->imagePath !== 'articles/covers/default.png') {
-                Storage::disk('public')->delete($article->imagePath);
+            if ($news->imagePath && $news->imagePath !== 'uploads/news/defaultNews.webp') {
+                Storage::disk('public')->delete($news->imagePath);
             }
 
             $file = request()->file('imagePath');
 
-            // Leggi l'immagine
             $image = Image::read($file);
-            // ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (250px)
             $image->cover(250,250);
-            // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
-            // Genera un nome unico con estensione .webp
-            $filename = 'uploads/articles/covers/' . uniqid() . '.webp';
-            /// Salva fisicamente in storage/app/public/articles/covers/
+            $filename = 'uploads/news/' . uniqid() . '.webp';
             Storage::disk('public')->put($filename, $encoded->toString());
-            // Salva il percorso nel database
             $articleData['imagePath'] = $filename;
+
         } else {
             unset($validated['imagePath']);
         }
 
-        $article = News::create($articleData);
+        $news = News::create($validated);
 
         return redirect('/news-management');
     }

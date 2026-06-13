@@ -189,7 +189,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         // 1) Elimina il file fisico se esiste
-        if ($article->image_path) {
+        if ($article->image_path && $article->image_path !== 'uploads/articles/covers/default.webp') {
             Storage::disk('public')->delete($article->image_path);
         }
 

@@ -6,7 +6,10 @@
     <div class="flex justify-end">
         <x-link-button href="/articles" >Indietro</x-link-button>
     </div>
-    
+    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+      @csrf
+      @method('DELETE')
+    </form>
     <form method="POST" action="/articles/{{ $article->id }}" enctype="multipart/form-data">
       @csrf
        @method('PATCH')
@@ -113,11 +116,12 @@
             </div>
               
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/articles">
-            <x-button type="button" class="bg-red-800">Elimina</x-button>
-          </a>
+          
+          <x-button form="delete_form" class="bg-red-800">Elimina</x-button>
+          
           <x-button type="submit" class="bg-green-800">Salva</x-button>
         </div>
 </form>
+
 
 </x-layout-menu-bar-private>
