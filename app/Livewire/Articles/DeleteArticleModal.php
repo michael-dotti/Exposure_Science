@@ -14,6 +14,7 @@ class DeleteArticleModal extends Component
 
     public function deleteArticle()
     {
+       $articleId = $this->article->id;
         // 1. Elimina l'articolo dal database
         if ($this->article->image_path) {
             Storage::disk('public')->delete($this->article->image_path);
