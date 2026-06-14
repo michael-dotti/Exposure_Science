@@ -3,7 +3,7 @@
         Articles 
     </x-slot:title>
     
-    @can('create') 
+    @can('create', App\Models\Article::class) 
         <x-link-button href="/articles/create" >Nuovo articolo</x-link-button> 
     @endcan
 
@@ -44,12 +44,14 @@
                         <x-modify-button-link href="/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
                         @endcan
                         @can('delete', $article)
-                            <x-danger-button form="delete_form" >Elimina</x-danger-button>
-                            <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+                            <x-danger-button form="delete_form_{{ $article->id }}" >Elimina</x-danger-button>
+                            <form method="POST" action="/articles/{{ $article->id }}" id="delete_form_{{ $article->id }}" class="hidden">
                                 @csrf
                                 @method('DELETE')
                             </form>
+                            
                         @endcan
+
                     </div>
                 @endcanany
 
