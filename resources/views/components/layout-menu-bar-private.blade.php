@@ -25,43 +25,20 @@
         
         <nav class="mt-8 px-4">
             <div class="space-y-2">
-                <a href="/dashboard" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('dashboard')" class="fas fa-user"></x-icon-dashboard>
-                    Area Personale {{-- TODO: l'utente può cambiare foto profilo, nome, breve descrizione di se ecc... --}}
-                </a>
-                <a href="/articles" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('articles*')" class="fas fa-book"></x-icon-dashboard>
-                    Articoli
-                </a>
-                <a href="/project" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('projects*')" class="fas fa-chart-bar"></x-icon-dashboard>
-                    progetti
-                    {{-- 
-                    TODO:la pagina caricata varia in base al fatto se l'utente è:
-                    NO AMMINISTRATORE: vede i progetti assegnatigli
-                    AMMINISTRATORE: vede i progetti assegnatigli e ne può creare dei nuovi, potendo volendo 
-                    collegare il progetto ad un evento per degli altri utenti
-                    --}}
-                </a>
-                <a href="/events" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                    <x-icon-dashboard :active="request()->is('events','events/*')" class="fas fa-cube"></x-icon-dashboard>
-                    Eventi
-                </a>
-
-                @role('admin')             
-                    <a href="/users-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                        <x-icon-dashboard :active="request()->is('users-management*')" class="fas fa-users"></x-icon-dashboard>
-                        Gestisci Utenti
-                    </a>
-                    <a href="/news-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                        <x-icon-dashboard :active="request()->is('news-management*')" class="fas fa-newspaper"></x-icon-dashboard>
-                        Gestisci news
-                    </a>
-                    <a href="/events-management" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
-                        <x-icon-dashboard :active="request()->is('events-management*')" class="fas fa-cubes"></x-icon-dashboard>
-                        Gestisci Eventi
-                    </a>
-                @endrole
+                <x-link-with-icon href="/dashboard" :active="request()->is('dashboard')" iconType="fas fa-user">Area Personale</x-link-with-icon>
+                <x-link-with-icon href="/articles" :active="request()->is('articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
+                <x-link-with-icon href="/project" :active="request()->is('projects*')" iconType="fas fa-chart-bar">progetti</x-link-with-icon>
+                <x-link-with-icon  href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
+               
+                @can('management users')             
+                    <x-link-with-icon href="/users-management" :active="request()->is('users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
+                @endcan
+                @can('management news') 
+                    <x-link-with-icon href="/news-management" :active="request()->is('news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
+                @endcan
+                @can('management events') 
+                    <x-link-with-icon href="/events-management" :active="request()->is('events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
+                @endcan
             </div>
         </nav>
         

@@ -3,8 +3,13 @@
         Articles 
     </x-slot:title>
     
-    <x-link-button href="/articles/create" >Nuovo articolo</x-link-button>
-    
+    @can('create') 
+        <x-link-button href="/articles/create" >Nuovo articolo</x-link-button> 
+    @endcan
+
+    @can('edit all articles')
+        //TODO: implementare filtraggio per autore e per argoment odi ricerca
+    @endcan
     <div class="space-y-4">
     @forelse ($articles as $article)
         <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
@@ -33,16 +38,20 @@
                     :
                     <br>{{ $article->abstract }}
                 </div>
-
-                <div class="mt-4 flex gap-2">
-                    <x-modify-button-link href="/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
-                    
-                    <x-danger-button form="delete_form" >Elimina</x-danger-button>
-                    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                </div>
+                @canany(['update', 'delete'], $article)
+                    <div class="mt-4 flex gap-2">
+                        @can('update', $article)
+                        <x-modify-button-link href="/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
+                        @endcan
+                        @can('delete', $article)
+                            <x-danger-button form="delete_form" >Elimina</x-danger-button>
+                            <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        @endcan
+                    </div>
+                @endcanany
 
             </div>
         </div>

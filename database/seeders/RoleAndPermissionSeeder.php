@@ -21,16 +21,27 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name'=>'management users']);
         Permission::create(['name'=>'management news']);
         Permission::create(['name'=>'management events']);
+        Permission::create(['name'=>'write articles']);
+        Permission::create(['name'=>'edit own articles']);
+        Permission::create(['name'=>'edit all articles']);
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create role and assign created permission
-        $role = Role::create(['name'=>'researcher']);
-        // TODO: create permission for researcher, if he need it
+        $writer = Role::create(['name'=>'writer']);
+        $writer->givePermissionTo('write articles'); 
+        $writer->givePermissionTo('edit own articles');
+        
+        $newsManager = Role::create(['name'=>'news Manager']);
+        $newsManager->givePermissionTo('management news');
 
-        $role = Role::create(['name'=>'admin']);
-        $role->givePermissionTo(Permission::all());
+        $reliableResearcher = Role::create(['name'=>'reliable researcher']);
+        $reliableResearcher->givePermissionTo($writer->permissions);
+        $reliableResearcher->givePermissionTo('edit all articles');
+        $reliableResearcher->givePermissionTo('management events');
+
+        $admin = Role::create(['name'=>'admin']);
+        $admin->givePermissionTo(Permission::all());
 
     }
 }

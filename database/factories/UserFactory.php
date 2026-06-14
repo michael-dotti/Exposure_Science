@@ -115,7 +115,7 @@ class UserFactory extends Factory
             impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
             viene suonata una nota specifica.
             EOT,
-        ])->assignRole('researcher');
+        ])->assignRole('reliable researcher');
 
         $this->withPersonalTeam()->create([
             'name' => 'Emilia',
@@ -131,7 +131,7 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-        ])->assignRole('researcher');
+        ])->assignRole(['writer','news Manager']);
 
         $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
     }

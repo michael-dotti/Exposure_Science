@@ -4,7 +4,6 @@
     </x-slot:title>
 
     
-
     <div class="flex">
         <div class="justify-start">
             <pre class="text-white text-3xl">{{ $article->title }}</pre>
@@ -50,15 +49,20 @@
       @method('DELETE')
     </form>
     <footer>
-        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
-            <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
-            
-            <x-danger-button form="delete_form">Elimina</x-danger-button>
-        </div>
-
+        @canany(['update', 'delete'], $article)
+            <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
+                @can('update', $article)
+                    <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
+                @endcan
+                @can('delete', $article)
+                    <x-danger-button form="delete_form">Elimina</x-danger-button>
+                @endcan
+            </div>
+        @endcanany
+        
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
             <x-link-button href="/articles" >back</x-link-button>
-        </div>
+        </div>  
     </footer>
     
 </x-layout-menu-bar-private>

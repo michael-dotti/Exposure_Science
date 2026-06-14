@@ -59,11 +59,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard'); // do come nome alla rotta "dashboard"
-
+    
     Route::controller(ArticleController::class)->group(function () {
-        Route::get('/articles', 'index');
-        Route::get('/articles/create','create');
-        Route::post('/articles', 'store');
+        Route::get('/articles', 'index')->middleware('can:viewAny,' . Article::class);
+        Route::get('/articles/create','create')->middleware('can:create,' . Article::class);
+        Route::post('/articles', 'store')->middleware('can:create,' . Article::class);
         Route::get('/articles/{article}', 'show');
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
@@ -84,7 +84,7 @@ Route::middleware([
          Route::delete('/events/{event}','destroy');
     });
 
-    Route::middleware(['role:admin'])->group(function (){
+    Route::middleware(['permission:management news'])->group(function (){
         Route::controller(NewsManagementController::class)->group(function () {
             Route::get('/news-management', 'index');
             Route::get('/news-management/create', 'create');
@@ -93,19 +93,26 @@ Route::middleware([
             Route::patch('/news-management/{news}','update');
             Route::delete('/news-management/{news}','destroy');
         });
+    });
 
+    Route::middleware(['permission:management events'])->group(function (){
         Route::controller(EventManagementController::class)->group(function () {
             Route::get('/events-management','index');
             Route::get('/events-management/create', 'create');
             Route::post('/events-management', 'store');
         });
+    });
 
+    Route::middleware(['permission:management users'])->group(function (){
         Route::view('/users-management','users-management.index');
     });
 
     Route::view('/projects','project.index');
+});
+
+    
     
     
 
     
-});
+

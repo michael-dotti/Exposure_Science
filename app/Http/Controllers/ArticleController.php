@@ -9,28 +9,33 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
     // Index = mostra tutti gli articoli
     public function index()
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user(); 
-        /* ho dovuto fare questo passaggio, invece che scrivere 
-            "$articles = auth()->user()->articles()->with('users')->simplePaginate(5);"
-        Perchè il mio compilatore, erroneamente, mi dava errore
-        */        
-        $articles = $user->articles()->with('users')->latest()->simplePaginate(5);
- 
-         return view('articles.index', [
-            'articles'=> $articles
-                ]);
+        // già controllato nelle rotte, ma per chiarezza
+        Gate::authorize('viewAny', Article::class); 
+
+        // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
+        if (auth()->user()->hasPermissionTo('edit all articles')) {
+            $articles = Article::simplePaginate(5); // fa la paginazione di tutti gli articoli 
+        } else {
+            // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
+            $articles = auth()->user()->articles()->simplePaginate(5); 
+        }
+
+        return view('articles.index',compact('articles'));
     }
 
     // create = porta alla view di creazione di un articolo
     public function create()
     {
+        // già controllato nelle rotte, ma per chiarezza
+        Gate::authorize('create', Article::class);
+
         $users = User::all();
         $areas = ResearchArea::all();
         return view('articles.create', compact('users','areas'));
@@ -39,12 +44,15 @@ class ArticleController extends Controller
     //Show= porta alla view per vedere un singolo articolo
     public function show(Article $article)
     {
+        Gate::authorize('view', $article);
         return view('articles.show', ['article' => $article]);    
     }
 
     // store = esegue l'autenticazione e poi aggiunge un articolo
     public function store()
     {
+        Gate::authorize('create', Article::class);
+        
         // 1) validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
@@ -111,6 +119,8 @@ class ArticleController extends Controller
     // edit =porta alla pagina di modifica articolo
     public function edit(Article $article)
     {
+        Gate::authorize('update', $article);
+
         $users = User::select('id', 'name')->get();
         $areas = ResearchArea::select('id', 'name')->get();
 
@@ -124,6 +134,8 @@ class ArticleController extends Controller
     // update = verifica e aggiorna un articolo
     public function update(Article $article)
     {
+        Gate::authorize('update', $article);
+
         $hasExistingFile = $article->file_path && request()->input('remove_file') !== '1';    
 
         $validated = request()->validate([
@@ -188,6 +200,8 @@ class ArticleController extends Controller
     // destroy = distrugge un articolo
     public function destroy(Article $article)
     {
+        Gate::authorize('delete', $article);
+
         // 1) Elimina il file fisico se esiste
         if ($article->image_path && $article->image_path !== 'uploads/articles/covers/default.webp') {
             Storage::disk('public')->delete($article->image_path);
