@@ -53,7 +53,7 @@
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
             <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
             
-            <x-danger-buttonbutton form="delete_form">Elimina</x-danger-buttonbutton>
+            <x-danger-button form="delete_form">Elimina</x-danger-button>
         </div>
 
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
