@@ -19,15 +19,24 @@ class ArticleController extends Controller
         // già controllato nelle rotte, ma per chiarezza
         Gate::authorize('viewAny', Article::class); 
 
+
+        //per il filtraggio
+        $areas = ResearchArea::all();
+        $users = null;
+
         // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
         if (auth()->user()->hasPermissionTo('edit all articles')) {
-            $articles = Article::simplePaginate(5); // fa la paginazione di tutti gli articoli 
+            $articles = Article::with(['users','researchAreas'])->simplePaginate(5); // fa la paginazione di tutti gli articoli
+            $users = User::all();
+        
         } else {
             // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
-            $articles = auth()->user()->articles()->simplePaginate(5); 
+            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->simplePaginate(5); 
+            
         }
 
-        return view('articles.index',compact('articles'));
+        return view('articles.index',compact('articles','areas','users'));
+
     }
 
     // create = porta alla view di creazione di un articolo

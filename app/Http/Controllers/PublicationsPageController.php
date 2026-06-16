@@ -11,24 +11,20 @@ use App\Models\ResearchArea;
 class PublicationsPageController extends Controller
 {
     public function index(){
-        //$articles = Article::all();
 
-        $articles = DB::select('select * from articles');
+        // 1. Recupera gli articoli usando l'Eager Loading per pre-caricare utenti e aree
+        $articles = Article::with(['users', 'researchAreas'])->paginate(8);
+
+        // 2. Recupera i dati per le select/tendine dei filtri
         $users = User::all();
         $areas = ResearchArea::all();
+       
 
-        //$article = Article::find(1);
-        //$users = $article->users;
-        //dd($users);
-        //return view('publicationsPage.index', compact('articles'));
-        return view('publicationsPage.index', ['articles' => Article::paginate(8)])->with('users', $users)->with('areas', $areas);
+        return view('publicationsPage.index', compact('articles', 'users', 'areas'));
     }
 
     public function authorFiltered($id){
-
-        //dd(User::find($id));
-
-        $articles = User::find($id)->articles();
+        $articles = User::findOrFail($id)->articles();
         $users = User::all();
         $areas = ResearchArea::all();
 
@@ -36,10 +32,7 @@ class PublicationsPageController extends Controller
     }
 
     public function areaFiltered($id){
-
-        //dd(User::find($id));
-
-        $articles = ResearchArea::find($id)->articles();
+        $articles = ResearchArea::findOrFail($id)->articles();
         $users = User::all();
         $areas = ResearchArea::all();
 
