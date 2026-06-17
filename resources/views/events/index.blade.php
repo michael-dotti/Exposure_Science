@@ -10,7 +10,7 @@
             @empty
                 <p>Nessun evento al momento</p>
             @endforelse
-            @foreach ($events as $event)
+            @forelse ($events as $event)
                 <a href="/events/{{$event->id}}">
                     <li class="flex items-center border-y hover:bg-gray-200 px-2">
                         <input type="checkbox" class="focus:ring-0 border-2 border-gray-400" :checked="checkAll">
@@ -63,7 +63,9 @@
                         </div>
                     </li>
                 </a>
-            @endforeach                      
+            @empty
+                <x-message-of-empty title="Nessun Evento al Momento" image="fa-regular fa-envelope"></x-message-of-empty>
+            @endforelse                     
         </ul>
     </x-email-box>           
 </x-layout-menu-bar-private>

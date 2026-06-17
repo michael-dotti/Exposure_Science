@@ -4,7 +4,7 @@
     </x-slot:title>
     
     @can('create', App\Models\Article::class) 
-        <x-link-button href="/articles/create" >Nuovo articolo</x-link-button> 
+        <x-bottom-create href="/articles/create" text="Nuovo Articolo" class="mt-2"></x-bottom-create>
     @endcan
 
     <div class="flex my-3 gap-3 items-center justify-center">
@@ -62,12 +62,7 @@
             </div>
         </div>
     @empty
-        <x-message-of-empty title="Nessun articolo trovato" 
-        :create="true" 
-        titleCreate="Inizia pubblicando la tua prima ricerca scientifica."
-        messageCreateButton="Crea il tuo primo articolo" 
-        hrefCreate="/articles/create"></x-message-of-empty>
-
+        <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
     @endforelse
     </div>
 

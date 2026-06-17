@@ -1,4 +1,5 @@
-<html class="h-full bg-gray-900">
+<!DOCTYPE html>
+<html class="h-full bg-gray-900" lang="it">
     <head>
       <title>{{ $title }}</title>
       <meta charset="UTF-8">
@@ -6,7 +7,7 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       @vite('resources/css/app.css')
-
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
       @livewireStyles 
       {{-- necessario insieme a @livewireScripts, in fondo al tag <body></body>, per caricare Alpine --}}
     </head>
@@ -104,7 +105,7 @@
   </header>
   <main>
     {{--  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">   <!-- Div con class dimensione massima e padding-y: max-w-7xl py-6 -->--}}
-    <div class="mx-auto px-4 200px sm:px-6 lg:px-8"></div>
+    <div class="mx-auto px-4 py-6 max-w-7xl sm:px-6 lg:px-8">
       {{ $slot }}
     </div>
   </main>

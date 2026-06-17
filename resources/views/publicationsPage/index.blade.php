@@ -23,27 +23,29 @@
         </div>
 
         <!--esposizione articoli-->
-        <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
-        @forelse ($articles as $article)
-            <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
-                <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
-                <p> <small>{{ $article->abstract }}</small> </p>
-                @if($article->image_path)
-                    <div class="flex justify-center"> 
-                        <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
+        @if ($articles->isEmpty())
+            <div class="w-full max-w-7xl mx-auto px-4 bg-transparent">
+                <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
+            </div>
+        @else
+            <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
+                @foreach ($articles as $article)
+                    <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
+                        <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
+                        <p> <small>{{ $article->abstract }}</small> </p>
+                        @if($article->image_path)
+                            <div class="flex justify-center"> 
+                                <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
+                            </div>
+                        @endif
+                        <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
+                        <div>
+                            <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
+                        </div>
                     </div>
-                @endif
-                <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
-                <div>
-                    <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
-                </div>
+                @endforeach
             </div>
-        @empty
-            <div class="col-span-full w-full h-full">
-            <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
-            </div>
-        @endforelse
-        </div>
+        @endif
     </div>
     
     <div class="mt-2">
