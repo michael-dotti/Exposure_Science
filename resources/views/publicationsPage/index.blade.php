@@ -23,8 +23,8 @@
         </div>
 
         <!--esposizione articoli-->
-        <div class="text-white grid grid-cols-2 gap-2">
-        @foreach ($articles as $article)
+        <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
+        @forelse ($articles as $article)
             <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
                 <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
                 <p> <small>{{ $article->abstract }}</small> </p>
@@ -38,7 +38,11 @@
                     <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-span-full w-full h-full">
+            <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
+            </div>
+        @endforelse
         </div>
     </div>
     

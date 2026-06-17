@@ -24,7 +24,7 @@ class PublicationsPageController extends Controller
     }
 
     public function authorFiltered($id){
-        $articles = User::findOrFail($id)->articles();
+        $articles = User::findOrFail($id)->articles()->with(['users', 'researchAreas']);
         $users = User::all();
         $areas = ResearchArea::all();
 
@@ -32,7 +32,7 @@ class PublicationsPageController extends Controller
     }
 
     public function areaFiltered($id){
-        $articles = ResearchArea::findOrFail($id)->articles();
+        $articles = ResearchArea::findOrFail($id)->articles()->with(['users', 'researchAreas']);
         $users = User::all();
         $areas = ResearchArea::all();
 
