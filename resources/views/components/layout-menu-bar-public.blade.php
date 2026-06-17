@@ -1,3 +1,5 @@
+@props(['fullWidth' => false])
+
 <!DOCTYPE html>
 <html class="h-full bg-gray-900" lang="it">
     <head>
@@ -104,10 +106,15 @@
     </div>
   </header>
   <main>
-    {{--  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">   <!-- Div con class dimensione massima e padding-y: max-w-7xl py-6 -->--}}
+    @if ($fullWidth)
+      {{ $slot }}
+    @else
+      {{-- Div con class dimensione massima e padding-y: max-w-7xl py-6 -->--}}
     <div class="mx-auto px-4 py-6 max-w-7xl sm:px-6 lg:px-8">
       {{ $slot }}
     </div>
+    @endif
+    
   </main>
 </div>
     @livewireScripts 

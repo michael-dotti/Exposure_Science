@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-menu-bar-public :fullWidth="true">
   <x-slot:title>
         Home
     </x-slot:title>
