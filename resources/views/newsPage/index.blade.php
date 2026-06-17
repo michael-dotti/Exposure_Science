@@ -7,7 +7,7 @@
     </x-slot:heading>
 
     <div class="text-white mt-10">
-        @if($news)          
+        @if($news->isNotEmpty())          
             <div class="relative max-w-6xl mx-auto h-100 md:h-137.5 rounded-xl overflow-hidden mb-12 shadow-lg transition hover:-translate-y-1">
                 <a href="/news/{{ $news[0]->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
                 <img src="{{ Storage::url($news[0]->imagePath)}}"
@@ -27,7 +27,7 @@
             <div class="flex justify-center items-center">
                 <div class="grid grid-cols-2 gap-4">
                     @for ($i = 1; $i < count($news); $i++)
-                        <x-news-block :n='$news[$i]'/>
+                        <x-news-block :n="$news[$i]"/>
                     @endfor
                 </div>
             </div>

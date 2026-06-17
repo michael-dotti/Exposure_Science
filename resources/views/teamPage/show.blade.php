@@ -6,7 +6,7 @@
         {{ $user->name }} {{ $user->surname }}
     </x-slot:heading>
     <div>
-        <div class="flex h-screen items-center justify-center bg-gray-900 p-5">
+        <div class="flex h-screen items-center justify-center bg-gray-900">
             <div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
             <div>
                 <h2 class="mb-6 font-bold text-white">{{ $user->bio }}</h2>
