@@ -226,4 +226,20 @@ class ArticleController extends Controller
         // 4) redirect
         return redirect('/articles'); 
     }
+
+    public function authorFiltered($id){
+        $articles = User::findOrFail($id)->articles()->with(['users','researchAreas']);
+        $users = User::all();
+        $areas = ResearchArea::all();
+
+        return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
+    }
+
+     public function areaFiltered($id){
+        $articles = ResearchArea::findOrFail($id)->articles()->with(['users','researchAreas']);
+        $users = User::all();
+        $areas = ResearchArea::all();
+
+        return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
+    }
 }

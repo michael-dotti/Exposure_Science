@@ -7,14 +7,14 @@
         <x-link-button href="/articles/create" >Nuovo articolo</x-link-button> 
     @endcan
 
-    <div class="flex my-3 gap-3 items-center justify-center"></div>
+    <div class="flex my-3 gap-3 items-center justify-center">
         @can('edit all articles')
             <x-user-filter href="/articles" :users="$users"></x-user-filter>
         @endcan
         <x-research-area-filter href="/articles" :researchAreas="$areas"></x-research-area-filter>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-4 ml-6">
     @forelse ($articles as $article)
         <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
 
