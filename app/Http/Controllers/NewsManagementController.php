@@ -25,7 +25,7 @@ class NewsManagementController extends Controller
 
         // 1) validazione
         $validated = request()->validate([
-            'title' => ['required','min:3','max:255'],
+            'title' => ['required','min:3','max:128'],
             'content' =>['required','max:60000'],
             'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
@@ -61,7 +61,7 @@ class NewsManagementController extends Controller
         $imagePath = $news->imagePath;
         
         $validated = request()->validate([
-            'title' => ['required','min:3','max:255'],
+            'title' => ['required','min:3','max:128'],
             'content' =>['required','max:60000'],
             'imagePath' =>[$imagePath ? 'nullable' : 'required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);

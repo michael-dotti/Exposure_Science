@@ -12,12 +12,14 @@
       <div class="space-y-12 text-white">
         <div class="border-b border-white/10 pb-12">
           <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
-          <small>1. I campi con * sono obbligatori</small>
+          <small>I campi con * sono obbligatori</small>
 
           <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
             <div>
               <label for="title">Titolo*</label>
-              <input name="title" id="title" type="text" required>
+              <input class="rounded-md
+                border-0 bg-white/5 p-2 text-white
+                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm" name="title" id="title" type="text" required>
               <x-form-error name="title" />
             </div>
 

@@ -4,7 +4,7 @@
     </x-slot:title>
     
     @can('create', App\Models\Article::class) 
-        <x-bottom-create href="/articles/create" text="Nuovo Articolo" class="mt-2"></x-bottom-create>
+        <x-bottom-create href="/articles/create" text="Nuovo Articolo"></x-bottom-create>
     @endcan
 
     <div class="flex my-3 gap-3 items-center justify-center">
