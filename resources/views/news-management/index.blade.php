@@ -3,14 +3,14 @@
         Gestione News
     </x-slot:title>
     <x-bottom-create href="/news-management/create" text="Nuova Notizia"></x-bottom-create>
-    
-    <div class="space-y-4">
+
+    <div class="space-y-4 mt-4">
         @if($news->isEmpty())
             <x-message-of-empty title="Nessuna notizia trovata" description="Crea la prima notizia del sito">
                 <x-bottom-create href="/news-management/create" text="Nuova News" class="mt-2"></x-bottom-create>
             </x-message-of-empty>
         @else
-            @forelse ($news as $n)
+            @foreach ($news as $n)
                 <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
                     
                     @if($n->imagePath)
@@ -26,8 +26,8 @@
                             <a href="/news/{{ $n->id }}" class="hover:underline">
                                 <strong>{{ $n->title }}</strong>
                             </a>
-                            :
-                            <br>{{ $n->content }}
+                            : 
+                            <p class="text-sm mt-1"> {{ Str::limit(strip_tags($n->content), 240, '...') }} </p>
                         </div>
 
                         <div class="mt-4 flex gap-2">
@@ -42,6 +42,7 @@
 
                     </div>
                 </div>
+                @endforeach
         @endif
     </div>
 </x-layout-menu-bar-private>

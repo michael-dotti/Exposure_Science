@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             // TODO: ID utente
             $table->string("title");
-            $table->string("content");
+            $table->text("content");
             //$table->string("publicationDate");
             $table->string("imagePath");
         });

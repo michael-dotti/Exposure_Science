@@ -9,38 +9,44 @@
     
     <form method="post" action="/news-management" enctype="multipart/form-data">
       @csrf
-          <div class="space-y-12 text-white">
-            <div class="border-b border-white/10 pb-12">
-              <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
-              <small>1. I campi con * sono obbligatori</small>
-               
-              <div>
-                <label for="title">Titolo*</label>
-                <input name="title" id="title" type="text" required>
-                <x-form-error name="title" />
-              </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
+      <div class="space-y-12 text-white">
+        <div class="border-b border-white/10 pb-12">
+          <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
+          <small>1. I campi con * sono obbligatori</small>
 
-              <div>
-                <label for="content">Contenuto*</label>
-                <input name="content" id="content" type="text" required>
-                <x-form-error name="content" />
-                <p class="mt-3 text-sm/6 text-gray-400">Inserisci il contenuto dell'articolo</p>
-              </div>
-
-              <div class="mt-6">
-                <label for="imagePath">Immagine*</label>
-                <x-image-preview-articles name="imagePath" currentImage=""/>
-              </div>
+          <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
+            <div>
+              <label for="title">Titolo*</label>
+              <input name="title" id="title" type="text" required>
+              <x-form-error name="title" />
             </div>
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/news-management">
-            <x-danger-button type="button" >Annulla</x-danger-button>
-          </a>
-            <x-save-button type="submit" >Salva</x-save-button>
+            <div>
+              <label for="content">Contenuto*</label>
+              <textarea class="w-full min-h-37.5
+                resize-none overflow-hidden rounded-md
+                border-0 bg-white/5 p-2 text-white
+                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
+                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" name="content" id="content" type="text" required rows="4" cols="50"></textarea>
+              <x-form-error name="content" />
+             
+            </div>
+            
+            <div>
+              <label for="imagePath">Immagine*</label>
+              <x-image-preview-articles name="imagePath" currentImage=""/>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+      <a href="/news-management">
+        <x-danger-button type="button" >Annulla</x-danger-button>
+      </a>
+        <x-save-button type="submit" >Salva</x-save-button>
+    </div>
 </form>
 
 </x-layout-menu-bar-private>
