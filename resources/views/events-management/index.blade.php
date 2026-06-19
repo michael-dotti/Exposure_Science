@@ -2,7 +2,7 @@
     <x-slot:title>
         Gestione Eventi
     </x-slot:title>
-    <x-link-button href="/events-management/create" >Nuovo Evento</x-link-button>
+    <x-button-create href="/events-management/create">Nuovo Evento</x-button-create>
     
     <div class="space-y-4">
     @forelse ($events as $event)

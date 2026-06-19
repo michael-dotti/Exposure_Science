@@ -2,12 +2,12 @@
     <x-slot:title>
         Gestione News
     </x-slot:title>
-    <x-bottom-create href="/news-management/create" text="Nuova Notizia"></x-bottom-create>
+    <x-button-create href="/news-management/create">Nuova Notizia</x-button-create>
 
     <div class="space-y-4 mt-4">
         @if($news->isEmpty())
             <x-message-of-empty title="Nessuna notizia trovata" description="Crea la prima notizia del sito">
-                <x-bottom-create href="/news-management/create" text="Nuova News" class="mt-2"></x-bottom-create>
+                <x-button-create href="/news-management/create" text="Nuova News" class="mt-2"></x-button-create>
             </x-message-of-empty>
         @else
             @foreach ($news as $n)
