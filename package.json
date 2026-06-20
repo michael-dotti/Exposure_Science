@@ -19,6 +19,7 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
-        "@tailwindplus/elements": "^1.0.22"
+        "@tailwindplus/elements": "^1.0.22",
+        "quill": "^2.0.3"
     }
 }

@@ -29,12 +29,7 @@
 
               <div>
                   <label for="content">Contenuto*</label>
-                  <textarea class="w-full min-h-37.5
-                resize-none overflow-hidden rounded-md
-                border-0 bg-white/5 p-2 text-white
-                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
-                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" name="content" id="content" type="text" required cols="50">{{ old('content', $news->content) }}</textarea>
-                  <x-form-error name="content" />
+                  <x-textarea-quill name="content" :value="$news->content ?? ''" /> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
               </div>
 
               <div>
