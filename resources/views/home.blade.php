@@ -25,36 +25,40 @@
     </div>
     
     <!-- Footer -->
-    <footer class="z-10 bg-black/30 backdrop-blur-md p-6 w-full border-t border-white/10">
-        <div class="max-w-7xl mx-auto flex flex-nowrap flex-col md:flex-row justify-between items-end gap-8">
+    <footer class="z-10 bg-black/30 backdrop-blur-md p-3 md:p-6 w-full border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-nowrap flex-col md:flex-row justify-between items-end gap-4 md:gap-8">
             
-            <!-- Indirizzo -->
-            <div class="text-left min-w-50">
+            <div class="text-left min-w-50 hidden md:block">
                 <h3 class="font-bold text-xl mb-2 border-b border-white/30">Contatti</h3>
                 <p>Via Roma, 123</p>
                 <p>00100 Roma (RM)</p>
                 <p>Email: info@esempio.it</p>
             </div>
 
-            
-            <!-- News -->
-            <div class="grow">
+            <div class="grow w-full">
                 @if($news)
-                    <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                         @foreach ($news as $n)
-                            <div class="bg-[#253041]/80 border border-gray-500 rounded-lg p-3 flex-1 gap-2 transition hover:-translate-y-1">
-                                <a href="/news/{{ $n->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
-                                    {{ $n->title }} 
+                            <div class="relative overflow-hidden border border-gray-500 rounded-lg flex-1 transition hover:-translate-y-1 h-32 md:h-auto md:bg-[#253041]/80 md:p-3">
                                 
-                                
-                                <div class="h-24 overflow-hidden rounded">
-                                    <img src="{{ Storage::url($n->imagePath) }}" alt="news_image" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 md:hidden bg-cover bg-center" 
+                                    style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url('{{ Storage::url($n->imagePath) }}');">
                                 </div>
 
-                                <p class="text-xs text-gray-300">
-                                    <span class="text-orange-400 font-semibold">{{ $n->publicationDate }}</span>
-                                    {{ Str::limit($n->content, 60) }}
-                                </p>
+                                <a href="/news/{{ $n->id }}" class="relative z-10 flex flex-col justify-end md:justify-start h-full p-3 md:p-0">
+                                    
+                                    <span class="font-bold text-sm text-white hover:text-blue-400 transition mb-1 md:mb-0"> 
+                                        {{ $n->title }} 
+                                    </span> 
+                                    
+                                    <div class="h-24 overflow-hidden rounded hidden md:block my-2">
+                                        <img src="{{ Storage::url($n->imagePath) }}" alt="news_image" class="w-full h-full object-cover">
+                                    </div>
+
+                                    <p class="text-xs text-gray-300 mt-auto md:mt-0">
+                                        <span class="text-orange-400 font-semibold">{{ $n->publicationDate }}</span>
+                                        {{ Str::limit($n->content, 60) }}
+                                    </p>
                                 </a>
                             </div>
                         @endforeach
