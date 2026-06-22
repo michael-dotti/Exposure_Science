@@ -13,7 +13,7 @@ class Course extends Model
 
     protected $guarded = [];
 
-    public function teacher(): BelongsToMany
+    public function teachers(): BelongsToMany
     {
         // Un Corso APPARTIENE A UN insegnante(=user=ricercatore)
         return $this->belongsToMany(User::class);

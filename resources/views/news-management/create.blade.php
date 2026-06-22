@@ -25,18 +25,13 @@
 
             <div>
               <label for="content">Contenuto*</label>
-              <textarea class="w-full min-h-37.5
-                resize-none overflow-hidden rounded-md
-                border-0 bg-white/5 p-2 text-white
-                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
-                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" name="content" id="content" type="text" required rows="4" cols="50"></textarea>
+              <x-textarea-quill name="content" />
               <x-form-error name="content" />
-             
             </div>
             
             <div>
               <label for="imagePath">Immagine*</label>
-              <x-image-preview-articles name="imagePath" currentImage=""/>
+              <x-image-preview-news name="imagePath" currentImage=""/>
             </div>
           </div>
 

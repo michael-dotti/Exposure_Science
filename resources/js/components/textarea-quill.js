@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleziona tutti i wrapper dei componenti Quill presenti nella pagina
+    // Seleziona tutti i wrapper dei componenti Quill presenti nella pagina, in caso ce ne siano più di uno
     const wrappers = document.querySelectorAll('.quill-wrapper');
 
-    wrappers.forEach(wrapper => {
+    // Per ogni editor di testo, inizializza un'istanza di Quill e gestisci il submit del form associato
+    wrappers.forEach(wrapper => { 
         const container = wrapper.querySelector('.quill-container');
         const hiddenInput = wrapper.querySelector('.quill-hidden-input');
         const form = wrapper.closest('form'); // Trova il form in cui è contenuto questo specifico editor

@@ -30,6 +30,7 @@
               <div>
                   <label for="content">Contenuto*</label>
                   <x-textarea-quill name="content" :value="$news->content ?? ''" /> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
+                  <x-form-error name="content" />
               </div>
 
               <div>
