@@ -15,15 +15,14 @@
                     $currentImage !== rtrim($emptyStorageUrl, '/');
 @endphp
 
-<div class="my-2 font-sans max-w-200 flex flex-col gap-4">
+<div class="my-2 font-sans max-w-200 flex flex-col gap-3">
 
     {{-- File Input --}}
     <div class="justify-start rounded-sm flex items-center gap-2">
         <x-input-image :name="$name"/>
         
-        <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> 
-        
         {{--il Pulsante Elimina --}}
+        <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> 
         <div id="deleteButtonWrapper" class="{{ $isValidImage ? '' : 'hidden' }}">
             <x-danger-button type="button" id="deleteButton">
                 Elimina

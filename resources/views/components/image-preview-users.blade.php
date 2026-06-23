@@ -11,14 +11,12 @@
     </div>
 
     {{-- File Input --}}
-    <div class="justify-center mt-2 ml-5">
-        <input class="text-white  border-2 border-solid rounded-sm cursor-pointer w-20 h-10 bg-linear-to-bl from-violet-500 to-fuchsia-500" 
-        type="file" 
-        name="{{ $name }}" 
-        id="imageUpload" 
-        accept="image/*">
+    <div class="flex flex-row items-center gap-3 mt-4">
+        <x-input-image :name="$name"/>
         <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> {{-- serve per gestire il caso in cui l'utente voglia eliminare l'immagine dal database --}}
-        <x-button type="button" class="bg-red-600 hover:bg-red-400" id="deleteButton">Elimina</x-button>
+        <x-danger-button type="button" id="deleteButton">
+            Elimina
+        </x-danger-button>
     </div>
 </div>
 

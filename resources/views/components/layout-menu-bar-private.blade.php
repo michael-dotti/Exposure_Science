@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-cordes-dark min-h-screen">
     <!-- Sidebar -->
     <div class="fixed inset-y-0 left-0 w-64 bg-cordes-dark shadow-xl z-50">
         <div class="flex items-center justify-center h-16 bg-cordes-blue">
@@ -114,8 +114,9 @@
             </div>
         </header>
 
-    <div class="px-6"> 
-    {{ $slot }}
+        <div class="px-6"> 
+        {{ $slot }}
+        </div>
     </div>
     @livewireScripts 
     {{-- necessario insieme a @livewireStyles, nel tag <head>, per caricare Alpine --}}

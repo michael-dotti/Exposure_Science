@@ -84,19 +84,17 @@
 
 
           <div class="col-span-full">
-            <label for="profile_image" class="block text-sm/6 font-medium text-white">Profile Image</label>
-
+            <p class="block text-sm/6 font-medium text-white">Profile Image</p>
             <x-image-preview-users name="profile_photo_path" currentImage="{{ auth()->user()->profilePhotoUrl }}"/>
-
           </div>
 
         </div>
       </div>
   </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <button type="button" class="text-sm/6 font-semibold text-white">Cancel</button>
-      <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+    <div class="my-4 flex items-center justify-end gap-3">
+      <x-danger-button type="button" >Cancel</x-danger-button>
+      <x-save-button type="submit" >Save</x-save-button>
     </div>
 </form>
 </x-layout-menu-bar-private>
