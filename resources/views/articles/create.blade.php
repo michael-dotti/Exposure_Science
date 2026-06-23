@@ -10,7 +10,7 @@
     <form method="post" action="/articles" enctype="multipart/form-data">
       @csrf
           <div class="space-y-12 text-white">
-            <div class="border-b border-white/10 pb-12">
+            <div class="border-b pb-12">
               <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
               <small>1. Fields marked with * are required</small>
               <small>2. You must provide the item with a link to the purchase page or the document itself</small>
@@ -82,7 +82,7 @@
               </div>
 
               <div class="mt-6">
-                <label for="image_path">Image</label>
+                <p>Image</p>
                 <x-image-preview-articles name="image_path" currentImage=""/>
               </div>
             </div>

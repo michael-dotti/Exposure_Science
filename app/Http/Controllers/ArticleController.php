@@ -26,12 +26,12 @@ class ArticleController extends Controller
 
         // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
         if (auth()->user()->hasPermissionTo('edit all articles')) {
-            $articles = Article::with(['users','researchAreas'])->simplePaginate(5); // fa la paginazione di tutti gli articoli
+            $articles = Article::with(['users','researchAreas'])->latest()->simplePaginate(5); // fa la paginazione di tutti gli articoli
             $users = User::all();
         
         } else {
             // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
-            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->simplePaginate(5); 
+            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->latest()->simplePaginate(5); 
             
         }
 

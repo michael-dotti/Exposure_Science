@@ -6,7 +6,7 @@
         Home
     </x-slot:heading>
 
-    <div class="relative bg-linear-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden flex flex-col">
+    <div class="relative h-screen text-white overflow-hidden flex flex-col">
     <!-- Background Image -->
     <div class="absolute inset-0">
         <img src="{{ asset('images/homePage.webp') }}" alt="Background Image" class="object-cover object-center w-full h-full" />
