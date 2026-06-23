@@ -131,8 +131,20 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-        ])->assignRole(['writer','news Manager']);
+        ])->assignRole(['news Manager']);
 
         $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
+    }
+
+    /**
+     * configure: metodo eseguito sempre appena la factory viene invocata
+     * in questo caso, assegno il ruolo di default  "researcher" a tutti gli utenti creati con la factory
+     */
+    public function configure(): static
+    {
+        // afterCreating viene eseguito dopo che l'utente è stato creato nel database
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('researcher');
+        });
     }
 }

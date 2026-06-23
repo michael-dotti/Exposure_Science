@@ -70,7 +70,7 @@ class ArticleController extends Controller
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
             'image_path' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
-            'areas' => ['required'],
+            'areas' => ['required','array','min:1'],
         ]);
 
         // 2) Creazione nuovo articolo con la data di oggi
