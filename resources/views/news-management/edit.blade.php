@@ -20,23 +20,16 @@
             
             <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
               <div>
-                  <label for="title">Titolo*</label>
-                  <input class="rounded-md
-                border-0 bg-white/5 p-2 text-white
-                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm" name="title" id="title" type="text" required value="{{ $news->title }}">
-                  <x-form-error name="title" />
+                <x-input-text name="title" :required="True" label="Titolo" :value="$news->title"></x-input-text>
               </div>
 
               <div>
-                  <label for="content">Contenuto*</label>
-                  <x-textarea-quill name="content" :value="$news->content ?? ''" /> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
-                  <x-form-error name="content" />
+                <x-textarea-quill name="content" :value="$news->content ?? '' " label="Contenuto" :required="True" /> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
               </div>
 
               <div>
-                  <label for="imagePath">Immagine corrente*:</label>
-                  <x-image-preview-news name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
-                  <x-form-error name="imagePath" />
+                <label for="imagePath">Immagine corrente*:</label>
+                <x-image-preview-news name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
               </div>
             </div>
 

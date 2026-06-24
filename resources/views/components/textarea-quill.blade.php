@@ -1,6 +1,12 @@
-@props(['name', 'value' => ''])
+@props(['name', 'value' => '','label' => null, 'required' => false])
+
 
 <div class="quill-wrapper w-full mb-4">
+    @if($label)
+        <x-label :name="$name" :required="$required">
+            {{ $label }}
+        </x-label>
+    @endif
     <input type="hidden" 
            name="{{ $name }}" 
            class="quill-hidden-input" 
@@ -11,6 +17,7 @@
     </div>
 </div>
 
+<x-form-error :name="$name" />
 {{-- Spinge lo script solo una volta, anche se usi il componente 5 volte nella pagina --}}
 @pushOnce('scripts')
     @vite('resources/js/components/textarea-quill.js')
