@@ -8,7 +8,6 @@
     $required - Se true, rende l'input obbligatorio e aggiunge un "*" rosso alla label 
 --}}
 
-
 @props(['name',
     'type' => 'text',
     'value'=> '',
@@ -29,10 +28,11 @@
         'type' => $type,
         'name'=> $name,
         'id' => $name,
-        'class' => 'rounded-md
-    border-0 bg-white/5 p-2 text-white
-    shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm w-full',
-    ]) }} 
+        'class' => 'rounded-md w-full
+            border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
+            ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
+            sm:text-sm/6',
+    ]) }} {{-- oppure con oultine al posto di ring: outline-1 -outline-offset-1 outline-white/10 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 --}}
     value="{{ old($name, $value) }}"  {{--  se l'utente ha già inserito un valore, lo mantiene in caso di errore di validazione --}}
     @required($required)> {{-- @required(condizione) = rende l'input required se la condizione è True --}}
 

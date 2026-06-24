@@ -20,13 +20,13 @@
             </div>
 
             <div>
-              <label for="content">Contenuto*</label>
               <x-textarea-quill name="content" />
             </div>
             
             <div>
-              <label for="imagePath">Immagine*</label>
-              <x-image-preview-news name="imagePath" currentImage=""/>
+              <x-label name="imagePath" :required="True">Immagine</x-label>
+              <x-image-preview-news name="imagePath"/>
+              <x-form-error name="imagePath"/>
             </div>
           </div>
 

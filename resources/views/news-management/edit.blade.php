@@ -28,8 +28,9 @@
               </div>
 
               <div>
-                <label for="imagePath">Immagine corrente*:</label>
+                <x-label name="imagePath" :required="True">Immagine</x-label>
                 <x-image-preview-news name="imagePath" currentImage="{{ Storage::url($news->imagePath) }}"/>
+                <x-form-error name="imagePath"/>
               </div>
             </div>
 

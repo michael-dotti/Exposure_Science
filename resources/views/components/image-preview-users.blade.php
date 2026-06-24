@@ -1,6 +1,6 @@
 @props(['name'=>'', 'currentImage' => null])
 
-<div class=" font-sans max-w-200 flex flex-col">
+<div class="font-sans max-w-200 flex flex-col">
 
     {{-- Preview container --}}
     <div class="w-32 h-32 overflow-hidden border-4 border-solid rounded-full mt-2 border-white flex justify-center">

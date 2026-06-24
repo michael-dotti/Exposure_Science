@@ -15,7 +15,7 @@
                     $currentImage !== rtrim($emptyStorageUrl, '/');
 @endphp
 
-<div class="my-2 font-sans max-w-200 flex flex-col gap-3">
+<div class="mb-2 font-sans max-w-200 flex flex-col gap-3">
 
     {{-- File Input --}}
     <div class="justify-start rounded-sm flex items-center gap-2">
