@@ -12,15 +12,16 @@
       <div class="space-y-12 text-white">
         <div class="border-b border-white/10 pb-12">
           <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
-          <small>I campi con * sono obbligatori</small>
+          <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
 
           <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
             <div>
-              <label for="title">Titolo*</label>
+              <!-- <label for="title">Titolo*</label>
               <input class="rounded-md
                 border-0 bg-white/5 p-2 text-white
                 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm" name="title" id="title" type="text" required>
-              <x-form-error name="title" />
+              <x-form-error name="title" /> -->
+              <x-input-text name="title" :required="True" label="Titolo"></x-input-text>
             </div>
 
             <div>
@@ -38,12 +39,12 @@
         </div>
       </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <a href="/news-management">
-        <x-danger-button type="button" >Annulla</x-danger-button>
-      </a>
-        <x-save-button type="submit" >Salva</x-save-button>
-    </div>
-</form>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <a href="/news-management">
+          <x-danger-button type="button" >Annulla</x-danger-button>
+        </a>
+          <x-save-button type="submit" >Salva</x-save-button>
+      </div>
+    </form>
 
 </x-layout-menu-bar-private>

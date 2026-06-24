@@ -45,8 +45,9 @@ class ArticleController extends Controller
         // già controllato nelle rotte, ma per chiarezza
         Gate::authorize('create', Article::class);
 
-        $users = User::all();
-        $areas = ResearchArea::all();
+        // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
         return view('articles.create', compact('users','areas'));
     }
 
@@ -130,10 +131,11 @@ class ArticleController extends Controller
     {
         Gate::authorize('update', $article);
 
+        // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
         $users = User::select('id', 'name')->get();
         $areas = ResearchArea::select('id', 'name')->get();
 
-        // (non necessario ma consigliato) Caro le relazioni già esistenti per l'articolo
+        // (non necessario ma consigliato) Carico le relazioni già esistenti per l'articolo
         // serve a Blade per sapere quali relazioni sono già selezionati senza fare altre query
         $article->load(['users', 'researchAreas']);
 
@@ -229,16 +231,16 @@ class ArticleController extends Controller
 
     public function authorFiltered($id){
         $articles = User::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::all();
-        $areas = ResearchArea::all();
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
 
         return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
     }
 
      public function areaFiltered($id){
         $articles = ResearchArea::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::all();
-        $areas = ResearchArea::all();
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
 
         return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
     }
