@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 use illuminate\support\Facades\Auth;
 
 class EventController extends Controller
@@ -23,8 +24,9 @@ class EventController extends Controller
 
     // create = porta alla view di creazione di un articolo
     public function create()
-    {
-       
+    {  
+        $users = User::select('id', 'name')->get();
+        return view('events-management.create', compact('users'));
     }
 
     //Show= porta alla view per vedere un singolo articolo
@@ -42,7 +44,8 @@ class EventController extends Controller
     // edit =porta alla pagina di modifica articolo
     public function edit(Event $event)
     {
-      
+        $users = User::select('id', 'name')->get();
+        return view('events-management.edit', compact('event','users'));
     }
 
     // update = verifica e aggiorna un articolo

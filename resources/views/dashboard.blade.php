@@ -26,7 +26,7 @@
     @csrf
     @method('PATCH')
     <div class="space-y-12">
-      <div class="border-b border-white/10 pb-12">
+      <div class="border-b border-white/10 pb-8">
         <h2 class="text-base/7 font-semibold text-white">Personal Information</h2>
         <p class="mt-1 text-sm/6 text-gray-400">This information will be displayed publicly so be careful what you share.</p>
 
@@ -63,7 +63,9 @@
   </div>
 
     <div class="my-4 flex items-center justify-end gap-3">
-      <x-danger-button type="button" >Cancel</x-danger-button>
+      <a href="/dashboard">
+        <x-danger-button type="button" >Cancel</x-danger-button>
+      </a>
       <x-save-button type="submit" >Save</x-save-button>
     </div>
 </form>

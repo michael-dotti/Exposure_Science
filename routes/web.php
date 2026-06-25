@@ -102,6 +102,7 @@ Route::middleware([
             Route::get('/events-management','index');
             Route::get('/events-management/create', 'create');
             Route::post('/events-management', 'store');
+            Route::get('/events-management/{event}/edit','edit');
         });
     });
 

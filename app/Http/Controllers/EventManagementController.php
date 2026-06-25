@@ -31,7 +31,7 @@ class EventManagementController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $users = User::select('id', 'name','profile_photo_path')->get();
         $types = EventType::cases();
         return view('events-management.create', compact('users','types'));
     }
@@ -49,7 +49,7 @@ class EventManagementController extends Controller
         
         $event = Event::create([
             'title' => request()->title,
-            'content' => request()->content,
+            'content' => request('content'),
             'type' => request()->type,
             'creator_user_id' => Auth::id(),
         ]);
@@ -69,5 +69,12 @@ class EventManagementController extends Controller
         }
 
         return redirect('/events-management');
+    }
+
+    public function edit(Event $event)
+    {
+        $users = User::select('id', 'name','profile_photo_path')->get();
+        $types = EventType::cases();
+        return view('events-management.edit', compact('event','users','types'));
     }
 }

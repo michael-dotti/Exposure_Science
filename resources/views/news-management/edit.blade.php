@@ -40,7 +40,7 @@
           <x-danger-button form="delete_form" >Elimina</x-danger-button>
           <x-save-button type="submit" >Salva</x-save-button>
         </div>
-</form>
+    </form>
 <form method="POST" action="/news-management/{{ $news->id }}" class="hidden" id="delete_form" >
             @csrf
             @method('DELETE')

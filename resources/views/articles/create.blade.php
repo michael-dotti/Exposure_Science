@@ -12,26 +12,20 @@
           <div class="space-y-12 text-white">
             <div class="border-b pb-12">
               <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
-              <small>1. Fields marked with * are required</small>
-              <small>2. You must provide the item with a link to the purchase page or the document itself</small>
-               
+               <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+              <p class="text-xs text-gray-400 mt-1">2. Devi fornire un link per acquistare l'articolo o caricare il documento</p>
               <div>
-                <label for="title">Title*</label>
-                <input name="title" id="title" type="text" required>
-                <x-form-error name="title" />
+                <x-input-text :required="True" label="Title" name="title"/>
               </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
+              
 
               <div>
-                <label for="abstract">Abstract*</label>
-                <input name="abstract" id="abstract" type="text" required>
-                <x-form-error name="abstract" />
-                <p class="mt-3 text-sm/6 text-gray-400">Describe with a few words the article</p>
+                <x-input-text :required="True" label="Abstract" name="abstract"/>
+                <p class="mt-3 text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
               </div>
               
               <div class="mt-4">
-                <label for="users" class="text-white">Authors* (minimum 1)</label>
+                <x-label name="users" :required="True">Authors (minimo 1)</x-label>
                 <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
                   @foreach($users as $user)
                       <div class="flex items-center gap-x-3 pr-4"> 
@@ -49,7 +43,7 @@
               </div>
 
               <div class="mt-4">
-                <label for="area" class="text-white">Area di ricerca dell'articolo* (minimum 1)</label>
+                <x-label name="areas" :required="True">Area di ricerca dell'articolo (minimo 1)</x-label>
                 <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
                   @foreach($areas as $area)
                       <div class="flex items-center gap-x-3 pr-4">
@@ -66,15 +60,13 @@
               </div>
 
               <div>
-                <p>Choose between link or document *</p>
+                <x-label name="link_or_document" :required="True">Scegli tra un documento o un link</x-label>
                  <div>
                   <div>
-                    <label for="external_url">File URL</label>
-                    <input name="external_url" id="external_url" type="url">
-                    <x-form-error name="external_url" />
+                    <x-input-text name="external_url" label="File URL" />
                   </div>
                   <div>
-                    <label for="file_path">File_path</label>
+                    <label for="file_path">Documento</label>
                     <input name="file_path" id="file_path" type="file">
                     <x-form-error name="file_path" />
                   </div>
@@ -82,8 +74,9 @@
               </div>
 
               <div class="mt-6">
-                <p>Image</p>
+                <x-label name="image_path" :required="True">Immagine</x-label>
                 <x-image-preview-articles name="image_path" currentImage=""/>
+                <x-form-error name="image_path" />
               </div>
             </div>
               
