@@ -21,7 +21,7 @@ class Event extends Model
     }
 
     // User collegati a questo evento
-    public function users_related_to_this_event(): BelongsToMany
+    public function recipients(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }

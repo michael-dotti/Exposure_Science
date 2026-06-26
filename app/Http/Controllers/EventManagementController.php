@@ -54,7 +54,7 @@ class EventManagementController extends Controller
             'creator_user_id' => Auth::id(),
         ]);
 
-        $event->users_related_to_this_event()->attach(request()->users);
+        $event->recipients()->attach(request()->users);
         if(request()->hasFile('documents')) {
             foreach(request()->file('documents') as $file) {
 
