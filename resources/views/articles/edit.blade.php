@@ -30,7 +30,7 @@
               ma dal sistema guardando la data di oggi --}}
 
               <div>
-                <x-input-text :required="True" label="Abstract" name="abstract" value="{{ $article->abstract }}"/>
+                <x-textarea-quill name="abstract" :required="True" label="Abstract" value="{{ $article->abstract }}"/>
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
               </div>
               

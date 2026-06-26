@@ -20,7 +20,7 @@
               
 
               <div>
-                <x-input-text :required="True" label="Abstract" name="abstract"/>
+                 <x-textarea-quill name="abstract" :required="True" label="Abstract" />
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
               </div>
               

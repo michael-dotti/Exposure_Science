@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use Illuminate\Support\Facades\Gate;
+use Mews\Purifier\Facades\Purifier;
 
 class ArticleController extends Controller
 {
@@ -74,12 +75,15 @@ class ArticleController extends Controller
             'areas' => ['required','array','min:1'],
         ]);
 
-        // 2) Creazione nuovo articolo con la data di oggi
-        
-        //Rimuovi 'users' dai dati della creazione dell'articolo
+        // 1.1) Ripulire l'articolo da eventuali script malevoli
+        $validated['abstract'] = Purifier::clean($validated['abstract']);
+
+        // 1.2) Rimuovi 'users' e 'researchareas' dai dati della creazione dell'articolo
         // Usiamo collect($validated)->except('users') per pulire l'array
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
 
+
+        // 2) Creazione nuovo articolo con la data di oggi
         //preparo i dati
         $articleData['data_pubblicazione'] = now()->toDateString();
         
@@ -160,6 +164,7 @@ class ArticleController extends Controller
         ]);
 
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
+        $articleData['abstract'] = Purifier::clean($articleData['abstract']);
 
         if (request()->hasFile('file_path')) {
             // Elimina il vecchio file se esiste (per non sprecare spazio)
