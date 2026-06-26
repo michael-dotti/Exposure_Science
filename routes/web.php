@@ -90,6 +90,7 @@ Route::middleware([
         Route::controller(NewsManagementController::class)->group(function () {
             Route::get('/news-management', 'index');
             Route::get('/news-management/create', 'create');
+             Route::get('/news-management/{news}', 'show');
             Route::post('/news-management', 'store');
             Route::get('/news-management/{news}/edit','edit');
             Route::patch('/news-management/{news}','update');

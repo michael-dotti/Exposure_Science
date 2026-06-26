@@ -1,4 +1,3 @@
-
 @props([
     'action',
     'method' => 'POST',

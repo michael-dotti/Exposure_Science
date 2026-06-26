@@ -108,7 +108,7 @@
             <div class="px-6 py-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold text-white">{{ $title }} Page</h1>
+                        <h1 class="text-2xl font-semibold text-white">{{ $title }} </h1>
                     </div>
                 </div>
             </div>

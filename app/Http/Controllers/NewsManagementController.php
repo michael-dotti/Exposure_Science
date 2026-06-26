@@ -16,6 +16,11 @@ class NewsManagementController extends Controller
         return view('news-management.index', ['news' => $news]);
     }
 
+    public function show(News $news)
+    {
+        return view('news-management.show', ['news' => $news]);
+    }
+    
     public function create()
     {
         return view('news-management.create');
@@ -23,7 +28,6 @@ class NewsManagementController extends Controller
 
     public function store()
     {
-
         // validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:128'],
