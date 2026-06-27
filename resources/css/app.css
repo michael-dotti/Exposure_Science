@@ -6,6 +6,8 @@
     --color-cordes-dark: #1e293b;
     --color-cordes-light: #f8fafc;
     --color-cordes-accent: #3b82f6;
+
+    --color-cordes-surface: #334155;
 }
 
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
