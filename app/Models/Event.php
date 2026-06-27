@@ -30,4 +30,13 @@ class Event extends Model
     {
         return $this->hasMany(EventDocument::class);
     }
+
+    // Scope per filtrare gli eventi per tipo (sposta la logica di filtraggio qui)
+    public function scopeFilterByType($query, $type)
+{
+    if ($type) {
+        return $query->where('events.type', $type);
+    }
+    return $query;
+}
 }

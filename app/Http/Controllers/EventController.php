@@ -6,20 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
 use illuminate\support\Facades\Auth;
+use App\Enums\EventType;
 
 class EventController extends Controller
 {
     // Index = mostra tutti gli articoli
-    public function index()
+    public function index(Request $request) // il request prende i parametri passati nell'url, esempio /events?type=task
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        $events = $user->events_to_do()->with('creator')->simplePaginate(5);
- 
-         return view('events.index', [
-            'events'=> $events
-                ]);
+        $events = $user->events_to_do()
+            ->with('creator')
+            ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request 
+            ->latest()
+            ->simplePaginate(10);
+
+        return view('events.index', [
+            'events' => $events,
+            'types' => EventType::cases(),
+        ]);
     }
 
     // create = porta alla view di creazione di un articolo

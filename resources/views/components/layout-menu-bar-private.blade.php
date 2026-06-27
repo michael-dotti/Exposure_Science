@@ -49,7 +49,7 @@
                     
                     {{-- Sezione Nome e Foto Utente --}}
                     <div class="flex items-center space-x-3">
-                        <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full shrink-0">
+                        <x-profile-foto-mini />
                         <div>
                             <p class="text-white text-sm font-medium">
                                 {{ Auth::user()->name }} {{Auth::user()->surname }} 
