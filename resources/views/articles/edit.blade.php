@@ -85,10 +85,8 @@
                     <x-input-text name="external_url" label="URL" :value="$article->external_url"/>
                   </div>
                   <div>
-                    <x-label name="file_path">Documento</x-label>
-                    <input name="file_path" id="file_path" type="file">
+                    <x-input-file name="file_path" label="Documento"/>
                     <input type="hidden" name="remove_file" value="0"/> 
-                    <x-form-error name="file_path" />
                   </div>
                 </div>
               </div>
@@ -96,10 +94,10 @@
               <div class="mt-6">
                 <div>
                   <div class="mb-3">
-                    @if($article->image_path)
-                      <p class="text-md text-yellow-300">Immagine corrente:</p>
+                     @if($article->image_path)
+                      <x-label name="image_path">Immagine corrente:</x-label>
                     @else
-                      <p class="text-md text-yellow-300">Seleziona immagine:</p>
+                      <x-label name="image_path">Seleziona immagine:</x-label>
                     @endif
                     <x-image-preview-articles name="image_path" currentImage="{{ Storage::url($article->image_path) }}"/>
                     <x-form-error name="image_path" />

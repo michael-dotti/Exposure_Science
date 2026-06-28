@@ -20,7 +20,7 @@
               
 
               <div>
-                 <x-textarea-quill name="abstract" :required="True" label="Abstract" />
+                <x-textarea-quill name="abstract" :required="True" label="Abstract" />
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
               </div>
               
@@ -66,21 +66,19 @@
                     <x-input-text name="external_url" label="File URL" />
                   </div>
                   <div>
-                    <label for="file_path">Documento</label>
-                    <input name="file_path" id="file_path" type="file">
-                    <x-form-error name="file_path" />
+                    <x-input-file name="file_path" label="Documento"/>
                   </div>
                 </div>
               </div>
 
               <div class="mt-6">
-                <x-label name="image_path" :required="True">Immagine</x-label>
-                <x-image-preview-articles name="image_path" currentImage=""/>
+                <x-label name="image_path">Immagine</x-label>
+                <x-image-preview-articles name="image_path" :required="true"/>
                 <x-form-error name="image_path" />
               </div>
             </div>
               
-        <div class="mt-6 flex items-center justify-end gap-x-6">
+        <div class="mt-2 flex items-center justify-end gap-x-6">
           <a href="/articles">
             <x-danger-button type="button">Cancel</x-danger-button>
           </a>

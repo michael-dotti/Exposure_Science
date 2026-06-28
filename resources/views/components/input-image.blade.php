@@ -1,11 +1,5 @@
 @props(['name'])
 
-<!-- <input class="appearance-none text-white border-2 border-solid rounded-sm cursor-pointer w-20 h-10" 
-type="file" 
-name="{{ $name }}" 
-id="imageUpload" 
-accept="image/*"> -->
-
 <input type="file" 
 name="{{ $name }}" 
 id="imageUpload" 
