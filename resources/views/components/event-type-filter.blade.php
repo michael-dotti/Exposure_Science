@@ -1,4 +1,4 @@
-@props(['types', 'href'])
+@props(['types','href'])
 
 <x-dropdown class="inline-block">
     <x-slot name="trigger">

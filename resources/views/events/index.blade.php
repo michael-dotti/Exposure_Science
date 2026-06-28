@@ -58,8 +58,14 @@
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $event->created_at->format('M d, Y') }}</td>
                                 </tr>
-                            @empty
-                               <x-message-of-empty title="Nessun Evento al Momento" image="fa-regular fa-envelope"></x-message-of-empty>
+                            @empty 
+                            {{-- Eseguito solo se $events è vuoto --}}
+                            {{-- Senza tr e td il contenuto di <tbody> non appare correttamente --}}
+                                <tr>
+                                    <td colspan="5" class="px-4 py-8 text-center">
+                                        <x-message-of-empty title="Nessun Evento al Momento" image="fa-regular fa-envelope"></x-message-of-empty>
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

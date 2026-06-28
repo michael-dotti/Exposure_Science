@@ -34,9 +34,10 @@ class Event extends Model
     // Scope per filtrare gli eventi per tipo (sposta la logica di filtraggio qui)
     public function scopeFilterByType($query, $type)
 {
-    if ($type) {
-        return $query->where('events.type', $type);
+    if (empty($type)) { // se type è null o è una stringa vuota allora non filtro
+        return $query;
     }
-    return $query;
+    
+    return $query->where('events.type', $type);
 }
 }

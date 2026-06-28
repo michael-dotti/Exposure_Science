@@ -15,7 +15,7 @@ use Mews\Purifier\Facades\Purifier;
 class ArticleController extends Controller
 {
     // Index = mostra tutti gli articoli
-    public function index()
+    public function index(Request $request)
     {
         // già controllato nelle rotte, ma per chiarezza
         Gate::authorize('viewAny', Article::class); 
@@ -27,15 +27,19 @@ class ArticleController extends Controller
 
         // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
         if (auth()->user()->hasPermissionTo('edit all articles')) {
-            $articles = Article::with(['users','researchAreas'])->latest()->simplePaginate(5); // fa la paginazione di tutti gli articoli
+            $articles = Article::with(['users','researchAreas']); // fa la paginazione di tutti gli articoli
             $users = User::all();
         
         } else {
             // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
-            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->latest()->simplePaginate(5); 
+            $articles = auth()->user()->articles()->with(['users', 'researchAreas']); 
             
         }
 
+        $articles = $articles->filterByArea($request->query('areaId'))
+        ->filterByUser($request->query('userId'))
+        ->latest()
+        ->simplePaginate(5);
         return view('articles.index',compact('articles','areas','users'));
 
     }
@@ -234,19 +238,5 @@ class ArticleController extends Controller
         return redirect('/articles'); 
     }
 
-    public function authorFiltered($id){
-        $articles = User::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::select('id', 'name')->get();
-        $areas = ResearchArea::select('id', 'name')->get();
-
-        return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
-    }
-
-     public function areaFiltered($id){
-        $articles = ResearchArea::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::select('id', 'name')->get();
-        $areas = ResearchArea::select('id', 'name')->get();
-
-        return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
-    }
+    
 }

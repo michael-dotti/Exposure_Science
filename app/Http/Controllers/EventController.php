@@ -18,7 +18,7 @@ class EventController extends Controller
 
         $events = $user->events_receives()
             ->with('creator')
-            ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request 
+            ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
             ->latest()
             ->Paginate(10);
 
@@ -71,7 +71,8 @@ class EventController extends Controller
 
         $validated = request()->validate([
             'event_ids' => ['required','array'],
-            'event_ids.*' => ['exists:events,id']
+            'event_ids.*' => ['exists:events,id'] // il simbolo ".*" prende tutti gli elementi dell'array 
+            // exists:event,id == verifica nella tabella "events" la colonna "id" (regola fondamentale per le cancellazioni di massa)
         ]);
 
         $user = Auth::user();

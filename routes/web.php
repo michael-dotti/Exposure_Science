@@ -27,9 +27,6 @@ Route::controller(TeamPageController::class)->group( function (){
 
 Route::controller(PublicationsPageController::class)->group( function (){
     Route::get('/publications','index');
-    Route::get('/publications/author/{author}','authorFiltered');
-    Route::get('/publications/researchAreas/{area}','areaFiltered');
-    //Route::get('/publications/search','search');
     Route::get('/publications/{article}', 'show');
 });
 
@@ -64,8 +61,6 @@ Route::middleware([
         Route::get('/articles', 'index')->middleware('can:viewAny,' . Article::class);
         Route::get('/articles/create','create')->middleware('can:create,' . Article::class);
         Route::post('/articles', 'store')->middleware('can:create,' . Article::class);
-        Route::get('/articles/author/{author}','authorFiltered');
-        Route::get('/articles/researchAreas/{area}','areaFiltered');
         Route::get('/articles/{article}', 'show');
         Route::get('/articles/{article}/edit','edit');
         Route::patch("/articles/{article}", 'update');
