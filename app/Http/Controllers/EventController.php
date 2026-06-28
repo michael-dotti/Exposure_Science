@@ -13,14 +13,14 @@ class EventController extends Controller
     // Index = mostra tutti gli articoli
     public function index(Request $request) // il request prende i parametri passati nell'url, esempio /events?type=task
     {
-        /** @var \App\Models\User $user */
+        
         $user = Auth::user();
 
-        $events = $user->events_to_do()
+        $events = $user->events_receives()
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request 
             ->latest()
-            ->simplePaginate(10);
+            ->Paginate(10);
 
         return view('events.index', [
             'events' => $events,
@@ -64,5 +64,28 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
        
+    }
+
+    public function bulkDelete(Request $request)
+    {
+
+        $validated = request()->validate([
+            'event_ids' => ['required','array'],
+            'event_ids.*' => ['exists:events,id']
+        ]);
+
+        $user = Auth::user();
+        $user->events_receives()->detach($request->event_ids);
+        
+        $events = $user->events_receives()
+            ->with('creator')
+            ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request 
+            ->latest()
+            ->Paginate(10);
+
+        return view('events.index',[
+            'events' => $events,
+            'types' => EventType::cases(),
+        ]);
     }
 }

@@ -83,6 +83,7 @@ Route::middleware([
          Route::post('/events', 'store');
          Route::get('/events/{event}/edit', 'edit');
          Route::patch('/events/{event}','update');
+         Route::delete('/events/bulk-delete','bulkDelete');
          Route::delete('/events/{event}','destroy');
     });
 

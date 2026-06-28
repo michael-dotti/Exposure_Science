@@ -114,8 +114,8 @@
             </div>
         </header>
 
-        <div class="px-6"> 
-        {{ $slot }}
+        <div class="px-6 flex-1 flex flex-col min-h-screen "> 
+            {{ $slot }}
         </div>
     </div>
     @livewireScripts 
