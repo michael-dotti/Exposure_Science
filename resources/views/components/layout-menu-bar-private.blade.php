@@ -82,18 +82,6 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                    <!-- {{-- Sezione Pulsanti Incolonnati --}}
-                    <div class="flex flex-row gap-2 w-full">
-                        <a href="/" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >BACK</a>
-                        <form method="POST" action="{{ route('logout') }}" class="flex-1 m-0 p-0" > {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
-                            @csrf
-                            
-                            <x-button class="w-full bg-rose-400 hover:bg-rose-500 text-white text-center tracking-normal px-2 py-1 font-bold transition-colors justify-center whitespace-nowrap">
-                                Log Out
-                            </x-button>
-                        </form>
-                        <a href="{{ route('profile.show') }}" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >CONFIGURAZIONI ACCOUNT AVANZATE</a>
-                    </div> -->
                 </div>
             </div>
 
