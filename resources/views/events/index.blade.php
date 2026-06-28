@@ -110,7 +110,8 @@
                                         {{ $event->creator->name }} {{ $event->creator->surname }}
                                     </th>
                                     <td class="px-4 py-2">
-                                        <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $event->type}}</span>
+                                        <!-- <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $event->type}}</span> -->
+                                         <x-event-types-badges type="{{ $event->type }}"/>
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div class="flex items-center">
