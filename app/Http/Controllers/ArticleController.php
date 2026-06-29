@@ -73,7 +73,7 @@ class ArticleController extends Controller
             'title' => ['required','min:3','max:255'],
             'abstract' =>['required','max:5000'],
             'users' => ['required', 'array', 'min:1'],
-            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
+            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:51200'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
             'image_path' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
             'areas' => ['required','array','min:1'],
@@ -93,9 +93,15 @@ class ArticleController extends Controller
         
         // Salvataggio File
         if (request()->hasFile('file_path')) {
-            // Salva il PDF e aggiorna il valore nell'array con il percorso stringa
-            $articleData['file_path'] = request()->file('file_path')->store('uploads/articles/documents', 'public');
-            // store() restituisce il percorso del file appena salvato
+            // 1. Recupera l'oggetto del file
+            $file = request()->file('file_path');
+
+            // 2. Ottieni il nome originale del file (es: "mio_documento.pdf")
+            // davanti al nome inserisco il "tempo" per proteggermi dal caso in cui due utenti inseriscano un file con lo stesso nome
+            $originalName = time() . '_' . $file->getClientOriginalName(); 
+
+            // 3. Salva specificando la cartella, il nome del file e il disco
+            $articleData['file_path'] = $file->storeAs('articles/documents', $originalName, 'public');
         }
 
         if (request()->hasFile('image_path')) {
@@ -162,7 +168,7 @@ class ArticleController extends Controller
             'abstract' => ['required', 'max:5000'],
             'users' => ['required', 'array', 'min:1'],
             'areas' => ['required', 'array', 'min:1'],
-            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:5120'],
+            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:51200'],
             'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','url', 'max:1024'],
             'image_path' => ['nullable', 'image', 'max:5120'],
         ]);
@@ -175,7 +181,11 @@ class ArticleController extends Controller
             if ($article->file_path) {
                 Storage::disk('public')->delete($article->file_path);
             }
-            $articleData['file_path'] = request()->file('file_path')->store('articles/documents', 'public');
+            
+
+            $file = request()->file('file_path');
+            $originalName = time() . '_' . $file->getClientOriginalName();
+            $articleData['file_path'] = $file->storeAs('articles/documents', $originalName, 'public');
         }
 
         if (request()->hasFile('image_path')) {

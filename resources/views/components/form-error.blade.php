@@ -8,6 +8,6 @@ errore nell'input prendi
 l'errore e msotralo a schermo usando
 la variabile $message che contiene ilmessaggio di errore--}}
 @error($name)
-    <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
+    <x-error-message>{{ $message }}</x-error-message>
 @enderror
 

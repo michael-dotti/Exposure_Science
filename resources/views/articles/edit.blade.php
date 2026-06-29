@@ -26,11 +26,10 @@
               <div>
                 <x-input-text :required="True" label="Titolo" name="title" value="{{ $article->title }}"/>
               </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
+              
 
               <div>
-                <x-textarea-quill name="abstract" :required="True" label="Abstract" value="{{ $article->abstract }}"/>
+                <x-textarea-quill name="abstract" :required="True" label="Abstract" value="{!! $article->abstract !!}"/>
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
               </div>
               
@@ -85,7 +84,7 @@
                     <x-input-text name="external_url" label="URL" :value="$article->external_url"/>
                   </div>
                   <div>
-                    <x-input-file name="file_path" label="Documento"/>
+                    <x-input-file name="file_path" label="Documento" currentFile="{{ $article->file_path ? basename($article->file_path) : null }}"/>
                     <input type="hidden" name="remove_file" value="0"/> 
                   </div>
                 </div>
