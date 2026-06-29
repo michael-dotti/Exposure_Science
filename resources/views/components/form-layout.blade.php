@@ -15,7 +15,7 @@
 <form 
     method="{{ $formMethod }}" 
     action="{{ $action }}" 
-    {{ $hasFiles ? 'enctype="multipart/form-data"' : '' }} 
+    @if($hasFiles) enctype="multipart/form-data" @endif
     {{ $attributes->merge(['class'=>'w-full mt-3']) }}
 >
     @csrf

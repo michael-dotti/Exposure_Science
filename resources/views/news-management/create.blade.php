@@ -4,7 +4,7 @@
     </x-slot:title>
    
     
-    <x-form-layout action="/news-management" method="POST" :has-files="True">
+    <x-form-layout action="/news-management" method="POST" :has-files="true">
       
       <x-slot:header>
         <div class="flex justify-between items-center w-full my-5">
