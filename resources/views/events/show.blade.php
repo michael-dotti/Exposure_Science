@@ -4,10 +4,15 @@
     </x-slot:title>
     <x-email-box> 
         <div class="mb-6">
-            <h4 class="text-lg text-gray-800 font-bold pb-2 mb-4 border-b-2"> {{ $event->title}} </h4>
+            <div class="flex items-center justify-between pb-2 mb-4 border-b-2">
+            <h4 class="text-lg text-gray-800 font-bold"> 
+                {{ $event->title }} 
+            </h4>
+            <x-event-types-badges type="{{ $event->type }}"/>
+        </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <img src="{{ asset($event->creator->profile_photo_path) }}" alt="{{ $event->creator->name }}" class="rounded-full w-8 h-8 border border-gray-500">
+                    <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" alt="{{ $event->creator->name }}" class="border border-gray-500"/>
                     <div class="flex flex-col ml-2">
                         <span class="text-sm font-semibold">{{ $event->creator->name}} {{ $event->creator->surname}}</span>
                         <span class="text-xs text-gray-400">From: {{ $event->creator->email }} </span>

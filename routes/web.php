@@ -107,7 +107,7 @@ Route::middleware([
         Route::view('/users-management','users-management.index');
     });
 
-    Route::view('/projects','project.index');
+    Route::view('/projects','projects.index');
 });
 
     
