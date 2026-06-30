@@ -23,7 +23,7 @@
                 @foreach ($articles as $article)
                     <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
                         <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
-                        <p> <small>{{ $article->abstract }}</small> </p>
+                        <p> <small>{!! $article->abstract !!}</small> </p>
                         @if($article->image_path)
                             <div class="flex justify-center"> 
                                 <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
