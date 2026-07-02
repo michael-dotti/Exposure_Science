@@ -6,15 +6,6 @@
         Publicazioni
     </x-slot:heading>
     <div class="relative z-10 flex flex-col justify-center items-center text-center text-white">
-        
-        <!-- filtraggio per titolo (NON FUNZIONANTE) -->
-        <form action="/publications/search" class="border-2 border-white" method="get">
-                <input type="text" placeholder="Cerca Articoli..."
-                       name="title" id='title'>
-                <button>
-                    <i class="bg-white text-black"> cerca </i>
-                </button>
-        </form>
 
         <!--filtraggi-->
         <div class="flex space-x-2 my-4">

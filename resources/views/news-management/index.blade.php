@@ -23,7 +23,7 @@
                     
                     <div class="block pl-3">
                         <div class="text-white" >
-                            <a href="/news/{{ $n->id }}" class="hover:underline">
+                            <a href="/news-management/{{ $n->id }}" class="hover:underline">
                                 <strong>{{ $n->title }}</strong>
                             </a>
                             : 

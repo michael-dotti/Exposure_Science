@@ -6,15 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
+use Mews\Purifier\Facades\Purifier;
 
 class NewsManagementController extends Controller
 {
     public function index()
     {    
-        $news = News::latest()->orderBy('created_at', 'desc')->get();
+        $news = News::latest()->get();
         return view('news-management.index', ['news' => $news]);
     }
 
+    public function show(News $news)
+    {
+        return view('news-management.show', ['news' => $news]);
+    }
+    
     public function create()
     {
         return view('news-management.create');
@@ -22,14 +28,16 @@ class NewsManagementController extends Controller
 
     public function store()
     {
-
-        // 1) validazione
+        // validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:128'],
             'content' =>['required','max:60000'],
             'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
         
+        // pulisco il testo da eventuali script malevoli
+        $validated['content'] = Purifier::clean($validated['content']); 
+
         $newsData = collect($validated)->toArray();
 
         if (request()->hasFile('imagePath')) {
@@ -65,6 +73,9 @@ class NewsManagementController extends Controller
             'content' =>['required','max:60000'],
             'imagePath' =>[$imagePath ? 'nullable' : 'required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
+
+        // pulisco il testo da eventuali script malevoli
+        $validated['content'] = Purifier::clean($validated['content']);
 
         if (request()->hasFile('imagePath')) {
             // Elimina la vecchia immagine

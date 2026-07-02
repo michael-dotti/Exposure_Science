@@ -3,52 +3,43 @@
 		Nuova notizia
     </x-slot:title>
    
-    <div class="flex justify-end">
-        <x-link-button href="/news-management" >back</x-link-button>
-    </div>
     
-    <form method="post" action="/news-management" enctype="multipart/form-data">
-      @csrf
-      <div class="space-y-12 text-white">
-        <div class="border-b border-white/10 pb-12">
-          <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
-          <small>I campi con * sono obbligatori</small>
-
-          <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
-            <div>
-              <label for="title">Titolo*</label>
-              <input class="rounded-md
-                border-0 bg-white/5 p-2 text-white
-                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm" name="title" id="title" type="text" required>
-              <x-form-error name="title" />
-            </div>
-
-            <div>
-              <label for="content">Contenuto*</label>
-              <textarea class="w-full min-h-37.5
-                resize-none overflow-hidden rounded-md
-                border-0 bg-white/5 p-2 text-white
-                shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
-                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" name="content" id="content" type="text" required rows="4" cols="50"></textarea>
-              <x-form-error name="content" />
-             
-            </div>
-            
-            <div>
-              <label for="imagePath">Immagine*</label>
-              <x-image-preview-articles name="imagePath" currentImage=""/>
-            </div>
+    <x-form-layout action="/news-management" method="POST" :has-files="True">
+      
+      <x-slot:header>
+        <div class="flex justify-between items-center w-full my-5">
+          <div>
+            <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
+            <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
           </div>
 
+          <div>
+            <x-link-button href="/news-management">back</x-link-button>
+          </div>
         </div>
+      </x-slot:header>
+
+      <div>
+        <x-input-text name="title" :required="true" label="Titolo"></x-input-text>
       </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <a href="/news-management">
-        <x-danger-button type="button" >Annulla</x-danger-button>
-      </a>
-        <x-save-button type="submit" >Salva</x-save-button>
-    </div>
-</form>
+      <div>
+        <x-textarea-quill name="content" />
+      </div>
+      
+      <div>
+        <x-label name="imagePath" :required="true">Immagine</x-label>
+        <x-image-preview-news name="imagePath"/>
+        <x-form-error name="imagePath"/>
+      </div>
+      
+      <x-slot:buttons>
+        <a href="/news-management">
+          <x-danger-button type="button">Annulla</x-danger-button>
+        </a>
+        <x-save-button type="submit">Salva</x-save-button>
+      </x-slot:buttons>
+
+    </x-form-layout>
 
 </x-layout-menu-bar-private>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use Illuminate\Support\Facades\Gate;
+use Mews\Purifier\Facades\Purifier;
 
 class ArticleController extends Controller
 {
@@ -26,12 +27,12 @@ class ArticleController extends Controller
 
         // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
         if (auth()->user()->hasPermissionTo('edit all articles')) {
-            $articles = Article::with(['users','researchAreas'])->simplePaginate(5); // fa la paginazione di tutti gli articoli
+            $articles = Article::with(['users','researchAreas'])->latest()->simplePaginate(5); // fa la paginazione di tutti gli articoli
             $users = User::all();
         
         } else {
             // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
-            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->simplePaginate(5); 
+            $articles = auth()->user()->articles()->with(['users', 'researchAreas'])->latest()->simplePaginate(5); 
             
         }
 
@@ -45,8 +46,9 @@ class ArticleController extends Controller
         // già controllato nelle rotte, ma per chiarezza
         Gate::authorize('create', Article::class);
 
-        $users = User::all();
-        $areas = ResearchArea::all();
+        // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
         return view('articles.create', compact('users','areas'));
     }
 
@@ -70,15 +72,18 @@ class ArticleController extends Controller
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:5120'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
             'image_path' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
-            'areas' => ['required'],
+            'areas' => ['required','array','min:1'],
         ]);
 
-        // 2) Creazione nuovo articolo con la data di oggi
-        
-        //Rimuovi 'users' dai dati della creazione dell'articolo
+        // 1.1) Ripulire l'articolo da eventuali script malevoli
+        $validated['abstract'] = Purifier::clean($validated['abstract']);
+
+        // 1.2) Rimuovi 'users' e 'researchareas' dai dati della creazione dell'articolo
         // Usiamo collect($validated)->except('users') per pulire l'array
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
 
+
+        // 2) Creazione nuovo articolo con la data di oggi
         //preparo i dati
         $articleData['data_pubblicazione'] = now()->toDateString();
         
@@ -130,10 +135,11 @@ class ArticleController extends Controller
     {
         Gate::authorize('update', $article);
 
+        // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
         $users = User::select('id', 'name')->get();
         $areas = ResearchArea::select('id', 'name')->get();
 
-        // (non necessario ma consigliato) Caro le relazioni già esistenti per l'articolo
+        // (non necessario ma consigliato) Carico le relazioni già esistenti per l'articolo
         // serve a Blade per sapere quali relazioni sono già selezionati senza fare altre query
         $article->load(['users', 'researchAreas']);
 
@@ -158,6 +164,7 @@ class ArticleController extends Controller
         ]);
 
         $articleData = collect($validated)->except(['users', 'areas'])->toArray();
+        $articleData['abstract'] = Purifier::clean($articleData['abstract']);
 
         if (request()->hasFile('file_path')) {
             // Elimina il vecchio file se esiste (per non sprecare spazio)
@@ -229,16 +236,16 @@ class ArticleController extends Controller
 
     public function authorFiltered($id){
         $articles = User::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::all();
-        $areas = ResearchArea::all();
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
 
         return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
     }
 
      public function areaFiltered($id){
         $articles = ResearchArea::findOrFail($id)->articles()->with(['users','researchAreas']);
-        $users = User::all();
-        $areas = ResearchArea::all();
+        $users = User::select('id', 'name')->get();
+        $areas = ResearchArea::select('id', 'name')->get();
 
         return view('articles.index', ['articles' => $articles->paginate(5)])->with('users', $users)->with('areas', $areas);
     }

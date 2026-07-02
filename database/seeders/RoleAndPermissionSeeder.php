@@ -28,15 +28,15 @@ class RoleAndPermissionSeeder extends Seeder
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $writer = Role::create(['name'=>'writer']);
-        $writer->givePermissionTo('write articles'); 
-        $writer->givePermissionTo('edit own articles');
+        $Researcher = Role::create(['name'=>'Researcher']);
+        $Researcher->givePermissionTo('write articles'); 
+        $Researcher->givePermissionTo('edit own articles');
         
         $newsManager = Role::create(['name'=>'news Manager']);
         $newsManager->givePermissionTo('management news');
 
         $reliableResearcher = Role::create(['name'=>'reliable researcher']);
-        $reliableResearcher->givePermissionTo($writer->permissions);
+        $reliableResearcher->givePermissionTo($Researcher->permissions);
         $reliableResearcher->givePermissionTo('edit all articles');
         $reliableResearcher->givePermissionTo('management events');
 

@@ -15,20 +15,16 @@
                     $currentImage !== rtrim($emptyStorageUrl, '/');
 @endphp
 
-<div class="m-2 p-2 font-sans max-w-200 flex flex-col gap-4">
+<div class="mb-2 font-sans max-w-200 flex flex-col gap-3">
 
     {{-- File Input --}}
-    <div class="justify-start bg-linear-to-bl from-violet-500 to-fuchsia-500 p-2 rounded-sm flex items-center gap-2">
-        <input class="text-white border-2 border-solid rounded-sm cursor-pointer w-20 h-10" 
-               type="file" 
-               name="{{ $name }}" 
-               id="imageUpload" 
-               accept="image/*">
+    <div class="justify-start rounded-sm flex items-center gap-2">
+        <x-input-image :name="$name"/>
     </div>
 
     {{-- Preview container --}}
-    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-48 h-48 overflow-hidden border-4 border-solid flex justify-center">
-        <img class="size-full max-h-100 shadow-sm object-cover" 
+    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-96 h-96 overflow-hidden border-4 border-solid flex justify-center">
+        <img class="size-full shadow-sm object-cover" 
              src="{{ $currentImage ?? '' }}" 
              alt="Preview Image" 
              id="image_preview"> 

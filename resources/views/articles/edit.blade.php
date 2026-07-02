@@ -6,6 +6,7 @@
     <div class="flex justify-end">
         <x-link-button href="/articles" >Indietro</x-link-button>
     </div>
+             
     <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
       @csrf
       @method('DELETE')
@@ -17,29 +18,24 @@
             <div class="border-b border-white/10 pb-12">
               <h1 class="text-base/7 font-semibold text-white">Modifica Articolo: {{ $article->title }}</h2>
               <div class="mt-1 mb-8">
-                <small>1. I campi con * sono obbligatori</small>
-                <br>
-                <small>2. Bisogna mettere a disposizione il link per l'acquisto dell'articolo o l'articolo stesso sotto forma di documento</small>
+                <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+                <p class="text-xs text-gray-400 mt-1">2. Devi fornire un link per acquistare l'articolo o caricare il documento</p>
               </div>
 
               
               <div>
-                <label for="title">Titolo*</label>
-                <input name="title" id="title" type="text" required value="{{ $article->title }}">
-                <x-form-error name="title" />
+                <x-input-text :required="True" label="Titolo" name="title" value="{{ $article->title }}"/>
               </div>
               {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
               ma dal sistema guardando la data di oggi --}}
 
               <div>
-                <label for="abstract">Astratto*</label>
-                <input name="abstract" id="abstract" type="text" required value="{{ $article->abstract }}">
-                <x-form-error name="abstract" />
+                <x-textarea-quill name="abstract" :required="True" label="Abstract" value="{{ $article->abstract }}"/>
                 <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
               </div>
               
               <div class="mt-4">
-                <label for="users" class="text-white">Autori* (minimo 1)</label>
+                <x-label name="users" :required="True">Authori (minimo 1)</x-label>
                 <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
                   @foreach($users as $user)
                       <div class="flex items-center gap-x-3 pr-4">
@@ -61,7 +57,7 @@
               </div>
 
               <div class="mt-4">
-                <label for="area" class="text-white">Area di ricerca dell'articolo* (minimo 1)</label>
+                <x-label name="areas" :required="True">Area di ricerca dell'articolo (minimo 1)</x-label>
                 <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
                   @foreach($areas as $area)
                       <div class="flex items-center gap-x-3 pr-4">
@@ -83,15 +79,13 @@
               </div>
 
               <div>
-                <p>Selezionare link o documento</p>
-                 <div>
+                <x-label name="link_or_document" :required="True">Scegli tra un documento o un link</x-label>
+                 <div class="space-y-3">
                   <div>
-                    <label for="external_url">URL</label>
-                    <input name="external_url" id="external_url" type="url" value="{{ $article->external_url }}">
-                    <x-form-error name="external_url" />
+                    <x-input-text name="external_url" label="URL" :value="$article->external_url"/>
                   </div>
                   <div>
-                    <label for="file_path">Documento</label>
+                    <x-label name="file_path">Documento</x-label>
                     <input name="file_path" id="file_path" type="file">
                     <input type="hidden" name="remove_file" value="0"/> 
                     <x-form-error name="file_path" />
@@ -101,24 +95,21 @@
 
               <div class="mt-6">
                 <div>
-                  
-                      <div class="mb-3">
-                        @if($article->image_path)
-                          <p class="text-md text-yellow-300">Immagine corrente:</p>
-                        @else
-                          <p class="text-md text-yellow-300">Selezionare immagine:</p>
-                        @endif
-                        <x-image-preview-articles name="image_path" currentImage="{{ Storage::url($article->image_path) }}"/>
-                        <x-form-error name="image_path" />
-                      </div>
+                  <div class="mb-3">
+                    @if($article->image_path)
+                      <p class="text-md text-yellow-300">Immagine corrente:</p>
+                    @else
+                      <p class="text-md text-yellow-300">Seleziona immagine:</p>
+                    @endif
+                    <x-image-preview-articles name="image_path" currentImage="{{ Storage::url($article->image_path) }}"/>
+                    <x-form-error name="image_path" />
+                  </div>
                 </div>
               </div>
             </div>
               
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          
           <x-danger-button form="delete_form" >Elimina</x-danger-button>
-          
           <x-save-button type="submit" >Salva</x-save-button>
         </div>
 </form>

@@ -40,7 +40,7 @@
                         <strong>{{ $article->title }}</strong>
                     </a>
                     :
-                    <br>{{ $article->abstract }}
+                    <br>{!! $article->abstract !!}
                 </div>
                 @canany(['update', 'delete'], $article)
                     <div class="mt-4 flex gap-2">
