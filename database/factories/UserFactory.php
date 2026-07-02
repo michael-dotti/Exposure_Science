@@ -69,7 +69,8 @@ class UserFactory extends Factory
             'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
-            Sono l'attuale amministratore del gruppo di ricerca " 
+            Sono l'attuale amministratore del gruppo di ricerca ",
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
          ]);
     }
     /**
@@ -115,6 +116,7 @@ class UserFactory extends Factory
             impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
             viene suonata una nota specifica.
             EOT,
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
         ])->assignRole('reliable researcher');
 
         $this->withPersonalTeam()->create([
@@ -131,6 +133,7 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
         ])->assignRole(['writer','news Manager']);
 
         $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
