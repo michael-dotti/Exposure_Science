@@ -29,4 +29,29 @@ class Article extends Model
     {
         return $this->belongsToMany(ResearchArea::class);
     }
+
+    public function scopeFilterByUser($query,$userId) // Nota bene: la differenza con il filtraggio per Tipo in event, è che in event il tipo è una colonna della tabella event, inve User non è una colonna in article ma è collegat ad essa tramite una tabella intermedia articles_users perché sono in una relaizone molti a molti 
+    {   
+        if(empty($userId))
+        {
+            return $query;
+        }
+        return $query->whereRelation('users', 'users.id', $userId);
+        /*
+        $query = costruttore della query passato direttamente
+        metodo whereRelation:
+            primo elemento = users = nome della relazione
+            secondo elemento = user.id = nome colonna della tabella finale
+            terzo elemento = $userID =valore che vuoi cercare
+        */
+    }
+
+    public function scopeFilterByArea($query,$areaId) 
+    {   
+        if(empty($areaId))
+        {
+            return $query;
+        }
+        return $query->whereRelation('researchAreas', 'research_areas.id', $areaId);
+    }
 }

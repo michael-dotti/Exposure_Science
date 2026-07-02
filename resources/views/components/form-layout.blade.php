@@ -15,15 +15,15 @@
 <form 
     method="{{ $formMethod }}" 
     action="{{ $action }}" 
-    {{ $hasFiles ? 'enctype="multipart/form-data"' : '' }} 
-    {{ $attributes }}
+    @if($hasFiles) enctype="multipart/form-data" @endif
+    {{ $attributes->merge(['class'=>'w-full mt-3']) }}
 >
     @csrf
     @if($isSpoofed)
         @method($httpMethod)
     @endif
 
-    <div class="space-y-6 text-white">
+    <div class="space-y-6 text-white w-full max-w-4xl mx-auto">
         <div class="border-b border-white/10 pb-1">
             @if(isset($header))
                 {{ $header }}
@@ -38,7 +38,7 @@
     </div>
 
     @if(isset($buttons))
-        <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5">
+        <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5 w-full max-w-4xl mx-auto">
             {{ $buttons }}
         </div>
     @endif

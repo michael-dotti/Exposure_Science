@@ -1,7 +1,7 @@
 @props(['fullWidth' => false])
 
 <!DOCTYPE html>
-<html class="h-full bg-gray-900" lang="it">
+<html class="h-full bg-gray-900" lang="it" class="dark"> {{-- di default in dark mode --}}
   <head>
     <title>{{ $title }}</title>
     <meta charset="UTF-8">

@@ -16,7 +16,7 @@
         
         <div class="py-1">
             @foreach ( $users as $user)
-                <x-dropdown-link href="{{ $href }}/author/{{ $user->id }}">{{ $user->name }} {{ $user->surname }} </x-dropdown-link>
+                <x-dropdown-link href="{{ $href }}?userId={{ $user->id }}">{{ $user->name }} {{ $user->surname }} </x-dropdown-link>
             @endforeach
         </div>
     </div>

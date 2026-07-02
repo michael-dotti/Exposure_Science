@@ -16,7 +16,7 @@
         
         <div class="py-1">
             @foreach ( $researchAreas as $area)
-                <x-dropdown-link href="{{ $href }}/researchAreas/{{ $area->id }}">{{ $area->name }}</x-dropdown-link>
+                <x-dropdown-link href="{{ $href }}?areaId={{ $area->id }}">{{ $area->name }}</x-dropdown-link>
             @endforeach
         </div>
     </div>

@@ -3,7 +3,7 @@
         Modifica News
     </x-slot:title>
     
-  <x-form-layout action="/news-management" method="PATCH" :has-files="True">
+  <x-form-layout action="/news-management" method="PATCH" :has-files="true">
       <x-slot:header>
         <div class="flex justify-between items-center w-full my-5">
           <div>

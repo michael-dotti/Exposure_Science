@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="dark"> {{-- di default in dark mode --}}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
             <div class="space-y-2">
                 <x-link-with-icon href="/dashboard" :active="request()->is('dashboard')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 <x-link-with-icon href="/articles" :active="request()->is('articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
-                <x-link-with-icon href="/project" :active="request()->is('projects*')" iconType="fas fa-chart-bar">progetti</x-link-with-icon>
+                <x-link-with-icon href="/projects" :active="request()->is('projects*')" iconType="fas fa-chart-bar">progetti</x-link-with-icon>
                 <x-link-with-icon  href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                
                 @can('management users')             
@@ -49,7 +49,7 @@
                     
                     {{-- Sezione Nome e Foto Utente --}}
                     <div class="flex items-center space-x-3">
-                        <img src="{{ Auth::user()->profilePhotoUrl }}" alt="Admin" class="w-10 h-10 rounded-full shrink-0">
+                        <x-profile-foto-mini />
                         <div>
                             <p class="text-white text-sm font-medium">
                                 {{ Auth::user()->name }} {{Auth::user()->surname }} 
@@ -82,18 +82,6 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                    <!-- {{-- Sezione Pulsanti Incolonnati --}}
-                    <div class="flex flex-row gap-2 w-full">
-                        <a href="/" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >BACK</a>
-                        <form method="POST" action="{{ route('logout') }}" class="flex-1 m-0 p-0" > {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
-                            @csrf
-                            
-                            <x-button class="w-full bg-rose-400 hover:bg-rose-500 text-white text-center tracking-normal px-2 py-1 font-bold transition-colors justify-center whitespace-nowrap">
-                                Log Out
-                            </x-button>
-                        </form>
-                        <a href="{{ route('profile.show') }}" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors" >CONFIGURAZIONI ACCOUNT AVANZATE</a>
-                    </div> -->
                 </div>
             </div>
 
@@ -114,8 +102,8 @@
             </div>
         </header>
 
-        <div class="px-6"> 
-        {{ $slot }}
+        <div class="px-6 flex-1 flex flex-col min-h-screen "> 
+            {{ $slot }}
         </div>
     </div>
     @livewireScripts 
