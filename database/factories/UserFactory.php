@@ -133,12 +133,8 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-<<<<<<< HEAD
             'curriculm_file_path' => 'public/resume/default_resume.pdf',
-        ])->assignRole(['writer','news Manager']);
-=======
         ])->assignRole(['news Manager']);
->>>>>>> 5d3cca47bf44eb9f1aaa2efc71f317708ce9bd6f
 
         $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
     }

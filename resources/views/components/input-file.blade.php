@@ -32,7 +32,7 @@
             id="{{ $name }}"
             @required($required)>
     {{-- Messaggio che specifica --}}
-    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOC, DOCX</p>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">{{ $accept }}</p>
     <x-error-message class="error-msg hidden">Il file è troppo grande (max 50MB)</x-error-message>
     <x-form-error :name="$name" />
 </div>

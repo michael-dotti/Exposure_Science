@@ -72,7 +72,7 @@
                     </table>
                 </div>
 
-                {{ $events->links('partials.custom-pagination') }} {{-- Dico a Laravel di non utilizzare al paginazioen custom per "$event", ma quella custom creata da me in: partials.custom-pagination --}}
+                {{ $events->links('partials.custom-pagination') }} {{-- Dico a Laravel di non utilizzare al paginazione custom per "$event", ma quella custom creata da me in: partials.custom-pagination --}}
             </div>
         </div>
     </div>
