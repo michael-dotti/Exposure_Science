@@ -4,7 +4,7 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/articles" >back</x-link-button>
+        <x-link-button href="/articles" >Indietro</x-link-button>
     </div>
     
  

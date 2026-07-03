@@ -38,7 +38,10 @@ class EventController extends Controller
     //Show= porta alla view per vedere un singolo articolo
     public function show(Event $event)
     {
-        return view('events.show', ['event'=> $event ]);
+        $user = Auth::user();
+        $events = $user->events_receives()->with('creator')->latest()->Paginate(1);
+       
+        return view('events.show', compact('event','events'));
     }
 
     // store = esegue l'autenticazione e poi aggiunge un articolo
