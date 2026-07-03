@@ -22,7 +22,7 @@
           <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
               <div class="shrink-0">
-                <img src="{{ asset('images/Logo_Università_Brescia.webp') }}" alt="Your Company" class="h-10 w-24 bg-white rounded-sm" />
+                <img src="{{ asset('images/LogoUniversitaBrescia.webp') }}" alt="Your Company" class="h-10 w-24 bg-white rounded-sm" />
               </div>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
