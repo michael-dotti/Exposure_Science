@@ -66,7 +66,15 @@ class EventController extends Controller
     // destroy = distrugge un articolo
     public function destroy(Event $event)
     {
-       
+        $user = Auth::user();
+        $user->events_receives()->detach($event);
+
+        $events = $user->events_receives()->with('creator')->latest()->Paginate(10);
+
+        return view('events.index', [
+            'events' => $events,
+            'types' => EventType::cases(),
+        ]);
     }
 
     public function bulkDelete(Request $request)

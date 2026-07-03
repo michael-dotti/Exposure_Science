@@ -2,7 +2,7 @@
     <x-slot:title>
         Events
     </x-slot:title>
-    <x-email-box :events="$events"> 
+    <x-email-box :events="$events" :event="$event"> 
         <div class="flex items-center space-x-3 pb-2 mb-4 border-b-2">
             <x-event-types-badges type="{{ $event->type }}"/>
             <h4 class="text-lg text-gray-800 font-bold"> 
