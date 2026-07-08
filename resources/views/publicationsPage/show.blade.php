@@ -15,7 +15,7 @@
 
                 @if($article->file_path)
                     <p class="mb-6 text-white">
-                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="/download/{{ $article->file_path }}">
+                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="/articles/{{ $article->id }}/download">
                             Scarica l'articolo intero
                         </x-nav-link>
                     </p>

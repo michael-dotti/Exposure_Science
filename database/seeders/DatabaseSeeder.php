@@ -69,6 +69,16 @@ class DatabaseSeeder extends Seeder
                     File::get($sourcePath)
                 );
             }
+
+            $fileResumeName = 'default_piano_di_studi_triennale_Ingegneria.pdf';
+            $sourcePath = public_path('images/defaultEventAttachments/'. $fileResumeName);
+
+            if(File::exists($sourcePath)){
+                Storage::disk('public')->put(
+                    'uploads/events/attachments/' . $fileResumeName,
+                    File::get($sourcePath)
+                );
+            }
         }
 
         $this->call(RoleAndPermissionSeeder::class); // deve essere aggiunto prima della chiamata di UserSeeder, altrimenti assegno agli user di default ruoli che non esistono ancora

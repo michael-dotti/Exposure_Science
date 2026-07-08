@@ -35,7 +35,7 @@ class EventManagementController extends Controller
             'content' =>['required','max:5000'],
             'type' => ['required'],
             'users' => ['required', 'array', 'min:1'],
-            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt','max:51200'],
+            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt,xls,xlsx','max:51200'],
         ]);
         
         $event = Event::create([

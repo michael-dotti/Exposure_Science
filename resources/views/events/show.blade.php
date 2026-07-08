@@ -26,8 +26,10 @@
         </div>
 
         {{-- file condivisi --}}
-        <x-attachment-list :files="{{ $event-> }}"/>
-        <div class="border-t-2 flex space-x-4 py-4">
+        @if($event->attachments->isNotEmpty())
+            <x-attachment-list :files="$event->attachments"/>
+        @endif
+        <!-- <div class="border-t-2 flex space-x-4 py-4">
             <div class="w-70 flex items-center py-2.5 px-2 border-2 border-gray-300 rounded-lg hover:bg-gray-200">
                 <div class="flex items-center">
                     <div class="w-10 flex items-center justify-center">
@@ -58,6 +60,6 @@
                 </button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </x-email-box>
 </x-layout-menu-bar-private>
