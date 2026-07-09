@@ -17,10 +17,10 @@
         <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8 shrink-0">
         
         <div class="flex flex-col min-w-0">
-            <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-700 font-bold truncate" title="{{ $file->file_name }}">
+            <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-100 font-bold truncate" title="{{ $file->file_name }}">
                 {{ $file->file_name }}
             </a>
-            <span class="text-gray-500 text-xs">{{ $file->size_in_mb }} MB</span>
+            <span class="text-gray-300 text-xs">{{ $file->size_in_mb }} MB</span>
         </div>
     </div>
     
