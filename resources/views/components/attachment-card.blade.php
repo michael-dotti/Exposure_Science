@@ -15,7 +15,7 @@
 <div class="w-70 flex items-center py-2.5 px-2 border-2 border-gray-300 rounded-lg hover:bg-gray-200">
     <div class="flex items-center">
         <div class="w-10 flex items-center justify-center">
-            <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-6 w-6">
+            <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8">
         </div>
         <div class="w-48 ml-2 flex flex-col">
             <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-700 font-bold truncate">

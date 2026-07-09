@@ -8,7 +8,7 @@
             <x-button-create form="delete_form" href="/event" image="fa-solid fa-trash-can" class="bg-red-600 hover:bg-red-700 font-bold text-white">
                 Cancella Evento
             </x-button-create>
-            <x-link-button href="/events" >Indietro</x-link-button>
+            <x-link-button href="/events" class="my-2">Indietro</x-link-button>
         </div>
         
         @if( $events->hasPages())
