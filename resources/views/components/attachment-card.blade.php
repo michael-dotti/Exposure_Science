@@ -12,7 +12,7 @@
     };
 @endphp
 
-<div class="w-full max-w-xs flex items-center justify-between p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors gap-2">
+<div class="w-full max-w-xs flex items-center justify-between p-2 border border-gray-300 rounded-lg hover:bg-mist-600 gap-2 transition-colors duration-200 ease-in-out">
     <div class="flex items-center min-w-0 gap-2">
         <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8 shrink-0">
         
