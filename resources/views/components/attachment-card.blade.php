@@ -12,19 +12,19 @@
     };
 @endphp
 
-<div class="w-70 flex items-center py-2.5 px-2 border-2 border-gray-300 rounded-lg hover:bg-gray-200">
-    <div class="flex items-center">
-        <div class="w-10 flex items-center justify-center">
-            <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8">
-        </div>
-        <div class="w-48 ml-2 flex flex-col">
-            <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-700 font-bold truncate">
+<div class="w-full max-w-xs flex items-center justify-between p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors gap-2">
+    <div class="flex items-center min-w-0 gap-2">
+        <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8 shrink-0">
+        
+        <div class="flex flex-col min-w-0">
+            <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-700 font-bold truncate" title="{{ $file->file_name }}">
                 {{ $file->file_name }}
             </a>
             <span class="text-gray-500 text-xs">{{ $file->size_in_mb }} MB</span>
         </div>
     </div>
-    <a href="/attachment/{{ $file->id }}/download" class="w-6 flex items-center justify-center" title="Download">
-        <i class="fa-solid fa-download text-gray-500 hover:text-gray-600 h-6 w-6"></i>
+    
+    <a href="/attachment/{{ $file->id }}/download" class="w-8 h-8 flex items-center justify-center shrink-0 text-gray-400 hover:text-gray-600" title="Download">
+        <i class="fa-solid fa-download text-base"></i>
     </a>
 </div>
