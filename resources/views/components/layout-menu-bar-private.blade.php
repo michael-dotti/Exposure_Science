@@ -102,7 +102,7 @@
             </div>
         </header>
 
-        <div class="px-6 flex-1 flex flex-col min-h-screen "> 
+        <div class="px-6 flex-1 flex flex-col overflow-hidden "> 
             {{ $slot }}
         </div>
     </div>

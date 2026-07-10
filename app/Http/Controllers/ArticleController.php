@@ -100,7 +100,7 @@ class ArticleController extends Controller
             $originalName = time() . '_' . $file->getClientOriginalName(); 
 
             // 3. Salva specificando la cartella, il nome del file e il disco
-            $articleData['file_path'] = $file->storeAs('articles/documents', $originalName, 'public');
+            $articleData['file_path'] = $file->storeAs('uploads/articles/documents', $originalName, 'public');
         }
 
         if (request()->hasFile('image_path')) {
@@ -184,7 +184,7 @@ class ArticleController extends Controller
 
             $file = request()->file('file_path');
             $originalName = time() . '_' . $file->getClientOriginalName();
-            $articleData['file_path'] = $file->storeAs('articles/documents', $originalName, 'public');
+            $articleData['file_path'] = $file->storeAs('uploads/articles/documents', $originalName, 'public');
         }
 
         if (request()->hasFile('image_path')) {
@@ -247,5 +247,18 @@ class ArticleController extends Controller
         return redirect('/articles'); 
     }
 
+    public function download(Article $article)
+    {
+        if(! Storage::disk('public')->exists($article->file_path)){
+            abort(404,"File non trovato");
+        }
+
+        $filePath = Storage::disk('public')->path($article->file_path);
+
+        return response()->download(
+            $filePath,
+            $article->title
+        );
+    }
     
 }
