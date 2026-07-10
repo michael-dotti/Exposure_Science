@@ -1,5 +1,12 @@
-@props(['value'])
+{{-- TODO: rimuovere poi tutta la logica di value (e pìil null di default per name, forse), 
+ho aggiunto temporaneamente value solo per far funzionare tutti i componenti di default di jetstream
+senza errori 
+--}}
+@props(['name' => null, 'value' => null, 'required' => false])
 
-<label {{ $attributes->merge(['class' => 'block font-medium text-sm text-gray-700']) }}>
+<label {{ $attributes->class([
+    'block font-medium text-white mb-1', // Classi fisse
+    'after:content-["*"] after:text-red-500 after:ml-0.5' => $required // Classe condizionale
+])->merge(['for' => $name]) }}>
     {{ $value ?? $slot }}
 </label>

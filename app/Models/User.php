@@ -93,7 +93,7 @@ class User extends Authenticatable
     }
 
     // Eventi associati a questo user
-    public function events_to_do(): BelongsToMany  
+    public function events_receives(): BelongsToMany  
     {
         return $this->belongsToMany(Event::class);
     }

@@ -15,17 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->integer("phone_number")->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken(); /** per la funzionalita' "remember user": https://laravel.com/docs/12.x/authentication#remembering-users */
             $table->string('website')->nullable();
             $table->text('bio')->nullable();
+            $table->string('curriculm_file_path')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps(precision: 0);
-            //TODO corso insegnato
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

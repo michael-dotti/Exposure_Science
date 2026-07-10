@@ -4,137 +4,85 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/articles" >back</x-link-button>
+        <x-link-button href="/articles" >Indietro</x-link-button>
     </div>
     
-    <form method="post" action="/articles" enctype="multipart/form-data">
-      @csrf
-          <div class="space-y-12 text-white">
-            <div class="border-b border-white/10 pb-12">
-              <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
-              <small>1. Fields marked with * are required</small>
-              <small>2. You must provide the item with a link to the purchase page or the document itself</small>
-               
-              <div>
-                <label for="title">Title*</label>
-                <input name="title" id="title" type="text" required>
-                <x-form-error name="title" />
-              </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
+ 
+<x-form-layout action="/articles" method="POST" :hasFiles="true">
+  <x-slot:header>
+    <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
+      <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+    <p class="text-xs text-gray-400 mt-1">2. Devi fornire un link per acquistare l'articolo o caricare il documento</p>
+  </x-slot:header>
 
-              <div>
-                <label for="abstract">Abstract*</label>
-                <input name="abstract" id="abstract" type="text" required>
-                <x-form-error name="abstract" />
-                <p class="mt-3 text-sm/6 text-gray-400">Describe with a few words the article</p>
-              </div>
-              
-              <div class="mt-4">
-                <label for="users" class="text-white">Authors* (minimum 1)</label>
-                <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
-                  @foreach($users as $user)
-                      <div class="flex items-center gap-x-3 pr-4">
-                          <input id="user-{{ $user->id }}" name="users[]" value="{{ $user->id }}" type="checkbox" 
-                                class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
-                          
-                          <label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
-                              {{ $user->name }}
-                          </label>
-                      </div>
-                  @endforeach
-                   <x-form-error name="users" />
-                </div> 
-              </div>
 
-              <div class="mt-4">
-                <label for="area" class="text-white">Area di ricerca dell'articolo* (minimum 1)</label>
-                <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
-                  @foreach($areas as $area)
-                      <div class="flex items-center gap-x-3 pr-4">
-                          <input id="area-{{ $area->id }}" name="areas[]" value="{{ $area->id }}" type="checkbox" 
-                                class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
-                          
-                          <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
-                              {{ $area->name }}
-                          </label>
-                      </div>
-                  @endforeach
-                   <x-form-error name="areas" />
-                </div> 
-              </div>
+    <div>
+      <x-input-text :required="True" label="Titolo" name="title"/>
+    </div>
 
-              <div>
-                <p>Choose between link or document *</p>
-                 <div>
-                  <div>
-                    <label for="external_url">File URL</label>
-                    <input name="external_url" id="external_url" type="url">
-                    <x-form-error name="external_url" />
-                  </div>
-                  <div>
-                    <label for="file_path">File_path</label>
-                    <input name="file_path" id="file_path" type="file">
-                    <x-form-error name="file_path" />
-                  </div>
-                </div>
-              </div>
+    <div>
+      <x-textarea-quill name="abstract" :required="True" label="Abstract" />
+      <p class="mt-3 text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
+    </div>
 
-              <div class="mt-6">
-                <label for="image_path">Image</label>
-                <x-image-preview-articles name="image_path" currentImage=""/>
-              </div>
+    <div>
+      <x-label name="users" :required="True">Autori (minimo 1)</x-label>
+      <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
+        @foreach($users as $user)
+            <div class="flex items-center gap-x-3 pr-4"> 
+              <input id="user-{{ $user->id }}" name="users[]" value="{{ $user->id }}" type="checkbox" 
+              class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent"
+              @checked($user->id == auth()->user()->id)>
+
+                <label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
+                    {{ $user->name }}
+                </label>
             </div>
-              {{--  
-              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-4">
-                  <label for="username" class="block text-sm/6 font-medium text-white">Title</label>
-                  <div class="mt-2">
-                    <div class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
-                      <input id="username" type="text" name="username" placeholder="janesmith" class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6" />
-                    </div>
-                  </div>
-                </div>
+        @endforeach
+          <x-form-error name="users" />
+      </div> 
+    </div>
 
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <label for="users">Autori (seleziona uno o più)</label>
-                    <select name="users" id="users" class="form-control" >
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                    <small>Tieni premuto Ctrl (o Cmd) per selezionare più autori.</small>
-                </div>
-
-
-                <div class="col-span-full">
-                  <label for="abstract" class="block text-sm/6 font-medium text-white">Abstract</label>
-                  <div class="mt-2">
-                    <textarea id="abstract" name="abstract" rows="3" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"></textarea>
-                  </div>
-                  <p class="mt-3 text-sm/6 text-gray-400">Describe with a few words the article</p>
-                </div>
-
-
+    <div >
+      <x-label name="areas" :required="True">Area di ricerca dell'articolo (minimo 1)</x-label>
+      <div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
+        @foreach($areas as $area)
+            <div class="flex items-center gap-x-3 pr-4">
+                <input id="area-{{ $area->id }}" name="areas[]" value="{{ $area->id }}" type="checkbox" 
+                      class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
                 
-                <div class="col-md-6 mb-3">
-                    <label for="file_articolo">Carica il file dell'articolo (PDF, DOC)</label>
-                    <input type="file" name="file_articolo" id="file_articolo" class="form-control">
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="external_url">Oppure inserisci un link esterno (URL)</label>
-                    <input type="url" name="external_url" id="external_url" class="form-control" placeholder="https://example.com/acquisto">
-                </div>
-            
+                <label for="area-{{ $area->id }}" class="text-sm text-white whitespace-nowrap">
+                    {{ $area->name }}
+                </label>
             </div>
-            --}}
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/articles">
-            <x-button type="button" class="bg-red-800">Cancel</x-button>
-          </a>
-            <x-button type="submit" class="bg-green-800">Save</x-button>
+        @endforeach
+          <x-form-error name="areas" />
+      </div> 
+    </div> 
+    
+    <div>
+      <x-label name="link_or_document" :required="True">Scegli tra un documento o un link</x-label>
+      <div class="grid md:grid-cols-2 md:gap-6">
+        <div>
+          <x-input-text name="external_url" label="File URL" />
         </div>
-</form>
+        <div>
+          <x-input-file name="file_path" label="Documento"/>
+        </div>
+      </div>
+    </div>
 
+    <div>
+      <x-label name="image_path">Immagine</x-label>
+      <x-image-preview-articles name="image_path" :required="true"/>
+      <x-form-error name="image_path" />
+    </div>
+
+  <x-slot:buttons>
+    <a href="/articles">
+      <x-danger-button type="button">Cancel</x-danger-button>
+    </a>
+    <x-save-button type="submit" >Save</x-save-button>
+  </x-slot:buttons>
+</x-form-layout>
 </x-layout-menu-bar-private>

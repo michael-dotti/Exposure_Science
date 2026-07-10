@@ -16,18 +16,27 @@ class Event extends Model
     // user che ha creato l'evento
     public function creator()
     {
-        // Un Corso APPARTIENE A UN Utente
         return $this->belongsTo(User::class, 'creator_user_id');
     }
 
     // User collegati a questo evento
-    public function users_related_to_this_event(): BelongsToMany
+    public function recipients(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function documents()
+    public function attachments()
     {
-        return $this->hasMany(EventDocument::class);
+        return $this->hasMany(EventAttachment::class);
     }
+
+    // Scope per filtrare gli eventi per tipo (sposta la logica di filtraggio qui)
+    public function scopeFilterByType($query, $type)
+{
+    if (empty($type)) { // se type è null o è una stringa vuota allora non filtro
+        return $query;
+    }
+    
+    return $query->where('events.type', $type);
+}
 }

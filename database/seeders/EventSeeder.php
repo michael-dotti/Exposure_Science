@@ -24,10 +24,10 @@ class EventSeeder extends Seeder
         $defaultUser = User::find(1);
 
         // creo gli eventi
-        $newEvents = Event::factory(5)->create();
+        $newEvents = Event::factory(20)->hasAttachments(8)->create();
 
         // collego gli id degli eventi all'user di default
-        $defaultUser->events_to_do()->attach($newEvents->pluck('id'));
+        $defaultUser->events_receives()->attach($newEvents->pluck('id'));
 
     }
 }

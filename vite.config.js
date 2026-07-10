@@ -9,7 +9,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css', 
                 'resources/js/app.js', 
-                'resources/js/components/image-preview-users.js'],
+                'resources/js/components/image-preview-users.js',
+                'resources/js/components/textarea-quill.js'
+            ],
             refresh: true,
         }),
     ],

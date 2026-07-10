@@ -4,7 +4,6 @@
     </x-slot:title>
 
     
-
     <div class="flex">
         <div class="justify-start">
             <pre class="text-white text-3xl">{{ $article->title }}</pre>
@@ -17,7 +16,7 @@
         <div class="flex">
             <div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
             <div>
-                <p class="mb-6 font-bold text-white">{{ $article->abstract }}</p>
+                <p class="mb-6 font-bold text-white">{!! $article->abstract !!}</p>
 
                 @if($article->file_path)
                     <p class="mb-6 text-white">
@@ -45,19 +44,25 @@
     </div>
 
     
-    
+    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+      @csrf
+      @method('DELETE')
+    </form>
     <footer>
-        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
-            <a href="/articles/{{ $article['id'] }}/edit" class="text-xs bg-yellow-400 text-black px-2 py-1 rounded">Modifica</a>
-            
-            <livewire:articles.delete-article-modal :article="$article" wire:key="delete-modal-{{ $article->id }}"/>
-        </div>
-
+        @canany(['update', 'delete'], $article)
+            <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
+                @can('update', $article)
+                    <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
+                @endcan
+                @can('delete', $article)
+                    <x-danger-button form="delete_form">Elimina</x-danger-button>
+                @endcan
+            </div>
+        @endcanany
+        
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
-            <button href="/articles" class="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:cursor-pointer">
-                <a href="/articles"> back </a>
-            </button>
-        </div>
+            <x-link-button href="/articles" >back</x-link-button>
+        </div>  
     </footer>
     
 </x-layout-menu-bar-private>

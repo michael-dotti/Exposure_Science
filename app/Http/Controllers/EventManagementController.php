@@ -14,24 +14,15 @@ use App\Enums\EventType;
 
 class EventManagementController extends Controller
 {
-    public function index(){
-        //mostro nella home le tre notizie più nuove
-        $user = Auth::user();
-
-        $events = DB::table('events')->where('creator_user_id', $user->id)->latest()->simplePaginate(5);
-
-        //dd($events);
-
-        //$event = event::find(1);
-        //$users = $event->users;
-        //dd($users);
-        //return view('publicationsPage.index', compact('articles'));
-        return view('events-management.index', ['events' => $events]);
+    public function index()
+    {
+        $events = Event::with('creator')->latest()->paginate();
+        return view('events-management.index', compact('events'));
     }
 
     public function create()
     {
-        $users = User::all();
+        $users = User::select('id', 'name','profile_photo_path')->get();
         $types = EventType::cases();
         return view('events-management.create', compact('users','types'));
     }
@@ -44,24 +35,24 @@ class EventManagementController extends Controller
             'content' =>['required','max:5000'],
             'type' => ['required'],
             'users' => ['required', 'array', 'min:1'],
-            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,png','max:5120'],
+            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt,xls,xlsx','max:51200'],
         ]);
         
         $event = Event::create([
             'title' => request()->title,
-            'content' => request()->content,
+            'content' => request('content'),
             'type' => request()->type,
             'creator_user_id' => Auth::id(),
         ]);
 
-        $event->users_related_to_this_event()->attach(request()->users);
+        $event->recipients()->attach(request()->users);
         if(request()->hasFile('documents')) {
             foreach(request()->file('documents') as $file) {
 
                 $path = $file->store('uploads/event/documents','public');
 
                
-                $event->documents()->create([
+                $event->attachments()->create([
                     'file_name' => $file->getClientOriginalName(),
                     'file_path' => $path,
                 ]);
@@ -69,5 +60,12 @@ class EventManagementController extends Controller
         }
 
         return redirect('/events-management');
+    }
+
+    public function edit(Event $event)
+    {
+        $users = User::select('id', 'name','profile_photo_path')->get();
+        $types = EventType::cases();
+        return view('events-management.edit', compact('event','users','types'));
     }
 }

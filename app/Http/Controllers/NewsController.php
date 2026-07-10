@@ -13,13 +13,9 @@ class NewsController extends Controller
 {
     public function index(){
         
-        //mostro nella home le tre notizie più nuove
+        //mostro nella home le tre notizie più recenti
         $news = News::latest()->take(5)->orderBy('created_at', 'desc')->get();
 
-        //$article = Article::find(1);
-        //$users = $article->users;
-        //dd($users);
-        //return view('publicationsPage.index', compact('articles'));
         return view('newsPage.index', ['news' => $news]);
     }
 

@@ -3,44 +3,43 @@
 		Nuova notizia
     </x-slot:title>
    
-    <div class="flex justify-end">
-        <x-link-button href="/news-management" >back</x-link-button>
-    </div>
     
-    <form method="post" action="/news-management" enctype="multipart/form-data">
-      @csrf
-          <div class="space-y-12 text-white">
-            <div class="border-b border-white/10 pb-12">
-              <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h2>
-              <small>1. I campi con * sono obbligatori</small>
-               
-              <div>
-                <label for="title">Titolo*</label>
-                <input name="title" id="title" type="text" required>
-                <x-form-error name="title" />
-              </div>
-              {{-- TODO la data di pubblicazine dell'articolo verrà impostata non dall'utente
-              ma dal sistema guardando la data di oggi --}}
+    <x-form-layout action="/news-management" method="POST" :has-files="true">
+      
+      <x-slot:header>
+        <div class="flex justify-between items-center w-full my-5">
+          <div>
+            <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
+            <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+          </div>
 
-              <div>
-                <label for="content">Contenuto*</label>
-                <input name="content" id="content" type="text" required>
-                <x-form-error name="content" />
-                <p class="mt-3 text-sm/6 text-gray-400">Inserisci il contenuto dell'articolo</p>
-              </div>
-
-              <div class="mt-6">
-                <label for="imagePath">Immagine*</label>
-                <x-image-preview-articles name="imagePath" currentImage=""/>
-              </div>
-            </div>
-
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/news-management">
-            <x-button type="button" class="bg-red-800">Annulla</x-button>
-          </a>
-            <x-button type="submit" class="bg-green-800">Salva</x-button>
+          <div>
+            <x-link-button href="/news-management">back</x-link-button>
+          </div>
         </div>
-</form>
+      </x-slot:header>
+
+      <div>
+        <x-input-text name="title" :required="true" label="Titolo"></x-input-text>
+      </div>
+
+      <div>
+        <x-textarea-quill name="content" />
+      </div>
+      
+      <div>
+        <x-label name="imagePath" :required="true">Immagine</x-label>
+        <x-image-preview-news name="imagePath"/>
+        <x-form-error name="imagePath"/>
+      </div>
+      
+      <x-slot:buttons>
+        <a href="/news-management">
+          <x-danger-button type="button">Annulla</x-danger-button>
+        </a>
+        <x-save-button type="submit">Salva</x-save-button>
+      </x-slot:buttons>
+
+    </x-form-layout>
 
 </x-layout-menu-bar-private>

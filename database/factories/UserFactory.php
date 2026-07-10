@@ -69,7 +69,8 @@ class UserFactory extends Factory
             'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
-            Sono l'attuale amministratore del gruppo di ricerca " 
+            Sono l'attuale amministratore del gruppo di ricerca ",
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
          ]);
     }
     /**
@@ -115,7 +116,8 @@ class UserFactory extends Factory
             impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
             viene suonata una nota specifica.
             EOT,
-        ])->assignRole('researcher');
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
+        ])->assignRole('reliable researcher');
 
         $this->withPersonalTeam()->create([
             'name' => 'Emilia',
@@ -131,8 +133,21 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-        ])->assignRole('researcher');
+            'curriculm_file_path' => 'public/resume/default_resume.pdf',
+        ])->assignRole(['news Manager']);
 
         $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
+    }
+
+    /**
+     * configure: metodo eseguito sempre appena la factory viene invocata
+     * in questo caso, assegno il ruolo di default  "researcher" a tutti gli utenti creati con la factory
+     */
+    public function configure(): static
+    {
+        // afterCreating viene eseguito dopo che l'utente è stato creato nel database
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('researcher');
+        });
     }
 }

@@ -6,6 +6,8 @@
     --color-cordes-dark: #1e293b;
     --color-cordes-light: #f8fafc;
     --color-cordes-accent: #3b82f6;
+
+    --color-cordes-surface: #334155;
 }
 
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
@@ -13,7 +15,36 @@
 @source "../**/*.blade.php";
 @source "../**/*.js";
 
+/* necessario per importare flowbite */
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
+
 [x-cloak] {
     display: none;
 }
 
+/* --- Personalizzazione Quill--- */
+.ql-toolbar.ql-snow {
+    background-color: #f1f5f9; /* grigio un pò più scuro */
+    border-color: #cbd5e1; /* Bordo grigio per staccare dal contenitore */
+    border-top-left-radius: 0.375rem; 
+    border-top-right-radius: 0.375rem;
+}
+
+/* contenitore del testo ha il bordo dello stesso colore del toolbar, ma un colore di background diverso */
+.ql-container.ql-snow {
+    border-color: #cbd5e1;
+    background-color: #ffffff; /* bianco per il contenuto */
+}
+
+/* Mantiene le icone del colore scuro standard in modo che siano leggibili sul grigio chiaro */
+.ql-toolbar.ql-snow .ql-stroke {
+    stroke: #475569 !important; /* Grigio scuro per le icone */
+}
+.ql-toolbar.ql-snow .ql-fill {
+    fill: #475569 !important;
+}
+.ql-toolbar.ql-snow .ql-picker {
+    color: #475569 !important;
+}

@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             $imagesUsersName = ['Admin.webp','Emilia_Rossi.webp','Mario_Rossi.webp'];
             
             foreach ($imagesUsersName as $imageName) {
-            $sourcePath = public_path('/images/defaultUsers/'. $imageName); // prendo il percorso del file dentro public
+                $sourcePath = public_path('/images/defaultUsers/'. $imageName); // prendo il percorso del file dentro public
                 if(File::exists($sourcePath)){ // verifico che il file esisti
                     // leggo il contenuto del file file e lo scrivo nel disco public di storage
                     Storage::disk('public')->put(
@@ -53,6 +53,31 @@ class DatabaseSeeder extends Seeder
                 Storage::disk('public')->put(
                     'uploads/news/'.$imageNewsName, 
                     File::get($sourcePath));
+            }
+
+            //1) prendi nome file
+            //2) prendi percorso public file
+            // 3) verifica che file esista
+            // 4) se si, caricalo su storage in: uploads/résumé/NomeFIle
+
+            $fileResumeName = 'default_resume.pdf';
+            $sourcePath = public_path('resume/' . $fileResumeName);
+
+            if(File::exists($sourcePath)){
+                Storage::disk('public')->put(
+                    'uploads/resume/' . $fileResumeName,
+                    File::get($sourcePath)
+                );
+            }
+
+            $fileResumeName = 'default_piano_di_studi_triennale_Ingegneria.pdf';
+            $sourcePath = public_path('images/defaultEventAttachments/'. $fileResumeName);
+
+            if(File::exists($sourcePath)){
+                Storage::disk('public')->put(
+                    'uploads/events/attachments/' . $fileResumeName,
+                    File::get($sourcePath)
+                );
             }
         }
 
