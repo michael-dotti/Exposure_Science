@@ -4,9 +4,9 @@
     </x-slot:title>
     <x-event-box :events="$events" :event="$event"> 
         <x-slot:buttons>
-            <x-button-create form="delete_form" href="/event" image="fa-solid fa-trash-can" class="bg-red-600 hover:bg-red-700 font-bold text-white">
+            <x-button-delete form="delete_form">
                 Cancella Evento
-            </x-button-create>
+            </x-button-delete>
             <x-link-button href="/events" class="my-2">Indietro</x-link-button>
         </x-slot:buttons>
 
