@@ -53,10 +53,20 @@ Route::middleware([
     config('jetstream.auth_session'), // applica un middleware fornito da Jetstream che gestisce la sessione di autenticazione.
     'verified', // assicura che l'utente abbia verificato la propria email prima di accedere.
 ])->group(function () { // definizione di un'insieme di rotte che avranno tutte quante il middleware sopra
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard'); // do come nome alla rotta "dashboard"
     
+
+    Route::get('/dashboard', function () {
+        return view('/user/dashboard');
+    })->name('dashboard'); // do come nome alla rotta "dashboard"
+
+    Route::get('/dashboard/edit', function () {
+        return view('/user/data-editor');
+    })->name('edit');
+    
+    Route::controller(UserController::class)->group(function () {
+        Route::patch('/dashboard/{user}', 'update');
+    });
+
     Route::controller(ArticleController::class)->group(function () {
         Route::get('/articles', 'index')->middleware('can:viewAny,' . Article::class);
         Route::get('/articles/create','create')->middleware('can:create,' . Article::class);
@@ -86,7 +96,7 @@ Route::middleware([
         Route::controller(NewsManagementController::class)->group(function () {
             Route::get('/news-management', 'index');
             Route::get('/news-management/create', 'create');
-             Route::get('/news-management/{news}', 'show');
+            Route::get('/news-management/{news}', 'show');
             Route::post('/news-management', 'store');
             Route::get('/news-management/{news}/edit','edit');
             Route::patch('/news-management/{news}','update');
