@@ -21,19 +21,28 @@
         @else
             <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
                 @foreach ($articles as $article)
-                    <div class="bg-[#101828] border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#161e2e]">
-                        <a href="publications/{{ $article->id }}"> {{ $article->title }} </a>
-                        <p> <small>{!! $article->abstract !!}</small> </p>
+                <a href="publications/{{ $article->id }}">
+                    <div class="bg-[#101828] rounded-md bg-mist-700 border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-mist-600 *:m-4">
+                         {{ $article->title }} 
+                        <p>
+                            {{ \Illuminate\Support\Str::limit(
+                                strip_tags($article->abstract),
+                                150
+                            ) }}
+                        </p>
                         @if($article->image_path)
                             <div class="flex justify-center"> 
                                 <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
                             </div>
                         @endif
-                        <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
-                        <div>
+                        <div class="flex flex-col">
+                            <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
                             <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
                         </div>
+                        
                     </div>
+                    </a>
+
                 @endforeach
             </div>
         @endif
