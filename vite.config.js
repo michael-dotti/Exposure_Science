@@ -8,9 +8,13 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css', 
-                'resources/js/app.js', 
+                'resources/js/app.js',
+                'resources/js/components/file-max-size.js',
+                'resources/js/components/image-preview-article.js',
+                'resources/js/components/image-preview-news.js',
                 'resources/js/components/image-preview-users.js',
-                'resources/js/components/textarea-quill.js'
+                'resources/js/components/select-all-rows-table.js',
+                'resources/js/components/textarea-quill.js',
             ],
             refresh: true,
         }),
