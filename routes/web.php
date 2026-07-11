@@ -97,8 +97,11 @@ Route::middleware([
         Route::controller(EventManagementController::class)->group(function () {
             Route::get('/events-management','index');
             Route::get('/events-management/create', 'create');
+            Route::get('/events-management/{event}','show');
             Route::post('/events-management', 'store');
             Route::get('/events-management/{event}/edit','edit');
+            Route::patch('/events-management/{event}', 'update');
+            Route::delete('/events-management/{event}', 'destroy');
         });
     });
 

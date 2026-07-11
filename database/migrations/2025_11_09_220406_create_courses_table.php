@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string("titolo");
-            $table->string("descrizione");
+            $table->string("title");
+            $table->string("language");
+            $table->string("code",11)->unique();
+            $table->integer("points");
+            $table->smallInteger("semester");
+            $table->integer("duration");
+            $table->string("description");
+
 
             /*
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');

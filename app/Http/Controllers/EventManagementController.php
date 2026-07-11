@@ -16,7 +16,7 @@ class EventManagementController extends Controller
 {
     public function index()
     {
-        $events = Event::with('creator')->latest()->paginate();
+        $events = Event::with('creator')->latest()->paginate(5);
         return view('events-management.index', compact('events'));
     }
 
@@ -25,6 +25,11 @@ class EventManagementController extends Controller
         $users = User::select('id', 'name','profile_photo_path')->get();
         $types = EventType::cases();
         return view('events-management.create', compact('users','types'));
+    }
+
+    public function show(Event $event){
+        $events = Event::with('creator')->latest()->paginate(1);
+        return view('events-management.show', compact('event','events'));
     }
 
     public function store(Event $event)
@@ -67,5 +72,15 @@ class EventManagementController extends Controller
         $users = User::select('id', 'name','profile_photo_path')->get();
         $types = EventType::cases();
         return view('events-management.edit', compact('event','users','types'));
+    }
+
+    public function update(Event $event)
+    {
+        dd('TODO update');
+    }
+
+    public function destroy(Event $event)
+    {
+       dd('TODO destroy');
     }
 }

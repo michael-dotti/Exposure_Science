@@ -11,7 +11,7 @@
             
             <div class="block pl-3">
                 <div class="text-white" >
-                    <a href="/events/{{ $event->id }}" class="hover:underline">
+                    <a href="/events-management/{{ $event->id }}" class="hover:underline">
                         <strong>{{ $event->title }}</strong>
                     </a>
                     <p>da:</p>
