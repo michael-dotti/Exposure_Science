@@ -23,7 +23,7 @@
                 @foreach ($articles as $article)
                 <a href="publications/{{ $article->id }}">
                     <div class="bg-[#101828] rounded-md bg-mist-700 border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-mist-600 *:m-4">
-                         {{ $article->title }} 
+                        <p>{{ $article->title }} </p>
                         <p>
                             {{ \Illuminate\Support\Str::limit(
                                 strip_tags($article->abstract),
