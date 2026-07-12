@@ -15,26 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("language");
-            $table->string("code",11)->unique();
-            $table->integer("points");
-            $table->smallInteger("semester");
-            $table->integer("duration");
-            $table->string("description");
-
-
-            /*
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            
-            Spiegazione dei metodi:
-    $table->foreignId('user_id'): creare una colonna user_id di tipo UNSIGNED BIGINT (il tipo predefinito per gli ID).
-    ->nullable(): Permette che un corso non abbia un user_id associato.
-    ->constrained('users'): Indica che questa colonna è una chiave esterna che fa riferimento alla colonna id
-                             della tabella users.
-    ->onDelete('set null'): Se l'utente insegnante viene eliminato dal database,
-                         il campo user_id nei corsi che insegnava verrà automaticamente impostato a NULL   
-                         , mantenendo i dati del corso.
-            */
-                         
+            $table->string("code",10)->unique();
+            $table->unsignedTinyInteger("points");
+            $table->unsignedTinyInteger("semester");
+            $table->unsignedInteger("duration");
+            $table->text("description");
+            $table->timestamps();                         
         });
     }
 
