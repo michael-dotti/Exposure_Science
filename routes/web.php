@@ -6,9 +6,9 @@ use App\Models\EventAttachment;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PublicationsPageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
@@ -25,9 +25,9 @@ Route::controller(TeamPageController::class)->group( function (){
     Route::get('/teamPage/{user}', 'show');
 });
 
-Route::controller(PublicationsPageController::class)->group( function (){
-    Route::get('/publications','index');
-    Route::get('/publications/{article}', 'show');
+Route::controller(ArticleController::class)->group( function (){
+    Route::get('/public/articles','index');
+    Route::get('/public/articles/{article}', 'show');
 });
 
 
@@ -63,19 +63,15 @@ Route::middleware([
         Route::patch('/dashboard/{user}', 'update');
     });
 
-    Route::controller(ArticleController::class)->group(function () {
-        Route::get('/articles', 'index')->middleware('can:viewAny,' . Article::class);
-        Route::get('/articles/create','create')->middleware('can:create,' . Article::class);
-        Route::post('/articles', 'store')->middleware('can:create,' . Article::class);
-        Route::get('/articles/{article}', 'show');
-        Route::get('/articles/{article}/edit','edit');
-        Route::patch("/articles/{article}", 'update');
-        Route::delete('/articles/{article}','destroy');
-        Route::get('/articles/{article}/download','download');
-    });
-    
-    Route::controller(UserController::class)->group(function () {
-        Route::patch('/dashboard/{user}', 'update');
+    Route::controller(AdminArticleController::class)->group(function () {
+        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class);
+        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class);
+        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class);
+        Route::get('/admin/articles/{article}', 'show');
+        Route::get('/admin/articles/{article}/edit','edit');
+        Route::patch("/admin/articles/{article}", 'update');
+        Route::delete('/admin/articles/{article}','destroy');
+        Route::get('/admin/articles/{article}/download','download');
     });
 
     Route::controller(EventController::class)->group(function () {

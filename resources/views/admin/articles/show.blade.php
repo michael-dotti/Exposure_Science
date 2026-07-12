@@ -44,15 +44,15 @@
     </div>
 
     
-    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+    <form method="POST" action="/admin/articles/{{ $article->id }}" id="delete_form" class="hidden">
       @csrf
       @method('DELETE')
     </form>
     <footer>
         @canany(['update', 'delete'], $article)
-            <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
+            <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
                 @can('update', $article)
-                    <x-modify-button-link href="/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
+                    <x-modify-button-link href="/admin/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
                 @endcan
                 @can('delete', $article)
                     <x-danger-button form="delete_form">Elimina</x-danger-button>
@@ -60,8 +60,8 @@
             </div>
         @endcanany
         
-        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
-            <x-link-button href="/articles" >back</x-link-button>
+        <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
+            <x-link-button href="/admin/articles" >back</x-link-button>
         </div>  
     </footer>
     

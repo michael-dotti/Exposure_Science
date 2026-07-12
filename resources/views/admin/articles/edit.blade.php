@@ -4,15 +4,15 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/articles" >Indietro</x-link-button>
+        <x-link-button href="/admin/articles" >Indietro</x-link-button>
     </div>
              
-    <form method="POST" action="/articles/{{ $article->id }}" id="delete_form" class="hidden">
+    <form method="POST" action="/admin/articles/{{ $article->id }}" id="delete_form" class="hidden">
       @csrf
       @method('DELETE')
     </form>
     
-    <x-form-layout action="/articles/{{ $article->id }}" method="patch" :hasFiles="true">
+    <x-form-layout action="/admin/articles/{{ $article->id }}" method="patch" :hasFiles="true">
       <x-slot:header>
         <h1 class="text-base/7 font-semibold text-white">Modifica Articolo: {{ $article->title }}</h2>
         <div class="mt-1 mb-8">
@@ -27,7 +27,7 @@
 
         <div>
           <x-textarea-quill name="abstract" :required="True" label="Abstract" value="{!! $article->abstract !!}"/>
-          <p class="mt-3 text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
+          <p class="text-sm/6 text-gray-400">Descrivere con qualche parola l'articolo</p>
         </div>
         
         <div>

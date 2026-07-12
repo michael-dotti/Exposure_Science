@@ -4,14 +4,14 @@
     </x-slot:title>
     
     @can('create', App\Models\Article::class) 
-        <x-button-create href="/articles/create">Nuovo Articolo</x-button-create>
+        <x-button-create href="/admin/articles/create">Nuovo Articolo</x-button-create>
     @endcan
 
     <div class="flex my-3 gap-3 items-center justify-center">
         @can('edit all articles')
-            <x-user-filter href="/articles" :users="$users"></x-user-filter>
+            <x-user-filter href="/admin/articles" :users="$users"></x-user-filter>
         @endcan
-        <x-research-area-filter href="/articles" :researchAreas="$areas"></x-research-area-filter>
+        <x-research-area-filter href="/admin/articles" :researchAreas="$areas"></x-research-area-filter>
     </div>
 
     <div class="space-y-4 ml-6">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="text-white" >
-                    <a href="/articles/{{ $article->id }}" class="hover:underline">
+                    <a href="/admin/articles/{{ $article->id }}" class="hover:underline">
                         <strong>{{ $article->title }}</strong>
                     </a>
                     :
@@ -45,11 +45,11 @@
                 @canany(['update', 'delete'], $article)
                     <div class="mt-4 flex gap-2">
                         @can('update', $article)
-                        <x-modify-button-link href="/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
+                        <x-modify-button-link href="/admin/articles/{{ $article['id'] }}/edit">Modifica</x-modify-button-link>
                         @endcan
                         @can('delete', $article)
                             <x-danger-button form="delete_form_{{ $article->id }}" >Elimina</x-danger-button>
-                            <form method="POST" action="/articles/{{ $article->id }}" id="delete_form_{{ $article->id }}" class="hidden">
+                            <form method="POST" action="/admin/articles/{{ $article->id }}" id="delete_form_{{ $article->id }}" class="hidden">
                                 @csrf
                                 @method('DELETE')
                             </form>

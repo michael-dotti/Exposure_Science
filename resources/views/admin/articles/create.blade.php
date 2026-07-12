@@ -4,11 +4,11 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/articles" >Indietro</x-link-button>
+        <x-link-button href="/admin/articles" >Indietro</x-link-button>
     </div>
     
  
-<x-form-layout action="/articles" method="POST" :hasFiles="true">
+<x-form-layout action="/admin/articles" method="POST" :hasFiles="true">
   <x-slot:header>
     <h1 class="text-base/7 font-semibold text-white">Crea un nuovo Articolo</h2>
       <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
@@ -22,7 +22,7 @@
 
     <div>
       <x-textarea-quill name="abstract" :required="True" label="Abstract" />
-      <p class="mt-3 text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
+      <p class="text-sm/6 text-gray-400">Descrivi con alcune parole l'articolo</p>
     </div>
 
     <div>
@@ -79,7 +79,7 @@
     </div>
 
   <x-slot:buttons>
-    <a href="/articles">
+    <a href="/admin/articles">
       <x-danger-button type="button">Cancel</x-danger-button>
     </a>
     <x-save-button type="submit" >Save</x-save-button>
