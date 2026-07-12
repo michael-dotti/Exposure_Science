@@ -33,7 +33,6 @@ class ArticleController extends Controller
         } else {
             // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
             $articles = auth()->user()->articles()->with(['users', 'researchAreas']); 
-            
         }
 
         $articles = $articles->filterByArea($request->query('areaId'))

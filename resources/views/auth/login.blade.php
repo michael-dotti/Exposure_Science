@@ -17,7 +17,7 @@
 
             <div>
                 <x-label name="email" >Email</x-label>
-                <x-input-text name="email" type="email"  :value="old('email')" required autofocus autocomplete="username" />
+                <x-input-text name="email" type="email"  :value="old('email')" required autofocus autocomplete="username" :validation="False"/>
             </div>
 
             <div class="mt-4">

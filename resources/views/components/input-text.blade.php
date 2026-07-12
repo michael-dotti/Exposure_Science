@@ -13,6 +13,7 @@
     'value'=> '', // utile per il form di modifica
      'label' => null, // La label è opzionale di default
     'required' => false,
+    'validation' => true
 ])
 
 
@@ -36,5 +37,7 @@
     value="{{ old($name, $value) }}"  {{--  se l'utente ha già inserito un valore, lo mantiene in caso di errore di validazione --}}
     @required($required)> {{-- @required(condizione) = rende l'input required se la condizione è True --}}
 
-    <x-form-error :name="$name" />
+    @if($validation)
+        <x-form-error :name="$name" />
+    @endif
 </div>
