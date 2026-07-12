@@ -30,7 +30,7 @@
                 <x-link-with-icon href="/projectsPrivate" :active="request()->is('projectsPrivate*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
 
                 @can('teaching')
-                    <x-link-with-icon  href="/cources" :active="request()->is('cources','cources/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
+                    <x-link-with-icon  href="/admin/courses" :active="request()->is('/admin/courses','/admin/courses/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
                 @endcan()
                 
                 <x-link-with-icon  href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>

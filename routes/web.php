@@ -5,8 +5,13 @@ use App\Models\Article;
 use App\Models\EventAttachment;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
+
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -19,6 +24,10 @@ Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
 });
 
+Route::controller(CoursesController::class)->group( function (){
+    Route::get('/public/courses', 'index');
+    Route::get('/public/courses/{course}', 'show');
+});
 
 Route::controller(TeamPageController::class)->group( function (){
     Route::get('/teamPage','index');
@@ -108,6 +117,13 @@ Route::middleware([
             Route::get('/events-management/{event}/edit','edit');
             Route::patch('/events-management/{event}', 'update');
             Route::delete('/events-management/{event}', 'destroy');
+        });
+    });
+
+    Route::middleware((['permission:teaching']))->group(function (){
+        Route::controller(AdminCoursesController::class)->group( function (){
+            Route::get('/admin/courses', 'index');
+            Route::get('/admin/courses/{course}', 'show');
         });
     });
 

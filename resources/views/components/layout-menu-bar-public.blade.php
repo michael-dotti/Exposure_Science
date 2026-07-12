@@ -31,6 +31,7 @@
                   <x-nav-link href="/teamPage" :active="request()->is('teamPage*')" >Team</x-nav-link>
                   <x-nav-link href="/public/articles" :active="request()->is('public/articles*')">Publicazioni</x-nav-link>
                   <x-nav-link href="/news" :active="request()->is('news*')" >Novità</x-nav-link>
+                  <x-nav-link href="/public/cources" :active="request()->is('public/cources*')" >Corsi</x-nav-link>
                 </div>
               </div>
             </div>
@@ -80,6 +81,7 @@
             <x-nav-link href="/teamPage" :active="request()->is('teamPage*')" >Team</x-nav-link>
             <x-nav-link href="/public/articles" :active="request()->is('public/articles*')" >Publicazioni</x-nav-link>
             <x-nav-link href="/news" :active="request()->is('news*')" >Novità</x-nav-link></div>
+            
           <div class="border-t border-white/10 pt-4 pb-3">
             <div class="flex items-center px-5">
               <div class="shrink-0">
