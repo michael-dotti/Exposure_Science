@@ -1,6 +1,6 @@
 <x-layout-menu-bar-private>
     <x-slot:title>
-        New Article 
+        Nuovo Articolo 
     </x-slot:title>
    
     <div class="flex justify-end">
@@ -10,7 +10,7 @@
  
 <x-form-layout action="/articles" method="POST" :hasFiles="true">
   <x-slot:header>
-    <h1 class="text-base/7 font-semibold text-white">Create New Article</h2>
+    <h1 class="text-base/7 font-semibold text-white">Crea un nuovo Articolo</h2>
       <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
     <p class="text-xs text-gray-400 mt-1">2. Devi fornire un link per acquistare l'articolo o caricare il documento</p>
   </x-slot:header>

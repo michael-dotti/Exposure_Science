@@ -27,7 +27,7 @@
             <div class="space-y-2">
                 <x-link-with-icon href="/dashboard" :active="request()->is('dashboard')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 <x-link-with-icon href="/articles" :active="request()->is('articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
-                <x-link-with-icon href="/projects" :active="request()->is('projects*')" iconType="fas fa-chart-bar">progetti</x-link-with-icon>
+                <x-link-with-icon href="/projectsPrivate" :active="request()->is('projectsPrivate*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
 
                 @can('teaching')
                     <x-link-with-icon  href="/cources" :active="request()->is('cources','cources/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>

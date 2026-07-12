@@ -1,7 +1,10 @@
 <x-layout-menu-bar-public>
     <x-slot:title>
-        Courses Show
+        Corsi
     </x-slot:title>
+    <x-slot:heading>
+        Courses Index
+    </x-slot:heading>
     
     <x-page-to-do />
 </x-layout-menu-bar-public>
