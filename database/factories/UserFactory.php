@@ -117,7 +117,7 @@ class UserFactory extends Factory
             viene suonata una nota specifica.
             EOT,
             'curriculm_file_path' => 'public/resume/default_resume.pdf',
-        ])->assignRole('reliable researcher');
+        ])->assignRole(['reliable researcher','teacher']);
 
         $this->withPersonalTeam()->create([
             'name' => 'Emilia',

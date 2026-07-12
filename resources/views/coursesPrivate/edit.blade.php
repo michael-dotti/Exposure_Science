@@ -1,6 +1,6 @@
 <x-layout-menu-bar-private>
     <x-slot:title>
-        Projects 
+        Courses Edit
     </x-slot:title>
     
     <x-page-to-do />

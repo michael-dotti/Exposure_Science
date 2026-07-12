@@ -9,7 +9,7 @@
     @livewireStyles 
     {{-- necessario insieme a @livewireScripts, in fondo al tag <body></body>, per caricare Alpine --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-cordes-dark min-h-screen">
     <!-- Sidebar -->
@@ -28,6 +28,11 @@
                 <x-link-with-icon href="/dashboard" :active="request()->is('dashboard')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 <x-link-with-icon href="/articles" :active="request()->is('articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
                 <x-link-with-icon href="/projects" :active="request()->is('projects*')" iconType="fas fa-chart-bar">progetti</x-link-with-icon>
+
+                @can('teaching')
+                    <x-link-with-icon  href="/cources" :active="request()->is('cources','cources/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
+                @endcan()
+                
                 <x-link-with-icon  href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                
                 @can('management users')             

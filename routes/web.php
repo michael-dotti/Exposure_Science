@@ -119,7 +119,7 @@ Route::middleware([
         Route::view('/users-management','users-management.index');
     });
 
-    Route::view('/projects','projects.index');
+    Route::view('/projectsPrivate','projectsPrivate.index');
 });
 
     
