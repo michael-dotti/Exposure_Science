@@ -28,10 +28,10 @@
                 <div class="ml-10 flex items-baseline space-x-4">
                   <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
                   <x-nav-link href="/" :active="request()->is('/')" >Home</x-nav-link>
-                  <x-nav-link href="/teamPage" :active="request()->is('teamPage*')" >Team</x-nav-link>
+                  <x-nav-link href="/public/users" :active="request()->is('public/users*')" >Team</x-nav-link>
                   <x-nav-link href="/public/articles" :active="request()->is('public/articles*')">Publicazioni</x-nav-link>
                   <x-nav-link href="/news" :active="request()->is('news*')" >Novità</x-nav-link>
-                  <x-nav-link href="/public/cources" :active="request()->is('public/cources*')" >Corsi</x-nav-link>
+                  <x-nav-link href="/public/courses" :active="request()->is('public/courses*')" >Corsi</x-nav-link>
                 </div>
               </div>
             </div>

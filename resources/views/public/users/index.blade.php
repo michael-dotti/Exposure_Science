@@ -38,10 +38,10 @@
                                    hover:-translate-y-1 hover:shadow-xl"
                         >
                             <a
-                                href="{{ url('teamPage/' . $user->id) }}"
+                                href="/public/users/{{ $user->id }}"
                                 class="flex flex-col h-full sm:flex-row"
                             >
-                                <div class="w-full sm:w-32 flex-shrink-0">
+                                <div class="w-full sm:w-32 shrink-0">
                                     <img
                                         src="{{ $user->profilephotourl }}"
                                         alt="Foto di {{ $user->name }} {{ $user->surname }}"
@@ -59,6 +59,8 @@
                                         <p class="mt-1 text-sm font-medium text-amber-400">
                                             @if ($user->hasRole('admin'))
                                                 Team Leader
+                                            @elseif ($user->hasRole('teacher'))
+                                                Docente
                                             @else
                                                 Membro del Team
                                             @endif
@@ -101,7 +103,6 @@
                             </a>
                         </article>
                     @endforeach
-
                 </div>
             @endif
 

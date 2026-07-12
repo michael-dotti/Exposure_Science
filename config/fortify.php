@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'home' => '/dashboard',
+    'home' => '/admin/users/show', // qui puoi cambiare la rotta dove l'utente viene reindirizzato dopo il login o il reset della password
 
     /*
     |--------------------------------------------------------------------------

@@ -6,14 +6,17 @@ use App\Models\EventAttachment;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleController as PublicArticleController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 
-use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\CoursesController as PublicCoursesController;
 use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
 
+use App\Http\Controllers\UserController as PublicUserController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
@@ -24,17 +27,17 @@ Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
 });
 
-Route::controller(CoursesController::class)->group( function (){
+Route::controller(PublicCoursesController::class)->group( function (){
     Route::get('/public/courses', 'index');
     Route::get('/public/courses/{course}', 'show');
 });
 
-Route::controller(TeamPageController::class)->group( function (){
-    Route::get('/teamPage','index');
-    Route::get('/teamPage/{user}', 'show');
+Route::controller(PublicUserController::class)->group( function (){
+    Route::get('/public/users','index');
+    Route::get('/public/users/{user}', 'show');
 });
 
-Route::controller(ArticleController::class)->group( function (){
+Route::controller(PublicArticleController::class)->group( function (){
     Route::get('/public/articles','index');
     Route::get('/public/articles/{article}', 'show');
 });
@@ -59,17 +62,11 @@ Route::middleware([
     'verified', // assicura che l'utente abbia verificato la propria email prima di accedere.
 ])->group(function () { // definizione di un'insieme di rotte che avranno tutte quante il middleware sopra
     
-
-    Route::get('/dashboard', function () {
-        return view('/user/dashboard');
-    })->name('dashboard'); // do come nome alla rotta "dashboard"
-
-    Route::get('/dashboard/edit', function () {
-        return view('/user/data-editor');
-    })->name('edit');
     
-    Route::controller(UserController::class)->group(function () {
-        Route::patch('/dashboard/{user}', 'update');
+    Route::controller(AdminUserController::class)->group(function () {
+        Route::get('/admin/users/show','show');
+        Route::get('/admin/users/edit','edit');
+        Route::patch('/admin/users/{user}', 'update');
     });
 
     Route::controller(AdminArticleController::class)->group(function () {
