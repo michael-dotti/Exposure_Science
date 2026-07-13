@@ -15,7 +15,7 @@
                     </div>
                     <div class="flex flex-col shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                         <x-danger-button form="bulk-delete-form">Elimina Notifiche selezionate</x-danger-button>
-                        <x-event-type-filter href="/events" :types="$types"></x-event-type-filter>
+                        <x-event-type-filter href="/admin/events" :types="$types"></x-event-type-filter>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                         <tbody>
                             @forelse ( $events as $event )
                             {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
-                                <tr onclick="window.location='/events/{{ $event->id }}'" class="cursor-pointer border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <tr onclick="window.location='/admin/events/{{ $event->id }}'" class="cursor-pointer border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td class="w-4 px-4 py-3">
                                         <div class="flex items-center">
                                             <input name="event_ids[]" form="bulk-delete-form" value="{{ $event->id }}" type="checkbox" onclick="event.stopPropagation()" class="event-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <form id="bulk-delete-form" action="/events/bulk-delete" method="POST">
+    <form id="bulk-delete-form" action="/admin/events/bulk-delete" method="POST">
         @csrf
         @method('DELETE')
     </form>

@@ -2,7 +2,7 @@
     <x-slot:title>
         Gestione Eventi
     </x-slot:title>
-    <x-button-create href="/events-management/create">Nuovo Evento</x-button-create>
+    <x-button-create href="/admin/events-management/create">Nuovo Evento</x-button-create>
     
     <div class="space-y-4">
     @forelse ($events as $event)
@@ -11,7 +11,7 @@
             
             <div class="block pl-3">
                 <div class="text-white" >
-                    <a href="/events-management/{{ $event->id }}" class="hover:underline">
+                    <a href="/admin/events-management/{{ $event->id }}" class="hover:underline">
                         <strong>{{ $event->title }}</strong>
                     </a>
                     <p>da:</p>
@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <x-modify-button-link href="/events-management/{{ $event->id }}/edit">Modifica</x-modify-button-link>
+                    <x-modify-button-link href="/admin/events-management/{{ $event->id }}/edit">Modifica</x-modify-button-link>
                     <x-danger-button form="delete_form_{{ $event->id }}" type="submit">Elimina</x-danger-button>
-                    <form method="POST" action="/events-management/{{ $event->id }}" class="hidden" id="delete_form_{{ $event->id }}">
+                    <form method="POST" action="/admin/events-management/{{ $event->id }}" class="hidden" id="delete_form_{{ $event->id }}">
                         @csrf
                         @method('DELETE')
                     </form>
@@ -39,7 +39,7 @@
             <h3 class="mt-2 text-sm font-medium text-gray-900">Nessun evento trovato</h3>
             
             <div class="mt-6">
-                <a href="/events/create" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                <a href="/admin/events/create" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                     <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>

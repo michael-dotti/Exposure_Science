@@ -33,16 +33,16 @@
                     <x-link-with-icon href="/admin/courses" :active="request()->is('/admin/courses','/admin/courses/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
                 @endcan()
                 
-                <x-link-with-icon href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
+                <x-link-with-icon href="/admin/events" :active="request()->is('admin/events','admin/events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                
                 @can('management users')             
-                    <x-link-with-icon href="/users-management" :active="request()->is('users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
+                    <x-link-with-icon href="/admin/users-management" :active="request()->is('admin/users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
                 @endcan
                 @can('management news') 
                     <x-link-with-icon href="/news-management" :active="request()->is('news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
                 @endcan
                 @can('management events') 
-                    <x-link-with-icon href="/events-management" :active="request()->is('events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
+                    <x-link-with-icon href="/admin/events-management" :active="request()->is('admin/events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
                 @endcan
             </div>
         </nav>

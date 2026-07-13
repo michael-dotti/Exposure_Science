@@ -4,10 +4,10 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="/events-management" >back</x-link-button>
+        <x-link-button href="/admin/events-management" >back</x-link-button>
     </div>
     
-    <form method="post" action="/events-management" enctype="multipart/form-data">
+    <form method="post" action="/admin/events-management" enctype="multipart/form-data">
       @csrf
           <div class="space-y-12 text-white">
             <div class="border-b border-white/10 pb-12">
@@ -73,7 +73,7 @@
 
           </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          <a href="/events-management">
+          <a href="/admin/events-management">
             <x-danger-button type="button" >Annulla</x-danger-button>
           </a>
             <x-save-button type="submit" >Salva</x-save-button>

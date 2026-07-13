@@ -18,13 +18,13 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
-use App\Http\Controllers\EventController;
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
-use App\Http\Controllers\EventManagementController;
-use App\Http\Controllers\EventAttachmentController;
+
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\EventManagementController as AdminEventManagementController;
+use App\Http\Controllers\Admin\EventAttachmentController as AdminEventAttachmentController;
 
 Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
@@ -88,18 +88,26 @@ Route::middleware([
         Route::get('/admin/articles/{article}/download','download');
     });
 
-    Route::controller(EventController::class)->group(function () {
-         Route::get('/events', 'index');
-         Route::get('/events/create', 'create');
-         Route::get('/events/{event}', 'show');
-         Route::post('/events', 'store');
-         Route::get('/events/{event}/edit', 'edit');
-         Route::patch('/events/{event}','update');
-         Route::delete('/events/bulk-delete','bulkDelete');
-         Route::delete('/events/{event}','destroy');
+    Route::controller(AdminEventController::class)->group(function () {
+         Route::get('/admin/events', 'index');
+         Route::get('/admin/events/{event}', 'show');
+         Route::delete('/admin/events/bulk-delete','bulkDelete');
+         Route::delete('/admin/events/{event}','destroy');
     });
 
-    Route::get('/attachment/{eventAttachment}/download',[EventAttachmentController::class, 'download']);
+    Route::middleware(['permission:management events'])->group(function (){
+        Route::controller(AdminEventManagementController::class)->group(function () {
+            Route::get('/admin/events-management','index');
+            Route::get('/admin/events-management/create', 'create');
+            Route::get('/admin/events-management/{event}','show');
+            Route::post('/admin/events-management', 'store');
+            Route::get('/admin/events-management/{event}/edit','edit');
+            Route::patch('/admin/events-management/{event}', 'update');
+            Route::delete('/admin/events-management/{event}', 'destroy');
+        });
+    });
+
+    Route::get('/admin/attachment/{eventAttachment}/download',[AdminEventAttachmentController::class, 'download']);
  
     Route::middleware(['permission:management news'])->group(function (){
         Route::controller(NewsManagementController::class)->group(function () {
@@ -113,17 +121,7 @@ Route::middleware([
         });
     });
 
-    Route::middleware(['permission:management events'])->group(function (){
-        Route::controller(EventManagementController::class)->group(function () {
-            Route::get('/events-management','index');
-            Route::get('/events-management/create', 'create');
-            Route::get('/events-management/{event}','show');
-            Route::post('/events-management', 'store');
-            Route::get('/events-management/{event}/edit','edit');
-            Route::patch('/events-management/{event}', 'update');
-            Route::delete('/events-management/{event}', 'destroy');
-        });
-    });
+    
 
     Route::middleware((['permission:teaching']))->group(function (){
         Route::controller(AdminCoursesController::class)->group( function (){
@@ -148,10 +146,10 @@ Route::middleware([
     });
     
     Route::middleware(['permission:management users'])->group(function (){
-        Route::view('/users-management','users-management.index');
+        Route::view('/admin/users-management','admin.users-management.index');
     });
 
-    Route::view('/projectsPrivate','projectsPrivate.index');
+    
 });
 
     

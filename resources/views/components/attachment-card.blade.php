@@ -17,14 +17,14 @@
         <img src="{{ asset($imagePath) }}" alt="File Extension" class="h-8 w-8 shrink-0">
         
         <div class="flex flex-col min-w-0">
-            <a href="/attachment/{{ $file->id }}/download" class="text-sm text-gray-100 font-bold truncate" title="{{ $file->file_name }}">
+            <a href="/admin/attachment/{{ $file->id }}/download" class="text-sm text-gray-100 font-bold truncate" title="{{ $file->file_name }}">
                 {{ $file->file_name }}
             </a>
             <span class="text-gray-300 text-xs">{{ $file->size_in_mb }} MB</span>
         </div>
     </div>
     
-    <a href="/attachment/{{ $file->id }}/download" class="w-8 h-8 flex items-center justify-center shrink-0 text-gray-400 hover:text-gray-600" title="Download">
+    <a href="/admin/attachment/{{ $file->id }}/download" class="w-8 h-8 flex items-center justify-center shrink-0 text-gray-400 hover:text-gray-600" title="Download">
         <i class="fa-solid fa-download text-base"></i>
     </a>
 </div>

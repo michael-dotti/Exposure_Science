@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+// visto che il controller non si trova nella solita cartella, devo improtare il controller di base
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\EventAttachment;
