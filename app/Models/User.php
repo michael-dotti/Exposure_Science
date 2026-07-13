@@ -72,11 +72,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class);
     }
 
-    // eventi generati dall'utente (//TODO da verificare che solo l'amministratore possa creare un evento)
-    public function events_created(): HasMany
-    {
-        return $this->hasMany(Event::class);
-    }
 
     /**
      * Gli articoli a cui l'utente ha accesso.
@@ -92,10 +87,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class);
     }
 
+    // eventi generati dall'utente (
+    public function events_created(): HasMany
+    {
+        return $this->hasMany(Event::class);
+    }
+
     // Eventi associati a questo user
     public function events_receives(): BelongsToMany  
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();;
     }
 
 

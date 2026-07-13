@@ -23,7 +23,7 @@ class Event extends Model
     // User collegati a questo evento
     public function recipients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps();;
     }
 
     public function attachments()

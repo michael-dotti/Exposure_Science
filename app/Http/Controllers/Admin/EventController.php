@@ -20,6 +20,7 @@ class EventController extends Controller
         $user = Auth::user();
 
         $events = $user->events_receives()
+            ->wherePivotNull('deleted_at') // <--- Filtra solo quelli attivi per l'utente
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
             ->latest()
@@ -31,13 +32,24 @@ class EventController extends Controller
         ]);
     }
 
-    
-
-    
     public function show(Event $event)
     {
+        // Verifica se l'evento è associato all'utente ed è ancora attivo
+        $hasAccess = Auth::user()->events_receives()
+        ->wherePivotNull('deleted_at') 
+        ->where('event_id', $event->id)
+        ->exists();
+
+        if (!$hasAccess){
+            abort(404); // Se lo ha eliminato o non è suo, l'evento per lui "non esiste"
+        }
+
         $user = Auth::user();
-        $events = $user->events_receives()->with('creator')->latest()->Paginate(1);
+        $events = $user->events_receives()  
+            ->wherePivotNull('deleted_at') // verifica che l'evento esista per lui
+            ->with('creator')
+            ->latest()
+            ->Paginate(1);
        
         return view('admin.events.show', compact('event','events'));
     }
@@ -48,11 +60,14 @@ class EventController extends Controller
         // 1) prendo l'utente attualmente loggato
         $user = Auth::user();
 
-        // 2) Rimuovo il legame che l'utente attuale ha con l'evento selezionato 
-        $user->events_receives()->detach($event);
+        // 2) Segna come eliminato solo per questo utente nella tabella pivot
+        $user->events_receives()->updateExistingPivot($event->id, [
+            'deleted_at' => now()
+        ]);
 
         // 3) verifico se ora l'evento è orfano
-        $isOrphan = is_null($event->creator_user_id) && !$event->recipients()->exists();
+        // Nota: ciò accade solo se i lcreatore delle'vento viene eliminato
+        $isOrphan = is_null($event->creator_user_id) && !$event->recipients()->wherePivotNull('deleted_at')->exists();
 
         // 4) Se l'evento è orfano lo elimino
         if ($isOrphan){
@@ -63,7 +78,7 @@ class EventController extends Controller
         return redirect('/admin/events');
     }
 
-    // distrugge gli eventi selezionati dall'utente loggato in admin.events.index, senza eliminare l'evento dal database, ma solo la relazione tra l'utente e l'evento (detach)
+    // distrugge (rimuove il legame e li elimina SE sono diventati orfani) gli eventi selezionati dall'utente loggato in admin.events.index, senza eliminare l'evento dal database, ma solo la relazione tra l'utente e l'evento (detach)
     public function bulkDelete(Request $request)
     {
         // 1) Validazione
@@ -75,19 +90,24 @@ class EventController extends Controller
 
         $user = Auth::user();
 
-        // 2) Rimuovo il legame che l'utente corrente ha con tutti gli eventi selezionati in un colpo solo
-        $user->events_receives()->detach($request->event_ids);
+        // 2) Cestina la pivot per tutti gli eventi selezionati
+        foreach ($request->event_ids as $id) {
+            $user->events_receives()->updateExistingPivot($id, [
+                'deleted_at' => now()
+            ]);
+        }
 
         // 3) Trovo quali eventi sono appena diventati "Orfani" 
         // (Cioè creatore nullo E zero utenti collegati)
-        $orphanedEvents = Event::whereIn('id', $request->event_ids) // interroga il database cercando tutti i record che corrispondo a quell'elenco di ID
-            ->whereNull('creator_user_id') // il creatore non c'è più
-            ->doesntHave('recipients') // non ci sono più destinatari epr quell'evento
+        $orphanedEvents = Event::whereIn('id', $request->event_ids)
+            ->whereNull('creator_user_id')
+            ->whereDoesntHave('recipients', function($query) {
+                $query->wherePivotNull('deleted_at'); // Cerca eventi senza destinatari attivi
+            })
             ->get();
 
         // 4) Elimino definitivamente gli eventi orfani
-        foreach($orphanedEvents as $event) 
-        {
+        foreach($orphanedEvents as $event){
             $event->delete();
         }
         

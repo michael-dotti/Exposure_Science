@@ -19,7 +19,7 @@ class EventManagementController extends Controller
 {
     public function index()
     {
-        $events = Event::with('creator')->latest()->paginate(5);
+        $events = Event::with('creator')->latest()->paginate(10);
         return view('admin.events-management.index', compact('events'));
     }
 
@@ -30,7 +30,13 @@ class EventManagementController extends Controller
         return view('admin.events-management.create', compact('users','types'));
     }
 
-    public function show(Event $event){
+    public function show(Event $event)
+    {
+        // 1) carico i destinatari (recipients) con i dati della pivot e gli allegati (attachments) per questo evento specifico
+        $event->load(['recipients','attachments']);
+
+        // 2) prendo tutti gli eventi, con il proprio creatore, per effettuare la paginazione "Precedente/Successivo"
+        // gli è gestore degli eventi (e admin) vede tutti gli eventi
         $events = Event::with('creator')->latest()->paginate(1);
         return view('admin.events-management.show', compact('event','events'));
     }
@@ -83,16 +89,16 @@ class EventManagementController extends Controller
     }
 
 
+     // l'admin, o il gestore degli eventi, decide l'evento è da eliminare
     public function destroy(Event $event)
     {
-    // 1) il gestore degli eventi ha eliminato l'evento nella sua visualizzazione
-       /* $event->creator_user_id = null;
-       $event->creator()->detach */
+        $event-delete();
        
+        return redirect('/admin/events-management');
     }
 
-    //TODO
-    // distrugge gli eventi selezionati dall'utente loggato in admin.events.index, senza eliminare l'evento dal database, ma solo la relazione tra l'utente e l'evento (detach)
+    
+    // distrugge gli eventi selezionati 
     public function bulkDelete(Request $request)
     {
         // 1) Validazione
@@ -102,25 +108,16 @@ class EventManagementController extends Controller
             // exists:event,id == verifica nella tabella "events" la colonna "id" (regola fondamentale per le cancellazioni di massa)
         ]);
 
-        $user = Auth::user();
+        // 2) Recupero tutti gli eventi selezioanti dal database
+        $events = Event::whereIn('id', $request->event_ids)->get();
 
-        // 2) Rimuovo il legame che l'utente corrente ha con tutti gli eventi selezionati in un colpo solo
-        $user->events_receives()->detach($request->event_ids);
-
-        // 3) Trovo quali eventi sono appena diventati "Orfani" 
-        // (Cioè creatore nullo E zero utenti collegati)
-        $orphanedEvents = Event::whereIn('id', $request->event_ids) // interroga il database cercando tutti i record che corrispondo a quell'elenco di ID
-            ->whereNull('creator_user_id') // il creatore non c'è più
-            ->doesntHave('recipients') // non ci sono più destinatari epr quell'evento
-            ->get();
-
-        // 4) Elimino definitivamente gli eventi orfani
-        foreach($orphanedEvents as $event) 
+        // 3) Elimino "fisicamente" ogni evento
+        foreach($events as $event) 
         {
             $event->delete();
         }
         
         // 5) Redirect
-        return redirect('/admin/events/index');
+        return redirect('/admin/events-management');
     }
 }
