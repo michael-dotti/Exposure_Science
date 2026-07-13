@@ -39,7 +39,7 @@
                     <x-link-with-icon href="/admin/users-management" :active="request()->is('admin/users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
                 @endcan
                 @can('management news') 
-                    <x-link-with-icon href="/news-management" :active="request()->is('news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
+                    <x-link-with-icon href="/admin/news-management" :active="request()->is('admin/news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
                 @endcan
                 @can('management events') 
                     <x-link-with-icon href="/admin/events-management" :active="request()->is('admin/events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>

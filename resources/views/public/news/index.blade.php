@@ -9,7 +9,7 @@
     <div class="text-white mt-10">
         @if($news->isNotEmpty())          
             <div class="relative max-w-6xl mx-auto h-100 md:h-137.5 rounded-xl overflow-hidden mb-12 shadow-lg transition hover:-translate-y-1">
-                <a href="/news/{{ $news[0]->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
+                <a href="/public/news/{{ $news[0]->id }}" class="font-bold text-sm hover:text-blue-400 transition"> 
                 <img src="{{ Storage::url($news[0]->imagePath)}}"
                 alt="{{ $news[0]->title }}"
                 class="absolute inset-0 w-full h-full object-cover object-center -z-20">
@@ -27,13 +27,13 @@
             <div class="flex justify-center items-center">
                 <div class="grid grid-cols-2 gap-4">
                     @for ($i = 1; $i < count($news); $i++)
-                        <x-news-block :n="$news[$i]"/>
+                        <x-news-block :n="$news[$i]" where="public"/>
                     @endfor
                 </div>
             </div>
         
             <div class="my-4">
-                <a href="/news/all">
+                <a href="/public/news/all">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Vedi Storico Notizie
                     </button>

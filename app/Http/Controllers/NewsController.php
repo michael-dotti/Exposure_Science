@@ -11,23 +11,26 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         
         //mostro nella home le tre notizie più recenti
         $news = News::latest()->take(5)->orderBy('created_at', 'desc')->get();
 
-        return view('newsPage.index', ['news' => $news]);
+        return view('public.news.index', ['news' => $news]);
     }
 
-    public function all(){
+    public function all()
+    {
         
         //mostro nella home le tre notizie più nuove
         $news = News::latest()->paginate(6);
 
-        return view('newsPage.all', ['news' => $news]);
+        return view('public.news.all', ['news' => $news]);
     }
 
-    public function show(News $news){
-        return view('newsPage.show', ['n'=> $news]);
+    public function show(News $news)
+    {
+        return view('public.news.show', ['n'=> $news]);
     }
 }

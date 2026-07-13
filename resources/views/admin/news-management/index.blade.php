@@ -2,12 +2,12 @@
     <x-slot:title>
         Gestione News
     </x-slot:title>
-    <x-button-create href="/news-management/create">Nuova Notizia</x-button-create>
+    <x-button-create href="/admin/news-management/create">Nuova Notizia</x-button-create>
 
     <div class="space-y-4 mt-4">
         @if($news->isEmpty())
             <x-message-of-empty title="Nessuna notizia trovata" description="Crea la prima notizia del sito">
-                <x-button-create href="/news-management/create" text="Nuova News" class="mt-2"></x-button-create>
+                <x-button-create href="/admin/news-management/create" text="Nuova News" class="mt-2"></x-button-create>
             </x-message-of-empty>
         @else
             @foreach ($news as $n)
@@ -23,7 +23,7 @@
                     
                     <div class="block pl-3">
                         <div class="text-white" >
-                            <a href="/news-management/{{ $n->id }}" class="hover:underline">
+                            <a href="/admin/news-management/{{ $n->id }}" class="hover:underline">
                                 <strong>{{ $n->title }}</strong>
                             </a>
                             : 
@@ -31,9 +31,9 @@
                         </div>
 
                         <div class="mt-4 flex gap-2">
-                            <x-modify-button-link href="/news-management/{{ $n->id }}/edit">Modifica</x-modify-button-link>
+                            <x-modify-button-link href="/admin/news-management/{{ $n->id }}/edit">Modifica</x-modify-button-link>
                             <x-danger-button form="delete_form_{{ $n->id }}" type="submit">Elimina</x-danger-button>
-                            <form method="POST" action="/news-management/{{ $n->id }}" class="hidden" id="delete_form_{{ $n->id }}">
+                            <form method="POST" action="/admin/news-management/{{ $n->id }}" class="hidden" id="delete_form_{{ $n->id }}">
                                 @csrf
                                 @method('DELETE')
                             </form>

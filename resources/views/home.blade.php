@@ -45,7 +45,7 @@
                                     style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url('{{ Storage::url($n->imagePath) }}');">
                                 </div>
 
-                                <a href="/news/{{ $n->id }}" class="relative z-10 flex flex-col justify-end md:justify-start h-full p-3 md:p-0">
+                                <a href="/public/news/{{ $n->id }}" class="relative z-10 flex flex-col justify-end md:justify-start h-full p-3 md:p-0">
                                     
                                     <span class="font-bold text-sm text-white hover:text-blue-400 transition mb-1 md:mb-0"> 
                                         {{ $n->title }} 

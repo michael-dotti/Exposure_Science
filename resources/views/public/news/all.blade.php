@@ -12,7 +12,7 @@
                     <div class="flex justify-center items-center">
                         <div class="grid grid-cols-2 gap-4">
                             @foreach ($news as $n)
-                                <x-news-block :n='$n'/>
+                                <x-news-block :n='$n' where="public"/>
                             @endforeach
                         </div>
                     </div>

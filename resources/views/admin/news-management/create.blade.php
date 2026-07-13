@@ -4,7 +4,7 @@
     </x-slot:title>
    
     
-    <x-form-layout action="/news-management" method="POST" :has-files="true">
+    <x-form-layout action="/admin/news-management" method="POST" :has-files="true">
       
       <x-slot:header>
         <div class="flex justify-between items-center w-full my-5">
@@ -14,7 +14,7 @@
           </div>
 
           <div>
-            <x-link-button href="/news-management">back</x-link-button>
+            <x-link-button href="/admin/news-management">back</x-link-button>
           </div>
         </div>
       </x-slot:header>
@@ -34,7 +34,7 @@
       </div>
       
       <x-slot:buttons>
-        <a href="/news-management">
+        <a href="/admin/news-management">
           <x-danger-button type="button">Annulla</x-danger-button>
         </a>
         <x-save-button type="submit">Salva</x-save-button>

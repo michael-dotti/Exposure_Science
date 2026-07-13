@@ -3,7 +3,7 @@
         Modifica News
     </x-slot:title>
     
-  <x-form-layout action="/news-management" method="PATCH" :has-files="true">
+  <x-form-layout action="/admin/news-management/{{ $news->id }}" method="PATCH" :has-files="true">
       <x-slot:header>
         <div class="flex justify-between items-center w-full my-5">
           <div>
@@ -12,7 +12,7 @@
           </div>
 
           <div>
-            <x-link-button href="/news-management">Indietro</x-link-button>
+            <x-link-button href="/admin/news-management">Indietro</x-link-button>
           </div>
         </div>
       </x-slot:header>
@@ -37,7 +37,7 @@
       </x-slot:buttons>
 
     </x-form-layout>
-  <form method="POST" action="/news-management/{{ $news->id }}" class="hidden" id="delete_form" >
+  <form method="POST" action="/admin/news-management/{{ $news->id }}" class="hidden" id="delete_form" >
     @csrf
     @method('DELETE')
   </form>

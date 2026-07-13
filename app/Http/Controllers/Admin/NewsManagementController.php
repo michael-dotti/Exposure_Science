@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+// visto che il controller non si trova nella solita cartella, devo improtare il controller di base
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\News;
@@ -13,17 +16,17 @@ class NewsManagementController extends Controller
     public function index()
     {    
         $news = News::latest()->get();
-        return view('news-management.index', ['news' => $news]);
+        return view('admin.news-management.index', ['news' => $news]);
     }
 
     public function show(News $news)
     {
-        return view('news-management.show', ['news' => $news]);
+        return view('admin.news-management.show', ['news' => $news]);
     }
     
     public function create()
     {
-        return view('news-management.create');
+        return view('admin.news-management.create');
     }
 
     public function store()
@@ -56,12 +59,12 @@ class NewsManagementController extends Controller
         News::create($newsData);
 
        
-        return redirect('/news-management');
+        return redirect('/admin/news-management');
     }
 
     public function edit(News $news)
     {
-        return view('news-management.edit', ['news' => $news]);
+        return view('admin.news-management.edit', ['news' => $news]);
     }
 
     public function update(News $news)
@@ -97,19 +100,21 @@ class NewsManagementController extends Controller
         }
 
         $news->update($validated);
-        return redirect('/news-management');
+        return redirect('/admin/news-management');
     }
 
 
        
 
-    public function destroy(News $news){
+    public function destroy(News $news)
+    {
         if($news->imagePath && $news->imagePath !== 'uploads/news/defaultNews.webp')
         {
             Storage::disk('public')->delete($news->imagePath);
         }
 
         $news->delete();
-        return redirect('/news-management');
+
+        return redirect('/admin/news-management');
     }
 }

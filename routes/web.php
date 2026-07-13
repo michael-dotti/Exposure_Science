@@ -19,8 +19,9 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\NewsManagementController;
+use App\Http\Controllers\Admin\NewsManagementController as AdminNewsManagementController;
 
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\EventManagementController as AdminEventManagementController;
@@ -52,9 +53,9 @@ Route::controller(ArticleController::class)->group( function (){
 
 
 Route::controller(NewsController::class)->group( function (){
-    Route::get('/news', 'index');
-    Route::get('/news/all', 'all');
-    Route::get('/news/{news}', 'show');
+    Route::get('/public/news', 'index');
+    Route::get('/public/news/all', 'all');
+    Route::get('/public/news/{news}', 'show');
 });
 
 
@@ -110,14 +111,14 @@ Route::middleware([
     Route::get('/admin/attachment/{eventAttachment}/download',[AdminEventAttachmentController::class, 'download']);
  
     Route::middleware(['permission:management news'])->group(function (){
-        Route::controller(NewsManagementController::class)->group(function () {
-            Route::get('/news-management', 'index');
-            Route::get('/news-management/create', 'create');
-            Route::get('/news-management/{news}', 'show');
-            Route::post('/news-management', 'store');
-            Route::get('/news-management/{news}/edit','edit');
-            Route::patch('/news-management/{news}','update');
-            Route::delete('/news-management/{news}','destroy');
+        Route::controller(AdminNewsManagementController::class)->group(function () {
+            Route::get('/admin/news-management', 'index');
+            Route::get('/admin/news-management/create', 'create');
+            Route::get('/admin/news-management/{news}', 'show');
+            Route::post('/admin/news-management', 'store');
+            Route::get('/admin/news-management/{news}/edit','edit');
+            Route::patch('/admin/news-management/{news}','update');
+            Route::delete('/admin/news-management/{news}','destroy');
         });
     });
 
@@ -146,7 +147,9 @@ Route::middleware([
     });
     
     Route::middleware(['permission:management users'])->group(function (){
-        Route::view('/admin/users-management','admin.users-management.index');
+        Route::controller(AdminUserController::class)->group( function (){
+            Route::get('/admin/users-management','index');
+        });
     });
 
     
