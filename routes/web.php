@@ -6,14 +6,17 @@ use App\Models\EventAttachment;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ArticleController as PublicArticleController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 
-use App\Http\Controllers\CoursesController as PublicCoursesController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
 
-use App\Http\Controllers\UserController as PublicUserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 use App\Http\Controllers\EventController;
 
@@ -27,17 +30,22 @@ Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
 });
 
-Route::controller(PublicCoursesController::class)->group( function (){
+Route::controller(ProjectController::class)->group(function () {
+    Route::get('/public/projects','index');
+    Route::get('/public/projects/{projects}','show');
+});
+
+Route::controller(CoursesController::class)->group( function (){
     Route::get('/public/courses', 'index');
     Route::get('/public/courses/{course}', 'show');
 });
 
-Route::controller(PublicUserController::class)->group( function (){
+Route::controller(UserController::class)->group( function (){
     Route::get('/public/users','index');
     Route::get('/public/users/{user}', 'show');
 });
 
-Route::controller(PublicArticleController::class)->group( function (){
+Route::controller(ArticleController::class)->group( function (){
     Route::get('/public/articles','index');
     Route::get('/public/articles/{article}', 'show');
 });
@@ -120,10 +128,25 @@ Route::middleware([
     Route::middleware((['permission:teaching']))->group(function (){
         Route::controller(AdminCoursesController::class)->group( function (){
             Route::get('/admin/courses', 'index');
+            Route::get('/admin/courses/create', 'create');
             Route::get('/admin/courses/{course}', 'show');
+            Route::post('/admin/courses', 'store');
+            Route::get('/admin/courses/{event}/edit','edit');
+            Route::patch('/admin/courses/{event}', 'update');
+            Route::delete('/admin/courses/{event}', 'destroy');
         });
     });
 
+    Route::controller(AdminProjectController::class)->group( function (){
+        Route::get('/admin/projects', 'index');
+        Route::get('/admin/projects/create', 'create');
+        Route::get('/admin/projects/{projects}', 'show');
+        Route::post('/admin/project', 'store');
+        Route::get('/admin/project/{event}/edit','edit');
+        Route::patch('/admin/project/{event}', 'update');
+        Route::delete('/admin/project/{event}', 'destroy');
+    });
+    
     Route::middleware(['permission:management users'])->group(function (){
         Route::view('/users-management','users-management.index');
     });

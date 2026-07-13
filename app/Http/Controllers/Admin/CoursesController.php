@@ -18,31 +18,31 @@ class CoursesController extends Controller
 
     public function show()
     {
-        
+        dd("TODO");
     }
 
     public function create()
     {
-        
+        dd("TODO");
     }
 
     public function store()
     {
-        
+        dd("TODO");
     }
     
     public function edit()
     {
-        
+        dd("TODO");
     }
     public function update()
     {
-        
+        dd("TODO");
     }
 
     public function destroy()
     {
-        
+        dd("TODO");
     }
 
 }

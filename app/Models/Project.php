@@ -17,7 +17,7 @@ class Project extends Model
     protected $guarded = [];
 
     // gli utenti che lavorano a questo project
-    public function user(): BelongsToMany  
+    public function users(): BelongsToMany  
     {
         return $this->belongsToMany(User::class);
     }

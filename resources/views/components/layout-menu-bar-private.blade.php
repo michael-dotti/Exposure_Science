@@ -27,13 +27,13 @@
             <div class="space-y-2">
                 <x-link-with-icon href="/admin/users/show" :active="request()->is('admin/users/show')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 <x-link-with-icon href="/admin/articles" :active="request()->is('/admin/articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
-                <x-link-with-icon href="/projectsPrivate" :active="request()->is('projectsPrivate*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
+                <x-link-with-icon href="/admin/projects" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
 
                 @can('teaching')
-                    <x-link-with-icon  href="/admin/courses" :active="request()->is('/admin/courses','/admin/courses/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
+                    <x-link-with-icon href="/admin/courses" :active="request()->is('/admin/courses','/admin/courses/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
                 @endcan()
                 
-                <x-link-with-icon  href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
+                <x-link-with-icon href="/events" :active="request()->is('events','events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                
                 @can('management users')             
                     <x-link-with-icon href="/users-management" :active="request()->is('users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
