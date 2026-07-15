@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public :fullWidth="true">
+<x-layout-public-test :fullWidth="true">
   <x-slot:title>
         Home
     </x-slot:title>
@@ -69,4 +69,4 @@
         </div>
     </footer>
 </div>
-</x-layout-menu-bar>
+</x-layout-public-test>
