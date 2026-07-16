@@ -30,7 +30,7 @@
                     @foreach ($courses as $course)
                         <article
                             class="overflow-hidden rounded-lg border border-slate-700
-                                   bg-slate-800 shadow-md transition duration-300
+                                   bg-mist-700 shadow-md transition duration-300
                                    hover:-translate-y-1 hover:shadow-xl"
                         >
                             <a
@@ -79,7 +79,7 @@
                                                     Durata:
                                                 </span>
 
-                                                {{ $course->duration }}
+                                                {{ $course->duration }} ore
                                             </p>
 
                                         </div>

@@ -30,14 +30,13 @@ class CourseSeeder extends Seeder
         $course2 = Course::factory()->create();
         $course3 = Course::factory()->create();
         
+        //User 1 insegna nel Course 1
         $user1->courses()->attach($course1->id);
-        $course1->teachers()->attach($user1->id);
+        /* $course1->teachers()->attach($user1->id); */ // non serve, con il comando in cima in cima User diventa Docente del corso 
 
         $user2->courses()->attach($course2->id);
-        $course2->teachers()->attach($user2->id);
 
-        $user1->courses()->attach($course3->id);
-        $user2->courses()->attach($course3->id);
+        // courses() e teachers() mettono in relazione gli elementi da entrambi i lati, quindi basta tuilizzare solo uno dei due
         $course3->teachers()->attach([
             $user1->id,
             $user2->id

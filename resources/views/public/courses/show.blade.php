@@ -20,7 +20,7 @@
 
             <article
                 class="overflow-hidden border rounded-lg shadow-md
-                       border-slate-700 bg-slate-800"
+                       border-slate-700 bg-mist-700"
             >
                 <div class="p-6">
 
@@ -72,7 +72,7 @@
                             </p>
 
                             <p class="mt-1 text-lg font-semibold text-white">
-                                {{ $course->duration }}
+                                {{ $course->duration }} ore
                             </p>
                         </div>
 
