@@ -9,12 +9,13 @@ class CoursesController extends Controller
 {
     public function index()
     {
-        dd("TODO");
-        //TODO
+        $courses = Course::all();
+
+        return view('public.courses.index', compact('courses'));
     }
-    public function show() // TODO: inserisci come argomento della funzione show, il corso
+
+    public function show(Course $course)
     {
-        dd("TODO");
-        //TODO
+        return view('public.courses.show', ['course' => $course]);
     }
 }
