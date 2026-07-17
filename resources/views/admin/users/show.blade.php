@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
 	<x-slot:title>
 		Ciao {{ $user->name . "!" }}
 	</x-slot:title>
@@ -31,4 +31,4 @@
 		</x-slot:buttons>
 		
 	</x-form-layout>
-</x-layout-menu-bar-private>
+</x-layout-private>
