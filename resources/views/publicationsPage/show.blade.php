@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 mt-4">
             <div class="rounded-md bg-gray-800
                 p-2">
                     <h2 class="bg-gray-900

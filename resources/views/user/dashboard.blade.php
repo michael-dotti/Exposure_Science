@@ -16,7 +16,6 @@
 			
 			<p class="text-base/7 font-bold text-white mt-2">La tua bio: </p>
 				<p class="text-base/7 text-white ml-8"> {{ auth()->user()->bio }} </p>
-
 			
 			<p class="text-base/7 font-bold text-white mt-2">Il tuo sito web: </p>
 				@if (auth()->user()->website)	
@@ -28,7 +27,7 @@
 							href="{{ auth()->user()->website }}"
 						> {{ auth()->user()->website }} </a>
 				@else
-					<p class="text-base/7 text-white ml-8 italic"> [non hai inserito nessun sito a tuo nome] </p>
+					<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun sito a tuo nome] </p>
 				@endif
 		</div>
 
