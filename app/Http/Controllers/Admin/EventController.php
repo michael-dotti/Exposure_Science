@@ -13,7 +13,6 @@ use App\Enums\EventType;
 
 class EventController extends Controller
 {
-    // Index = mostra tutti gli articoli
     public function index(Request $request) // il request prende i parametri passati nell'url, esempio /events?type=task
     {
         

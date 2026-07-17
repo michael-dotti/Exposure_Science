@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-public>
     <x-slot:title>
         Corsi
     </x-slot:title>
@@ -127,4 +127,4 @@
 
         </div>
     </section>
-</x-layout-menu-bar-public>
+</x-layout-public>

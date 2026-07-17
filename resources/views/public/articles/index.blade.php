@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-public>
     <x-slot:title>
         Publicazioni
     </x-slot:title>
@@ -53,4 +53,4 @@
     <div class="mt-2">
         {{ $articles->links() }}
     </div>
-</x-layout-menu-bar-public>
+</x-layout-public>

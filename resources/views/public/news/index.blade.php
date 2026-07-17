@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-public>
     <x-slot:title>
         Novità
     </x-slot:title>
@@ -44,4 +44,4 @@
         @endif
     </div>
 
-</x-layout-menu-bar-public>
+</x-layout-public>

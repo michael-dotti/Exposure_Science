@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-public>
     <x-slot:title>
     </x-slot:title>
     <x-slot:heading>
@@ -37,4 +37,4 @@
     </div>
 
     
-</x-layout-menu-bar-public>
+</x-layout-public>

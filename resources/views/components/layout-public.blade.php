@@ -16,7 +16,7 @@
   
   <body class="h-full">
 
-    <nav class="bg-gray-800 fixed w-full z-20 top-0 inset-s-0 border-b border-gray-900/50">
+    <nav class="bg-gray-800 fixed w-full z-20 top-0 inset-s-0 border-b-4 border-gray-900/50">
         <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="shrink-0 flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ asset('images/LogoUniversitaBrescia.webp') }}" alt="Your Company" class="h-10 w-24 bg-white/70 backdrop-blur-md rounded-sm border-2 border-white/40 shadow-2xl" />
@@ -24,38 +24,45 @@
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     @guest
                     <a href="/login">
-                      <i class="fa-regular fa-user"></i>
+                      <i class="fa-regular fa-user text-white"></i>
                     </a>
                     @endguest
                     @auth
-                     <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom"></button></button>
-                        <a href="/admin/users/show">
-                          <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->profilePhotoUrl }}" alt="user photo">
-                        </a>
+                      <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-white/10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->profilePhotoUrl }}" alt="user photo">
                       </button>
                     @endauth    
-                <span class="sr-only">Open user menu</span>
+                
                     
                 
                 <!-- Dropdown menu -->
                  @auth
-                <div class="z-50 hidden bg-gray-800 border border-gray-900/50 rounded-base shadow-lg w-44" id="user-dropdown">
-                    <div class="px-4 py-3 text-sm border-b border-gray-900/50">
-                      <span class="block text-heading font-medium">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
-                      <span class="block text-body truncate">{{ auth()->user()->email }}</span>
+                <div class="z-50 hidden bg-mist-700 border border-white/10 rounded-base shadow-lg w-44" id="user-dropdown">
+                    <div class="px-4 py-3 text-sm border-b border-white/10">
+                      <span class="block text-gray-100 font-medium">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
+                      <span class="block text-gray-400 truncate">{{ auth()->user()->email }}</span>
                     </div>
-                    <ul class="p-2 text-sm text-body font-medium" aria-labelledby="user-menu-button">
+                    <ul class="p-2 text-sm text-gray-200 font-medium" aria-labelledby="user-menu-button">
                         <li>
-                            <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Dashboard</a>
+                            <a href="/admin/users/show" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">Profilo</a>
                         </li>
                         <li>
-                            <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Settings</a>
+                            <a href="/admin/articles" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">articoli</a>
                         </li>
                         <li>
-                            <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Earnings</a>
+                            <a href="/admin/events" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">eventi</a>
                         </li>
+                        @can('teaching')
+                          <li>
+                            <a href="/admin/courses" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">Corsi</a>
+                          </li>
+                        @endcan
                         <li>
-                            <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Sign out</a>
+                            <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
+                                @csrf
+                                <a href="{{ route('logout') }}" @click.prevent="$root.submit();" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">Log out</a>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -66,21 +73,23 @@
                 </button>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-              <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+              <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-white/10 rounded-base bg-gray-800 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-border-white/10">
                 <li>
-                  <a href="#" class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Home</a>
+                  <x-nav-link href="/" :active="request()->is('/')" >Home</x-nav-link>
+                <li>
+                   <x-nav-link href="/public/users" :active="request()->is('public/users*')" >Team</x-nav-link>
                 </li>
                 <li>
-                  <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">About</a>
+                  <x-nav-link href="/public/articles" :active="request()->is('public/articles*')">Publicazioni</x-nav-link>
                 </li>
                 <li>
-                  <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Services</a>
+                   <x-nav-link href="/public/news" :active="request()->is('public/news*')" >Novità</x-nav-link>
                 </li>
                 <li>
-                  <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Pricing</a>
+                   <x-nav-link href="/public/courses" :active="request()->is('public/courses*')" >Corsi</x-nav-link>
                 </li>
                 <li>
-                  <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Contact</a>
+                  <x-nav-link href="/public/projects" :active="request()->is('public/projects*')" >Progetti</x-nav-link>
                 </li>
               </ul>
             </div>

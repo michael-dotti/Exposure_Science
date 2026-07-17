@@ -1,4 +1,4 @@
-<x-layout-menu-bar-public>
+<x-layout-public>
     <x-slot:title>
         Storico Notizie
     </x-slot:title>
@@ -23,4 +23,4 @@
         {{ $news->links() }}
     </div>
 
-</x-layout-menu-bar-public>
+</x-layout-public>
