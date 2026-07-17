@@ -28,8 +28,7 @@
         </div>
 
         <div class="grid grid-cols-2">
-            <div class="rounded-md bg-gray-800 
-                border-2 border-black
+            <div class="rounded-md bg-gray-800
                 p-2">
                     <h2 class="bg-gray-900
                     rounded-md p-3
