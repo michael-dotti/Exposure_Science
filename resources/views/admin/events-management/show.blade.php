@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Events
     </x-slot:title>
@@ -25,4 +25,4 @@
             @method('DELETE')
         </form>
     </x-event-box>
-</x-layout-menu-bar-private>
+</x-layout-private>

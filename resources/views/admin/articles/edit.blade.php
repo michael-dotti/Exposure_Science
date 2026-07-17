@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Modifica Articolo
     </x-slot:title>
@@ -108,4 +108,4 @@
       </x-slot:buttons>
     </x-form-layout>
 
-</x-layout-menu-bar-private>
+</x-layout-private>

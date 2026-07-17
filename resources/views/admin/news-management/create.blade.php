@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
 		Nuova notizia
     </x-slot:title>
@@ -42,4 +42,4 @@
 
     </x-form-layout>
 
-</x-layout-menu-bar-private>
+</x-layout-private>

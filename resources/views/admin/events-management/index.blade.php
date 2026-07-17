@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Gestione Eventi
     </x-slot:title>
@@ -53,4 +53,4 @@
     <div class="mt-6">
         {{ $events->links() }}
     </div>
-</x-layout-menu-bar-private>
+</x-layout-private>

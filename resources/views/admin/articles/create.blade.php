@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Nuovo Articolo 
     </x-slot:title>
@@ -85,4 +85,4 @@
     <x-save-button type="submit" >Save</x-save-button>
   </x-slot:buttons>
 </x-form-layout>
-</x-layout-menu-bar-private>
+</x-layout-private>

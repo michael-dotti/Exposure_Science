@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Editor Profilo
     </x-slot:title>
@@ -50,4 +50,4 @@
 
     <x-section-border />
 
-</x-layout-menu-bar-private>
+</x-layout-private>

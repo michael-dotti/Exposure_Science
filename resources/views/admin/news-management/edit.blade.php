@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Modifica News
     </x-slot:title>
@@ -41,4 +41,4 @@
     @csrf
     @method('DELETE')
   </form>
-</x-layout-menu-bar-private>
+</x-layout-private>

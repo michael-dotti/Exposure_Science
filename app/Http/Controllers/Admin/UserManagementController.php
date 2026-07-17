@@ -12,7 +12,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        
+        dd("TODO");
     }
 
     public function show()

@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
 		Nuovo evento
     </x-slot:title>
@@ -80,4 +80,4 @@
         </div>
 </form>
 
-</x-layout-menu-bar-private>
+</x-layout-private>

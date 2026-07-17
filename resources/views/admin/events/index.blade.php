@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Events
     </x-slot:title>
@@ -82,4 +82,4 @@
     </form>
     @vite('resources/js/components/select-all-rows-table.js')  
 
-</x-layout-menu-bar-private>
+</x-layout-private>

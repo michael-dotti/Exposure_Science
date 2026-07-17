@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\UserManagementController as AdminUserManagementController;
 
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
@@ -147,7 +148,7 @@ Route::middleware([
     });
     
     Route::middleware(['permission:management users'])->group(function (){
-        Route::controller(AdminUserController::class)->group( function (){
+        Route::controller(AdminUserManagementController::class)->group( function (){
             Route::get('/admin/users-management','index');
         });
     });
