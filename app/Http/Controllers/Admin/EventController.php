@@ -19,7 +19,7 @@ class EventController extends Controller
         $user = Auth::user();
 
         $events = $user->events_receives()
-            ->wherePivotNull('deleted_at') // <--- Filtra solo quelli attivi per l'utente
+            ->wherePivotNull('deleted_at') // se la colonna "deleted_at" della tabella pivot è null, allora significa che l'utente non ha "eliminato logicamente" l'evento e che quindi può visualizzarlo nelal sua schermata
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
             ->latest()
