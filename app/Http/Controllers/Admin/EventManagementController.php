@@ -17,10 +17,15 @@ use App\Enums\EventType;
 
 class EventManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::with('creator')->latest()->paginate(10);
-        return view('admin.events-management.index', compact('events'));
+        $events = Event::with('creator')
+        ->filterByType($request->query('type'))
+        ->latest()
+        ->paginate(10);
+        
+        $types = EventType::cases();
+        return view('admin.events-management.index', compact('events','types'));
     }
 
     public function create()

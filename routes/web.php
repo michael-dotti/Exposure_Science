@@ -91,21 +91,22 @@ Route::middleware([
     });
 
     Route::controller(AdminEventController::class)->group(function () {
-         Route::get('/admin/events', 'index');
-         Route::get('/admin/events/{event}', 'show');
-         Route::delete('/admin/events/bulk-delete','bulkDelete');
-         Route::delete('/admin/events/{event}','destroy');
+         Route::get('/admin/events', 'index')->name('admin.events.index');
+         Route::get('/admin/events/{event}', 'show')->name('admin.events.show');
+         Route::delete('/admin/events/bulk-delete','bulkDelete')->name('admin.events.bulkDelete');
+         Route::delete('/admin/events/{event}','destroy')->name('admin.events.destroy');
     });
 
     Route::middleware(['permission:management events'])->group(function (){
         Route::controller(AdminEventManagementController::class)->group(function () {
-            Route::get('/admin/events-management','index');
-            Route::get('/admin/events-management/create', 'create');
-            Route::get('/admin/events-management/{event}','show');
-            Route::post('/admin/events-management', 'store');
-            Route::get('/admin/events-management/{event}/edit','edit');
-            Route::patch('/admin/events-management/{event}', 'update');
-            Route::delete('/admin/events-management/{event}', 'destroy');
+            Route::get('/admin/events-management','index')->name('admin.events-management.index');
+            Route::get('/admin/events-management/create', 'create')->name('admin.events-management.create');
+            Route::get('/admin/events-management/{event}','show')->name('admin.events-management.show');
+            Route::post('/admin/events-management', 'store')->name('admin.events-management.store');
+            Route::get('/admin/events-management/{event}/edit','edit')->name('admin.events-management.edit');
+            Route::patch('/admin/events-management/{event}', 'update')->name('admin.events-management.update');
+            Route::delete('/admin/events-management/bulk-delete','bulkDelete')->name('admin.events-management.bulkDelete');
+            Route::delete('/admin/events-management/{event}', 'destroy')->name('admin.events-management.destroy');
         });
     });
 

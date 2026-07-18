@@ -3,7 +3,7 @@
         Events
     </x-slot:title>
 
-    <div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
+    <!-- <div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
         
         <div class="w-full flex flex-col flex-1 min-h-0">
             
@@ -80,6 +80,20 @@
         @csrf
         @method('DELETE')
     </form>
-    @vite('resources/js/components/select-all-rows-table.js')  
+    @vite('resources/js/components/select-all-rows-table.js')   -->
 
+    <x-event-index 
+        :events="$events" 
+        bulkDeleteRoute="admin.events.bulkDelete" 
+        showRoute="admin.events.show" 
+        >
+        {{-- paso il nome della rotta come stringa e utilizzi {{ route(...) }} dentro al componente stesso--}}
+        
+        <x-slot:buttons>
+            <x-event-type-filter href="{{ route('admin.events.index') }}" :types="$types"></x-event-type-filter>
+            <x-danger-button form="bulk-delete-form">Elimina Eventi selezionati</x-danger-button>
+        </x-slot:buttons>
+    </x-event-index>
+   
+    
 </x-layout-private>
