@@ -15,7 +15,11 @@
           </div>
         </div>
 
+
         <x-input-text name="email" value="{{ $user->email }}" :required="True" label="Email"/>
+        <x-input-text name="website" value="{{ $use->website }}" :required="False" label="Sito Web"/>
+
+        
 
         <div class="col-span-full">
           <x-label name="bio">Raccontaci qualcosa di te:</x-label>
@@ -43,6 +47,8 @@
       </x-slot:buttons>
 
 </x-form-layout>
+
+  <hr class="h-1 mb-8 bg-gray-100 border-0 rounded-sm">
 
     <div class="mt-10 sm:mt-0">
         @livewire('profile.update-password-form')

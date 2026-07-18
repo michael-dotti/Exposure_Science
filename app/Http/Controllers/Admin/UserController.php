@@ -37,6 +37,7 @@ class UserController extends Controller
             'name' => ['required', 'min:3', 'max:255'],
             'surname' => ['required','min:3', 'max:255'],
             'email' => ['required','email', 'max:255', 'min:5', Rule::unique('users')->ignore($user->id)], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'website' => ['nullable','url','max:511'],
             'bio' => ['nullable','max:5000'],
             'profile_photo_path' => ['nullable', 'image', 'max:5120'],
         ]);

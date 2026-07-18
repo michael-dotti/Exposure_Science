@@ -13,8 +13,9 @@ class UserController extends Controller
         return view('public.users.index', compact('users')); 
     }
 
+
     public function show(User $user){
-         return view('public.users.show',['user'=> $user] );
+        return view('public.users.show',['user'=> $user] );
     }
 
 }
