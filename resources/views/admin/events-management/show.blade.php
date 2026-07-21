@@ -7,7 +7,7 @@
             <x-button-delete data-modal-target="deleteModal" data-modal-toggle="deleteModal">
                 Cancella Evento
             </x-button-delete>
-            <x-link-button href="/admin/events-management" class="my-2">Indietro</x-link-button>
+            <x-link-button href="{{ route('admin.events-management.index') }}" class="my-2">Indietro</x-link-button>
         </x-slot:buttons>
 
         <x-event-content :event="$event" :showRecipients="true" />
