@@ -5,12 +5,12 @@
     <x-event-box :events="$events" :event="$event"> 
         <x-slot:buttons>
             <x-button-delete data-modal-target="deleteModal" data-modal-toggle="deleteModal">
-                Cancella Evento Per Tutti
+                Cancella Evento
             </x-button-delete>
             <x-link-button href="/admin/events-management" class="my-2">Indietro</x-link-button>
         </x-slot:buttons>
 
-        <x-event-content :event="$event"/>
+        <x-event-content :event="$event" :showRecipients="true" />
 
         {{-- form per l'eliminazione dell'evento --}}
         <form action="{{ route('admin.events-management.destroy', $event->id) }}" method="post" class="hidden" id="delete_form">
@@ -24,4 +24,5 @@
         <br>
         Verra rimosso definitivamente anche per tutti i destinatari.
     </x-confirm-delete-modal>
+    <x-user-list-modal :users="$event->recipients" modalTitle="Destinatari" id="recipientsModal"/>
 </x-layout-private>

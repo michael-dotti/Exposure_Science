@@ -24,7 +24,7 @@
         </div>
     </div>
     
-    <a href="/admin/attachment/{{ $file->id }}/download" class="w-8 h-8 flex items-center justify-center shrink-0 text-gray-400 hover:text-gray-600" title="Download">
+    <a href="/admin/attachment/{{ $file->id }}/download" class="w-8 h-8 flex items-center justify-center shrink-0 text-gray-400 hover:text-gray-200" title="Download">
         <i class="fa-solid fa-download text-base"></i>
     </a>
 </div>

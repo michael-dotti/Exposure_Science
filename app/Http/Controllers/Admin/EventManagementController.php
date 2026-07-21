@@ -21,7 +21,7 @@ class EventManagementController extends Controller
     {
         $events = Event::with('creator')
         ->filterByType($request->query('type'))
-        ->latest()
+        ->latest() // ordina gli eventi in base alla colonna: events.created_at
         ->paginate(10);
         
         $types = EventType::cases();
