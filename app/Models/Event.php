@@ -45,6 +45,11 @@ class Event extends Model
     {   
         // un istante prima che l'evento venga eliminato esegui il codice nelle quadre
         static::deleting(function ($event){
+
+            // Carica la relazione 'attachments' se non è già presente in memoria, cosi da evitare il Lazy Loading
+            $event->loadMissing('attachments');
+
+
             foreach($event->attachments as $attachment) {
                 if (Storage::disk('public')->exists($attachment->file_path) && ($attachment->file_path != 'uploads/events/attachments/default_piano_di_studi_triennale_Ingegneria.pdf')){
                     Storage::disk('public')->delete($attachment->file_path);
