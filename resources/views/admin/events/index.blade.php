@@ -12,7 +12,7 @@
         
         <x-slot:buttons>
             <x-event-type-filter href="{{ route('admin.events.index') }}" :types="$types"></x-event-type-filter>
-            <x-danger-button form="bulk-delete-form">Elimina Eventi selezionati</x-danger-button>
+            <x-danger-button disabled id="bulk-delete-btn" form="bulk-delete-form">Elimina Eventi selezionati</x-danger-button>
         </x-slot:buttons>
     </x-event-index>
    

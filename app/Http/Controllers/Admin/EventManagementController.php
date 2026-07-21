@@ -97,7 +97,7 @@ class EventManagementController extends Controller
      // l'admin, o il gestore degli eventi, decide l'evento è da eliminare
     public function destroy(Event $event)
     {
-        $event-delete();
+        $event->delete();
        
         return redirect('/admin/events-management');
     }

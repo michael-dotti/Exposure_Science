@@ -101,7 +101,7 @@ class EventController extends Controller
         $orphanedEvents = Event::whereIn('id', $request->event_ids)
             ->whereNull('creator_user_id')
             ->whereDoesntHave('recipients', function($query) {
-                $query->wherePivotNull('deleted_at'); // Cerca eventi senza destinatari attivi
+               $query->whereNull('event_user.deleted_at'); // Cerca eventi senza destinatari attivi
             })
             ->get();
 
