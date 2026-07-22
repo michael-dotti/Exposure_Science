@@ -77,6 +77,7 @@ Route::middleware([
         Route::get('/admin/users/show','show');
         Route::get('/admin/users/edit','edit');
         Route::patch('/admin/users/{user}', 'update');
+        Route::get('/admin/users/{user}/download','download');
     });
 
     Route::controller(AdminArticleController::class)->group(function () {

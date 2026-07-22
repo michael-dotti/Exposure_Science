@@ -17,12 +17,11 @@
 
 
         <x-input-text name="email" value="{{ $user->email }}" :required="True" label="Email"/>
-        <x-input-text name="website" value="{{ $use->website }}" :required="False" label="Sito Web"/>
+        <x-input-text name="website" value="{{ $user->website }}" :required="False" label="Sito Web"/>
 
-        
 
         <div class="col-span-full">
-          <x-label name="bio">Raccontaci qualcosa di te:</x-label>
+          <x-label name="bio">Raccontaci qualcosa di te</x-label>
             <textarea id="bio" 
               name="bio" 
               rows="4" 
@@ -31,15 +30,27 @@
             </textarea>
         </div>
 
+        <div>
+          <x-label name="curriculm_file_path" :required="False"></x-label>
+            <div class="grid md:grid-cols-2 md:gap-6">
+            <div>
+              <x-input-file name="curriculm_file_path" label="Curriculum Vitae" currentFile="{{ ($user->curriculm_file_path <> 'public/resume/default_resume.pdf')? 'è presente.' : null }}"/>
+              <input type="hidden" name="remove_file" value="0"/> 
+            </div>
+          </div>
+        </div>
+
 
           <div>
             <x-label name="profile_photo_path">Immagine Profilo</x-label>
             <x-image-preview-users name="profile_photo_path" currentImage="{{ $user->profilePhotoUrl }}"/>
           </div>
 
+          
+
       <x-slot:buttons>
         <div class="my-4 flex items-center justify-end gap-3">
-          <a href="/admin/users">
+          <a href="/admin/users/show">
             <x-danger-button type="button" >Annulla</x-danger-button>
           </a>
           <x-save-button type="submit" >Salva</x-save-button>
