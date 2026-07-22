@@ -3,11 +3,7 @@
 		Nuovo evento
     </x-slot:title>
    
-    <div class="flex justify-end">
-        <x-link-button href="/admin/events-management" >back</x-link-button>
-    </div>
-    
-    <form method="post" action="/admin/events-management" enctype="multipart/form-data">
+    <!-- <form method="post" action="/admin/events-management" enctype="multipart/form-data">
       @csrf
           <div class="space-y-12 text-white">
             <div class="border-b border-white/10 pb-12">
@@ -78,6 +74,60 @@
           </a>
             <x-save-button type="submit" >Salva</x-save-button>
         </div>
-</form>
+</form> -->
+  <div class="w-full flex-1 bg-mist-700 shadow-xl rounded-lg flex flex-col overflow-hidden border border-mist-600">
+      <div class="min-h-16 py-3 px-4 flex flex-wrap items-center justify-between border-b gap-4 border-white/10 bg-mist-700 shrink-0">  
+          <div class="flex flex-wrap gap-2">
+            <h4 class="text-md text-gray-200 font-bold wrap-break-word min-w-0"> 
+              Scrivi un nuovo evento per comunicare qualcosa al tuo team
+            </h4>
+          </div>
+          <x-link-button href="{{ route('admin.events-management.index') }}" class="my-2">Indietro</x-link-button>
+      </div>
 
+      <div class="flex-1 bg-mist-700 p-6 overflow-y-auto custom-scrollbar">
+          <x-event-form-layout :action="route('admin.events-management.create')" :hasFiles="True" title="iewnidenm">
+
+            <div>
+              <x-input-text label="Titolo" name="title"/>
+            </div>
+
+            <div>
+
+
+            <div>
+                <select id="type" name="type" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-s-0 border-default-medium text-heading text-sm rounded-e-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                    <option value="" disabled selected>Scegli un tag da assegnare all'evento</option>
+                    @foreach ( $types as $type)
+                      <option value="{{ $type->value }}"> {{ $type->value }} </option>
+                    @endforeach
+                </select>
+                <x-form-error name="type" />
+            </div>
+
+
+            </div>
+
+            <div>
+              <x-textarea-quill name="content" :required="True"/>
+              <x-form-error name="content" />
+            </div>
+
+            
+            <div class="pt-2">
+              <label for="attachments" class="block text-sm font-medium text-gray-200 mb-1">Allega documenti</label>
+              <input type="file" name="attachments[]" id="attachments" multiple 
+                      class="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600">
+              <x-form-error name="attachments" />
+            </div>
+
+            <x-slot:buttons>
+              <a href="{{ route('admin.events-management.index') }}">
+                <x-danger-button type="button">Cancella</x-danger-button>
+              </a>
+              <x-save-button type="submit">Invia</x-save-button>
+            </x-slot:buttons>
+          </x-event-form-layout>
+      </div>
+  </div>
 </x-layout-private>
