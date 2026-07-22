@@ -43,7 +43,8 @@ class User extends Authenticatable
         'email',
         'website',
         'bio',
-        'profile_photo_path', 
+        'curriculm_file_path',
+        'profile_photo_path',
     ];
 
     /**

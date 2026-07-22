@@ -26,6 +26,17 @@
 				@else
 					<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun sito a tuo nome] </p>
 				@endif
+			<p class="text-base/7 font-bold text-white">Il tuo CV:</p>
+				@if ($user->curriculm_file_path <> "public/resume/default_resume.pdf")
+					<a
+							class="text-cyan-400 transition duration-200 hover:text-cyan-600 ml-8"
+							href="/admin/users/{{ $user->id }}/download"
+							target="_blank"
+							rel="noopener noreferrer"
+					> il tuo curriculum vitae </a>
+				@else
+					<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+				@endif
 		</div>
 
 
