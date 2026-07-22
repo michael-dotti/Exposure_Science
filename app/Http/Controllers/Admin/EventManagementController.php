@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use App\Enums\EventType;
+use Mews\Purifier\Facades\Purifier;
 
 class EventManagementController extends Controller
 {
@@ -49,14 +50,16 @@ class EventManagementController extends Controller
     public function store(Event $event)
     {
         
-        request()->validate([
+        $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
             'content' =>['required','max:5000'],
             'type' => ['required'],
             'users' => ['required', 'array', 'min:1'],
             'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt,xls,xlsx','max:51200'],
         ]);
-        
+
+        $validated['content'] = Purifier::clean($validated['content']);
+
         $event = Event::create([
             'title' => request()->title,
             'content' => request('content'),
@@ -65,6 +68,7 @@ class EventManagementController extends Controller
         ]);
 
         $event->recipients()->attach(request()->users);
+        
         if(request()->hasFile('documents')) {
             foreach(request()->file('documents') as $file) {
 
