@@ -10,19 +10,21 @@
 	<div class="max-w-5xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
 		
 		<!-- Box Profilo -->
-		<div class="bg-gray-900 rounded-xl p-6 md:p-10 shadow-lg">
+		<div class="bg-gray-800 rounded-xl p-6 md:p-10 shadow-lg">
 			<div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10">
 				<div class="shadow-xl/20 shadow-gray-800">
 					<h1 class="mb-1 font-bold text-white">Ruolo</h1>
 					<p class="mt-1 mb-6 ml-6 font-medium text-amber-400">
 						@if ($user->hasRole('admin'))
 							Team Leader
+						@elseif ($user->hasRole('teacher'))
+							Docente
 						@else
 							Membro del Team
 						@endif
 					</p>
 					<h1 class="mb-1 font-bold text-white">Descrizione</h1>
-					<p class="mb-4 ml-6 font-medium text-white">{{ $user->bio }}</p>
+					<p class="mb-4 ml-6 font-medium text-gray-200">{{ $user->bio }}</p>
 				</div>
 				<!-- Immagine centrata all'interno della sua colonna -->
 				<div class="flex justify-center">
@@ -33,7 +35,7 @@
 
 		<!-- Box Contatti centrato rispetto alla pagina -->
 		<div class="grid grid-cols-2 gap-4">
-			<div class="rounded-md bg-gray-800 p-3 w-full max-w-lg text-center">
+			<div class="rounded-md bg-gray-800 p-3 w-full text-center">
 				<h2 class="bg-gray-900 rounded-md p-3 text-xl font-bold text-white">
 					CONTATTI
 				</h2>
