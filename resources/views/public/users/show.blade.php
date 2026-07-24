@@ -35,13 +35,11 @@
 
 		<!-- Box Contatti centrato rispetto alla pagina -->
 		<div class="grid grid-cols-2 gap-4">
-			<div class="rounded-md bg-gray-800 p-3 w-full text-center">
-				<h2 class="bg-gray-900 rounded-md p-3 text-xl font-bold text-white">
+			<x-box-info>
+				<x-slot:title>
 					CONTATTI
-				</h2>
-				<hr class="w-48 my-4 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
-				<h3 class="text-lg text-white mx-2 leading-relaxed">
-					<b> E-MAIL: </b> {{ $user->email }}
+				</x-slot>
+				<b> E-MAIL: </b> {{ $user->email }}
 				
 					@if ($user->website)
 						<br> <b> WEBSITE: </b> 
@@ -54,25 +52,21 @@
 							{{ $user->website }} 
 						</a>
 					@endif
-				</h3>
-			</div>
+			</x-box-info>
 
 			@if ($user->curriculm_file_path <> "public/resume/default_resume.pdf")
-				<div class="rounded-md bg-gray-800 p-3 w-full max-w-lg text-center">
-					<h2 class="bg-gray-900 rounded-md p-3 text-xl font-bold text-white">
+				<x-box-info>
+					<x-slot:title>
 						CURRICULUM VITAE
-					</h2>
-					<hr class="w-48 my-4 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
-					<h3 class="text-lg text-white mx-2 leading-relaxed">
-						<a
+					</x-slot>
+					<a
 							class="text-cyan-400 transition duration-200 hover:text-cyan-600"
 							href="/admin/users/{{ $user->id }}/download"
 							target="_blank"
 							rel="noopener noreferrer"
 						> scarica il curriculum di {{ $user->name }} {{ $user->surname }}
 						</a>
-					</h3>
-				</div>
+				</x-box-info>
 			@endif
 		</div>
 		

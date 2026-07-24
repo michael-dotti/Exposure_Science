@@ -23,35 +23,29 @@
 		</div>
 
 		<div class="grid grid-cols-2 mt-4">
-			<div class="rounded-md bg-gray-800
-				p-2">
-					<h2 class="bg-gray-900
-					rounded-md p-3
-					text-xl font-bold text-white">
-						OTTIENI L'ARTICOLO
-					</h2>
-					<hr class="w-48 my-3 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
-					<h3 class="text-l text-white mx-2">
-						@if($article->file_path)
-							<p class="mb-6 text-white">
-								<a class="text-cyan-400
-								transition duration-200
-								hover:text-cyan-600" href="/admin/articles/{{ $article->id }}/download">
-									Scarica l'articolo intero
-								</a>
-							</p>
-						@else
-							<p class="mb-6 text-white">
-								Leggi l'articolo intero a:
-								<a class="text-cyan-400
-								transition duration-200
-								hover:text-cyan-600" href="{{ $article->external_url }}"> 
-									{{ $article->external_url }}
-								</a>
-							</p>
-						@endif
-					</h3>
-			</div>
+			<x-box-info>
+				<x-slot:title>
+					OTTIENI L'ARTICOLO
+				</x-slot>
+				@if($article->file_path)
+					<p class="mb-6 text-white">
+						<a class="text-cyan-400
+						transition duration-200
+						hover:text-cyan-600" href="/admin/articles/{{ $article->id }}/download">
+							Scarica l'articolo intero
+						</a>
+					</p>
+				@else
+					<p class="mb-6 text-white">
+						Leggi l'articolo intero a:
+						<a class="text-cyan-400
+						transition duration-200
+						hover:text-cyan-600" href="{{ $article->external_url }}"> 
+							{{ $article->external_url }}
+						</a>
+					</p>
+				@endif
+			</x-box-info>
 		</div>
 	</div>
 
