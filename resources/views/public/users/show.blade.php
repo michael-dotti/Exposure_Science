@@ -20,12 +20,13 @@
 	<!-- Contenitore principale centrato nella pagina -->
 	<div class="max-w-5xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
 		
-		<!-- Box Profilo -->
+		<!-- Box del Profilo -->
 		<div class="bg-gray-800 rounded-xl p-6 md:p-10 shadow-lg">
 			<!-- grigliamento per avere ruolo e bio a sx e l'immagine a dx-->
 			<div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10">
 				<!-- div di ruolo e bio -->
 				<div class="shadow-xl/20 shadow-gray-800">
+					<!-- ruolo -->
 					<h1 class="mb-1 font-bold text-white">Ruolo</h1>
 					<p class="mt-1 mb-6 ml-6 font-medium text-amber-400">
 						<!-- check di che ruolo scrivere -->
@@ -37,6 +38,7 @@
 							Membro del Team
 						@endif
 					</p>
+					<!-- bio -->
 					<h1 class="mb-1 font-bold text-white">Descrizione</h1>
 					<p class="mb-4 ml-6 font-medium text-gray-200">{{ $user->bio }}</p>
 				</div>
