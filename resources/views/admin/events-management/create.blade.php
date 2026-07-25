@@ -93,9 +93,6 @@
             </div>
 
             <div>
-
-
-            <div>
                 <select id="type" name="type" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-s-0 border-default-medium text-heading text-sm rounded-e-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
                     <option value="" disabled selected>Scegli un tag da assegnare all'evento</option>
                     @foreach ( $types as $type)
@@ -104,21 +101,20 @@
                 </select>
                 <x-form-error name="type" />
             </div>
-
-
-            </div>
-
+            
             <div>
               <x-textarea-quill name="content" :required="True"/>
               <x-form-error name="content" />
             </div>
 
             
-            <div class="pt-2">
-              <label for="attachments" class="block text-sm font-medium text-gray-200 mb-1">Allega documenti</label>
-              <input type="file" name="attachments[]" id="attachments" multiple 
-                      class="block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600">
-              <x-form-error name="attachments" />
+            <div>
+             <x-input-file 
+              label="Allegati" 
+              name="attachments[]" 
+              accept="PDF,DOC,DOCX,JPG,JPEG,WEBP,PNG,PPTX,PPT,ZIP,RAR,TXT,XLS,XLSX"
+              :multiple="true"
+             />
             </div>
 
             <x-slot:buttons>
