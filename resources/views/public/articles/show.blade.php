@@ -13,7 +13,7 @@
 			<div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
 				<div class="">
 					<h1 class="mb-1 font-bold text-gray-300 italic">Astratto:</h1>
-					<p class="mb-4 ml-6 font-medium text-white">{{ $article->abstract }}</p>
+					<p class="mb-4 ml-6 font-medium text-white">{!! $article->abstract !!}</p>
 				</div>
 
 				<div>
