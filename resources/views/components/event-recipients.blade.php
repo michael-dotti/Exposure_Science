@@ -2,17 +2,17 @@
 <div>
     <div class="flex items-center justify-between mb-2">
         <x-label :required="true" :name="$name">Destinatari</x-label>
-        <!-- Pulsante opzionale per selezionare tutti gli utenti-->
+        {{--  Pulsante opzionale per selezionare tutti gli utenti --}} 
         <button type="button" 
-                onclick="toggleRecipients(this)" 
+                id="toggle-recipients-btn"
                 data-state="unselected"
-                class="text-xs text-blue-400 hover:text-blue-300 focus:outline-none underline">
+                class="text-xs text-gray-200 hover:text-gray-100 focus:outline-none underline">
             Seleziona tutti
         </button>
     </div>
 
-    <!-- Contenitore con scrollbar -->
-    <div class="max-h-48 overflow-y-auto bg-neutral-secondary-medium border border-default-medium rounded-lg shadow-xs custom-scrollbar">
+    {{-- Contenitore con scrollbar --}}
+    <div id="recipients-container" class="max-h-48 overflow-y-auto bg-neutral-secondary-medium border border-default-medium rounded-lg shadow-xs custom-scrollbar">
         <ul class="p-3 space-y-1 text-sm text-gray-200">
             @forelse($users as $user)
                 <li>
@@ -35,7 +35,12 @@
             @endforelse
         </ul>
     </div>
-    <x-form-error name="$name" />
+
+    <p id="recipients-client-error" class="text-sm text-red-500 mt-1.5 hidden">
+        Seleziona almeno un destinatario per proseguire
+    </p>
+
+    <x-form-error :name="$name" />
 </div>
 
 

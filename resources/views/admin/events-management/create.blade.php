@@ -103,6 +103,10 @@
             </div>
             
             <div>
+              <x-event-recipients :users="$users"/>
+            </div>
+
+            <div>
               <x-textarea-quill name="content" :required="True"/>
               <x-form-error name="content" />
             </div>
