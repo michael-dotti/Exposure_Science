@@ -34,7 +34,7 @@ Route::controller(HomeController::class)->group( function (){
 
 Route::controller(ProjectController::class)->group(function () {
     Route::get('/public/projects','index');
-    Route::get('/public/projects/{projects}','show');
+    Route::get('/public/projects/{project}','show');
 });
 
 Route::controller(CoursesController::class)->group( function (){
