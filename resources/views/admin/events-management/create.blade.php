@@ -86,7 +86,7 @@
       </div>
 
       <div class="flex-1 bg-mist-700 p-6 overflow-y-auto custom-scrollbar">
-          <x-event-form-layout :action="route('admin.events-management.create')" :hasFiles="True" title="iewnidenm">
+          <x-event-form-layout :action="route('admin.events-management.store')" :hasFiles="True" title="iewnidenm">
 
             <div>
               <x-input-text label="Titolo" name="title"/>

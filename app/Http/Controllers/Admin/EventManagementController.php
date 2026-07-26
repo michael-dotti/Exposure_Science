@@ -47,42 +47,46 @@ class EventManagementController extends Controller
         return view('admin.events-management.show', compact('event','events'));
     }
 
-    public function store(Event $event)
+    public function store()
     {
-        
         $validated = request()->validate([
-            'title' => ['required','min:3','max:255'],
-            'content' =>['required','max:5000'],
-            'type' => ['required'],
-            'users' => ['required', 'array', 'min:1'],
-            'documents.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt,xls,xlsx','max:51200'],
+            'title'         => ['required','min:3','max:255'],
+            'content'       => ['required','max:5000'],
+            'type'          => ['required'],
+            'recipients'    => ['required', 'array', 'min:1'], // l'array degli user destinatari
+            'recipients.*'  => ['exists:users,id'], // Verifico che ogni ID inviato esista davvero
+            'attachments'   => ['nullable', 'array'],
+            'attachments.*' => ['nullable','file','mimes:pdf,doc,docx,jpg,jpeg,webp,png,pptx,ppt,zip,rar,txt,xls,xlsx','max:51200'],
         ]);
 
-        $validated['content'] = Purifier::clean($validated['content']);
+        $content_cleaned = Purifier::clean($validated['content']);
 
-        $event = Event::create([
-            'title' => request()->title,
-            'content' => request('content'),
-            'type' => request()->type,
-            'creator_user_id' => Auth::id(),
-        ]);
+        // 2. Transazione Database per garantire l'integrità dei dati
+        DB::transaction(function () use ($validated, $content_cleaned) {
+            $event = Event::create([
+                'title' => request()->title,
+                'content' => $content_cleaned,
+                'type' => request()->type,
+                'creator_user_id' => Auth::id(),
+            ]);
 
-        $event->recipients()->attach(request()->users);
-        
-        if(request()->hasFile('documents')) {
-            foreach(request()->file('documents') as $file) {
+            $event->recipients()->attach(request()->recipients);
+            
+            if(request()->hasFile('attachments')) {
+                foreach(request()->file('attachments') as $file) {
 
-                $path = $file->store('uploads/event/documents','public');
+                    $path = $file->store('uploads/event/attachments','public');
 
-               
-                $event->attachments()->create([
-                    'file_name' => $file->getClientOriginalName(),
-                    'file_path' => $path,
-                ]);
+                
+                    $event->attachments()->create([
+                        'file_name' => $file->getClientOriginalName(),
+                        'file_path' => $path,
+                    ]);
+                }
             }
-        }
-
-        return redirect('/admin/events-management');
+        });
+        
+        return redirect()->route('admin.events-management.index');
     }
 
     public function edit(Event $event)
