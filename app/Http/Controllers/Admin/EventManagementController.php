@@ -62,7 +62,7 @@ class EventManagementController extends Controller
         $content_cleaned = Purifier::clean($validated['content']);
 
         // 2. Transazione Database per garantire l'integrità dei dati
-        DB::transaction(function () use ($validated, $content_cleaned) {
+        DB::transaction(function () use ( $content_cleaned) {
             $event = Event::create([
                 'title' => request()->title,
                 'content' => $content_cleaned,
