@@ -21,7 +21,7 @@
                     <span class="text-xs text-gray-400 shrink-0">To:</span>
                     
                     {{-- Stack di Avatar (massimo 4) --}}
-                    <div class="flex items-center -space-x-2 overflow-hidden">
+                    <div class="flex items-center space-x-2 overflow-hidden">
                         @foreach($event->recipients->take(4) as $recipient)
                             <span class="text-xs text-gray-400 shrink-0">
                                 {{ $recipient->name }} {{ $recipient->surname }}@if(!$loop->last), @endif

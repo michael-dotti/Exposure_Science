@@ -89,10 +89,11 @@
           <x-event-form-layout :action="route('admin.events-management.store')" :hasFiles="True" title="iewnidenm">
 
             <div>
-              <x-input-text label="Titolo" name="title"/>
+              <x-input-text label="Titolo" name="title" :required="true"/>
             </div>
 
             <div>
+              <x-label :required="true">Tag</x-label>
                 <select id="type" name="type" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-s-0 border-default-medium text-heading text-sm rounded-e-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
                     <option value="" disabled selected>Scegli un tag da assegnare all'evento</option>
                     @foreach ( $types as $type)
@@ -107,6 +108,7 @@
             </div>
 
             <div>
+              <x-label :required="true">Contenuto dell'evento</x-label>
               <x-textarea-quill name="content" :required="True"/>
               <x-form-error name="content" />
             </div>

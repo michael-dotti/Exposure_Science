@@ -23,7 +23,8 @@
     @endif
 
     <div class="space-y-3 text-white w-full max-w-4xl mx-auto">
-        
+        <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+
         <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
             {{ $slot }}
         </div>

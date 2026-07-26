@@ -27,14 +27,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // 2) RImuove l'errore in tempo reale non appena l'utente seleziona una checkbox
+        // 2) Rimuove l'errore in tempo reale e tiene sincronizzato il pulsante "Seleziona tutti"
         checkboxes.forEach(cb => {
             cb.addEventListener('change', () => {
-                const isAnyCheked = Array.from(checkboxes).some(c => c.checked);
-                if (isAnyCheked) {
+                // Conta quante checkbox sono attualmente spuntate
+                const checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
+                const totalCount = checkboxes.length;
+
+                // Se ce n'è almeno una spuntata, rimuovi l'errore rosso
+                if (checkedCount > 0) {
                     clearError();
                 }
-            })
+
+                // Sincronizza il pulsante principale
+                if (toggleBtn) {
+                    if (checkedCount === totalCount) {
+                        // Se l'utente le ha spuntate tutte manualmente
+                        toggleBtn.dataset.state = 'selected';
+                        toggleBtn.innerText = 'Deseleziona tutti';
+                    } else {
+                        // Se ne manca anche solo una (o sono scese a zero)
+                        toggleBtn.dataset.state = 'unselected';
+                        toggleBtn.innerText = 'Seleziona tutti';
+                    }
+                }
+            });
         });
 
         // 3) Validazione prima del submit del form
