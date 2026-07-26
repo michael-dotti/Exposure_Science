@@ -3,8 +3,17 @@
         Publicazioni
     </x-slot:title>
     <x-slot:heading>
-        Publicazioni
+        <div class="py-5 text-center">
+            <h1 class="text-3xl font-bold text-amber-300">
+                Le nostre publicazioni
+            </h1>
+
+            <p class="max-w-2xl mx-auto mt-3 text-base text-gray-300">
+                Scopri come la scienza ogni giorno avanza.
+            </p>
+        </div>
     </x-slot:heading>
+
     <div class="relative z-10 flex flex-col justify-center items-center text-center text-white">
 
         <!--filtraggi-->
