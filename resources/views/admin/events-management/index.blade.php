@@ -3,7 +3,7 @@
         Gestione Eventi
     </x-slot:title>
     
-     <x-event-index 
+    <x-event-index 
         :events="$events" 
         bulkDeleteRoute="admin.events-management.bulkDelete" 
         showRoute="admin.events-management.show" 

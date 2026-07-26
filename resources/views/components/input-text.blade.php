@@ -11,7 +11,7 @@
 @props(['name',
     'type' => 'text',
     'value'=> '', // utile per il form di modifica
-     'label' => null, // La label è opzionale di default
+    'label' => null, // La label è opzionale di default
     'required' => false,
     'validation' => true
 ])
