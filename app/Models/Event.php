@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Event extends Model
 {
@@ -26,9 +27,11 @@ class Event extends Model
         return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps();;
     }
 
-    public function attachments()
+    // metodo che lega Event ai suoi allegati che sono File
+    public function attachments(): MorphMany
     {
-        return $this->hasMany(EventAttachment::class);
+        // Collega Event al modello File tramite il prefisso 'fileable'
+        return $this->morphMany(File::class, 'fileable');
     }
 
     // Scope per filtrare gli eventi per tipo (sposta la logica di filtraggio qui)

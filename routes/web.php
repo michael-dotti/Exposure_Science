@@ -104,8 +104,6 @@ Route::middleware([
             Route::get('/admin/events-management/create', 'create')->name('admin.events-management.create');
             Route::get('/admin/events-management/{event}','show')->name('admin.events-management.show');
             Route::post('/admin/events-management', 'store')->name('admin.events-management.store');
-            Route::get('/admin/events-management/{event}/edit','edit')->name('admin.events-management.edit');
-            Route::patch('/admin/events-management/{event}', 'update')->name('admin.events-management.update');
             Route::delete('/admin/events-management/bulk-delete','bulkDelete')->name('admin.events-management.bulkDelete');
             Route::delete('/admin/events-management/{event}', 'destroy')->name('admin.events-management.destroy');
         });

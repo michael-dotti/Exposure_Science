@@ -89,18 +89,6 @@ class EventManagementController extends Controller
         return redirect()->route('admin.events-management.index');
     }
 
-    public function edit(Event $event)
-    {
-        $users = User::select('id', 'name','profile_photo_path')->get();
-        $types = EventType::cases();
-        return view('admin.events-management.edit', compact('event','users','types'));
-    }
-
-    public function update(Event $event)
-    {
-        dd('TODO update');
-    }
-
 
      // l'admin, o il gestore degli eventi, decide l'evento è da eliminare
     public function destroy(Event $event)
