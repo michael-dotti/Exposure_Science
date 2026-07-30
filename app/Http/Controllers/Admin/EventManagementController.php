@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-// visto che il controller non si trova nella solita cartella, devo improtare il controller di base
+// visto che il controller non si trova nella solita cartella, devo importare il controller di base
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\DB;

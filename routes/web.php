@@ -21,12 +21,13 @@ use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\FileController;
+
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsManagementController as AdminNewsManagementController;
 
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\EventManagementController as AdminEventManagementController;
-use App\Http\Controllers\Admin\EventAttachmentController as AdminEventAttachmentController;
 
 Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
@@ -59,7 +60,7 @@ Route::controller(NewsController::class)->group( function (){
     Route::get('/public/news/{news}', 'show');
 });
 
-
+Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
 /*
 Route::get('/', function () {
     
@@ -108,9 +109,7 @@ Route::middleware([
             Route::delete('/admin/events-management/{event}', 'destroy')->name('admin.events-management.destroy');
         });
     });
-
-    Route::get('/admin/attachment/{eventAttachment}/download',[AdminEventAttachmentController::class, 'download']);
- 
+    
     Route::middleware(['permission:management news'])->group(function (){
         Route::controller(AdminNewsManagementController::class)->group(function () {
             Route::get('/admin/news-management', 'index');
