@@ -14,6 +14,7 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use Illuminate\Support\Facades\Gate;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -86,26 +87,13 @@ class ArticleController extends Controller
 
         // 1.2) Rimuovi 'users' e 'researchareas' dai dati della creazione dell'articolo
         // Usiamo collect($validated)->except('users') per pulire l'array
-        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
+        $articleData = collect($validated)->except(['users', 'areas','file_path'])->toArray();
 
 
         // 2) Creazione nuovo articolo con la data di oggi
         //preparo i dati
         $articleData['data_pubblicazione'] = now()->toDateString();
         
-        // Salvataggio File
-        if (request()->hasFile('file_path')) {
-            // 1. Recupera l'oggetto del file
-            $file = request()->file('file_path');
-
-            // 2. Ottieni il nome originale del file (es: "mio_documento.pdf")
-            // davanti al nome inserisco il "tempo" per proteggermi dal caso in cui due utenti inseriscano un file con lo stesso nome
-            $originalName = time() . '_' . $file->getClientOriginalName(); 
-
-            // 3. Salva specificando la cartella, il nome del file e il disco
-            $articleData['file_path'] = $file->storeAs('uploads/articles/documents', $originalName, 'public');
-        }
-
         if (request()->hasFile('image_path')) {
 
             /* Uso la libreria Intervention Image per ridurre il
@@ -131,12 +119,32 @@ class ArticleController extends Controller
             $articleData['image_path'] = $filename;
         }
 
-        // Creazione record nel Database
-        $article = Article::create($articleData);
+        DB::transaction(function () use ($articleData) {
 
-        // Collegamento Autori e aree
-        $article->users()->attach(request()->users);
-        $article->researchAreas()->attach(request()->areas);
+            // Creazione record nel Database
+            $article = Article::create($articleData);
+
+            // Salvataggio e creazione File nel database
+            if (request()->hasFile('file_path')) {
+                // 1. Recupera il file
+                $file = request()->file('file_path');
+                
+                // 2. salvo il file e prendo il percorso
+                $path = $file->store('uploads/articles/documents','public');
+
+                // 3. creo il nuovo record File e lo lego ad article
+                $article->document()->create([
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_path' => $path,
+                    'mime_type' => $file->getClientMimeType(), // recupera il Mime Type reale del file
+                    'file_size' => $file->getSize() // recupera la dimensione esatta in byte
+                ]);
+            }
+
+            // Collegamento Autori e aree
+            $article->users()->attach(request()->users);
+            $article->researchAreas()->attach(request()->areas);
+        });
 
         // 3) redirect
         return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
@@ -175,20 +183,9 @@ class ArticleController extends Controller
             'image_path' => ['nullable', 'image', 'max:5120'],
         ]);
 
-        $articleData = collect($validated)->except(['users', 'areas'])->toArray();
+        $articleData = collect($validated)->except(['users', 'areas','file_path'])->toArray();
         $articleData['abstract'] = Purifier::clean($articleData['abstract']);
 
-        if (request()->hasFile('file_path')) {
-            // Elimina il vecchio file se esiste (per non sprecare spazio)
-            if ($article->file_path) {
-                Storage::disk('public')->delete($article->file_path);
-            }
-            
-
-            $file = request()->file('file_path');
-            $originalName = time() . '_' . $file->getClientOriginalName();
-            $articleData['file_path'] = $file->storeAs('uploads/articles/documents', $originalName, 'public');
-        }
 
         if (request()->hasFile('image_path')) {
             // Elimina la vecchia immagine
@@ -222,9 +219,31 @@ class ArticleController extends Controller
             unset($validated['image_path']);
         }
 
-        $article->update($articleData);
-        $article->users()->sync(request()->users);
-        $article->researchAreas()->sync(request()->areas);
+        DB::transaction(function () use ($article, $articleData) {
+            $article->update($articleData);
+
+            if (request()->hasFile('file_path')) {
+                // Elimina il vecchio file se esiste (per non sprecare spazio)
+                if ($article->document()) {
+                    Storage::disk('public')->delete($article->document->file_path);
+                }
+                
+                $file = request()->file('file_path');
+                $path = $file->store('uploads/articles/documents','public');
+
+                $article->document()->updateOrCreate(
+                    ['fileable_id' => $article->id, 'fileable_type' => Article::class], // Condizione di ricerca
+                    [
+                        'file_name' => $file->getClientOriginalName(),
+                        'file_path' => $path,
+                        'mime_type' => $file->getClientMimeType(),
+                        'file_size' => $file->getSize() // CORRETTO: () aggiunte
+                    ]
+                );
+            }
+            $article->users()->sync(request()->users);
+            $article->researchAreas()->sync(request()->areas);
+        });
 
         return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
     }

@@ -62,7 +62,7 @@ class EventManagementController extends Controller
         $content_cleaned = Purifier::clean($validated['content']);
 
         // 2. Transazione Database per garantire l'integrità dei dati
-        DB::transaction(function () use ( $content_cleaned) {
+        DB::transaction(function () use ($content_cleaned) {
             $event = Event::create([
                 'title' => request()->title,
                 'content' => $content_cleaned,
@@ -77,12 +77,11 @@ class EventManagementController extends Controller
 
                     $path = $file->store('uploads/event/attachments','public');
 
-                
                     $event->attachments()->create([
                         'file_name' => $file->getClientOriginalName(),
                         'file_path' => $path,
                         'mime_type' => $file->getClientMimeType(), // recupera il Mime Type reale del file
-                        'file_size' => $file->getSize // recuperal adimensione esatta in byte
+                        'file_size' => $file->getSize() // recuperal adimensione esatta in byte
                     ]);
                 }
             }

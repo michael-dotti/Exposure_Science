@@ -21,7 +21,7 @@ class FileController extends Controller
 
         $parent = $file->fileable; // recupero il model collegato a questo file
 
-        // Se il file appartiene ad un evneto è una comunicazione interna privata, quindi
+        // Se il file appartiene ad un evento è una comunicazione interna privata, quindi
         // l'utente può accedere al file solo se: è loggato AND (è il creatore OR è un destinatario)
         if ($parent instanceof Event) {
 

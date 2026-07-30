@@ -53,7 +53,7 @@ class Event extends Model
 
             // Cicla su tutti gli allegati e invoca il loro metodo delete()
             // Questo scatenerà l'evneto 'deleting' dentro il modello File che cancellerà il file fisico!
-             $event->attachments->each->delete();
+            $event->attachments->each->delete();
         });
     }
 }

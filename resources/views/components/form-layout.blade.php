@@ -38,7 +38,7 @@
     </div>
 
     @if(isset($buttons))
-        <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5 w-full max-w-4xl mx-auto">
+        <div class="mt-6 flex items-center justify-end gap-x-4 border-t border-white/10 py-5 w-full max-w-4xl mx-auto">
             {{ $buttons }}
         </div>
     @endif
