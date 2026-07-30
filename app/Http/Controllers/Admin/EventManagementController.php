@@ -81,6 +81,8 @@ class EventManagementController extends Controller
                     $event->attachments()->create([
                         'file_name' => $file->getClientOriginalName(),
                         'file_path' => $path,
+                        'mime_type' => $file->getClientMimeType(), // recupera il Mime Type reale del file
+                        'file_size' => $file->getSize // recuperal adimensione esatta in byte
                     ]);
                 }
             }
