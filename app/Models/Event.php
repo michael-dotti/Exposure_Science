@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Event extends Model
@@ -24,7 +23,7 @@ class Event extends Model
     // User collegati a questo evento
     public function recipients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps();;
+        return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps();
     }
 
     // metodo che lega Event ai suoi allegati che sono File
@@ -52,13 +51,9 @@ class Event extends Model
             // Carica la relazione 'attachments' se non è già presente in memoria, cosi da evitare il Lazy Loading
             $event->loadMissing('attachments');
 
-
-            foreach($event->attachments as $attachment) {
-                if (Storage::disk('public')->exists($attachment->file_path) && ($attachment->file_path != 'uploads/events/attachments/default_piano_di_studi_triennale_Ingegneria.pdf')){
-                    Storage::disk('public')->delete($attachment->file_path);
-                }
-                 $attachment->delete();
-            }
+            // Cicla su tutti gli allegati e invoca il loro metodo delete()
+            // Questo scatenerà l'evneto 'deleting' dentro il modello File che cancellerà il file fisico!
+             $event->attachments->each->delete();
         });
     }
 }
