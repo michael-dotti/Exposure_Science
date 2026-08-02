@@ -40,7 +40,7 @@
                     <x-link-with-icon href="/admin/articles" :active="request()->is('/admin/articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
                 </li>
                 <li>
-                    <x-link-with-icon href="/admin/projects" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
+                    <x-link-with-icon href="{{ route('admin.projects.index') }}" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
                 </li>
 
                 @can('teaching')
