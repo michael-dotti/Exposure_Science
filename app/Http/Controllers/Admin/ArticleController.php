@@ -171,7 +171,7 @@ class ArticleController extends Controller
     {
         Gate::authorize('update', $article);
 
-        $hasExistingFile = $article->file_path && request()->input('remove_file') !== '1';    
+       $hasExistingFile = $article->document()->exists() && request()->input('remove_file') !== '1';    
 
         $validated = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
@@ -216,7 +216,7 @@ class ArticleController extends Controller
                 $articleData['image_path']  = null;
         }
         else {
-            unset($validated['image_path']);
+            unset($articleData['image_path']);
         }
 
         DB::transaction(function () use ($article, $articleData) {
@@ -224,7 +224,7 @@ class ArticleController extends Controller
 
             if (request()->hasFile('file_path')) {
                 // Elimina il vecchio file se esiste (per non sprecare spazio)
-                if ($article->document()) {
+                if ($article->document) {
                     Storage::disk('public')->delete($article->document->file_path);
                 }
                 
@@ -241,9 +241,20 @@ class ArticleController extends Controller
                     ]
                 );
             }
+            // 
+            elseif (request()->input('remove_file') == '1' || request()->filled('external_url')) {
+                if ($article->document) {
+                    // Elimina il file fisico dal disco
+                    Storage::disk('public')->delete($article->document->file_path);
+                    // Elimina la riga dal database
+                    $article->document()->delete();
+                }
+            }
+
             $article->users()->sync(request()->users);
             $article->researchAreas()->sync(request()->areas);
-        });
+        }
+        );
 
         return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
     }

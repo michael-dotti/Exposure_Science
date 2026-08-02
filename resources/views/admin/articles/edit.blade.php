@@ -81,7 +81,7 @@
               <x-input-text name="external_url" label="URL" :value="$article->external_url"/>
             </div>
             <div>
-              <x-input-file name="file_path" label="Documento" currentFile="{{ $article->file_path ? basename($article->file_path) : null }}"/>
+              <x-input-file name="file_path" label="Documento" currentFile="{{ $article->document ? $article->document->file_name : null }}"/>
               <input type="hidden" name="remove_file" value="0"/> 
             </div>
           </div>
