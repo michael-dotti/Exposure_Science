@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Project;
 use Mews\Purifier\Facades\Purifier;
 
@@ -22,7 +23,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('admin.projects.create');
+        $users = User::select('id', 'name')->get();
+        return view('admin.projects.create', ['users' => $users]);
     }
 
     public function store(){
@@ -53,16 +55,16 @@ class ProjectController extends Controller
         return redirect()->route('admin.projects.index');
     }
     
-    public function edit()
+    public function edit(Project $project)
     {
         dd("TODO");
     }
-    public function update()
+    public function update(Project $project)
     {
         dd("TODO");
     }
 
-    public function destroy()
+    public function destroy(Project $project)
     {
         dd("TODO");
     }
