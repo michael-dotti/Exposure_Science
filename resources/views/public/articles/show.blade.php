@@ -11,7 +11,7 @@
 
 	<!-- bottone per tornare all'index degli articoli -->
 	<div class="mt-1">
-		<a href="/public/articles"
+		<a href="{{ route('public.articles.show') }}"
 			class="inline-flex items-center px-4 py-2 text-sm font-semibold
 					text-slate-900 transition rounded-md bg-amber-300
 					hover:bg-amber-200"

@@ -4,11 +4,11 @@
     </x-slot:title>
    
     <div class="flex justify-end">
-        <x-link-button href="{{ route('admin.article.index') }}" >Indietro</x-link-button>
+        <x-link-button href="{{ route('admin.articles.index') }}" >Indietro</x-link-button>
     </div>
     
  
-<x-form-layout action="{{ route('admin.article.store') }}" method="POST" :hasFiles="true">
+<x-form-layout action="{{ route('admin.articles.store') }}" method="POST" :hasFiles="true">
   <x-slot:header>
     <h1 class="text-base/7 font-semibold text-white">Crea un nuovo Articolo</h2>
     <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
@@ -79,7 +79,7 @@
     </div>
 
   <x-slot:buttons>
-    <a href="{{ route('admin.article.index') }}">
+    <a href="{{ route('admin.articles.index') }}">
       <x-danger-button type="button">Cancel</x-danger-button>
     </a>
     <x-save-button type="submit" >Save</x-save-button>

@@ -4,7 +4,7 @@
     </x-slot:title>
     
     @can('create', App\Models\Article::class) 
-        <x-button-create href="{{ route('admin.article.create') }}">Nuovo Articolo</x-button-create>
+        <x-button-create href="{{ route('admin.articles.create') }}">Nuovo Articolo</x-button-create>
     @endcan
 
     <div class="flex my-3 gap-3 items-center justify-center">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="text-white" >
-                    <a href="{{ route('admin.article.show',$article->id) }}" class="hover:underline">
+                    <a href="{{ route('admin.articles.show',$article->id) }}" class="hover:underline">
                         <strong>{{ $article->title }}</strong>
                     </a>
                     :
@@ -45,11 +45,11 @@
                 @canany(['update', 'delete'], $article)
                     <div class="mt-4 flex gap-2">
                         @can('update', $article)
-                            <x-modify-button-link href="{{ route('admin.article.edit',$article->id) }}">Modifica</x-modify-button-link>
+                            <x-modify-button-link href="{{ route('admin.articles.edit',$article->id) }}">Modifica</x-modify-button-link>
                         @endcan
                         @can('delete', $article)
                             <x-danger-button form="delete_form_{{ $article->id }}" >Elimina</x-danger-button>
-                            <form method="POST" action="{{ route('admin.article.destroy',$article->id) }}" id="delete_form_{{ $article->id }}" class="hidden">
+                            <form method="POST" action="{{ route('admin.articles.destroy',$article->id) }}" id="delete_form_{{ $article->id }}" class="hidden">
                                 @csrf
                                 @method('DELETE')
                             </form>

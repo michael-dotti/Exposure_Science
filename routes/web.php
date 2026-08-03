@@ -49,8 +49,8 @@ Route::controller(UserController::class)->group( function (){
 });
 
 Route::controller(ArticleController::class)->group( function (){
-    Route::get('/public/articles','index')->name('public.article.index');
-    Route::get('/public/articles/{article}', 'show')->name('public.article.show');
+    Route::get('/public/articles','index')->name('public.articles.index');
+    Route::get('/public/articles/{article}', 'show')->name('public.articles.show');
 });
 
 
@@ -82,13 +82,13 @@ Route::middleware([
     });
 
     Route::controller(AdminArticleController::class)->group(function () {
-        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class)->name('admin.article.index');
-        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class)->name('admin.article.create');
-        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class)->name('admin.article.store');
-        Route::get('/admin/articles/{article}', 'show')->name('admin.article.show');
-        Route::get('/admin/articles/{article}/edit','edit')->name('admin.article.edit');
-        Route::patch("/admin/articles/{article}", 'update')->name('admin.article.update');
-        Route::delete('/admin/articles/{article}','destroy')->name('admin.article.destroy');
+        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class)->name('admin.articles.index');
+        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class)->name('admin.articles.create');
+        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class)->name('admin.articles.store');
+        Route::get('/admin/articles/{article}', 'show')->name('admin.articles.show');
+        Route::get('/admin/articles/{article}/edit','edit')->name('admin.articles.edit');
+        Route::patch("/admin/articles/{article}", 'update')->name('admin.articles.update');
+        Route::delete('/admin/articles/{article}','destroy')->name('admin.articles.destroy');
     });
 
     Route::controller(AdminEventController::class)->group(function () {
