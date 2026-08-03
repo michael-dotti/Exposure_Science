@@ -144,9 +144,9 @@ Route::middleware([
         Route::get('/admin/projects/create', 'create')->name('admin.projects.create');
         Route::get('/admin/projects/{projects}', 'show')->name('admin.projects.show');
         Route::post('/admin/projects', 'store')->name('admin.projects.store');
-        Route::get('/admin/projects/{event}/edit','edit')->name('admin.projects.edit');
-        Route::patch('/admin/projects/{event}', 'update')->name('admin.projects.update');
-        Route::delete('/admin/projects/{event}', 'destroy')->name('admin.projects.destroy');
+        Route::get('/admin/projects/{project}/edit','edit')->name('admin.projects.edit');
+        Route::patch('/admin/projects/{project}', 'update')->name('admin.projects.update');
+        Route::delete('/admin/projects/{project}', 'destroy')->name('admin.projects.destroy');
     });
     
     Route::middleware(['permission:management users'])->group(function (){

@@ -3,7 +3,10 @@
 		Projects Index
 	</x-slot:title>
 	
-	<!-- div per contenere il pulsante di creazione -->
+	<!-- pulsante di creazione -->
+	@can('create', App\Models\Article::class) 
+		<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
+	@endcan
 
 	<!-- div per il centramento -->
 	<div class="pt-4 px-16 md:mx-8 sm:mx-4">
@@ -22,10 +25,12 @@
 									</h2>
 								</div>
 
-								<div class="mt-1 text-sm font-medium text-white">
-									Progetto finanziato da 
-									<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
-								</div>
+								@if($project->funding_agency)
+									<div class="mt-1 text-sm font-medium text-white">
+										Progetto finanziato da 
+										<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
+									</div>
+								@endif
 
 								<!-- descrizione troncata per non far occupare troppo spazio -->
 								<div class="mt-1 text-sm font-medium text-white">
@@ -37,23 +42,31 @@
 									</p>
 								</div>
 
-								<div class="inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
+								<div class="mb-3 inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
 									Visualizza progetto >
 								</div>
 
-								<a href="{{ route('admin.projects.edit', $project) }}"
+								<!-- <a href="{{ route('admin.projects.edit', $project) }}"
 									class="rounded-lg mt-3 py-1 px-4
 									bg-amber-300 hover:bg-amber-200
 									inline-flex items-center justify-center text-sm font-semibold text-black">
 									Modifica
-								</a>
+								</a> -->
 
-								<a href="{{ route('admin.projects.destroy', $project) }}"
+								<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
+
+								<!-- <a href="{{ route('admin.projects.destroy', $project) }}"
 									class="rounded-lg my-1 py-1 px-4
 									bg-red-600 hover:bg-red-500
 									inline-flex items-center justify-center text-sm font-semibold text-black">
 									Elimina
-								</a>
+								</a> -->
+
+								<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
+								<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
+									@csrf
+									@method('DELETE')
+								</form>
 							</div>
 						</a>
 				</article>
@@ -63,7 +76,7 @@
 		</div>
 	</div>
 
-	<div class="mt-2">
+	<div class="my-2">
 		{{ $projects->links() }}
 	</div>
 </x-layout-private>
