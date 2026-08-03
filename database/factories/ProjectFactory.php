@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
 
 		$finanziatori = array("Monti dei Paschi di Siena", "Banco Agricolo Campano",
 				"Università degli Studi di Brescia", "Università degli Studi di Milano", "Università Statale di Bergamo",
-				"Comune di Pavia", "Comune di Brscia", "Marcello", "mio zio", "Università degli Studi di Capodimonte",
+				"Comune di Pavia", "Comune di Brescia", "Luigi", "mio zio", "Università degli Studi di Capodimonte",
 				"Comune di Melegnano", "Comune di Vello", "New York MoMA", "Crypton Future Media Inc.", "ASST Franciacorta",
 				"Comune di Orzinuovi");
 
