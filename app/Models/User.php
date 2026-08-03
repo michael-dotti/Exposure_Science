@@ -18,7 +18,7 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
-
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
@@ -43,7 +43,6 @@ class User extends Authenticatable
         'email',
         'website',
         'bio',
-        'curriculm_file_path',
         'profile_photo_path',
     ];
 
@@ -101,6 +100,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();;
     }
 
+    public function curriculum()
+    {
+        // Collega User al modello File (il suo curriculum) tramite il prefisso 'fileable'
+        return $this->morphOne(File::class, 'fileable');
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -128,5 +132,21 @@ class User extends Authenticatable
                 return asset('images/defaultUsers/no_image_user.webp');
             }
         );
+    }
+
+    protected static function booted()
+    {   
+        // un istante prima che l'user venga eliminato esegui il codice nelle graffe
+        static::deleting(function ($user){
+
+            // Carica la relazione 'curriculum' se non è già presente in memoria, cosi da evitare il Lazy Loading
+            $user->loadMissing('curriculum');
+
+            // Cicla su tutti gli allegati e invoca il loro metodo delete()
+            // Questo scatenerà l'evneto 'deleting' dentro il modello File che cancellerà il file fisico!
+            if ($user->curriculum){
+                $user->curriculum->delete();
+            }
+        });
     }
 }

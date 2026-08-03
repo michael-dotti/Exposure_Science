@@ -44,8 +44,8 @@ Route::controller(CoursesController::class)->group( function (){
 });
 
 Route::controller(UserController::class)->group( function (){
-    Route::get('/public/users','index');
-    Route::get('/public/users/{user}', 'show');
+    Route::get('/public/users','index')->name('public.users.index');
+    Route::get('/public/users/{user}', 'show')->name('public.users.show');
 });
 
 Route::controller(ArticleController::class)->group( function (){
@@ -75,10 +75,9 @@ Route::middleware([
     
     
     Route::controller(AdminUserController::class)->group(function () {
-        Route::get('/admin/users/show','show');
-        Route::get('/admin/users/edit','edit');
-        Route::patch('/admin/users/{user}', 'update');
-        Route::get('/admin/users/{user}/download','download');
+        Route::get('/admin/users/show','show')->name('admin.users.index');
+        Route::get('/admin/users/edit','edit')->name('admin.users.edit');
+        Route::patch('/admin/users/{user}', 'update')->name('admin.users.update');
     });
 
     Route::controller(AdminArticleController::class)->group(function () {
@@ -147,7 +146,12 @@ Route::middleware([
     
     Route::middleware(['permission:management users'])->group(function (){
         Route::controller(AdminUserManagementController::class)->group( function (){
-            Route::get('/admin/users-management','index');
+            Route::get('/admin/users-management','index')->name('admin.users-management.index');
+            Route::get('/admin/users-management/create','create')->name('admin.users-management.create');
+            Route::get('/admin/users-management/{user}','show')->name('admin.users-management.show'); // decidere se è necessari oimplementare view user.index per user-management
+            Route::post('/admin/users-management','store')->name('admin.users-management.store');
+            Route::patch('/admin/users-management/{user}', 'update')->name('admin.users-management.update'); // per cambiare i permessi degli utenti in index
+            Route::delete('/admin/users-management/{user}','destroy')->name('admin.users-management.destroy');
         });
     });
 
