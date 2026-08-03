@@ -21,7 +21,7 @@
 			</div>
 
 			<div>
-				<x-link-button href="{{ route('admin.projects.index') }}">back</x-link-button>
+				<x-link-button href="{{ route('admin.projects.show', $project) }}">back</x-link-button>
 			</div>
 			</div>
 		</x-slot:header>
