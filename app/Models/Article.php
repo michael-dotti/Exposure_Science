@@ -68,7 +68,9 @@ class Article extends Model
             // Carica la relazione 'document' se non è già presente in memoria, cosi da evitare il Lazy Loading
             $article->loadMissing('document');
 
-            $article->document->each->delete();
+            if ($article->document){
+                $article->document->delete();
+            }
         });
     }
 }

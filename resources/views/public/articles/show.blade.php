@@ -1,5 +1,6 @@
 <x-layout-public>
 	<x-slot:title>
+		{{ $article->title }}
 	</x-slot:title>
 	<x-slot:heading>
 		<div class="text-white text-3xl"> {{ $article->title }} </div>
@@ -32,23 +33,16 @@
 					</h2>
 					<hr class="w-48 my-3 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
 					<h3 class="text-l text-white mx-2">
-						@if($article->file_path)
-							<p class="mb-6 text-white">
-								<a class="text-cyan-400
-								transition duration-200
-								hover:text-cyan-600" href="/admin/articles/{{ $article->id }}/download">
-									Scarica l'articolo intero
-								</a>
-							</p>
+						@if($article->document)
+							<p class="text-white font-medium mb-2">Leggi l'articolo intero:</p>
+							<x-button-download :file="$article->document"/>
 						@else
-							<p class="mb-6 text-white">
-								Leggi l'articolo intero a:
+							<p class="mb-6 text-white">Leggi l'articolo intero a:</p>
 								<a class="text-cyan-400
 								transition duration-200
 								hover:text-cyan-600" href="{{ $article->external_url }}"> 
 									{{ $article->external_url }}
 								</a>
-							</p>
 						@endif
 					</h3>
 			</div>

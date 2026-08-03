@@ -14,20 +14,19 @@
 
     <div>
         <div class="flex">
-            <div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
+            <div class=" text-white grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
             <div>
-                <p class="mb-6 font-bold text-white">{!! $article->abstract !!}</p>
+                <p class="mb-6 font-bold">{!! $article->abstract !!}</p>
 
-                @if($article->file_path)
-                    <p class="mb-6 text-white">
-                        <x-nav-link class="mb-6 font-bold text-white text-underline" href="/download/{{ $article->file_path }}">
-                            Scarica l'articolo intero
-                        </x-nav-link>
-                    </p>
+                @if($article->document)
+                    <div class="mb-6">
+                        <p class="text-white font-medium mb-2">Leggi l'articolo intero:</p>
+                        <x-button-download :file="$article->document"/>
+                    </div>
                 @else
-                    <p class="mb-6 text-white">
+                    <p class="mb-6 ">
                         Leggi l'articolo intero:
-                        <x-nav-link class="truncate mb-6 font-bold text-white text-underline" href="{{ $article->external_url }}"> 
+                        <x-nav-link class="truncate mb-6 font-bold  text-underline" href="{{ $article->external_url }}"> 
                             {{ $article->external_url }}
                         </x-nav-link>
                     </p>
@@ -35,7 +34,7 @@
 
             </div>
             @if($article->image_path)
-                <div class="mb-6 text-small text-white">
+                <div class="mb-6 text-small ">
                     <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}" class="md:size-96 size-72" />
                 </div>
             @endif
@@ -44,7 +43,7 @@
     </div>
 
     
-    <form method="POST" action="/admin/articles/{{ $article->id }}" id="delete_form" class="hidden">
+    <form method="POST" action="{{ route('admin.article.destroy',$article->id) }}" id="delete_form" class="hidden">
       @csrf
       @method('DELETE')
     </form>
@@ -52,7 +51,7 @@
         @canany(['update', 'delete'], $article)
             <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3 right-1">
                 @can('update', $article)
-                    <x-modify-button-link href="/admin/articles/{{ $article['id'] }}/edit" >Modifica</x-modify-button-link>
+                    <x-modify-button-link href="{{ route('admin.article.edit',$article->id) }}" >Modifica</x-modify-button-link>
                 @endcan
                 @can('delete', $article)
                     <x-danger-button form="delete_form">Elimina</x-danger-button>
@@ -61,7 +60,7 @@
         @endcanany
         
         <div class="absolute bottom-0 justify-between pb-4 pr-4 flex items-center gap-3">
-            <x-link-button href="/admin/articles" >back</x-link-button>
+            <x-link-button href="{{ route('admin.article.index') }}" >back</x-link-button>
         </div>  
     </footer>
     
