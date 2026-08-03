@@ -30,6 +30,10 @@
 				</div>
 			@endif
 
+			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+				<div> Partecipano al progetto: <span class="text-white">@foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach</span></div>
+			</div>
+
 			<hr class="h-px my-6 bg-gray-600 border-0">
 
 			<div class="text-xl font-bold text-amber-300">
