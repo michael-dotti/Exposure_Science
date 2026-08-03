@@ -6,71 +6,87 @@
 		{{ $user->name }} {{ $user->surname }}
 	</x-slot:heading>
 
+	<!-- bottone per tornare all'index del team -->
+	<div class="mt-1">
+		<a href="/public/users"
+			class="inline-flex items-center px-4 py-2 text-sm font-semibold
+					text-slate-900 transition rounded-md bg-amber-300
+					hover:bg-amber-200"
+		>
+			< Torna al team
+		</a>
+	</div>
+
 	<!-- Contenitore principale centrato nella pagina -->
 	<div class="max-w-5xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
 		
-		<!-- Box Profilo -->
-		<div class="bg-gray-900 rounded-xl p-6 md:p-10 shadow-lg">
+		<!-- Box del Profilo -->
+		<div class="bg-gray-800 rounded-xl p-6 md:p-10 shadow-lg">
+			<!-- grigliamento per avere ruolo e bio a sx e l'immagine a dx-->
 			<div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10">
+				<!-- div di ruolo e bio -->
 				<div class="shadow-xl/20 shadow-gray-800">
+					<!-- ruolo -->
 					<h1 class="mb-1 font-bold text-white">Ruolo</h1>
 					<p class="mt-1 mb-6 ml-6 font-medium text-amber-400">
+						<!-- check di che ruolo scrivere -->
 						@if ($user->hasRole('admin'))
 							Team Leader
+						@elseif ($user->hasRole('teacher'))
+							Docente
 						@else
 							Membro del Team
 						@endif
 					</p>
+					<!-- bio -->
 					<h1 class="mb-1 font-bold text-white">Descrizione</h1>
-					<p class="mb-4 ml-6 font-medium text-white">{{ $user->bio }}</p>
+					<p class="mb-4 ml-6 font-medium text-gray-200">{{ $user->bio }}</p>
 				</div>
-				<!-- Immagine centrata all'interno della sua colonna -->
+				<!-- div dell'immagine, centrata all'interno della sua colonna -->
 				<div class="flex justify-center">
 					<img src="{{ $user->profilePhotoUrl }}" alt="{{ $user->name }}" class="md:size-50 size-50 rounded-full object-cover" />
 				</div>
 			</div>
 		</div>
 
-		<!-- Box Contatti centrato rispetto alla pagina -->
+		<!-- grigliamento per avere i box informativi di contatti e curriculum uno di fianco all'altro -->
 		<div class="grid grid-cols-2 gap-4">
-			<div class="rounded-md bg-gray-800 p-3 w-full max-w-lg text-center">
-				<h2 class="bg-gray-900 rounded-md p-3 text-xl font-bold text-white">
+			<!-- box per i contatti -->
+			<x-box-info>
+				<x-slot:title>
 					CONTATTI
-				</h2>
-				<hr class="w-48 my-4 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
-				<h3 class="text-lg text-white mx-2 leading-relaxed">
-					<b> E-MAIL: </b> {{ $user->email }}
+				</x-slot>
+				<b> E-MAIL: </b> {{ $user->email }}
 				
-					@if ($user->website)
-						<br> <b> WEBSITE: </b> 
-						<a
-							class="text-cyan-400 transition duration-200 hover:text-cyan-600"
-							href="{{ $user->website }}"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{{ $user->website }} 
-						</a>
-					@endif
-				</h3>
-			</div>
+				<!-- check presenza website -->
+				@if ($user->website)
+					<br> <b> WEBSITE: </b> 
+					<a
+						class="text-cyan-400 transition duration-200 hover:text-cyan-600"
+						href="{{ $user->website }}"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						{{ $user->website }} 
+					</a>
+				@endif
+			</x-box-info>
 
+			<!-- check presenza curriculum -->
 			@if ($user->curriculm_file_path <> "public/resume/default_resume.pdf")
-				<div class="rounded-md bg-gray-800 p-3 w-full max-w-lg text-center">
-					<h2 class="bg-gray-900 rounded-md p-3 text-xl font-bold text-white">
+				<!-- box per il curriculum -->
+				<x-box-info>
+					<x-slot:title>
 						CURRICULUM VITAE
-					</h2>
-					<hr class="w-48 my-4 h-1 mx-auto bg-neutral-quaternary border-0 rounded-sm">
-					<h3 class="text-lg text-white mx-2 leading-relaxed">
-						<a
+					</x-slot>
+					<a
 							class="text-cyan-400 transition duration-200 hover:text-cyan-600"
 							href="/admin/users/{{ $user->id }}/download"
 							target="_blank"
 							rel="noopener noreferrer"
 						> scarica il curriculum di {{ $user->name }} {{ $user->surname }}
 						</a>
-					</h3>
-				</div>
+				</x-box-info>
 			@endif
 		</div>
 		

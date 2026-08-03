@@ -38,7 +38,7 @@
                 
                 <!-- Dropdown menu -->
                  @auth
-                <div class="z-50 hidden bg-mist-700 border border-white/10 rounded-base shadow-lg w-44" id="user-dropdown">
+                <div class="z-50 hidden bg-gray-700 border border-white/10 rounded-base shadow-lg w-44" id="user-dropdown">
                     <div class="px-4 py-3 text-sm border-b border-white/10">
                       <span class="block text-gray-100 font-medium">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
                       <span class="block text-gray-400 truncate">{{ auth()->user()->email }}</span>
@@ -50,7 +50,7 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
                                 @csrf
-                                <a href="{{ route('logout') }}" @click.prevent="$root.submit();" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">Log out</a>
+                                <a href="{{ route('logout') }}" @click.prevent="$root.submit();" class="inline-flex items-center w-full p-2 hover:bg-gray-800 rounded">Log out</a>
                             </form>
                         </li>
                     </ul>

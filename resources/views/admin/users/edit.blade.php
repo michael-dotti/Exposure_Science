@@ -34,7 +34,18 @@
           <x-label name="curriculm_file_path" :required="False"></x-label>
             <div class="grid md:grid-cols-2 md:gap-6">
             <div>
-              <x-input-file name="curriculm_file_path" label="Curriculum Vitae" currentFile="{{ ($user->curriculm_file_path <> 'public/resume/default_resume.pdf')? 'è presente.' : null }}"/>
+              <x-input-file-simplified name="curriculm_file_path" label="Curriculum Vitae" currentFile="{{ ($user->curriculm_file_path <> 'public/resume/default_resume.pdf')? 'è presente.' : null }}">
+                @if ($user->curriculm_file_path <> "public/resume/default_resume.pdf")
+                  <a
+                      class="text-cyan-400 transition duration-200 hover:text-cyan-600"
+                      href="/admin/users/{{ $user->id }}/download"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  > il tuo curriculum vitae </a>
+                @else
+                  <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+                @endif
+              </x-input-file-simplified>
               <input type="hidden" name="remove_file" value="0"/> 
             </div>
           </div>
