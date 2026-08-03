@@ -25,23 +25,15 @@ class ProjectFactory extends Factory
 				"Comune di Melegnano", "Comune di Vello", "New York MoMA", "Crypton Future Media Inc.", "ASST Franciacorta",
 				"Comune di Orzinuovi");
 
-		if(random_int(0, 100) < 75)
-			return [
-				'title' => fake()->sentence(3),
-				'description' => fake()->sentence(80),
-				'funding_agency' => $finanziatori[random_int(0,sizeof($finanziatori) - 1)],
-				'status' => "planned",
-				'start_date' => $s_date,
-				'end_date' => $e_date,
-			];
-		else
-			return [
-				'title' => fake()->sentence(3),
-				'description' => fake()->sentence(80),
-				'funding_agency' => null,
-				'status' => "planned",
-				'start_date' => $s_date,
-				'end_date' => $e_date,
-			];
+		$finanziatore = (random_int(0, 100) < 75)? $finanziatori[random_int(0,sizeof($finanziatori) - 1)] : null;
+
+		return [
+			'title' => fake()->sentence(3),
+			'description' => fake()->sentence(80),
+			'funding_agency' => $finanziatore,
+			'status' => "planned",
+			'start_date' => $s_date,
+			'end_date' => $e_date,
+		];
 	}
 }
