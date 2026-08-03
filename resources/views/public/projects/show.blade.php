@@ -19,10 +19,16 @@
 				<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
 			</div>
 
-			<div class="my-6 text-sm font-small text-white">
-				Progetto finanziato con il gentile contributo di 
-				<span class="text-amber-400">{{ $project->funding_agency }}</span>.
-			</div>
+			@if($project->funding_agency)
+				<div class="my-6 text-sm font-small text-white">
+					Progetto finanziato con il gentile contributo di 
+					<span class="text-amber-400">{{ $project->funding_agency }}</span>.
+				</div>
+			@elseif(random_int(0,1000) == 69)
+				<div class="my-6 text-sm font-small text-white">
+					Progetto finanziato con il gentile contributo di tua mamma.
+				</div>
+			@endif
 
 			<hr class="h-px my-6 bg-gray-600 border-0">
 

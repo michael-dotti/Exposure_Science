@@ -40,10 +40,12 @@
 									</h2>
 								</div>
 
-								<div class="mt-1 text-sm font-medium text-white">
-									Progetto finanziato da 
-									<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
-								</div>
+								@if($project->funding_agency)
+									<div class="mt-1 text-sm font-medium text-white">
+										Progetto finanziato da 
+										<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
+									</div>
+								@endif
 
 								<!-- descrizione troncata per non far occupare troppo spazio -->
 								<div class="mt-1 text-sm font-medium text-white">
