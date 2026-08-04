@@ -53,12 +53,14 @@
 					</a>
 					<div></div>
 					<div class="justify-self-end-safe">
-						<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
-						<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
-						<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
-							@csrf
-							@method('DELETE')
-						</form>
+						@can('management projects') 
+							<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
+							<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
+							<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
+								@csrf
+								@method('DELETE')
+							</form>
+						@endcan
 					</div>
 				</div>
 			</div>

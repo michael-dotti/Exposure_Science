@@ -4,7 +4,7 @@
 	</x-slot:title>
 	
 	<!-- pulsante di creazione -->
-	@can('create', App\Models\Article::class) 
+	@can('management projects') 
 		<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
 	@endcan
 
@@ -46,27 +46,15 @@
 									Visualizza progetto >
 								</div>
 
-								<!-- <a href="{{ route('admin.projects.edit', $project) }}"
-									class="rounded-lg mt-3 py-1 px-4
-									bg-amber-300 hover:bg-amber-200
-									inline-flex items-center justify-center text-sm font-semibold text-black">
-									Modifica
-								</a> -->
+								@can('management projects') 
+									<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
+									<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
+									<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
+										@csrf
+										@method('DELETE')
+									</form>
+								@endcan
 
-								<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
-
-								<!-- <a href="{{ route('admin.projects.destroy', $project) }}"
-									class="rounded-lg my-1 py-1 px-4
-									bg-red-600 hover:bg-red-500
-									inline-flex items-center justify-center text-sm font-semibold text-black">
-									Elimina
-								</a> -->
-
-								<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
-								<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
-									@csrf
-									@method('DELETE')
-								</form>
 							</div>
 						</a>
 				</article>
