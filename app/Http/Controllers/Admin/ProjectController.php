@@ -6,13 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
+use illuminate\support\Facades\Auth;
 use Mews\Purifier\Facades\Purifier;
 
 class ProjectController extends Controller
 {
 	public function index()
 	{
-		$projects = Project::with('users')->paginate(8);
+		$user = Auth::user();
+
+		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
+		if($user->can('management projects')) $projects = Project::with('users')->paginate(8);
+		//altrimenti può vedere solo i progetti a cui è associato
+		else $projects = $user->projects()->paginate(8);
+
 		return view('admin.projects.index', compact('projects'));
 	}
 
