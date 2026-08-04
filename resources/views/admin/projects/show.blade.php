@@ -12,8 +12,13 @@
 			</div>
 
 			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
-				<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+				@if($project->start_date)
+					<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
+				@endif
+
+				@if($project->start_date)
+					<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+				@endif
 			</div>
 
 			@if($project->funding_agency)
