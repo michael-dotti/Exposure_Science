@@ -61,10 +61,10 @@
 
       <x-slot:buttons>
         <div class="my-4 flex items-center justify-end gap-3">
+          <x-save-button type="submit" >Salva</x-save-button>
           <a href="/admin/users/show">
             <x-danger-button type="button" >Annulla</x-danger-button>
           </a>
-          <x-save-button type="submit" >Salva</x-save-button>
         </div>
       </x-slot:buttons>
 

@@ -79,10 +79,10 @@
     </div>
 
   <x-slot:buttons>
+    <x-save-button type="submit" >Save</x-save-button>
     <a href="{{ route('admin.articles.index') }}">
       <x-danger-button type="button">Cancel</x-danger-button>
     </a>
-    <x-save-button type="submit" >Save</x-save-button>
   </x-slot:buttons>
 </x-form-layout>
 </x-layout-private>
