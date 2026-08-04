@@ -20,7 +20,7 @@
 
                 @if($article->document)
                     <div class="mb-6">
-                        <x-button-download :file="$article->document" text="Scarica l'articolo scientifico:"/>
+                        <x-button-download-file :file="$article->document" text="Scarica l'articolo scientifico:"/>
                     </div>
                 @else
                     <p class="mb-6 ">

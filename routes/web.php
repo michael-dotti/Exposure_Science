@@ -60,7 +60,11 @@ Route::controller(NewsController::class)->group( function (){
     Route::get('/public/news/{news}', 'show');
 });
 
-Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
+Route::controller(FileController::class)->group( function () {
+    Route::get('/files/{file}/download', 'download')->name('files.download');
+    Route::get('/files/{file}/show', 'show')->name('files.show');
+});
+
 /*
 Route::get('/', function () {
     

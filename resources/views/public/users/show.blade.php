@@ -1,6 +1,6 @@
 <x-layout-public>
 	<x-slot:title>
-		Member
+		{{ $user->name }} {{ $user->surname }}
 	</x-slot:title>
 	<x-slot:heading>
 		{{ $user->name }} {{ $user->surname }}
@@ -79,7 +79,7 @@
 					<x-slot:title>
 						CURRICULUM VITAE
 					</x-slot>
-					<x-button-download :file="$user->curriculum" text="scarica il curriculum di {{ $user->name }} {{ $user->surname }}:/>
+					<x-button-open-file :file="$user->curriculum" text="visualizza il curriculum di {{ $user->name }} {{ $user->surname }}" />
 				</x-box-info>
 			@endif
 		</div>

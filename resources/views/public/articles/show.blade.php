@@ -48,7 +48,7 @@
 				</x-slot>
 				<!-- check per mostrare il file da scaricare o il link per comprare l'articolo -->
 				@if($article->document)
-					<x-button-download :file="$article->document" text="Scarica l'articolo scientifico:"/>
+					<x-button-download-file :file="$article->document" text="Scarica l'articolo scientifico:"/>
 				@else
 					<p class="mb-6 text-white">Leggi l'articolo intero a:</p>
 						<a class="text-cyan-400
