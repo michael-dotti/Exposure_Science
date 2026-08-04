@@ -1,6 +1,11 @@
 <x-layout-private>
 	<x-slot:title>
-		I progetti del Team
+		@can('management projects') 
+			I progetti del Team
+		@endcan
+		@cannot('management projects')
+			I tuoi progetti
+		@endcan
 	</x-slot:title>
 	
 	<!-- pulsante di creazione -->
@@ -46,6 +51,7 @@
 									Visualizza progetto >
 								</div>
 
+								<!-- pulsanti modifica e cancellazione con annesso controllo -->
 								@can('management projects') 
 									<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
 									<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
