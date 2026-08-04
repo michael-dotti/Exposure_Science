@@ -17,6 +17,7 @@ class ProjectSeeder extends Seeder
         $defaultUser = User::all();
 
 		for($i = 0; $i < 10; $i++) {
+			if(random_int(0,1) == 0 && sizeof($defaultUser) > 1) Project::factory(1)->hasAttached($defaultUser[0])->hasAttached($defaultUser[random_int(1,sizeof($defaultUser)-1)])->create();
 			Project::factory(1)->hasAttached($defaultUser[random_int(0,sizeof($defaultUser)-1)])->create();
 		}
 	}
