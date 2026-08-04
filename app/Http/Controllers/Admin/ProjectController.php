@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
+use App\Enums\ProjectStatusType;
 use illuminate\support\Facades\Auth;
 use Mews\Purifier\Facades\Purifier;
 
@@ -30,8 +31,11 @@ class ProjectController extends Controller
 
 	public function create()
 	{
+		//"statuses" e' grammaticalmente sbagliato ma lo uso per comodita' visto che "status" non cambia al plurare
+		$statuses = ProjectStatusType::cases();
 		$users = User::select('id', 'name')->get();
-		return view('admin.projects.create', ['users' => $users]);
+
+		return view('admin.projects.create', compact('users','statuses'));
 	}
 
 	public function store(){
