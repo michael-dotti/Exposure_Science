@@ -1,6 +1,6 @@
 <x-layout-private>
 	<x-slot:title>
-		Projects Index
+		I progetti del Team
 	</x-slot:title>
 	
 	<!-- pulsante di creazione -->

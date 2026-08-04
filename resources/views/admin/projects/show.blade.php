@@ -1,25 +1,29 @@
 <x-layout-private>
 	<x-slot:title>
-		Projects Show
+		{{ $project->title }}
 	</x-slot:title>
 	
 	<div class="max-w-4xl mx-auto mt-8">
 		<article class="p-6 overflow-hidden rounded-lg border border-slate-700 bg-gray-800 shadow-md">
+			<div class="mb-6 text-2xl font-bold text-white">{{ $project->title }}</div>
+			<hr class="h-px my-6 bg-gray-600 border-0">
 
 			<div class="mb-6 text-sm font-small text-gray-300">
 				Stato attuale:
 				<span class="text-white"> {{ $project->status }} </span>
 			</div>
 
-			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				@if($project->start_date)
-					<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
-				@endif
+			@if($project->start_date || ($project->end_date))
+				<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+					@if($project->start_date)
+						<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
+					@endif
 
-				@if($project->start_date)
-					<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
-				@endif
-			</div>
+					@if($project->start_date)
+						<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+					@endif
+				</div>
+			@endif
 
 			@if($project->funding_agency)
 				<div class="my-6 text-sm font-small text-white">

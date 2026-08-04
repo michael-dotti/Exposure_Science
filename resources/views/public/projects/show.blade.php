@@ -14,15 +14,17 @@
 				<span class="text-white"> {{ $project->status }} </span>
 			</div>
 
-			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				@if($project->start_date)
-					<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
-				@endif
+			@if($project->start_date || ($project->end_date))
+				<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+					@if($project->start_date)
+						<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
+					@endif
 
-				@if($project->start_date)
-					<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
-				@endif
-			</div>
+					@if($project->start_date)
+						<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+					@endif
+				</div>
+			@endif
 
 			@if($project->funding_agency)
 				<div class="my-6 text-sm font-small text-white">
