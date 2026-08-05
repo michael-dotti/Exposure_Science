@@ -124,15 +124,16 @@ Route::middleware([
 
     
 
-    Route::middleware((['permission:teaching']))->group(function (){
-        Route::controller(AdminCoursesController::class)->group( function (){
+    Route::middleware(['permission:teaching'])->group(function () {
+        Route::controller(AdminCoursesController::class)->group(function () {
             Route::get('/admin/courses', 'index');
             Route::get('/admin/courses/create', 'create');
-            Route::get('/admin/courses/{course}', 'show');
             Route::post('/admin/courses', 'store');
-            Route::get('/admin/courses/{event}/edit','edit');
-            Route::patch('/admin/courses/{event}', 'update');
-            Route::delete('/admin/courses/{event}', 'destroy');
+    
+            Route::get('/admin/courses/{course}', 'show');
+            Route::get('/admin/courses/{course}/edit', 'edit');
+            Route::patch('/admin/courses/{course}', 'update');
+            Route::delete('/admin/courses/{course}', 'destroy');
         });
     });
 

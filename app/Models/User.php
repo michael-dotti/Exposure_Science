@@ -69,7 +69,7 @@ class User extends Authenticatable
     // indica la relazione tra utente e corsi
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
 
@@ -96,7 +96,7 @@ class User extends Authenticatable
     // Eventi associati a questo user
     public function events_receives(): BelongsToMany  
     {
-        return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();;
+        return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();
     }
 
 

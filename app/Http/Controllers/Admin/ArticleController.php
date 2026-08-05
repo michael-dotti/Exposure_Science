@@ -20,30 +20,33 @@ class ArticleController extends Controller
     // Index = mostra tutti gli articoli
     public function index(Request $request)
     {
-        // già controllato nelle rotte, ma per chiarezza
-        Gate::authorize('viewAny', Article::class); 
+        Gate::authorize('viewAny', Article::class);
 
-
-        //per il filtraggio
         $areas = ResearchArea::all();
         $users = null;
 
-        // Se l'utente ha il permesso supremo, vede TUTTI gli articoli del sito
-        if (auth()->user()->hasPermissionTo('edit all articles')) {
-            $articles = Article::with(['users','researchAreas']); // fa la paginazione di tutti gli articoli
+        /** @var \App\Models\User $authenticatedUser */
+        $authenticatedUser = $request->user();
+
+        if ($authenticatedUser->hasPermissionTo('edit all articles')) {
+            $articles = Article::with(['users', 'researchAreas']);
             $users = User::all();
-        
         } else {
-            // Altrimenti, carico solo gli articoli in cui l'utente è co-autore (molti-a-molti)
-            $articles = auth()->user()->articles()->with(['users', 'researchAreas']); 
+            $articles = $authenticatedUser
+                ->articles()
+                ->with(['users', 'researchAreas']);
         }
 
-        $articles = $articles->filterByArea($request->query('areaId'))
-        ->filterByUser($request->query('userId'))
-        ->latest()
-        ->simplePaginate(5);
-        return view('admin.articles.index',compact('articles','areas','users'));
+        $articles = $articles
+            ->filterByArea($request->query('areaId'))
+            ->filterByUser($request->query('userId'))
+            ->latest()
+            ->simplePaginate(5);
 
+        return view(
+            'admin.articles.index',
+            compact('articles', 'areas', 'users')
+        );
     }
 
     // create = porta alla view di creazione di un articolo
