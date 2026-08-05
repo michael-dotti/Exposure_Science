@@ -37,24 +37,24 @@
                     
                 
                 <!-- Dropdown menu -->
-                 @auth
-                <div class="z-50 hidden bg-gray-700 border border-white/10 rounded-base shadow-lg w-44" id="user-dropdown">
-                    <div class="px-4 py-3 text-sm border-b border-white/10">
-                      <span class="block text-gray-100 font-medium">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
-                      <span class="block text-gray-400 truncate">{{ auth()->user()->email }}</span>
-                    </div>
-                    <ul class="p-2 text-sm text-gray-200 font-medium" aria-labelledby="user-menu-button">
-                        <li>
-                            <a href="/admin/users/show" class="inline-flex items-center w-full p-2 hover:bg-mist-800 rounded">Dashboard</a>
-                        </li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
-                                @csrf
-                                <a href="{{ route('logout') }}" @click.prevent="$root.submit();" class="inline-flex items-center w-full p-2 hover:bg-gray-800 rounded">Log out</a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                @auth
+                  <div class="z-50 hidden bg-mist-700 border border-white/10 rounded-md shadow-xl w-44" id="user-dropdown">
+                      <div class="px-4 py-3 text-sm border-b border-white/10">
+                        <span class="block text-white font-medium">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
+                        <span class="block text-gray-300 truncate">{{ auth()->user()->email }}</span>
+                      </div>
+                      <ul class="p-2 text-sm text-white font-medium" aria-labelledby="user-menu-button">
+                          <li>
+                              <a href="/admin/users/show" class="inline-flex items-center w-full px-3 py-2 rounded-md hover:bg-white/10 transition duration-150 ease-in-out">Dashboard</a>
+                          </li>
+                          <li>
+                              <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
+                                  @csrf
+                                  <a href="{{ route('logout') }}" @click.prevent="$root.submit();" class="inline-flex items-center w-full px-3 py-2 rounded-md hover:bg-white/10 transition duration-150 ease-in-out">Log out</a>
+                              </form>
+                          </li>
+                      </ul>
+                  </div>
                 @endauth   
                 <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary" aria-controls="navbar-user" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
