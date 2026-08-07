@@ -23,7 +23,7 @@
 						<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
 					@endif
 
-					@if($project->start_date)
+					@if($project->end_date)
 						<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
 					@endif
 				</div>
@@ -57,7 +57,7 @@
 			</div>
 
 			<div class="ml-2 mt-2 text-sm font-medium text-gray-300">
-				{{ $project->description }}
+				{!! $project->description !!}
 			</div>
 
 			<!-- pulsanti -->

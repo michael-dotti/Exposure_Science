@@ -21,11 +21,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name'=>'management users']);
         Permission::create(['name'=>'management news']);
         Permission::create(['name'=>'management events']);
+        Permission::create(['name'=>'management projects']);
         Permission::create(['name'=>'write articles']);
         Permission::create(['name'=>'edit own articles']);
         Permission::create(['name'=>'edit all articles']);
         Permission::create(['name'=>'teaching']);
-        Permission::create(['name'=>'management projects']);
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
