@@ -4,10 +4,10 @@
     data-modal-toggle="deleteModal"
 2) inserire nel {{ $slot }} il messaggio che vuoi far apparire nel modale
 --}}
-@props(['form']) 
+@props(['form', 'modal_id'=>'deleteModal']) 
 {{-- form = contiene l'id del form di eliminazione a cui il pulsante "elimina" del modale deve puntare --}}
 
-<div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+<div id="{{ $modal_id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
 
         <!-- Modal content -->
