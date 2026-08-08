@@ -12,7 +12,11 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        dd("TODO");
+        $users = User::with('roles')
+                    ->orderBy('surname','asc') // ordino in ordine alfabetico, partendo dal cognome
+                    ->orderBy('name', 'asc')
+                    ->paginate(10);
+        return view('admin.users-management.index',compact('users'));
     }
 
     public function show()

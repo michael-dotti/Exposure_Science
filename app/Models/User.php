@@ -149,4 +149,36 @@ class User extends Authenticatable
             }
         });
     }
+
+    /**
+     * Filtra i ruoli per la visualizzazione in admin.users-management.index
+     */
+    protected function displayRoles(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                // 1) recupera l'elenco dei ruoli (come stringhe)
+                $allRoles = $this->roles->pluck('name');
+
+
+                // 2) se l'utente è admin, ignora tutti gli altri ruoli e mostra solo questo ruolo
+                if ($allRoles->contains('admin')) {
+                    return collect(['admin']);
+                }
+
+
+                // 3) altrimenti, rimuovo il ruolo base "researcher"
+                $filteredRoles = $allRoles->reject(fn($role) => $role === 'researcher');
+
+                // 4) se l'utente non ha più ruoli, significa che era solo un ricercatore base, quindi restituisco quel ruolo
+                if ($filteredRoles->isEmpty() && $allRoles->contains('researcher')) {
+                    
+                    return collect(['researcher']);
+                }
+
+                // 5) altrimenti, restituisco tutti i ruoli "speciali" (gestore notizie, gestore progetti, ecc...)
+                return $filteredRoles;
+            }
+        );
+    }
 }
