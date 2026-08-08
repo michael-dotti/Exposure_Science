@@ -14,14 +14,34 @@
 				<span class="text-white"> {{ $project->status }} </span>
 			</div>
 
-			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
-				<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
-			</div>
+			@if($project->start_date || ($project->end_date))
+				<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+					@if($project->start_date)
+						<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
+					@endif
 
-			<div class="my-6 text-sm font-small text-white">
-				Progetto finanziato con il gentile contributo di 
-				<span class="text-amber-400">{{ $project->funding_agency }}</span>.
+					@if($project->start_date)
+						<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+					@endif
+				</div>
+			@endif
+
+			@if($project->funding_agency)
+				<div class="my-6 text-sm font-small text-white">
+					Progetto finanziato con il gentile contributo di 
+					<span class="text-amber-400">{{ $project->funding_agency }}</span>.
+				</div>
+			@elseif(random_int(0,1000) == 69)
+				<div class="my-6 text-sm font-small text-white">
+					Progetto finanziato con il gentile contributo di tua mamma.
+				</div>
+			@endif
+
+			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+				<div> @if(sizeof($project->users) > 1) Partecipano al progetto:
+					@else Partecipa al progetto:
+					@endif
+					<span class="text-white">@foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach</span></div>
 			</div>
 
 			<hr class="h-px my-6 bg-gray-600 border-0">

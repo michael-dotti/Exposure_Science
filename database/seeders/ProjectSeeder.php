@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Project;
-use App\Models\ResearchArea;
+use App\Models\User;
 
 class ProjectSeeder extends Seeder
 {
@@ -14,10 +14,11 @@ class ProjectSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$areas = ResearchArea::all();
+        $defaultUser = User::all();
 
 		for($i = 0; $i < 10; $i++) {
-			Project::factory(1)->hasAttached($areas->random(rand(1, 4)))->create();
+			if(random_int(0,1) == 0 && sizeof($defaultUser) > 1) Project::factory(1)->hasAttached($defaultUser[0])->hasAttached($defaultUser[random_int(1,sizeof($defaultUser)-1)])->create();
+			Project::factory(1)->hasAttached($defaultUser[random_int(0,sizeof($defaultUser)-1)])->create();
 		}
 	}
 }
