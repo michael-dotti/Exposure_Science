@@ -1,6 +1,6 @@
 <x-layout-private>
     <x-slot:title>
-        Articoli
+        Articles 
     </x-slot:title>
     
     @can('create', App\Models\Article::class) 
@@ -11,26 +11,29 @@
         @can('edit all articles')
             <x-user-filter href="/admin/articles" :users="$users"></x-user-filter>
         @endcan
+        <x-research-area-filter href="/admin/articles" :researchAreas="$areas"></x-research-area-filter>
     </div>
 
-    @if (session('success'))
-        <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
-            {{ session('success') }}
-        </div>
-    @endif
+    <div class="space-y-4 ml-6">
+    @forelse ($articles as $article)
+        <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
 
-    {{-- Filtri --}}
-    <div class="mb-4 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3">
-        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-                <h2 class="text-sm font-semibold text-white">
-                    Filtra gli articoli
-                </h2>
-
-                <p class="mt-1 text-xs text-gray-400">
-                    Filtra gli articoli per autore o per area di ricerca
-                </p>
-            </div>
+            
+            @if($article->image_path)
+                <div class="shrink-0 w-48">
+                    <img src="{{ asset('storage/' . $article->image_path) }}" 
+                         alt="{{ $article->title }}" 
+                         class="w-full h-40 object-contain rounded-md border border-white/10">
+                </div>
+            @endif
+            
+            <div class="block pl-3">
+                <div class="font-bold text-blue-500 text-sm mb-2"> 
+                    Autori: <span class="text-white">{{ $article->users->pluck('name')->join(', ') }}</span>
+                </div>
+                <div class="font-bold text-blue-500 text-sm mb-2"> 
+                    Argomento di ricerca: <span class="text-white">{{ $article->researchAreas->pluck('name')->join(', ') }}</span>
+                </div>
 
                 <div class="text-white" >
                     <a href="{{ route('admin.articles.show',$article->id) }}" class="hover:underline">
@@ -53,20 +56,16 @@
                             
                         @endcan
 
-                            <span class="pointer-events-none ml-0 text-xs font-semibold text-blue-400 transition group-hover:text-blue-300 sm:ml-auto">
-                                Visualizza dettagli →
-                            </span>
-                        </div>
                     </div>
-                </div>
-            </article>
-        @empty
-            <x-message-of-empty title="Nessun articolo trovato">
-            </x-message-of-empty>
-        @endforelse
+                @endcanany
+
+            </div>
+        </div>
+    @empty
+        <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
+    @endforelse
     </div>
 
-    {{-- Paginazione --}}
     <div class="mt-6">
         {{ $articles->links() }}
     </div>
