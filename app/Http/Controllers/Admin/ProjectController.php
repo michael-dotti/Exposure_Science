@@ -59,7 +59,9 @@ class ProjectController extends Controller
 		// Creazione record nel Database
 		$project = Project::create($projectData);
 		$project->users()->attach(request()->users);
+		$project->creator()->associate(Auth::user());
 
+		$project->save();
 	   
 		return redirect()->route('admin.projects.index');
 	}

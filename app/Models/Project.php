@@ -22,6 +22,11 @@ class Project extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // un project può appartenere ad 1 o più aree di ricerca
     public function researchAreas(): BelongsToMany
     {

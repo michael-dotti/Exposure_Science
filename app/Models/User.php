@@ -12,6 +12,7 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Course;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Project;
@@ -85,6 +86,11 @@ class User extends Authenticatable
 
     // I progetti a cui l'utente ha accesso
     public function projects(): BelongsToMany  
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    public function projects_created(): BelongsToMany  
     {
         return $this->belongsToMany(Project::class);
     }
