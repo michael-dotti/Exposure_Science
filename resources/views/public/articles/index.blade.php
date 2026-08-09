@@ -30,14 +30,14 @@
         @else
             <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
                 @foreach ($articles as $article)
-                    <a href="/public/articles/{{ $article->id }}" class="block h-full">
-                        <div class=" rounded-md bg-gray-800 border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-gray-700 *:m-3">
+                    <a href="{{ route('public.articles.show',$article->id) }}" class="block h-full">
+                        <div class="rounded-md bg-gray-800 border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-gray-700 *:m-3">
                             <p class="text-center">{{ $article->title }} </p>
                             <p class="h-12 overflow-hidden text-center text-sm">
-                                {{ \Illuminate\Support\Str::limit(
+                                {!! \Illuminate\Support\Str::limit(
                                     strip_tags($article->abstract),
                                     150
-                                ) }}
+                                ) !!}
                             </p>
                             @if($article->image_path)
                                 <div class="flex justify-center"> 

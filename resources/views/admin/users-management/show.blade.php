@@ -3,4 +3,5 @@
         Users Management 
     </x-slot:title>
     <p>Test show</p>
+    <x-page-to-do />
 </x-layout-private>

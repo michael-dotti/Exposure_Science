@@ -38,7 +38,7 @@
                                    hover:-translate-y-1 hover:shadow-xl"
                         >
                             <a
-                                href="/public/users/{{ $user->id }}"
+                                href="{{ route('public.users.show',$user->id) }}"
                                 class="flex flex-col h-full sm:flex-row"
                             >
                                 <div class="w-full sm:w-32 shrink-0">

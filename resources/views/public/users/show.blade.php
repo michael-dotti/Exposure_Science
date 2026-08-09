@@ -1,6 +1,6 @@
 <x-layout-public>
 	<x-slot:title>
-		Member
+		{{ $user->name }} {{ $user->surname }}
 	</x-slot:title>
 	<x-slot:heading>
 		{{ $user->name }} {{ $user->surname }}
@@ -8,7 +8,7 @@
 
 	<!-- bottone per tornare all'index del team -->
 	<div class="mt-1">
-		<a href="/public/users"
+		<a href="{{ route('public.articles.index') }}"
 			class="inline-flex items-center px-4 py-2 text-sm font-semibold
 					text-slate-900 transition rounded-md bg-amber-300
 					hover:bg-amber-200"
@@ -73,19 +73,13 @@
 			</x-box-info>
 
 			<!-- check presenza curriculum -->
-			@if ($user->curriculm_file_path <> "public/resume/default_resume.pdf")
+			@if ($user->curriculum)
 				<!-- box per il curriculum -->
 				<x-box-info>
 					<x-slot:title>
 						CURRICULUM VITAE
 					</x-slot>
-					<a
-							class="text-cyan-400 transition duration-200 hover:text-cyan-600"
-							href="/admin/users/{{ $user->id }}/download"
-							target="_blank"
-							rel="noopener noreferrer"
-						> scarica il curriculum di {{ $user->name }} {{ $user->surname }}
-						</a>
+					<x-button-open-file :file="$user->curriculum" text="visualizza il curriculum di {{ $user->name }} {{ $user->surname }}" />
 				</x-box-info>
 			@endif
 		</div>

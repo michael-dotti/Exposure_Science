@@ -60,12 +60,12 @@ class DatabaseSeeder extends Seeder
             // 3) verifica che file esista
             // 4) se si, caricalo su storage in: uploads/résumé/NomeFIle
 
-            $fileResumeName = 'default_resume.pdf';
-            $sourcePath = public_path('resume/' . $fileResumeName);
+            $fileCurriculumName = 'default_curriculum.pdf';
+            $sourcePath = public_path('curriculum/' . $fileCurriculumName);
 
             if(File::exists($sourcePath)){
                 Storage::disk('public')->put(
-                    'uploads/resume/' . $fileResumeName,
+                    'uploads/curriculum/' . $fileCurriculumName,
                     File::get($sourcePath)
                 );
             }

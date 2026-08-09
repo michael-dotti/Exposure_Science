@@ -2,31 +2,27 @@
 
 namespace Database\Factories;
 
-use App\Models\EventAttachment;
+use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Event;
 
 /**
- * @extends Factory<EventAttachment>
+ * @extends Factory<File>
  */
-class EventAttachmentFactory extends Factory
+class FileFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = File::class;
+
     public function definition(): array
     {
         $estensioni = ['pdf', 'docx', 'xlsx', 'png', 'zip'];
         $estensioneCasuale = fake()->randomElement($estensioni);
     
         $nomeFile = fake()->word() . '.' . $estensioneCasuale;
-
         return [
             'file_name' => $nomeFile,
             'file_path' => 'uploads/events/attachments/default_piano_di_studi_triennale_Ingegneria.pdf',
-            'event_id' => Event::factory()
+            'mime_type' => fake()->mimeType(),          // Genera un mime_type valido (es. 'application/pdf')
+            'file_size' => fake()->numberBetween(50000, 5000000),    // Dimensione simulata in byte (tra ~50KB e 5MB)
         ];
     }
 }

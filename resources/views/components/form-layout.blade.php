@@ -1,44 +1,60 @@
 @props([
     'action',
     'method' => 'POST',
-    'hasFiles' => false, // Indica se il form contiene campi di tipo file (file upload)
+    'hasFiles' => false,
     'title' => '',
 ])
 
 @php
-    // Gestione dei metodi HTTP "spoofed" di Laravel (PUT, PATCH, DELETE)
-    $httpMethod = strtoupper($method); // Convertiamo il metodo in maiuscolo 
-    $isSpoofed = in_array($httpMethod, [ 'PATCH', 'DELETE']); // restituisce true se il metodo è PATCH o DELETE (cioè è un metodo che richiede lo spoofing)
-    $formMethod = $httpMethod === 'GET' ? 'GET' : 'POST'; // Se il metodo è GET, usiamo GET, altrimenti POST, alla fine del form aggiungeremo un campo nascosto con il metodo corretto se necessario
+    $httpMethod = strtoupper($method);
+
+    $isSpoofed = in_array($httpMethod, [
+        'PUT',
+        'PATCH',
+        'DELETE',
+    ]);
+
+    $formMethod = $httpMethod === 'GET'
+        ? 'GET'
+        : 'POST';
 @endphp
 
-<form 
-    method="{{ $formMethod }}" 
-    action="{{ $action }}" 
-    @if($hasFiles) enctype="multipart/form-data" @endif
-    {{ $attributes->merge(['class'=>'w-full mt-3']) }}
+<form
+    method="{{ $formMethod }}"
+    action="{{ $action }}"
+    @if ($hasFiles)
+        enctype="multipart/form-data"
+    @endif
+    {{ $attributes->merge([
+        'class' => 'mt-3 w-full',
+    ]) }}
 >
     @csrf
-    @if($isSpoofed)
+
+    @if ($isSpoofed)
         @method($httpMethod)
     @endif
 
-    <div class="space-y-6 text-white w-full max-w-4xl mx-auto">
-        <div class="border-b border-white/10 pb-1">
-            @if(isset($header))
-                {{ $header }}
-            @elseif($title)
-                <h1 class="text-base/7 font-semibold text-white">{{ $title }}</h1>
-            @endif
-        </div>
+    <div class="mx-auto w-full max-w-4xl space-y-6 text-white">
+        @if (isset($header) || $title)
+            <div class="border-b border-white/10 pb-4">
+                @if (isset($header))
+                    {{ $header }}
+                @elseif ($title)
+                    <h1 class="text-base font-semibold text-white">
+                        {{ $title }}
+                    </h1>
+                @endif
+            </div>
+        @endif
 
-        <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
+        <div class="space-y-6">
             {{ $slot }}
         </div>
     </div>
 
-    @if(isset($buttons))
-        <div class="mt-6 flex items-center justify-end gap-x-6 border-t border-white/10 py-5 w-full max-w-4xl mx-auto">
+    @if (isset($buttons))
+        <div class="mx-auto mt-6 flex w-full max-w-4xl items-center justify-end gap-x-6 border-t border-white/10 py-5">
             {{ $buttons }}
         </div>
     @endif

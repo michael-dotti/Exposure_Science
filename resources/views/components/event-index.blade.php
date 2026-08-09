@@ -45,7 +45,7 @@
                                         {{ $event->creator->name }} {{ $event->creator->surname }}
                                     </th>
                                     <td class="px-4 py-2">
-                                       <x-event-types-badges type="{{ $event->type }}"/>
+                                       <x-event-types-badge type="{{ $event->type }}"/>
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div class="flex items-center">

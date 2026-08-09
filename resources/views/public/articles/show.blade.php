@@ -1,5 +1,6 @@
 <x-layout-public>
 	<x-slot:title>
+		{{ $article->title }}
 	</x-slot:title>
 	<x-slot:heading>
 		<div class="text-white text-3xl"> {{ $article->title }} </div>
@@ -10,7 +11,7 @@
 
 	<!-- bottone per tornare all'index degli articoli -->
 	<div class="mt-1">
-		<a href="/public/articles"
+		<a href="{{ route('public.articles.index') }}"
 			class="inline-flex items-center px-4 py-2 text-sm font-semibold
 					text-slate-900 transition rounded-md bg-amber-300
 					hover:bg-amber-200"
@@ -28,7 +29,7 @@
 				<!-- astratto -->
 				<div class="">
 					<h1 class="mb-1 font-bold text-gray-300 italic">Astratto:</h1>
-					<p class="mb-4 ml-6 font-medium text-white">{{ $article->abstract }}</p>
+					<p class="mb-4 ml-6 font-medium text-white">{!! $article->abstract !!}</p>
 				</div>
 
 				<!-- immagine, la classe data serve per centrare la img nella colonna della griglia -->
@@ -46,23 +47,15 @@
 					OTTIENI L'ARTICOLO
 				</x-slot>
 				<!-- check per mostrare il file da scaricare o il link per comprare l'articolo -->
-				@if($article->file_path)
-					<p class="mb-6 text-white">
-						<a class="text-cyan-400
-						transition duration-200
-						hover:text-cyan-600" href="/admin/articles/{{ $article->id }}/download">
-							Scarica l'articolo intero
-						</a>
-					</p>
+				@if($article->document)
+					<x-button-download-file :file="$article->document" text="Scarica l'articolo scientifico:"/>
 				@else
-					<p class="mb-6 text-white">
-						Leggi l'articolo intero a:
+					<p class="mb-6 text-white">Leggi l'articolo intero a:</p>
 						<a class="text-cyan-400
 						transition duration-200
 						hover:text-cyan-600" href="{{ $article->external_url }}"> 
 							{{ $article->external_url }}
 						</a>
-					</p>
 				@endif
 			</x-box-info>
 		</div>

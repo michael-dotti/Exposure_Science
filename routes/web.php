@@ -21,12 +21,13 @@ use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\FileController;
+
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsManagementController as AdminNewsManagementController;
 
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\EventManagementController as AdminEventManagementController;
-use App\Http\Controllers\Admin\EventAttachmentController as AdminEventAttachmentController;
 
 Route::controller(HomeController::class)->group( function (){
     Route::get('/', 'home');
@@ -43,13 +44,13 @@ Route::controller(CoursesController::class)->group( function (){
 });
 
 Route::controller(UserController::class)->group( function (){
-    Route::get('/public/users','index');
-    Route::get('/public/users/{user}', 'show');
+    Route::get('/public/users','index')->name('public.users.index');
+    Route::get('/public/users/{user}', 'show')->name('public.users.show');
 });
 
 Route::controller(ArticleController::class)->group( function (){
-    Route::get('/public/articles','index');
-    Route::get('/public/articles/{article}', 'show');
+    Route::get('/public/articles','index')->name('public.articles.index');
+    Route::get('/public/articles/{article}', 'show')->name('public.articles.show');
 });
 
 
@@ -59,6 +60,10 @@ Route::controller(NewsController::class)->group( function (){
     Route::get('/public/news/{news}', 'show');
 });
 
+Route::controller(FileController::class)->group( function () {
+    Route::get('/files/{file}/download', 'download')->name('files.download');
+    Route::get('/files/{file}/show', 'show')->name('files.show');
+});
 
 /*
 Route::get('/', function () {
@@ -74,21 +79,19 @@ Route::middleware([
     
     
     Route::controller(AdminUserController::class)->group(function () {
-        Route::get('/admin/users/show','show');
-        Route::get('/admin/users/edit','edit');
-        Route::patch('/admin/users/{user}', 'update');
-        Route::get('/admin/users/{user}/download','download');
+        Route::get('/admin/users/show','show')->name('admin.users.index');
+        Route::get('/admin/users/edit','edit')->name('admin.users.edit');
+        Route::patch('/admin/users/{user}', 'update')->name('admin.users.update');
     });
 
     Route::controller(AdminArticleController::class)->group(function () {
-        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class);
-        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class);
-        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class);
-        Route::get('/admin/articles/{article}', 'show');
-        Route::get('/admin/articles/{article}/edit','edit');
-        Route::patch("/admin/articles/{article}", 'update');
-        Route::delete('/admin/articles/{article}','destroy');
-        Route::get('/admin/articles/{article}/download','download');
+        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class)->name('admin.articles.index');
+        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class)->name('admin.articles.create');
+        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class)->name('admin.articles.store');
+        Route::get('/admin/articles/{article}', 'show')->name('admin.articles.show');
+        Route::get('/admin/articles/{article}/edit','edit')->name('admin.articles.edit');
+        Route::patch("/admin/articles/{article}", 'update')->name('admin.articles.update');
+        Route::delete('/admin/articles/{article}','destroy')->name('admin.articles.destroy');
     });
 
     Route::controller(AdminEventController::class)->group(function () {
@@ -104,15 +107,11 @@ Route::middleware([
             Route::get('/admin/events-management/create', 'create')->name('admin.events-management.create');
             Route::get('/admin/events-management/{event}','show')->name('admin.events-management.show');
             Route::post('/admin/events-management', 'store')->name('admin.events-management.store');
-            Route::get('/admin/events-management/{event}/edit','edit')->name('admin.events-management.edit');
-            Route::patch('/admin/events-management/{event}', 'update')->name('admin.events-management.update');
             Route::delete('/admin/events-management/bulk-delete','bulkDelete')->name('admin.events-management.bulkDelete');
             Route::delete('/admin/events-management/{event}', 'destroy')->name('admin.events-management.destroy');
         });
     });
-
-    Route::get('/admin/attachment/{eventAttachment}/download',[AdminEventAttachmentController::class, 'download']);
- 
+    
     Route::middleware(['permission:management news'])->group(function (){
         Route::controller(AdminNewsManagementController::class)->group(function () {
             Route::get('/admin/news-management', 'index');
@@ -127,15 +126,16 @@ Route::middleware([
 
     
 
-    Route::middleware((['permission:teaching']))->group(function (){
-        Route::controller(AdminCoursesController::class)->group( function (){
+    Route::middleware(['permission:teaching'])->group(function () {
+        Route::controller(AdminCoursesController::class)->group(function () {
             Route::get('/admin/courses', 'index');
             Route::get('/admin/courses/create', 'create');
-            Route::get('/admin/courses/{course}', 'show');
             Route::post('/admin/courses', 'store');
-            Route::get('/admin/courses/{event}/edit','edit');
-            Route::patch('/admin/courses/{event}', 'update');
-            Route::delete('/admin/courses/{event}', 'destroy');
+    
+            Route::get('/admin/courses/{course}', 'show');
+            Route::get('/admin/courses/{course}/edit', 'edit');
+            Route::patch('/admin/courses/{course}', 'update');
+            Route::delete('/admin/courses/{course}', 'destroy');
         });
     });
 
@@ -151,7 +151,12 @@ Route::middleware([
     
     Route::middleware(['permission:management users'])->group(function (){
         Route::controller(AdminUserManagementController::class)->group( function (){
-            Route::get('/admin/users-management','index');
+            Route::get('/admin/users-management','index')->name('admin.users-management.index');
+            Route::get('/admin/users-management/create','create')->name('admin.users-management.create');
+            Route::get('/admin/users-management/{user}','show')->name('admin.users-management.show'); // decidere se è necessari oimplementare view user.index per user-management
+            Route::post('/admin/users-management','store')->name('admin.users-management.store');
+            Route::patch('/admin/users-management/{user}', 'update')->name('admin.users-management.update'); // per cambiare i permessi degli utenti in index
+            Route::delete('/admin/users-management/{user}','destroy')->name('admin.users-management.destroy');
         });
     });
 

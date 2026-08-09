@@ -34,10 +34,10 @@
       </div>
       
       <x-slot:buttons>
+        <x-save-button type="submit">Salva</x-save-button>
         <a href="/admin/news-management">
           <x-danger-button type="button">Annulla</x-danger-button>
         </a>
-        <x-save-button type="submit">Salva</x-save-button>
       </x-slot:buttons>
 
     </x-form-layout>

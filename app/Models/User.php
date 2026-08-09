@@ -19,7 +19,7 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
-
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
@@ -44,7 +44,6 @@ class User extends Authenticatable
         'email',
         'website',
         'bio',
-        'curriculm_file_path',
         'profile_photo_path',
     ];
 
@@ -72,7 +71,7 @@ class User extends Authenticatable
     // indica la relazione tra utente e corsi
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
 
@@ -104,9 +103,14 @@ class User extends Authenticatable
     // Eventi associati a questo user
     public function events_receives(): BelongsToMany  
     {
-        return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();;
+        return $this->belongsToMany(Event::class)->withPivot('deleted_at')->withTimestamps();
     }
 
+    public function curriculum()
+    {
+        // Collega User al modello File (il suo curriculum) tramite il prefisso 'fileable'
+        return $this->morphOne(File::class, 'fileable');
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -132,6 +136,54 @@ class User extends Authenticatable
 
                 // 2) Altrimenti restituisci l'immagine di default presente in public per gli user
                 return asset('images/defaultUsers/no_image_user.webp');
+            }
+        );
+    }
+
+    protected static function booted()
+    {   
+        // un istante prima che l'user venga eliminato esegui il codice nelle graffe
+        static::deleting(function ($user){
+
+            // Carica la relazione 'curriculum' se non è già presente in memoria, cosi da evitare il Lazy Loading
+            $user->loadMissing('curriculum');
+
+            // Cicla su tutti gli allegati e invoca il loro metodo delete()
+            // Questo scatenerà l'evneto 'deleting' dentro il modello File che cancellerà il file fisico!
+            if ($user->curriculum){
+                $user->curriculum->delete();
+            }
+        });
+    }
+
+    /**
+     * Filtra i ruoli per la visualizzazione in admin.users-management.index
+     */
+    protected function displayRoles(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                // 1) recupera l'elenco dei ruoli (come stringhe)
+                $allRoles = $this->roles->pluck('name');
+
+
+                // 2) se l'utente è admin, ignora tutti gli altri ruoli e mostra solo questo ruolo
+                if ($allRoles->contains('admin')) {
+                    return collect(['admin']);
+                }
+
+
+                // 3) altrimenti, rimuovo il ruolo base "researcher"
+                $filteredRoles = $allRoles->reject(fn($role) => $role === 'researcher');
+
+                // 4) se l'utente non ha più ruoli, significa che era solo un ricercatore base, quindi restituisco quel ruolo
+                if ($filteredRoles->isEmpty() && $allRoles->contains('researcher')) {
+                    
+                    return collect(['researcher']);
+                }
+
+                // 5) altrimenti, restituisco tutti i ruoli "speciali" (gestore notizie, gestore progetti, ecc...)
+                return $filteredRoles;
             }
         );
     }

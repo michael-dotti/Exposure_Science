@@ -37,10 +37,10 @@
                     <x-link-with-icon href="/admin/users/show" :active="request()->is('admin/users/show')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 </li>
                 <li>
-                    <x-link-with-icon href="/admin/articles" :active="request()->is('/admin/articles*')" iconType="fas fa-book">Articoli</x-link-with-icon>
+                    <x-link-with-icon href="{{ route('admin.articles.index') }}" :active="request()->routeIs('admin.articles.*')" iconType="fas fa-book">Articoli</x-link-with-icon>
                 </li>
                 <li>
-                    <x-link-with-icon href="{{ route('admin.projects.index') }}" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
+                    <x-link-with-icon href="/admin/projects" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
                 </li>
 
                 @can('teaching')
