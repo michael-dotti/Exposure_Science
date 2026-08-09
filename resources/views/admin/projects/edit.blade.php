@@ -58,6 +58,9 @@
 						type="checkbox"
 							@if(in_array($user->id, old('users', $project->users->pluck('id')->toArray()))) checked
 							@endif
+							@if($user->id == auth()->user()->id)
+								onclick="return false;"
+							@endif
 						class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
 
 					<label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">

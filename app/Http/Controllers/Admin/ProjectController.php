@@ -103,9 +103,16 @@ class ProjectController extends Controller
 
 		$projectData = collect($validated)->except(['users'])->toArray();
 
+		$users = request()->users;
+		if (($key = array_search($project->creator_id, $users)) !== false) {
+			unset($users[$key]);
+		}
+		$users[] = $project->creator_id;
+		//dd($users);
+
 		// updetazione record nel Database
 		$project->update($projectData);
-		$project->users()->sync($validated['users']);
+		$project->users()->sync($users);
 	   
 		return redirect()->route('admin.projects.show', $project);
 	}
