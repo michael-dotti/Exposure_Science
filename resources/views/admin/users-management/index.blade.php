@@ -46,20 +46,23 @@
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{-- azioni --}}
-                                        <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Profilo e ruoli o Gestisci</x-view-button-link>
-                                        @if(auth()->id() != $user->id)
-                                            <x-danger-button disabled data-modal-target="deleteModal" data-modal-toggle="deleteModal">elimina</x-danger-button>
-                                            <x-confirm-delete-modal id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
-                                                Sei sicuro di voler eliminare l'utente {{ $user->name }} {{ $user->surname }}?
-                                                <br>
-                                                L'operazione sarà irreversibile.
-                                            </x-confirm-delete-modal>
-                                            <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endif
-                                        
+                                        <div class="flex gap-2">
+                                            <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
+                                            <div>
+                                                @if(auth()->id() != $user->id)
+                                                    <x-danger-button  data-modal-target="deleteModal" data-modal-toggle="deleteModal">elimina</x-danger-button>
+                                                    <x-confirm-delete-modal id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
+                                                        Sei sicuro di voler eliminare l'utente {{ $user->name }} {{ $user->surname }}?
+                                                        <br>
+                                                        L'operazione sarà irreversibile.
+                                                    </x-confirm-delete-modal>
+                                                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty 

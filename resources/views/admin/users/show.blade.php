@@ -30,7 +30,7 @@
 
 			<p class="text-base/7 font-bold text-white">Il tuo CV:</p>
 			@if ($user->curriculum)
-				<x-button-open-file :file="$user->curriculum"/>
+				<x-button-open-file :file="$user->curriculum" class="ml-8"/>
 			@else
 				<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
 			@endif
