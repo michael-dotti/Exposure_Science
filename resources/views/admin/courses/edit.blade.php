@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Modifica Corso
     </x-slot:title>

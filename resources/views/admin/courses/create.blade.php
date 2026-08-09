@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Nuovo Corso
     </x-slot:title>

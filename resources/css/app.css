@@ -24,6 +24,14 @@
     display: none;
 }
 
+html {
+    scrollbar-gutter: stable; /* impedisce che la barra laterale dello scorrimento sparisce quando non è selezionabile
+    facendo cosi cambiare la larghezza della pagina tutte le volte che capita.
+    
+    ad esempio: senza questo, ogni volta che un modale si attiva questo farebbe aumentare leggermente la larghezza 
+    della pagina mentre il modale è attivo*/
+}
+
 /* --- Personalizzazione Quill--- */
 .ql-toolbar.ql-snow {
     background-color: #f1f5f9; /* grigio un pò più scuro */

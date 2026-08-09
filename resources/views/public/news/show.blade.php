@@ -9,7 +9,7 @@
         <div class="flex h-screen items-center justify-center bg-gray-900 p-5">
             <div class="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
             <div>
-                <p class="mb-6 font-bold text-white">{{ $n->content }}</p>
+                <p class="mb-6 font-bold text-white">{!! $n->content !!}</p>
 
             </div>
             <div class="mb-6 text-small text-white">

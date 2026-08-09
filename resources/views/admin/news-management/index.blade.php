@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Gestione News
     </x-slot:title>
@@ -45,4 +45,4 @@
                 @endforeach
         @endif
     </div>
-</x-layout-menu-bar-private>
+</x-layout-private>

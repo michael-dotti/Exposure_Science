@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Modifica News
     </x-slot:title>
@@ -32,8 +32,8 @@
       </div>
       
       <x-slot:buttons>
-        <x-danger-button form="delete_form">Elimina</x-danger-button>
         <x-save-button type="submit">Salva</x-save-button>
+        <x-danger-button form="delete_form">Elimina</x-danger-button>
       </x-slot:buttons>
 
     </x-form-layout>
@@ -41,4 +41,4 @@
     @csrf
     @method('DELETE')
   </form>
-</x-layout-menu-bar-private>
+</x-layout-private>

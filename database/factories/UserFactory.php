@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -66,11 +67,11 @@ class UserFactory extends Factory
             'email'=>'admin@example.com',
             'password'=>static::$password ??= Hash::make('password'),
             'profile_photo_path' => 'uploads/defaultUser/Admin.webp', 
-            'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mondella è la mia promessa sposa davanti a Dio.
+            'website' => 'https://it.wikipedia.org/wiki/Renzo_Tramaglino',
+            'bio' => "Io sono un povero filatore di seta di queste terre, e Lucia Mortadella è la mia promessa sposa davanti a Dio.
             Ma quel birbone di Don Rodrigo, per un suo capriccio malvagio, ha messo sottosopra il mondo per impedirci di essere marito e moglie. 
             Ha usato la forza e l'inganno contro noi poveri cristiani, e ora ci tocca fuggire come banditi dalla nostra stessa casa.  
             Sono l'attuale amministratore del gruppo di ricerca ",
-            'curriculm_file_path' => 'public/resume/default_resume.pdf',
          ]);
     }
     /**
@@ -102,7 +103,17 @@ class UserFactory extends Factory
          che è un utente senza team(senza l'aggiutna indciata prima) mi dava errore nella 
          view navigation-menu.blade.php a riga 29 */
          
-        $this->withPersonalTeam()->create([
+        // 1. Definisco il percorso relativo del curriculm (un file) di defaul (a partire da storage/app/public/)
+        $defaultCvPath = 'uploads/curriculum/default_curriculum.pdf';
+
+        // 2. Recupero le informazioni reali del file usando Storage (se il file esiste)
+        $disk = Storage::disk('public');
+        $fileSize = $disk->exists($defaultCvPath) ? $disk->size($defaultCvPath) : 0;
+        
+        // Assegno il mimeType fisso, dato che so che è un PDF
+        $mimeType = 'application/pdf';
+
+        $mario = $this->withPersonalTeam()->create([
             'name' => 'Mario',
             'surname' => 'Rossi',
             'email' => 'test1@example.com',
@@ -116,10 +127,19 @@ class UserFactory extends Factory
             impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
             viene suonata una nota specifica.
             EOT,
-            'curriculm_file_path' => 'public/resume/default_resume.pdf',
-        ])->assignRole(['reliable researcher','teacher']);
+        ]);
 
-        $this->withPersonalTeam()->create([
+        $mario->assignRole(['reliable researcher','teacher']);
+        
+        // 3. creo il curriculm con i dati estratti prima
+        $mario->curriculum()->create([
+            'file_name' => 'Mario_Rossi_CV.pdf',
+            'file_path' => $defaultCvPath,
+            'mime_type' => $mimeType,
+            'file_size' => $fileSize, 
+        ]);
+
+        $emilia = $this->withPersonalTeam()->create([
             'name' => 'Emilia',
             'surname' => 'Rossi',
             'email' => 'test2@example.com',
@@ -133,10 +153,23 @@ class UserFactory extends Factory
               indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
                così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
             EOT,
-            'curriculm_file_path' => 'public/resume/default_resume.pdf',
-        ])->assignRole(['news Manager']);
+        ]);
+        $emilia->assignRole(['news Manager']);
+        $emilia->curriculum()->create([
+            'file_name' => 'Emilia_Rossi_CV.pdf',
+            'file_path' => $defaultCvPath,
+            'mime_type' => $mimeType,
+            'file_size' => $fileSize, 
+        ]);
 
-        $this->defaultAdmin()->withPersonalTeam()->create()->assignRole('admin');
+        $admin = $this->defaultAdmin()->withPersonalTeam()->create();
+        $admin->assignRole('admin');
+        $admin->curriculum()->create([
+            'file_name' => 'Admin_CV.pdf',
+            'file_path' => $defaultCvPath,
+            'mime_type' => $mimeType,
+            'file_size' => $fileSize,
+        ]);
     }
 
     /**

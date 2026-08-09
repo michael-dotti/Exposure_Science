@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\ProjectStatusType;
 
 return new class extends Migration
 {
@@ -13,9 +14,12 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('titolo');
-            $table->string('descrizione');
-            $table->string('stato');
+            $table->string('title');
+            $table->text('description');
+            $table->string('funding_agency')->nullable();
+            $table->string('status')->default(ProjectStatusType::PLANNED->value); // assegnato un valore di default a status
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

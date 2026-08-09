@@ -21,6 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name'=>'management users']);
         Permission::create(['name'=>'management news']);
         Permission::create(['name'=>'management events']);
+        Permission::create(['name'=>'management projects']);
         Permission::create(['name'=>'write articles']);
         Permission::create(['name'=>'edit own articles']);
         Permission::create(['name'=>'edit all articles']);
@@ -29,17 +30,21 @@ class RoleAndPermissionSeeder extends Seeder
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $Researcher = Role::create(['name'=>'Researcher']);
+        $Researcher = Role::create(['name'=>'researcher']);
         $Researcher->givePermissionTo('write articles'); 
         $Researcher->givePermissionTo('edit own articles');
         
-        $newsManager = Role::create(['name'=>'news Manager']);
+        $newsManager = Role::create(['name'=>'news manager']);
         $newsManager->givePermissionTo('management news');
+
+        $projectsManager = Role::create(['name'=>'projects manager']);
+        $projectsManager->givePermissionTo('management projects');
 
         $reliableResearcher = Role::create(['name'=>'reliable researcher']);
         $reliableResearcher->givePermissionTo($Researcher->permissions);
         $reliableResearcher->givePermissionTo('edit all articles');
         $reliableResearcher->givePermissionTo('management events');
+        $reliableResearcher->givePermissionTo('management projects');
 
         $teacher = Role::create(['name'=>'teacher']);
         $teacher->givePermissionTo('teaching');

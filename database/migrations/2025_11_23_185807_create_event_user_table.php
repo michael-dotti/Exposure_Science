@@ -17,6 +17,19 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->unique(['event_id','user_id']);
             $table->timestamp('deleted_at')->nullable(); 
+            /* la colonna "deleted_at" è "un'etichetta" che salva informazioni
+            che riguardano il legame tra le due tabelle (users e events) nella loro
+            tabella pivot.
+
+            quando un utente clicca su "elimina" evento ( a meno che
+            non sia un admin o un responsabile di eventi) non lo elimina davvero
+            né rimuove il legame che ha con esso, ma segnamo nella
+            colonna "deleted_at" la data in cui l'utente ha premuto elimina. 
+            L'admin potrà ancora vedere i destinatari dell'evento, ma l'utente che lo
+            ha eliminato per se, grazie al controllo che facciamo nel controller sulal
+            colonna deleted_at, non vede l'evento nella sua pagina
+            Questo è il "soft Delete" (o Eliminazione logica)
+            */ 
             $table->timestamps();
         });
     }

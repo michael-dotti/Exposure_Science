@@ -23,7 +23,7 @@ class Project extends Model
     }
 
     // un project può appartenere ad 1 o più aree di ricerca
-    public function research_area(): BelongsToMany
+    public function researchAreas(): BelongsToMany
     {
         return $this->belongsToMany(ResearchArea::class);
     }

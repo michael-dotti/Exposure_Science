@@ -4,48 +4,104 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Project;
+use App\Enums\ProjectStatusType;
+use illuminate\support\Facades\Auth;
+use Mews\Purifier\Facades\Purifier;
 
 class ProjectController extends Controller
 {
-    public function index()
-    {
-        $projects = Project::with('users')->paginate(8);
-        return view('admin.projects.index', compact('projects'));
-    }
+	public function index()
+	{
+		$user = Auth::user();
 
-    public function show(Project $project)
-    {
-        return view('admin.projects.show', compact('project'));
-    }
+		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
+		if($user->can('management projects')) $projects = Project::with('users')->paginate(8);
+		//altrimenti può vedere solo i progetti a cui è associato
+		else $projects = $user->projects()->paginate(8);
 
-    
+		return view('admin.projects.index', compact('projects'));
+	}
 
-    public function create()
-    {
-        dd("TODO");
-    }
+	public function show(Project $project)
+	{
+		return view('admin.projects.show', compact('project'));
+	}
 
-    public function store(){
-        dd("TODO");
-        // 1) validazione
-        // 2) intervention Image (se c'è foto profilo)
-        // 3) caricare la foto profilo nello storage
-        // 4) creare nuovo User
-        // 5) redirect
-    }
-    
-    public function edit()
-    {
-        dd("TODO");
-    }
-    public function update()
-    {
-        dd("TODO");
-    }
+	public function create()
+	{
+		//"statuses" e' grammaticalmente sbagliato ma lo uso per comodita' visto che "status" non cambia al plurare
+		$statuses = ProjectStatusType::cases();
+		$users = User::select('id', 'name')->get();
 
-    public function destroy()
-    {
-        dd("TODO");
-    }
+		return view('admin.projects.create', compact('users','statuses'));
+	}
+
+	public function store(){
+
+		// validazione
+		$validated = request()->validate([
+			'title' => ['required','min:3','max:128'],
+			'description' =>['required','max:60000'],
+			'users' => ['required', 'array', 'min:1'],
+			'funding_agency' => ['nullable','min:3','max:128'],
+			'status' => ['required','min:3','max:128'],
+			'start_date' => ['nullable','date'],
+			'end_date' => ['nullable','date','after:start_date'],
+		]);
+		
+		// pulisco il testo da eventuali script malevoli
+		$validated['description'] = Purifier::clean($validated['description']);
+
+		$projectData = collect($validated)->except('users')->toArray();
+
+		// Creazione record nel Database
+		$project = Project::create($projectData);
+		$project->users()->attach(request()->users);
+
+	   
+		return redirect()->route('admin.projects.index');
+	}
+	
+	public function edit(Project $project)
+	{
+		$users = User::select('id', 'name')->get();
+
+		$project->load(['users']);
+
+		return view('admin.projects.edit', compact('project', 'users'));
+	}
+
+	public function update(Project $project)
+	{
+		// validazione
+		$validated = request()->validate([
+			'title' => ['required','min:3','max:128'],
+			'description' =>['required','max:60000'],
+			'users' => ['required', 'array', 'min:1'],
+			'funding_agency' => ['nullable','min:3','max:128'],
+			'status' => ['required','min:3','max:128'],
+			'start_date' => ['nullable','date'],
+			'end_date' => ['nullable','date','after:start_date'],
+		]);
+		
+		// pulisco il testo da eventuali script malevoli
+		$validated['description'] = Purifier::clean($validated['description']);
+
+		$projectData = collect($validated)->except(['users'])->toArray();
+
+		// updetazione record nel Database
+		$project->update($projectData);
+		$project->users()->sync($validated['users']);
+	   
+		return redirect()->route('admin.projects.show', $project);
+	}
+
+	public function destroy(Project $project)
+	{
+		$project->delete();
+
+		return redirect()->route('admin.projects.index');
+	}
 }

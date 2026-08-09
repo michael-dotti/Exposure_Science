@@ -19,10 +19,10 @@ class EventController extends Controller
         $user = Auth::user();
 
         $events = $user->events_receives()
-            ->wherePivotNull('deleted_at') // <--- Filtra solo quelli attivi per l'utente
+            ->wherePivotNull('deleted_at') // se la colonna "deleted_at" della tabella pivot è null, allora significa che l'utente non ha "eliminato logicamente" l'evento e che quindi può visualizzarlo nelal sua schermata
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
-            ->latest()
+            ->latest() // ordina gli eventi in base alla colonna: events.created_at
             ->Paginate(10);
 
         return view('admin.events.index', [
@@ -101,7 +101,7 @@ class EventController extends Controller
         $orphanedEvents = Event::whereIn('id', $request->event_ids)
             ->whereNull('creator_user_id')
             ->whereDoesntHave('recipients', function($query) {
-                $query->wherePivotNull('deleted_at'); // Cerca eventi senza destinatari attivi
+               $query->whereNull('event_user.deleted_at'); // Cerca eventi senza destinatari attivi
             })
             ->get();
 

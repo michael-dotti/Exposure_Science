@@ -9,11 +9,31 @@
 		
 		<div>
 			<p class="text-base/7 font-bold text-white">Il tuo nominativo: </p>
-				<p class="text-base/7 text-white ml-8"> {{ $user->name }} {{ $user->surname }} </p>
+			<p class="text-base/7 text-white ml-8"> {{ $user->name }} {{ $user->surname }} </p>
 			<p class="text-base/7 font-bold text-white">La tua e-mail: </p>
-				<p class="text-base/7 text-white ml-8"> {{ $user->email }} </p>
+			<p class="text-base/7 text-white ml-8"> {{ $user->email }} </p>
 			<p class="text-base/7 font-bold text-white">La tua bio: </p>
-				<p class="text-base/7 text-white ml-8"> {{ $user->bio }} </p>
+			<p class="text-base/7 text-white ml-8"> {{ $user->bio }} </p>
+			<p class="text-base/7 font-bold text-white mt-2">Il tuo sito web: </p>
+			
+			@if ($user->website)	
+				<a
+					class="text-cyan-400
+					transition duration-200
+					hover:text-cyan-600
+					ml-8"
+					href="{{ $user->website }}"
+				> {{ $user->website }} </a>
+			@else
+				<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun sito a tuo nome] </p>
+			@endif
+
+			<p class="text-base/7 font-bold text-white">Il tuo CV:</p>
+			@if ($user->curriculum)
+				<x-button-open-file :file="$user->curriculum"/>
+			@else
+				<p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+			@endif
 		</div>
 
 

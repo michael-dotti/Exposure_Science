@@ -1,4 +1,4 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Dettaglio Articolo
     </x-slot:title>
@@ -27,7 +27,7 @@
 
             <div class="flex items-center gap-4 p-4">
                 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/5 text-3xl leading-none">
-                    📄
+                    <i class="fa-regular fa-file text-white"></i>
                 </div>
 
                 <div class="min-w-0 flex-1">
@@ -36,11 +36,11 @@
                     </h2>
 
                     <div class="mt-1 flex flex-wrap items-center gap-2">
-                        @if ($article->file_path)
+                        @if ($article->document)
                             <span class="rounded-md border border-green-400/20 bg-green-500/10 px-2 py-1 text-xs font-semibold text-green-300">
                                 Documento disponibile
                             </span>
-                        @elseif ($article->external_url)
+                        @else
                             <span class="rounded-md border border-blue-400/20 bg-blue-500/10 px-2 py-1 text-xs font-semibold text-blue-300">
                                 Link esterno
                             </span>
@@ -80,12 +80,10 @@
                         </p>
 
                         <p class="mt-1 text-sm font-medium text-white">
-                            @if ($article->file_path)
+                            @if ($article->document)
                                 Documento
-                            @elseif ($article->external_url)
-                                Link esterno
                             @else
-                                Non specificato
+                                Link esterno
                             @endif
                         </p>
                     </div>
@@ -162,11 +160,9 @@
                                     {{ $user->name }} {{ $user->surname }}
                                 </p>
 
-                                @if ($user->email)
-                                    <p class="truncate text-xs text-gray-400">
-                                        {{ $user->email }}
-                                    </p>
-                                @endif
+                                <p class="truncate text-xs text-gray-400">
+                                    {{ $user->email }}
+                                </p>
                             </div>
                         </div>
                     @empty
@@ -222,7 +218,7 @@
                     Consulta o scarica il contenuto completo dell'articolo
                 </p>
 
-                @if ($article->file_path)
+                @if ($article->document)
                     <div class="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div class="flex items-center gap-3">
                             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-green-400/20 bg-green-500/10 text-xl">
@@ -234,30 +230,20 @@
                                     Documento dell'articolo
                                 </p>
 
-                                <p class="truncate text-xs text-gray-400">
-                                    {{ basename($article->file_path) }}
-                                </p>
+                                
                             </div>
                         </div>
 
-                        <a
-                            href="/download/{{ $article->file_path }}"
-                            class="inline-flex items-center justify-center rounded-md border border-green-400/20 bg-green-500/10 px-4 py-2 text-sm font-semibold text-green-300 transition hover:bg-green-500/20"
-                        >
-                            Scarica documento
-                        </a>
-                    </div>
-                @elseif ($article->external_url)
-                    <div class="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div class="min-w-0">
-                            <p class="text-sm font-medium text-white">
-                                Link esterno
-                            </p>
-
-                            <p class="mt-1 truncate text-xs text-gray-400">
-                                {{ $article->external_url }}
-                            </p>
+                        
+                        <div class="mb-6">
+                            <x-button-download-file :file="$article->document" text="Scarica l'articolo scientifico:"/>
                         </div>
+                    </div>
+                @else
+                    <div class="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+                        <p class="text-sm font-medium text-white">
+                                Link esterno
+                        </p>
 
                         <a
                             href="{{ $article->external_url }}"
@@ -268,12 +254,6 @@
                             Apri articolo
                         </a>
                     </div>
-                @else
-                    <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-3">
-                        <p class="text-sm text-gray-400">
-                            Nessun documento o link disponibile.
-                        </p>
-                    </div>
                 @endif
             </div>
         </div>
@@ -281,7 +261,7 @@
         {{-- Form eliminazione --}}
         <form
             method="POST"
-            action="/admin/articles/{{ $article->id }}"
+            action="{{ route('admin.articles.destroy',$article->id) }}"
             id="delete_article"
             class="hidden"
         >
@@ -293,7 +273,7 @@
         @canany(['update', 'delete'], $article)
             <div class="mt-6 flex items-center justify-end gap-3 border-t border-white/10 py-5">
                 @can('update', $article)
-                    <x-modify-button-link href="/admin/articles/{{ $article->id }}/edit">
+                    <x-modify-button-link href="{{ route('admin.articles.edit',$article->id) }}">
                         Modifica
                     </x-modify-button-link>
                 @endcan
@@ -309,4 +289,4 @@
             </div>
         @endcanany
     </div>
-</x-layout-menu-bar-private>
+</x-layout-private>

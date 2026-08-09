@@ -3,7 +3,15 @@
         Novità
     </x-slot:title>
     <x-slot:heading>
-        Novità
+        <div class="py-5 text-center">
+            <h1 class="text-3xl font-bold text-amber-300">
+                Le ultime notizie
+            </h1>
+
+            <p class="max-w-2xl mx-auto mt-3 text-base text-gray-300">
+                Scopri cosa c'è di nuovo.
+            </p>
+        </div>
     </x-slot:heading>
 
     <div class="text-white mt-10">

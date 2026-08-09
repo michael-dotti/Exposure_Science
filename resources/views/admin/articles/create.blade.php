@@ -1,30 +1,19 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Nuovo Articolo
     </x-slot:title>
 
-    <div class="mx-auto w-full max-w-4xl">
-        <div class="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="text-lg font-semibold text-white">
-                    Dati del nuovo articolo
-                </h2>
+    <div class="flex justify-end">
+        <x-link-button href="{{ route('admin.articles.index') }}" >Indietro</x-link-button>
+    </div>
+    
 
-                <p class="mt-1 text-sm text-gray-400">
-                    Inserisci le informazioni necessarie per creare l'articolo
-                </p>
-            </div>
-
-            <x-link-button href="/admin/articles">
-                Indietro
-            </x-link-button>
-        </div>
-
-        <x-form-layout
-            action="/admin/articles"
-            method="POST"
-            :hasFiles="true"
-        >
+    <x-form-layout action="{{ route('admin.articles.store') }}" method="POST" :hasFiles="true">
+        <x-slot:header>
+            <h1 class="text-base/7 font-semibold text-white">Crea un nuovo Articolo</h2>
+            <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
+            <p class="text-xs text-gray-400 mt-1">2. Devi fornire un link per acquistare l'articolo o caricare il documento</p>
+        </x-slot:header>
             {{-- Intestazione --}}
             <div class="relative w-full overflow-hidden rounded-lg border border-white/10 bg-slate-800/50">
                 <div class="absolute inset-y-0 left-0 w-1 bg-blue-500"></div>
@@ -238,16 +227,11 @@
             </div>
 
             <x-slot:buttons>
-                <a href="/admin/articles">
-                    <x-danger-button type="button">
-                        Annulla
-                    </x-danger-button>
+                <x-save-button type="submit" >Save</x-save-button>
+                <a href="{{ route('admin.articles.index') }}">
+                    <x-danger-button type="button">Cancel</x-danger-button>
                 </a>
-
-                <x-save-button type="submit">
-                    Salva
-                </x-save-button>
             </x-slot:buttons>
-        </x-form-layout>
-    </div>
-</x-layout-menu-bar-private>
+    </x-form-layout>
+</x-layout-private>
+

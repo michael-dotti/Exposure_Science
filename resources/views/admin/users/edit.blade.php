@@ -1,8 +1,8 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Editor Profilo
     </x-slot:title>
-   <x-form-layout method="PATCH" action="/admin/users/update" :hasFiles="True">
+   <x-form-layout method="PATCH" action="{{ route('admin.users.update') }}" :hasFiles="True">
         <x-slot:header>
           <h2 class="text-base/7 font-semibold text-white">Informazioni Personali</h2>
           <p class="mt-1 text-sm/6 text-gray-400">Le informazioni che inserisci saranno rese pubbliche, fai attenzione a ciò che inserisci.</p>
@@ -15,10 +15,13 @@
           </div>
         </div>
 
+
         <x-input-text name="email" value="{{ $user->email }}" :required="True" label="Email"/>
+        <x-input-text name="website" value="{{ $user->website }}" :required="False" label="Sito Web"/>
+
 
         <div class="col-span-full">
-          <x-label name="bio">Raccontaci qualcosa di te:</x-label>
+          <x-label name="bio">Raccontaci qualcosa di te</x-label>
             <textarea id="bio" 
               name="bio" 
               rows="4" 
@@ -27,22 +30,47 @@
             </textarea>
         </div>
 
+        <div>
+          <x-label name="curriculm_file_path" :required="False"></x-label>
+            <div class="grid md:grid-cols-2 md:gap-6">
+            <div>
+              <x-input-file-simplified name="curriculm_file_path" label="Curriculum Vitae" currentFile="{{ ($user->curriculm_file_path <> 'public/resume/default_resume.pdf')? 'è presente.' : null }}">
+                @if ($user->curriculum)
+                  <a
+                      class="text-cyan-400 transition duration-200 hover:text-cyan-600"
+                      href="{{ route('files.download', $user->curriculum) }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  > il tuo curriculum vitae </a>
+              @else
+                  <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+                @endif
+              </x-input-file-simplified>
+              <input type="hidden" name="remove_file" value="0"/> 
+            </div>
+          </div>
+        </div>
+
 
           <div>
             <x-label name="profile_photo_path">Immagine Profilo</x-label>
             <x-image-preview-users name="profile_photo_path" currentImage="{{ $user->profilePhotoUrl }}"/>
           </div>
 
+          
+
       <x-slot:buttons>
         <div class="my-4 flex items-center justify-end gap-3">
-          <a href="/admin/users">
+          <x-save-button type="submit" >Salva</x-save-button>
+          <a href="/admin/users/show">
             <x-danger-button type="button" >Annulla</x-danger-button>
           </a>
-          <x-save-button type="submit" >Salva</x-save-button>
         </div>
       </x-slot:buttons>
 
 </x-form-layout>
+
+  <hr class="h-1 mb-8 bg-gray-100 border-0 rounded-sm">
 
     <div class="mt-10 sm:mt-0">
         @livewire('profile.update-password-form')
@@ -50,4 +78,4 @@
 
     <x-section-border />
 
-</x-layout-menu-bar-private>
+</x-layout-private>

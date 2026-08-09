@@ -21,7 +21,6 @@ return new class extends Migration
             $table->rememberToken(); /** per la funzionalita' "remember user": https://laravel.com/docs/12.x/authentication#remembering-users */
             $table->string('website')->nullable();
             $table->text('bio')->nullable();
-            $table->string('curriculm_file_path')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps(precision: 0);

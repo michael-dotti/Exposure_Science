@@ -20,7 +20,7 @@
 
             <article
                 class="overflow-hidden border rounded-lg shadow-md
-                       border-slate-700 bg-mist-700"
+                       border-slate-700 bg-gray-800"
             >
                 <div class="p-6">
 

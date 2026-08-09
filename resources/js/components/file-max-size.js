@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Cicla su ogni input trovato e applica la regola
     fileInputs.forEach(function(input) {
         input.addEventListener('change', function(event) {
-            const file = event.target.files[0];
+            
+            // prendi tutti i file selezionati dall'utente
+            const files = event.target.files;
             
             
             // Trova il contenitore genitore di QUESTO specifico input
@@ -15,8 +17,19 @@ document.addEventListener("DOMContentLoaded", function() {
             
             // Trova il tag <p> dell'errore all'interno di questo genitore
             const errorElement = parentGroup.querySelector('.error-msg');
+            
+            // Controllo singolarmente che ogni file caricato non superi la massima dimensione  per un singolo file
+            let hasOversizedFile = false;
+            // Controlla ogni singolo file caricato
+            for (let i = 0; i < files.length; i++) {
+                if (files[i].size > maxSize) {
+                    hasOversizedFile = true;
+                    break; // Se ne trovo anche solo uno troppo grande, fermo il ciclo
+                }
+            }
 
-            if (file && file.size > maxSize) {
+
+            if (hasOversizedFile) {
                 // Il file è troppo grande: rimuovo la classe hidden (mostro l'errore)
                 errorElement.classList.remove('hidden');
                 

@@ -1,6 +1,7 @@
-<x-layout-menu-bar-private>
+<x-layout-private>
     <x-slot:title>
         Users Management 
     </x-slot:title>
     <p>Test show</p>
-</x-layout-menu-bar-private>
+    <x-page-to-do />
+</x-layout-private>
