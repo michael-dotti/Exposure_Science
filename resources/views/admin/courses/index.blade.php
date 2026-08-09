@@ -26,7 +26,7 @@
     @endif
 
     {{-- Filtro docenti --}}
-    <div class="mb-4 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3">
+    <div class="mb-4 rounded-lg border border-white/10 bg-white/3 px-4 py-3">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h2 class="text-sm font-semibold text-white">
