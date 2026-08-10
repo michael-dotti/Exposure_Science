@@ -2,7 +2,7 @@
     <x-slot:title>
         Editor Profilo
     </x-slot:title>
-   <x-form-layout method="PATCH" action="{{ route('admin.users.update') }}" :hasFiles="True">
+   <x-form-layout method="PATCH" action="{{ route('admin.users.update',$user->id) }}" :hasFiles="true">
         <x-slot:header>
           <h2 class="text-base/7 font-semibold text-white">Informazioni Personali</h2>
           <p class="mt-1 text-sm/6 text-gray-400">Le informazioni che inserisci saranno rese pubbliche, fai attenzione a ciò che inserisci.</p>
@@ -31,25 +31,32 @@
         </div>
 
         <div>
-          <x-label name="curriculm_file_path" :required="False"></x-label>
-            <div class="grid md:grid-cols-2 md:gap-6">
-            <div>
-              <x-input-file-simplified name="curriculm_file_path" label="Curriculum Vitae" currentFile="{{ ($user->curriculm_file_path <> 'public/resume/default_resume.pdf')? 'è presente.' : null }}">
-                @if ($user->curriculum)
-                  <a
-                      class="text-cyan-400 transition duration-200 hover:text-cyan-600"
-                      href="{{ route('files.download', $user->curriculum) }}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  > il tuo curriculum vitae </a>
-              @else
-                  <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
-                @endif
-              </x-input-file-simplified>
-              <input type="hidden" name="remove_file" value="0"/> 
-            </div>
+          <x-label name="curriculm_file_path" :required="False">Il tuo curriculum:</x-label>
+          @if ($user->curriculum)
+          <div class="ml-8 items-center flex gap-4">
+            <x-button-open-file :file="$user->curriculum" buttonText="Apri file attuale"/>
+            
+            <x-input-file
+                          name="curriculum" 
+                          :currentImage="$user->curriculum->file_name"
+                          label="Carica un nuovo CV"
+                          />
+            
           </div>
+          @else
+          <div class="ml-8 flex flex-col gap-2">
+            <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+            <x-input-file
+                name="curriculum" 
+                label="Carica il tuo primo CV"
+            />
+          </div>
+          @endif
+          
+          <input type="hidden" name="remove_file" value="0"/> 
         </div>
+          
+        
 
 
           <div>

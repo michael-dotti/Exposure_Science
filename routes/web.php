@@ -79,7 +79,7 @@ Route::middleware([
     
     
     Route::controller(AdminUserController::class)->group(function () {
-        Route::get('/admin/users/show','show')->name('admin.users.index');
+        Route::get('/admin/users/show','show')->name('admin.users.show');
         Route::get('/admin/users/edit','edit')->name('admin.users.edit');
         Route::patch('/admin/users/{user}', 'update')->name('admin.users.update');
     });

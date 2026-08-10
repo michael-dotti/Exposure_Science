@@ -1,5 +1,5 @@
 {{-- componente per mostrare un file --}}
-@props(['file', 'text'=>null])
+@props(['file', 'text'=>null, 'buttonText' => 'Apri'])
 
 <x-primary-link-button
     :text="$text"
@@ -9,5 +9,5 @@
     target="_blank"
     {{ $attributes }} 
 >
-    Apri
+    {{ $buttonText }}
 </x-primary-link-button>

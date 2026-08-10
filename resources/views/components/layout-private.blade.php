@@ -34,7 +34,7 @@
         <div class="overflow-y-auto py-5 px-3 flex-1 border-r border-gray-200 dark:bg-gray-800 dark:border-gray-900/50">
             <ul class="space-y-2">
                 <li>
-                    <x-link-with-icon href="/admin/users/show" :active="request()->is('admin/users/show')" iconType="fas fa-user">Area Personale</x-link-with-icon>
+                    <x-link-with-icon href="{{ route('admin.users.show') }}" :active="request()->routeIs('admin.users.*')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 </li>
                 <li>
                     <x-link-with-icon href="{{ route('admin.articles.index') }}" :active="request()->routeIs('admin.articles.*')" iconType="fas fa-book">Articoli</x-link-with-icon>

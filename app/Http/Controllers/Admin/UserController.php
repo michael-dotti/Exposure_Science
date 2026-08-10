@@ -12,6 +12,7 @@ use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -39,29 +40,11 @@ class UserController extends Controller
             'email' => ['required','email', 'max:255', 'min:5', Rule::unique('users')->ignore($user->id)], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
             'website' => ['nullable','url','max:511'],
             'bio' => ['nullable','max:5000'],
-            'curriculm_file_path' => ['nullable','file','mimes:pdf,doc,docx','max:51200'],
+            'curriculum' => ['nullable','file','mimes:pdf,doc,docx','max:51200'],
             'profile_photo_path' => ['nullable', 'image', 'max:5120'],
         ]);
 
-        // Salvataggio File
-        if (request()->hasFile('curriculm_file_path')) {
-
-            if ($user->curriculm_file_path) {
-                Storage::disk('public')->delete($user->curriculm_file_path);
-            }
-
-            // 1. Recupera l'oggetto del file
-            $file = request()->file('curriculm_file_path');
-            //dd($file);
-
-            // 2. Ottieni il nome originale del file (es: "mio_documento.pdf")
-            // davanti al nome inserisco il "tempo" per proteggermi dal caso in cui due utenti inseriscano un file con lo stesso nome
-            $originalName = time() . '_' . $file->getClientOriginalName(); 
-
-            // 3. Salva specificando la cartella, il nome del file e il disco
-            //dd($file->storeAs('uploads/users/documents', $originalName, 'public'));
-            $validated['curriculm_file_path'] = $file->storeAs('uploads/users/documents', $originalName, 'public');
-        }
+        $validatedData = collect($validated)->except(['curriculum'])->toArray();
  
         //Caso 1: l'utente ha caricato una NUOVA immagine
         // carica l'immagine e salva il path
@@ -80,7 +63,7 @@ class UserController extends Controller
             
             // salviamo l'immagine nella cartella public nel percorso scelto prima, mettiamo il percorso nella riga corrispondente della tabella USer
             Storage::disk('public')->put($fileName, $encoded->toString());
-            $validated['profile_photo_path'] = $fileName;
+            $validatedData['profile_photo_path'] = $fileName;
         }
         // Caso 2: L'utente ha cliccato "elimina" (uso il flag hidden)
         elseif (request()->input('remove_photo') == '1') {
@@ -89,35 +72,45 @@ class UserController extends Controller
             }
 
             // setto a null "l'immagine" nel database
-            $validated['profile_photo_path'] = null;
+            $validatedData['profile_photo_path'] = null;
         }
         // Caso 3: l'utente non ha toccato nulla
         else {
             // Rimuovo il campo dall'array cosi che il valore attuale non venga modificato
-            unset($validated['profile_photo_path']);
+            unset($validatedData['profile_photo_path']);
         }
 
-        // update user
-        $user->update($validated);
+        DB::transaction(function () use ($user, $validatedData) {
+            // update user
+            $user->update($validatedData);
 
-        //dd($user);
+            // Salvataggio File
+            if (request()->hasFile('curriculum')) {
+
+                if ($user->curriculum) {
+                    Storage::disk('public')->delete($user->curriculum->file_path);
+                }
+
+                // 1. Recupera l'oggetto del file
+                $file = request()->file('curriculum');
+                $path = $file->store('uploads/articles/documents','public');
+
+                $user->curriculum()->updateOrCreate(
+                    ['id' => $user->curriculum?->id],
+                    [
+                        'file_name' => $file->getClientOriginalName(),
+                        'file_path' => $path,
+                        'mime_type' => $file->getClientMimeType(),
+                        'file_size' => $file->getSize()
+                    ]
+                );
+
+            }
+        });
          
         // redirect
-        return redirect('/admin/users/show');
+        return redirect()->route('admin.users.show');
         
     }
 
-    public function download(User $user)
-    {
-        if(! Storage::disk('public')->exists($user->curriculm_file_path)){
-            abort(404,"File non trovato");
-        }
-
-        $curriculm_file_path = Storage::disk('public')->path($user->curriculm_file_path);
-
-        return response()->download(
-            $curriculm_file_path,
-            $user->name . $user->surname . "_curriculumVitae"
-        );
-    }
 }

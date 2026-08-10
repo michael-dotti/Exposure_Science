@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Storage;
 class File extends Model
 {
     protected $fillable = [
+        'fileable_id',
+        'fileable_type',
         'file_name',
         'file_path',
         'mime_type',
-        'file_size',
+        'file_size'
     ];
 
     /**

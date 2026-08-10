@@ -44,7 +44,7 @@
 		
 		<x-slot:buttons>
 			<div class="my-4 flex items-center justify-end gap-3">
-				<a href="/admin/users/edit">
+				<a href="{{ route('admin.users.edit') }}">
 					<x-save-button type="button" >MODIFICA DATI</x-danger-button>
 				</a>
 			</div>

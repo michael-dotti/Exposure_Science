@@ -1,4 +1,4 @@
-@props(['file','text'=>null])
+@props(['file','text'=>null, 'buttonText' => 'Download'])
 
 <x-primary-link-button
     :text="$text"
@@ -7,5 +7,5 @@
     icon="fa-solid fa-download"
     {{ $attributes }}
 >
-    Download
+    {{ $buttonText }}
 </x-primary-link-button>

@@ -22,7 +22,7 @@ class FilePolicy
                 return Response::deny('Devi effettuare il login per scaricare questo file');
             }
 
-            // 2) // verifoco se l'utente loggato è il creatore o è tra i destinatari
+            // 2) // verifico se l'utente loggato è il creatore o è tra i destinatari
             $isCreator = $parent->creator_user_id === $user->id;
             $isRecipient = $parent->recipients()->where('user_id', $user->id)->exists();
 

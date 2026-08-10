@@ -150,7 +150,7 @@ class ArticleController extends Controller
         });
 
         // 3) redirect
-        return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
+        return redirect()->route('admin.articles.index'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
     }
 
     // edit =porta alla pagina di modifica articolo
@@ -235,12 +235,12 @@ class ArticleController extends Controller
                 $path = $file->store('uploads/articles/documents','public');
 
                 $article->document()->updateOrCreate(
-                    ['fileable_id' => $article->id, 'fileable_type' => Article::class], // Condizione di ricerca
+                    ['id' => $article->document->id],
                     [
                         'file_name' => $file->getClientOriginalName(),
                         'file_path' => $path,
                         'mime_type' => $file->getClientMimeType(),
-                        'file_size' => $file->getSize() // CORRETTO: () aggiunte
+                        'file_size' => $file->getSize()
                     ]
                 );
             }
@@ -259,7 +259,7 @@ class ArticleController extends Controller
         }
         );
 
-        return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
+        return redirect()->route('admin.articles.index'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
     }
 
     // destroy = distrugge un articolo
