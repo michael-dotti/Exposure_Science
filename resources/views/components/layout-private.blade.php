@@ -53,13 +53,6 @@
                     <x-link-with-icon href="/admin/events" :active="request()->is('admin/events','admin/events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                 </li>
                 
-                @can('management users')
-                    <li>             
-                        <x-link-with-icon href="/admin/users-management" :active="request()->is('admin/users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
-                    </li>
-                @endcan
-                
-                
                 @can('management news')
                     <li>
                         <x-link-with-icon href="/admin/news-management" :active="request()->is('admin/news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
@@ -69,6 +62,12 @@
                 @can('management events')
                     <li>
                         <x-link-with-icon href="/admin/events-management" :active="request()->is('admin/events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
+                    </li>
+                @endcan
+                
+                @can('management users')
+                    <li>             
+                        <x-link-with-icon href="/admin/users-management" :active="request()->is('admin/users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
                     </li>
                 @endcan
         </div>
