@@ -69,11 +69,12 @@ class ProjectController extends Controller
 	
 	public function edit(Project $project)
 	{
+		$statuses = ProjectStatusType::cases();
 		$users = User::select('id', 'name')->get();
 
 		$project->load(['users']);
 
-		return view('admin.projects.edit', compact('project', 'users'));
+		return view('admin.projects.edit', compact('project', 'users','statuses'));
 	}
 
 	public function update(Project $project)
@@ -94,16 +95,9 @@ class ProjectController extends Controller
 
 		$projectData = collect($validated)->except(['users'])->toArray();
 
-		$users = request()->users;
-		if (($key = array_search($project->creator_id, $users)) !== false) {
-			unset($users[$key]);
-		}
-		$users[] = $project->creator_id;
-		//dd($users);
-
 		// updetazione record nel Database
 		$project->update($projectData);
-		$project->users()->sync($users);
+		$project->users()->sync(request()->users);
 	   
 		return redirect()->route('admin.projects.show', $project);
 	}
