@@ -55,15 +55,6 @@ class ProjectController extends Controller
 		$validated['description'] = Purifier::clean($validated['description']);
 
 		$projectData = collect($validated)->except('users')->toArray();
-		
-		$users = request()->users;
-
-		//rimuovo il creatore dall'array dei partecipanti
-		//la sua incusione è trattata singolarmente
-		//in questo modo ho la certezza di inserirlo e di inserirlo una sola volta
-		if (($key = array_search(Auth::user()->id, $users)) !== false) {
-			unset($users[$key]);
-		}
 
 		// Creazione record nel Database
 		$project = Project::create($projectData);

@@ -144,8 +144,18 @@ class ArticleController extends Controller
                 ]);
             }
 
+            $users = request()->users;
+
+            //rimuovo il creatore dall'array dei partecipanti
+            //la sua incusione è trattata singolarmente
+            //in questo modo ho la certezza di inserirlo e di inserirlo una sola volta
+            if (($key = array_search(Auth::user()->id, $users)) !== false) {
+                unset($users[$key]);
+            }
+
             // Collegamento Autori e aree
-            $article->users()->attach(request()->users);
+            $article->users()->attach($users);
+            $article->users()->attach(Auth::user());
             $article->researchAreas()->attach(request()->areas);
         });
 
@@ -254,7 +264,17 @@ class ArticleController extends Controller
                 }
             }
 
-            $article->users()->sync(request()->users);
+            $users = request()->users;
+
+            //rimuovo il creatore dall'array dei partecipanti
+            //la sua incusione è trattata singolarmente
+            //in questo modo ho la certezza di inserirlo e di inserirlo una sola volta
+            if (($key = array_search(Auth::user()->id, $users)) !== false) {
+                unset($users[$key]);
+            }
+            $users[] = $article->creator_id;
+
+            $article->users()->sync($users);
             $article->researchAreas()->sync(request()->areas);
         }
         );
