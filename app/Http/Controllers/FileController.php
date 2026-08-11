@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Gate;
 
 class FileController extends Controller
 {
+    // definisco questo array per risolvere il problema che fa si che il brwoser aprà la versione precedente del file perché ha slavato in cache quel file per quel specifico url
+    private array $noCacheHeaders = [
+        'Cache-Control' => 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma'        => 'no-cache',
+        'Expires'       => '0',
+    ];
+
     public function download(File $file)
     {
         // 1) Controllo permessi tramite Policy
@@ -24,7 +31,7 @@ class FileController extends Controller
         
         // 3) Restituisco il file in download
         $fullPath = Storage::disk('public')->path($file->file_path);
-        return response()->download($fullPath, $file->file_name);
+        return response()->download($fullPath, $file->file_name, $this->noCacheHeaders);
     }
 
 
@@ -42,6 +49,6 @@ class FileController extends Controller
         // 3) Restituisco il file per la visualizzazione nel browser
         $fullPath = Storage::disk('public')->path($file->file_path);
 
-        return response()->file($fullPath);
+        return response()->file($fullPath, $this->noCacheHeaders);
     }
 }

@@ -235,7 +235,7 @@ class ArticleController extends Controller
                 $path = $file->store('uploads/articles/documents','public');
 
                 $article->document()->updateOrCreate(
-                    ['id' => $article->document->id],
+                    [],
                     [
                         'file_name' => $file->getClientOriginalName(),
                         'file_path' => $path,
@@ -243,6 +243,9 @@ class ArticleController extends Controller
                         'file_size' => $file->getSize()
                     ]
                 );
+
+                // Ricarica la relazione aggiornata per svuotare la cache in memoria
+                $article->load('curriculum');
             }
             // 
             elseif (request()->input('remove_file') == '1' || request()->filled('external_url')) {

@@ -52,13 +52,6 @@ class UserFactory extends Factory
     }
 
 
-    public function admin(): static
-     {
-       return $this->state(fn (array $attributes) => [ 
-         'admin' => true,
-         ]);
-    }
-
     public function defaultAdmin(): static
     {
         return $this->state(fn (array $attributes) => [ 
@@ -133,7 +126,7 @@ class UserFactory extends Factory
         
         // 3. creo il curriculm con i dati estratti prima
         $mario->curriculum()->create([
-            'file_name' => 'Mario_Rossi_CV.pdf',
+            'file_name' => 'default_CV.pdf',
             'file_path' => $defaultCvPath,
             'mime_type' => $mimeType,
             'file_size' => $fileSize, 
@@ -156,7 +149,7 @@ class UserFactory extends Factory
         ]);
         $emilia->assignRole(['news Manager']);
         $emilia->curriculum()->create([
-            'file_name' => 'Emilia_Rossi_CV.pdf',
+            'file_name' => 'default_CV.pdf',
             'file_path' => $defaultCvPath,
             'mime_type' => $mimeType,
             'file_size' => $fileSize, 
@@ -165,7 +158,7 @@ class UserFactory extends Factory
         $admin = $this->defaultAdmin()->withPersonalTeam()->create();
         $admin->assignRole('admin');
         $admin->curriculum()->create([
-            'file_name' => 'Admin_CV.pdf',
+            'file_name' => 'default_CV.pdf',
             'file_path' => $defaultCvPath,
             'mime_type' => $mimeType,
             'file_size' => $fileSize,

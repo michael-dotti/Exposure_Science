@@ -87,16 +87,16 @@ class UserController extends Controller
             // Salvataggio File
             if (request()->hasFile('curriculum')) {
 
-                if ($user->curriculum) {
+                if ($user->curriculum && $user->curriculum->file_path !== 'uploads/curriculum/default_curriculum.pdf') {
                     Storage::disk('public')->delete($user->curriculum->file_path);
                 }
 
                 // 1. Recupera l'oggetto del file
                 $file = request()->file('curriculum');
-                $path = $file->store('uploads/articles/documents','public');
+                $path = $file->store('uploads/curriculum/','public');
 
                 $user->curriculum()->updateOrCreate(
-                    ['id' => $user->curriculum?->id],
+                    [],
                     [
                         'file_name' => $file->getClientOriginalName(),
                         'file_path' => $path,
@@ -104,7 +104,9 @@ class UserController extends Controller
                         'file_size' => $file->getSize()
                     ]
                 );
-
+                
+                // Ricarica la relazione aggiornata per svuotare la cache in memoria
+                $user->load('curriculum');
             }
         });
          
