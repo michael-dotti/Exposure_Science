@@ -19,12 +19,12 @@ class Project extends Model
     // gli utenti che lavorano a questo project
     public function users(): BelongsToMany  
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTrashed();
     }
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     // un project può appartenere ad 1 o più aree di ricerca

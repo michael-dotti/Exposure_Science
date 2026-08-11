@@ -53,8 +53,6 @@
                                                     <x-danger-button  data-modal-target="deleteModal" data-modal-toggle="deleteModal">elimina</x-danger-button>
                                                     <x-confirm-delete-modal id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
                                                         Sei sicuro di voler eliminare l'utente {{ $user->name }} {{ $user->surname }}?
-                                                        <br>
-                                                        L'operazione sarà irreversibile.
                                                     </x-confirm-delete-modal>
                                                     <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST">
                                                         @csrf

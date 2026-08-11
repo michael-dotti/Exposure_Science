@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status')->default(ProjectStatusType::PLANNED->value); // assegnato un valore di default a status
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->integer('creator_id')->nullable();
+            $table->foreignId('creator_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -32,6 +33,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use SoftDeletes;
     
     /**
      * The attributes that are mass assignable.
@@ -89,12 +91,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class);
     }
 
-    public function projects_created(): BelongsToMany  
+    public function projects_created(): HasMany 
     {
-        return $this->belongsToMany(Project::class);
+        return $this->hasMany(Project::class, 'creator_id');
     }
 
-    // eventi generati dall'utente (
+    // eventi generati dall'utente
     public function events_created(): HasMany
     {
         return $this->hasMany(Event::class);
@@ -142,8 +144,8 @@ class User extends Authenticatable
 
     protected static function booted()
     {   
-        // un istante prima che l'user venga eliminato esegui il codice nelle graffe
-        static::deleting(function ($user){
+        // Un attimo prima che l'utente venga eliminato definitivamente
+        static::forceDeleting(function ($user){
 
             // Carica la relazione 'curriculum' se non è già presente in memoria, cosi da evitare il Lazy Loading
             $user->loadMissing('curriculum');

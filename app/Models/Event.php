@@ -17,13 +17,13 @@ class Event extends Model
     // user che ha creato l'evento
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_user_id');
+        return $this->belongsTo(User::class, 'creator_user_id')->withTrashed();
     }
 
     // User collegati a questo evento
     public function recipients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps();
+        return $this->belongsToMany(User::class)->withPivot('deleted_at')->withTimestamps()->withTrashed();
     }
 
     // metodo che lega Event ai suoi allegati che sono File

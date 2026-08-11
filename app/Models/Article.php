@@ -21,7 +21,7 @@ class Article extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTrashed();
     }
 
     // area di ricerca a cui appartiene l'articolo

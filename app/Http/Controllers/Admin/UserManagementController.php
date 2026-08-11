@@ -12,6 +12,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
+        // estrae in automatico solo gli utenti che hanno la colonna deleted_at = null
         $users = User::with('roles')
                     ->orderBy('surname','asc') // ordino in ordine alfabetico, partendo dal cognome
                     ->orderBy('name', 'asc')
@@ -50,9 +51,29 @@ class UserManagementController extends Controller
         dd("TODO");
     }
 
-    public function destroy()
+    public function destroy(User $user)
     {
-        dd("TODO");
+        // Grazie al a SoftDeletes, questo NON cancellerà il record,
+        // ma imposterà semplicemente il campo deleted_at con la data e ora attuali. 
+        $user->delete();
+
+        return redirect()->route('admin.users-management.index');
+    }
+
+    public function forceDestroy(User $user)
+    {
+        // 1) Sgangia le relazioni Molti-a-Molti per non lasciare record orfani
+        $user->articles()->detach();
+        $user->projects()->detach();
+        $user->projects_created()->detach();
+        $user->events_receives()->detach();
+        $user->courses()->detach();
+
+        // 2) Forza l'eliminazione definitiva
+        $user->forceDelete();
+
+        // 3) Ritorna alal pagina precedente
+        return redirect()->route('admin.users-management.index');
     }
     
 }
