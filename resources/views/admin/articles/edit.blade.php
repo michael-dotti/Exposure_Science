@@ -72,6 +72,9 @@
                                     name="users[]"
                                     value="{{ $user->id }}"
                                     type="checkbox"
+                                    @if($user->id == auth()->user()->id)
+                                        onclick="return false;"
+                                    @endif
                                     @checked(
                                         in_array(
                                             $user->id,

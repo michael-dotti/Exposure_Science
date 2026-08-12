@@ -32,7 +32,20 @@
 		</div>
 
 		<div>
-			<x-input-text name="status" :required="true" label="Stato" value="{{ $project->status }}"></x-input-text>
+			<x-label name="status" :required="True">Stato</x-label>
+			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
+				name="status" id="status">
+				@foreach($statuses as $status)
+					<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
+						class="w-max"
+						@if($status == $project->status)
+							selected="selected"
+						@endif>
+							{{ $status->label() }}
+					</option>
+				@endforeach
+				<x-form-error name="users" />
+			</select>
 		</div>
 
 		<div>
@@ -57,9 +70,6 @@
 						value="{{ $user->id }}" 
 						type="checkbox"
 							@if(in_array($user->id, old('users', $project->users->pluck('id')->toArray()))) checked
-							@endif
-							@if($user->id == auth()->user()->id)
-								onclick="return false;"
 							@endif
 						class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
 

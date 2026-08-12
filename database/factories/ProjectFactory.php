@@ -13,7 +13,7 @@ class ProjectFactory extends Factory
 	public static $finanziatori = array("Monti dei Paschi di Siena", "Banco Agricolo Campano",
 		"Università degli Studi di Brescia", "Università degli Studi di Milano", "Università Statale di Bergamo",
 		"Comune di Pavia", "Comune di Brescia", "Luigi", "mio zio", "Università degli Studi di Capodimonte",
-		"Comune di Melegnano", "Comune di Vello", "New York MoMA", "Crypton Future Media Inc.", "ASST Franciacorta",
+		"Comune di Melegnano", "Comune di Vello", "New York MoMA", "Crypton Future Media Inc", "ASST Franciacorta",
 		"Comune di Orzinuovi");
 	
 	/**
@@ -33,6 +33,7 @@ class ProjectFactory extends Factory
 			'description' => fake()->sentence(80),
 			'funding_agency' => $finanziatore,
 			'status' => "planned",
+			'creator_id' => 3,
 			'start_date' => $s_date,
 			'end_date' => $e_date,
 		];

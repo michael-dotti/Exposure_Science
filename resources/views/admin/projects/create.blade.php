@@ -25,11 +25,11 @@
 
 		<div>
 			<x-label name="status" :required="True">Stato</x-label>
-			<select class="bg-white/5 p-2 rounded-md border border-white/10 overflow-x-auto"
+			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
 				name="status" id="status">
 				@foreach($statuses as $status)
 					<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
-						class="">
+						class="w-max">
 							{{ $status->label() }}
 					</option>
 				@endforeach
@@ -55,9 +55,6 @@
 					<div class="peer flex items-center gap-x-3 pr-4"> 
 						<input id="user-{{ $user->id }}" name="users[]" value="{{ $user->id }}" type="checkbox" 
 						class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent"
-						@if($user->id == auth()->user()->id)
-							onclick="return false;"
-						@endif
 						@checked($user->id == auth()->user()->id)>
 
 						<label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
@@ -74,15 +71,15 @@
 				Periodo
 			</x-label>
 
-			<div class="relative max-w-max">
-				<input type="date" name="start_date" id="start_date" class="rounded-md w-full
+			<div class="flex gap-4 items-center">
+				<span>da</span>
+				<input type="date" name="start_date" id="start_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6">
-			</div>
-
-			<div class="relative max-w-max">
-				<input type="date" name="end_date" id="end_date" class="rounded-md w-full
+					
+				<span>a</span>
+				<input type="date" name="end_date" id="end_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6">
