@@ -12,11 +12,17 @@
 
 <x-slot name="content">
     <div class="divide-y divide-gray-400">
-        <x-dropdown-link href="{{ $href }}"> Tutti </x-dropdown-link>
+        <x-dropdown-link href="{{ $href . '?' . http_build_query(
+                request()->except('areaId')) }}"
+        > Tutti </x-dropdown-link>
         
         <div class="py-1">
             @foreach ( $researchAreas as $area)
-                <x-dropdown-link href="{{ $href }}?areaId={{ $area->id }}">{{ $area->name }}</x-dropdown-link>
+                <x-dropdown-link
+                    href="{{ $href . '?' . http_build_query(array_merge(
+                        request()->query(),
+                        ['areaId' => $area->id]
+                    )) }}">{{ $area->name }}</x-dropdown-link>
             @endforeach
         </div>
     </div>
