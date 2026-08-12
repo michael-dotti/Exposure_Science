@@ -37,4 +37,9 @@ class Project extends Model
     {
         return $this->belongsToMany(News::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(ProjectStatus::class, 'creator_user_id');
+    }
 }
