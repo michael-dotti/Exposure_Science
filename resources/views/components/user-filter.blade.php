@@ -14,11 +14,19 @@
 
 <x-slot name="content">
     <div class="divide-y divide-gray-400">
-        <x-dropdown-link href="{{ $href }}"> Tutti </x-dropdown-link>
+        <x-dropdown-link href="{{ $href }}"
+            href="{{ $href . '?' . http_build_query(
+                request()->except('userId')) }}"
+        > Tutti </x-dropdown-link>
         
         <div class="py-1">
             @foreach ( $users as $user)
-                <x-dropdown-link href="{{ $href }}?userId={{ $user->id }}">{{ $user->name }} {{ $user->surname }} </x-dropdown-link>
+                <x-dropdown-link
+                    href="{{ $href . '?' . http_build_query(array_merge(
+                        request()->query(),
+                        ['userId' => $user->id]
+                    )) }}"
+                >{{ $user->name }} {{ $user->surname }} </x-dropdown-link>
             @endforeach
         </div>
     </div>

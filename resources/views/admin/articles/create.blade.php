@@ -209,7 +209,7 @@
                 <div class="absolute inset-y-0 left-0 w-1 bg-blue-500"></div>
 
                 <div class="p-5">
-                    <x-label name="image_path" :required="true">
+                    <x-label name="image_path">
                         Immagine
                     </x-label>
 
@@ -219,7 +219,6 @@
 
                     <x-image-preview-articles
                         name="image_path"
-                        :required="true"
                     />
 
                     <x-form-error name="image_path" />
