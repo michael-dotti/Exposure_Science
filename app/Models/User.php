@@ -114,6 +114,26 @@ class User extends Authenticatable
         return $this->morphOne(File::class, 'fileable');
     }
 
+
+    // filtra gli utenti in base allo stato (attivi, cestinati, o tutti)
+    public function scopeFilterByStatus($query, $status)
+    {
+        if ($status === 'trashed') {
+            // estrate solo gli utenti nel cestino
+            return $query->onlyTrashed();
+        }
+
+        if ($status === 'all'){
+            return $query->withTrashed();
+        }
+
+        // comporamento di defualt: se $stato è vuoto
+        // significa che l'utente vuole vedere solo gli utenti attivi
+        return $query;
+
+        // Nota: di default, grazie a SoftDeletes, Laraver non mostrerà gli utenti cestianti
+    }
+
     /**
      * Get the attributes that should be cast.
      *

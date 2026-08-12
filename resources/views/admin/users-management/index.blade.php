@@ -13,6 +13,7 @@
                     </div>
                     <div class="flex flex-col shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                         <x-button-create href="{{ route('admin.users-management.create') }}">Aggiungi Ricercatore</x-button-create>
+                        <x-user-status-filter />
                     </div>
                 </div>
 
@@ -47,12 +48,33 @@
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{-- azioni --}}
                                         <div class="flex gap-2">
+                                            @if ($user->trashed())
+                                                <!-- Se è nel cestino mostro Ripristina e Elimina Definitivamente -->
+                                                <form action="{{ route('admin.users-management.restore', $user) }}" id="form-restore-{{ $user->id }}" method="POST" class="hidden">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                </form>
+                                                <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer" form="form-restore-{{ $user->id }}">Ripristina</button>
+                                            
+
+                                                <form action="{{ route('admin.users-management.force-destroy', $user) }}" method="POST" class="hidden"  id="force-delete-form-{{ $user->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                                <x-danger-button data-modal-target="forceDeleteModal-{{ $user->id }}" data-modal-toggle="forceDeleteModal-{{ $user->id }}">Elimina Definitivamente</x-danger-button>
+                                                <x-confirm-delete-modal id="forceDeleteModal-{{ $user->id }}" form="force-delete-form-{{ $user->id }}">
+                                                        Stai per eliminare definitivamente l'utente {{ $user->name }} {{ $user->surname }}?
+                                                        Questa azione NON può essere annullata.
+                                                </x-confirm-delete-modal>
+                                            @else
                                             <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
                                             <div>
                                                 @if(auth()->id() != $user->id)
                                                     <x-danger-button  data-modal-target="deleteModal" data-modal-toggle="deleteModal">elimina</x-danger-button>
                                                     <x-confirm-delete-modal id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
-                                                        Sei sicuro di voler eliminare l'utente {{ $user->name }} {{ $user->surname }}?
+                                                        Archiviare l'utente {{ $user->name }} {{ $user->surname }}?
+                                                        L'utente non potrà più accedere al sistema e verrà nascosto dall'elenco principale. 
+                                                        Potrai comunque visualizzarlo e ripristinarlo in qualsiasi momento dal filtro "Utenti Cestinati".
                                                     </x-confirm-delete-modal>
                                                     <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST">
                                                         @csrf
@@ -60,6 +82,7 @@
                                                     </form>
                                                 @endif
                                             </div>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

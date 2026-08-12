@@ -23,7 +23,9 @@ class EventManagementController extends Controller
         $events = Event::with('creator')
         ->filterByType($request->query('type'))
         ->latest() // ordina gli eventi in base alla colonna: events.created_at
-        ->paginate(10);
+        ->paginate(10)
+        ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
+
         
         $types = EventType::cases();
         return view('admin.events-management.index', compact('events','types'));

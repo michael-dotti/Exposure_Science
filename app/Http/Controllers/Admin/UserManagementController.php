@@ -10,13 +10,17 @@ use App\Models\User;
 
 class UserManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // estrae in automatico solo gli utenti che hanno la colonna deleted_at = null
         $users = User::with('roles')
+                    ->filterByStatus($request->query('status'))
                     ->orderBy('surname','asc') // ordino in ordine alfabetico, partendo dal cognome
                     ->orderBy('name', 'asc')
-                    ->paginate(10);
+                    ->paginate(10)
+                    ->withQueryString(); // Mantiene i parametri URL (es. ?status=trashed) navigando tra le pagine della paginazione (altrimenti perdi il filtraggio)
+
+        
         return view('admin.users-management.index',compact('users'));
     }
 
@@ -76,4 +80,8 @@ class UserManagementController extends Controller
         return redirect()->route('admin.users-management.index');
     }
     
+    public function restore(User $user)
+    {
+        dd("TODO");
+    }
 }

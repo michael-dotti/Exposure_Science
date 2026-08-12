@@ -23,7 +23,8 @@ class EventController extends Controller
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
             ->latest() // ordina gli eventi in base alla colonna: events.created_at
-            ->Paginate(10);
+            ->Paginate(10)
+            ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
 
         return view('admin.events.index', [
             'events' => $events,

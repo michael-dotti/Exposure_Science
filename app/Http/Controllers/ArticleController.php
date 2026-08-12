@@ -17,7 +17,9 @@ class ArticleController extends Controller
             ->filterByArea($request->query('areaId'))
             ->filterByUser($request->query('userId'))
             ->latest()
-            ->paginate(8);
+            ->paginate(8)
+            ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
+
 
         // 2. Recupera i dati per le select/tendine dei filtri
         $users = User::all();
