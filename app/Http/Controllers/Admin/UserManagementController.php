@@ -31,7 +31,7 @@ class UserManagementController extends Controller
 
     public function create()
     {
-         dd("TODO");
+        return view('admin.users-management.create');
     }
 
     public function store()
