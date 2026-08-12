@@ -69,7 +69,6 @@ class UserManagementController extends Controller
         // 1) Sgangia le relazioni Molti-a-Molti per non lasciare record orfani
         $user->articles()->detach();
         $user->projects()->detach();
-        $user->projects_created()->detach();
         $user->events_receives()->detach();
         $user->courses()->detach();
 
@@ -77,11 +76,13 @@ class UserManagementController extends Controller
         $user->forceDelete();
 
         // 3) Ritorna alal pagina precedente
-        return redirect()->route('admin.users-management.index');
+        return redirect()->back();
     }
     
     public function restore(User $user)
     {
-        dd("TODO");
+        $user->restore();
+
+        return redirect()->back();
     }
 }

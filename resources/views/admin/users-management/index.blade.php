@@ -62,17 +62,17 @@
                                                     @method('DELETE')
                                                 </form>
                                                 <x-danger-button data-modal-target="forceDeleteModal-{{ $user->id }}" data-modal-toggle="forceDeleteModal-{{ $user->id }}">Elimina Definitivamente</x-danger-button>
-                                                <x-confirm-delete-modal id="forceDeleteModal-{{ $user->id }}" form="force-delete-form-{{ $user->id }}">
-                                                        Stai per eliminare definitivamente l'utente {{ $user->name }} {{ $user->surname }}?
+                                                <x-confirm-delete-modal modal_id="forceDeleteModal-{{ $user->id }}" form="force-delete-form-{{ $user->id }}" icon="fa-solid fa-circle-exclamation">
+                                                        Stai per eliminare definitivamente l'utente {{ $user->name }} {{ $user->surname }}?<br>
                                                         Questa azione NON può essere annullata.
                                                 </x-confirm-delete-modal>
                                             @else
                                             <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
                                             <div>
                                                 @if(auth()->id() != $user->id)
-                                                    <x-danger-button  data-modal-target="deleteModal" data-modal-toggle="deleteModal">elimina</x-danger-button>
-                                                    <x-confirm-delete-modal id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
-                                                        Archiviare l'utente {{ $user->name }} {{ $user->surname }}?
+                                                    <x-danger-button  data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}">elimina</x-danger-button>
+                                                    <x-confirm-delete-modal modal_id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
+                                                        Archiviare l'utente {{ $user->name }} {{ $user->surname }}?<br>
                                                         L'utente non potrà più accedere al sistema e verrà nascosto dall'elenco principale. 
                                                         Potrai comunque visualizzarlo e ripristinarlo in qualsiasi momento dal filtro "Utenti Cestinati".
                                                     </x-confirm-delete-modal>
@@ -90,7 +90,7 @@
                             {{-- Senza tr e td il contenuto di <tbody> non appare correttamente --}}
                                 <tr>
                                     <td colspan="5" class="px-4 py-8 text-center">
-                                        <x-message-of-empty title="Errore: nessun ricercatore trovato" image="fa-regular fa-envelope"></x-message-of-empty>
+                                        <x-message-of-empty title="Nessun Ricercatore Trovato" image="fa-regular fa-envelope"></x-message-of-empty>
                                     </td>
                                 </tr>
                             @endforelse

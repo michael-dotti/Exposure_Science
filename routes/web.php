@@ -158,7 +158,7 @@ Route::middleware([
             Route::patch('/admin/users-management/{user}', 'update')->name('admin.users-management.update'); // per cambiare i permessi degli utenti in index
             Route::delete('/admin/users-management/{user}','destroy')->name('admin.users-management.destroy');
             Route::delete('/admin/users-management/{user}/force-delete','forceDestroy')->name('admin.users-management.force-destroy')->withTrashed();
-            Route::patch('/admin/users-management/{user}/restore','restore')->name('admin.users-management.restore');
+            Route::patch('/admin/users-management/{user}/restore','restore')->name('admin.users-management.restore')->withTrashed();
         });
     });
 
