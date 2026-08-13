@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserManagementController extends Controller
 {
@@ -31,7 +32,8 @@ class UserManagementController extends Controller
 
     public function create()
     {
-        return view('admin.users-management.create');
+        $roles = Role::all();
+        return view('admin.users-management.create', compact('roles'));
     }
 
     public function store()

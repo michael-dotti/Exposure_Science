@@ -10,7 +10,7 @@
         </x-slot:header>
         
         <x-content-box>
-            
+            <x-label class="md:text-lg mb-6">Inserisci i dati base del nuovo utente</x-label>
             <div class="grid md:grid-cols-2 md:gap-6">
                 <x-input-text :required="true" name="name" label="Nome Utente" />
                 <x-input-text :required="true" name="surname" label="Cognome Utente" />
@@ -18,6 +18,15 @@
             <div class="grid md:grid-cols-2 md:gap-6">
                 <x-input-text type="email" :required="true" name="email" label="Email"/>
                 <x-input-text type="password" :required="true" name="password" label="Password"/>
+            </div>
+        </x-content-box>
+
+        <x-content-box>
+            <x-label class="md:text-lg mb-6">Assegna un ruolo al nuovo utente</x-label>
+            <div class="grid grid-flow-col grid-rows-4 gap-x-10 gap-y-3 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-4">
+                @foreach ($roles as $role)
+                    <x-role-checkbox :role="$role" />
+                @endforeach
             </div>
         </x-content-box>
 
