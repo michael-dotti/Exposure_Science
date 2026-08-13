@@ -7,16 +7,8 @@
     <x-form-layout action="/admin/news-management" method="POST" :has-files="true">
       
       <x-slot:header>
-        <div class="flex justify-between items-center w-full my-5">
-          <div>
-            <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
-            <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
-          </div>
-
-          <div>
-            <x-link-button href="/admin/news-management">back</x-link-button>
-          </div>
-        </div>
+        <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
+        <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
       </x-slot:header>
 
       <div>

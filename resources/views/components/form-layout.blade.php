@@ -3,6 +3,7 @@
     'method' => 'POST',
     'hasFiles' => false,
     'title' => '',
+    'button_indietro' => true
 ])
 
 @php
@@ -39,11 +40,27 @@
         @if (isset($header) || $title)
             <div class="border-b border-white/10 pb-4">
                 @if (isset($header))
-                    {{ $header }}
+                <div class="flex justify-between items-center w-full my-4">
+                    <div>
+                        {{ $header }}
+                    </div>
+
+                    @if ($button_indietro)
+                        <div>
+                            <x-link-button href="{{ url()->previous() }}">indietro</x-link-button>
+                        </div>
+                    @endif
+                </div>
+            
                 @elseif ($title)
                     <h1 class="text-base font-semibold text-white">
                         {{ $title }}
                     </h1>
+                    @if ($button_indietro)
+                        <div>
+                            <x-link-button href="{{ url()->previous() }}">indietro</x-link-button>
+                        </div>
+                    @endif
                 @endif
             </div>
         @endif

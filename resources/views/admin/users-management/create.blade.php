@@ -2,9 +2,6 @@
     <x-slot:title>
         Crea Nuovo Utente
     </x-slot:title>
-    <div class="flex justify-end">
-        <x-link-button href="{{ route('admin.users-management.index') }}" >Indietro</x-link-button>
-    </div>
 
     <x-form-layout action="{{ route('admin.users-management.create') }}" method="POST" >
         <x-slot:header>
