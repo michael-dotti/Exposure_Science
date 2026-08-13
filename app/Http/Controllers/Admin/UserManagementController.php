@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use vendor\laravel\fortify\stubs\PasswordValidationRules;
 
 class UserManagementController extends Controller
 {
@@ -38,12 +40,25 @@ class UserManagementController extends Controller
 
     public function store()
     {
-         dd("TODO");
+        dd("TODO");
         // 1) validazione
-        // 2) intervention Image (se c'è foto profilo)
-        // 3) caricare la foto profilo nello storage
-        // 4) creare nuovo User
-        // 5) redirect
+        $validated = request()->validate([
+            'name' => ['required', 'min:3', 'max:255'],
+            'surname' => ['required','min:3', 'max:255'],
+            'email' => ['required','email', 'max:255', 'min:5', 'unique'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'password' => $this->passwordRules()
+        ]);
+
+        // 2) creare nuovo User
+        $user = User::create([
+            'name' => $validated['name'],
+            'surname' => $validated['name'],
+            'email' => $validated['email'], 
+            'password' => Hash::make($validated['password']),
+        ]);
+        
+        // 3) redirect
+        return redirect()->route('admin.users-management.index');
     }
     
    /*  public function edit()

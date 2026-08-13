@@ -3,7 +3,7 @@
         Crea Nuovo Utente
     </x-slot:title>
 
-    <x-form-layout action="{{ route('admin.users-management.create') }}" method="POST" >
+    <x-form-layout action="{{ route('admin.users-management.store') }}" method="POST" >
         <x-slot:header>
             <h1 class="text-base/7 font-semibold text-white">Aggiungi un nuovo collaboratore al gruppo di ricerca</h2>
             <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
