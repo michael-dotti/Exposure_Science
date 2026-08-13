@@ -47,7 +47,7 @@
 
                     @if ($button_indietro)
                         <div>
-                            <x-link-button href="{{ url()->previous() }}">indietro</x-link-button>
+                            <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
                         </div>
                     @endif
                 </div>
@@ -58,7 +58,7 @@
                     </h1>
                     @if ($button_indietro)
                         <div>
-                            <x-link-button href="{{ url()->previous() }}">indietro</x-link-button>
+                            <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
                         </div>
                     @endif
                 @endif

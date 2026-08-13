@@ -30,7 +30,7 @@
                 <p class="text-sm text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
             </div>
             
-            <x-link-button href="{{ route('admin.events-management.index') }}" class="my-2">Indietro</x-link-button>
+            <x-link-button href="{{ url()->previous() }}" class="my-2">Indietro</x-link-button>
         </div>
 
         <div class="*:flex *:flex-col *:gap-y-2 *:mt-6 *:max-w-3xl">
