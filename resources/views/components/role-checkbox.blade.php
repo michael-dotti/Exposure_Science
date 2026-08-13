@@ -10,9 +10,11 @@
     $roleId   = $role->id;
 
     // Se 'checked' non viene passato esplicitamente dall'esterno, usa la logica di Creazione
-    $isChecked = old('_token') 
-        ? in_array($roleId, old('roles', [])) 
-        : ($isEdit && $user ? $user->hasRole($roleName) : $roleName === 'researcher');
+    $isChecked = old('_token') // true se l'utente non ha passato la validazione del form
+        ? in_array($roleId, old('roles', [])) // verifica se l'utente (avendo fallito la validazione) aveva settato questo checkbox, altrimenti lo setta Null
+        : ($isEdit && $user ? $user->hasRole($roleName) : $roleName === 'researcher'); // se $isEdit è true e $user contiene uno user ->regola edit, altrimenti ->regola Create
+        // regola create: setta di default il ruolo "researcher" come già settato
+        // regola edit: controllo che l'utente abbia questo ruolo 
 
     // Mappatura dei colori Flowbite e dell'etichetta in italiano
     [$colorClasses, $label] = match($roleName) {
