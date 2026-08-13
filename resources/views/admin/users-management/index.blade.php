@@ -33,7 +33,7 @@
                                 <tr class="border-b dark:border-gray-600 transition-colors duration-150 {{ 
                                     $user->trashed() 
                                         ? 'bg-red-900/20 dark:bg-red-950/40 hover:bg-red-800/30 dark:hover:bg-red-900/40 opacity-80' 
-                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700' 
+                                        : 'hover:bg-gray-100 dark:hover:bg-mist-700' 
                                 }}">
                                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
@@ -58,8 +58,7 @@
                                                     @csrf
                                                     @method('PATCH')
                                                 </form>
-                                                <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer" form="form-restore-{{ $user->id }}">Ripristina</button>
-                                            
+                                                <x-button-blue type="submit" form="form-restore-{{ $user->id }}">Ripristina</x-button-blue>
 
                                                 <form action="{{ route('admin.users-management.force-destroy', $user) }}" method="POST" class="hidden"  id="force-delete-form-{{ $user->id }}">
                                                     @csrf
