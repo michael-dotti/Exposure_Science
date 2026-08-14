@@ -3,7 +3,7 @@
     'method' => 'POST',
     'hasFiles' => false,
     'title' => '',
-    'button_indietro' => true
+    'button_back' => true
 ])
 
 @php
@@ -45,7 +45,7 @@
                         {{ $header }}
                     </div>
 
-                    @if ($button_indietro)
+                    @if ($button_back)
                         <div>
                             <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
                         </div>
@@ -56,7 +56,7 @@
                     <h1 class="text-base font-semibold text-white">
                         {{ $title }}
                     </h1>
-                    @if ($button_indietro)
+                    @if ($button_back)
                         <div>
                             <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
                         </div>
