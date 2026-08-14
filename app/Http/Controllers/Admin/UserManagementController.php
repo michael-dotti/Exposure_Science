@@ -9,10 +9,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use vendor\laravel\fortify\stubs\PasswordValidationRules;
+use Illuminate\Validation\Rule;
+use App\Actions\Fortify\PasswordValidationRules;
 
 class UserManagementController extends Controller
 {
+    use PasswordValidationRules;
+
     public function index(Request $request)
     {
         // estrae in automatico solo gli utenti che hanno la colonna deleted_at = null
@@ -40,24 +43,29 @@ class UserManagementController extends Controller
 
     public function store()
     {
-        dd("TODO");
         // 1) validazione
         $validated = request()->validate([
-            'name' => ['required', 'min:3', 'max:255'],
-            'surname' => ['required','min:3', 'max:255'],
-            'email' => ['required','email', 'max:255', 'min:5', 'unique'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'name' => ['required','string', 'min:3', 'max:255'],
+            'surname' => ['required','string','min:3', 'max:255'],
+            'email' => ['required','email', 'max:255', 'min:5', 'unique:users,email'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'roles' =>  ['required', 'array', 'min:1'],
+            'roles.*' => ['required', 'exists:roles,id'],
             'password' => $this->passwordRules()
         ]);
 
         // 2) creare nuovo User
         $user = User::create([
             'name' => $validated['name'],
-            'surname' => $validated['name'],
+            'surname' => $validated['surname'],
             'email' => $validated['email'], 
             'password' => Hash::make($validated['password']),
         ]);
-        
-        // 3) redirect
+
+        // 3) Assegna ruoli
+        $user->assignRole(array_map('intval', $validated['roles']));
+        // array_map('intval', array_di_id) = converte gli id dell'array in variabili di tipo 'int'
+
+        // 4) redirect
         return redirect()->route('admin.users-management.index');
     }
     
@@ -78,7 +86,7 @@ class UserManagementController extends Controller
         // ma imposterà semplicemente il campo deleted_at con la data e ora attuali. 
         $user->delete();
 
-        return redirect()->route('admin.users-management.index');
+        return redirect()->back();
     }
 
     public function forceDestroy(User $user)
@@ -92,7 +100,7 @@ class UserManagementController extends Controller
         // 2) Forza l'eliminazione definitiva
         $user->forceDelete();
 
-        // 3) Ritorna alal pagina precedente
+        // 3) Ritorna alla pagina precedente
         return redirect()->back();
     }
     
