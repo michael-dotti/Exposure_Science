@@ -303,22 +303,8 @@ class ArticleController extends Controller
         // 2) Elimina il record dal database
         $article->delete();
 
-        // 4) redirect
-        return redirect('/admin/articles'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
-    }
-
-    public function download(Article $article)
-    {
-        if(! Storage::disk('public')->exists($article->file_path)){
-            abort(404,"File non trovato");
-        }
-
-        $filePath = Storage::disk('public')->path($article->file_path);
-
-        return response()->download(
-            $filePath,
-            $article->title
-        );
+        // 4) redirect: Si usa il redirect dopo aver modificato il database
+        return $this->redirectBackOrTo('admin.articles.index');
     }
     
 }

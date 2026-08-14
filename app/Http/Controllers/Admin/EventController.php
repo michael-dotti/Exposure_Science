@@ -74,8 +74,23 @@ class EventController extends Controller
             $event->delete();
         }
 
-        // 5) redirect
-        return redirect('/admin/events');
+        
+        // 5) Cerchiamo il prossimo evento disponibile per questo utente
+        $nextEvent = $user->events_receives()
+            ->wherePivotNull('deleted_at') // Prendi solo quelli non eliminati
+            ->where('events.id', '!=', $event->id) // Escludi quello appena cancellato
+            ->orderBy('events.created_at', 'desc') // Usa lo stesso ordinamento della tua paginazione/index
+            ->first();
+
+        // 6) Redirect condizionale
+        if ($nextEvent) {
+            // Se c'è un altro evento, vai alla sua schermata di dettaglio (show)
+            return redirect()->route('admin.events.show', $nextEvent);
+        }
+        else {
+             // Altrimenti, se non ci sono più eventi, torna alla pagina index
+            return redirect()->route('admin.events.index');
+        }
     }
 
     // distrugge (rimuove il legame e li elimina SE sono diventati orfani) gli eventi selezionati dall'utente loggato in admin.events.index, senza eliminare l'evento dal database, ma solo la relazione tra l'utente e l'evento (detach)
@@ -112,6 +127,6 @@ class EventController extends Controller
         }
         
         // 5) Redirect
-        return redirect('/admin/events');
+        return $this->redirectBackOrTo('admin.events.index');
     }
 }

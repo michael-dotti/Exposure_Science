@@ -93,12 +93,26 @@ class EventManagementController extends Controller
     }
 
 
-     // l'admin, o il gestore degli eventi, decide l'evento è da eliminare
+     // l'admin, o il gestore degli eventi, decide che l'evento è da eliminare
     public function destroy(Event $event)
     {
+        // 1) elimino l'evento
         $event->delete();
-       
-        return redirect('/admin/events-management');
+
+        // 2) Cerchiamo il prossimo evento rimasto nel sistema (escludendo quello appena cancellato)
+        $nextEvent = Event::where('id', '!=', $event->id)
+            ->orderBy('created_at', 'desc') // Mantieni lo stesso ordinamento della tua index admin
+            ->first();
+
+        // 3) Se c'è un altro evento, reindirizza alla sua schermata show di gestione
+        if ($nextEvent) {
+            return redirect()->route('admin.events-management.show', $nextEvent);
+        }
+        else {
+             // 4) Altrimenti, se non ci sono più eventi nel sistema, torna alla index di gestione
+            return redirect()->route('admin.events-management.index');
+        }
+
     }
 
     
@@ -122,6 +136,6 @@ class EventManagementController extends Controller
         }
         
         // 5) Redirect
-        return redirect('/admin/events-management');
+        return $this->redirectBackOrTo('admin.events-management.index');
     }
 }

@@ -344,8 +344,7 @@ class CoursesController extends Controller
         $course->news()->detach();
         $course->delete();
 
-        return redirect('/admin/courses')
-            ->with(
+        return $this->redirectBackOrTo('admin.courses.index')->with(
                 'success',
                 'Corso eliminato correttamente.'
             );
