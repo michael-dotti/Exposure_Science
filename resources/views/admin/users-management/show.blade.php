@@ -3,11 +3,11 @@
         Users Show
     </x-slot:title>
     
-    <x-page-to-do />
+    
     @foreach ($roles as $role)
         <x-role-checkbox 
             :role="$role" 
-            :checked="old('_token') ? in_array($role->id, old('roles', [])) : $user->hasRole($role->name)" 
+            :isEdit="true"
         />
     @endforeach
 </x-layout-private>

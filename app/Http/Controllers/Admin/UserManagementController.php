@@ -30,9 +30,11 @@ class UserManagementController extends Controller
         return view('admin.users-management.index',compact('users'));
     }
 
-    public function show()
+    public function show(User $user)
     {
-         dd("TODO");
+        $user->load('curriculum');
+
+        return view('admin.users-management.show',compact('user'));
     }
 
     public function create()
