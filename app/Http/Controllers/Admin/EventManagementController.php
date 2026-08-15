@@ -15,9 +15,12 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use App\Enums\EventType;
 use Mews\Purifier\Facades\Purifier;
+use App\Traits\EventPaginationTrait;
 
 class EventManagementController extends Controller
 {
+    use EventPaginationTrait;
+
     public function index(Request $request)
     {
         $events = Event::with('creator')
@@ -40,13 +43,21 @@ class EventManagementController extends Controller
 
     public function show(Event $event)
     {
-        // 1) carico i destinatari (recipients) con i dati della pivot e gli allegati (attachments) per questo evento specifico
-        $event->load(['recipients','attachments']);
+        // 1) Carico le relazioni in anticipo
+        $event->load(['creator', 'recipients', 'attachments']);
 
-        // 2) prendo tutti gli eventi, con il proprio creatore, per effettuare la paginazione "Precedente/Successivo"
-        // gli è gestore degli eventi (e admin) vede tutti gli eventi
-        $events = Event::with('creator')->latest()->paginate(1);
-        return view('admin.events-management.show', compact('event','events'));
+        // 2) Recupero gli ID di tutti gli eventi ordinati dal più recente:
+        $allIds = Event::orderBy('created_at', 'desc')->orderBy('id','desc')->pluck('id');
+
+       // 3. Usa la funzione del Trait per calcolare i dati che mi servono per la paginazione
+        $paginationData = $this->calculateCustomPagination($allIds, $event->id);
+
+        // 4. Passa i dati alla vista
+        return view('admin.events-management.show', array_merge(['event' => $event], $paginationData));
+        /* Spiegazione:
+        - array_merge() = unsicre gli array in uno solo
+        - laravel chiama la funzione php extract() Prende un array associativo e trasforma ogni chiave in una vera e propria variabile, assegnandole il valore corrispondente
+        */
     }
 
     public function store()

@@ -10,9 +10,12 @@ use App\Models\Event;
 use App\Models\User;
 use illuminate\support\Facades\Auth;
 use App\Enums\EventType;
+use App\Traits\EventPaginationTrait;
 
 class EventController extends Controller
 {
+    use EventPaginationTrait;
+
     public function index(Request $request) // il request prende i parametri passati nell'url, esempio /events?type=task
     {
         
@@ -34,24 +37,33 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        // Verifica se l'evento è associato all'utente ed è ancora attivo
-        $hasAccess = Auth::user()->events_receives()
-        ->wherePivotNull('deleted_at') 
-        ->where('event_id', $event->id)
-        ->exists();
+        $user = Auth::user();
 
-        if (!$hasAccess){
-            abort(404); // Se lo ha eliminato o non è suo, l'evento per lui "non esiste"
+        // 1. Controllo di sicurezza (l'utente può visualizzare questo evento?)
+        $hasAccess = $user->events_receives()
+            ->wherePivotNull('deleted_at')
+            ->where('event_id', $event->id)
+            ->exists();
+
+        if (!$hasAccess) {
+            abort(404); // Se lo ha eliminato o non è suo, errore 404
         }
 
-        $user = Auth::user();
-        $events = $user->events_receives()  
-            ->wherePivotNull('deleted_at') // verifica che l'evento esista per lui
-            ->with('creator')
-            ->latest()
-            ->Paginate(1);
-       
-        return view('admin.events.show', compact('event','events'));
+        // 2. Carica le relazioni in anticipo
+        $event->load(['creator', 'recipients', 'attachments']);
+
+        // 3. Prendi tutti gli ID
+        $allIds = $user->events_receives()
+            ->wherePivotNull('deleted_at')
+            ->orderBy('events.created_at', 'desc')
+            ->orderBy('events.id', 'desc')
+            ->pluck('events.id');
+
+        // 4. Usa la funzione del Trait
+        $paginationData = $this->calculateCustomPagination($allIds, $event->id);
+
+        // 5. Passa i dati alla vista
+        return view('admin.events.show', array_merge(['event' => $event], $paginationData));
     }
 
     
