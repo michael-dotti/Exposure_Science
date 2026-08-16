@@ -172,7 +172,7 @@ class CoursesController extends Controller
                 'teachers.min' => 'Devi selezionare almeno un docente.',
                 'teachers.*.integer' => 'Uno dei docenti selezionati non è valido.',
                 'teachers.*.distinct' => 'Lo stesso docente è stato selezionato più volte.',
-                'teachers.*.exists' => 'Uno dei docenti selezionati non è valido.',
+                'teachers.*.in' => 'Uno dei docenti selezionati non è valido.',
             ]
         );
 

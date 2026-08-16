@@ -200,6 +200,9 @@
             </x-content-section>
 
             <x-slot:buttons>
+                <x-save-button type="submit">
+                    Salva modifiche
+                </x-save-button>
 
                 <x-danger-button
                     type="submit"
@@ -207,10 +210,6 @@
                 >
                     Elimina
                 </x-danger-button>
-
-                <x-save-button type="submit">
-                    Salva modifiche
-                </x-save-button>
 
             </x-slot:buttons>
 
