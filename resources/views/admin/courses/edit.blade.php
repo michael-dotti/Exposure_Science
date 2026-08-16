@@ -4,26 +4,9 @@
     </x-slot:title>
 
     <div class="mx-auto w-full max-w-4xl">
-
-        <div class="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="text-lg font-semibold text-white">
-                    Dati del corso
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-400">
-                    Aggiorna le informazioni del corso
-                </p>
-            </div>
-
-            <x-link-button href="/admin/courses">
-                Indietro
-            </x-link-button>
-        </div>
-
         <form
             method="POST"
-            action="/admin/courses/{{ $course->id }}"
+            action="{{ route('admin.courses.destroy',$course->id) }}"
             id="delete-form"
             class="hidden"
         >
@@ -32,9 +15,18 @@
         </form>
 
         <x-form-layout
-            action="/admin/courses/{{ $course->id }}"
+            action="{{ route('admin.courses.update',$course->id) }}"
             method="PATCH"
         >
+            <x-slot:header>
+               <h2 class="text-lg font-semibold text-white">
+                    Dati del corso
+                </h2>
+
+                <p class="mt-1 text-sm text-gray-400">
+                    Aggiorna le informazioni del corso
+                </p>
+            </x-slot:header>
 
             <x-content-section>
                 <div class="space-y-5">

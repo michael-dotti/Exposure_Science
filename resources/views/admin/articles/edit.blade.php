@@ -4,23 +4,6 @@
     </x-slot:title>
 
     <div class="mx-auto w-full max-w-4xl">
-
-        <div class="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="text-lg font-semibold text-white">
-                    Dati dell'articolo
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-400">
-                    Aggiorna le informazioni dell'articolo
-                </p>
-            </div>
-
-            <x-link-button href="{{ route('admin.articles.index') }}">
-                Indietro
-            </x-link-button>
-        </div>
-
         <form
             method="POST"
             action="{{ route('admin.articles.destroy', $article) }}"
@@ -36,7 +19,15 @@
             method="PATCH"
             :hasFiles="true"
         >
+            <x-slot:header>
+                <h2 class="text-lg font-semibold text-white">
+                    Dati dell'articolo
+                </h2>
 
+                <p class="mt-1 text-sm text-gray-400">
+                    Aggiorna le informazioni dell'articolo
+                </p>
+            </x-slot:header>
             <x-content-section>
 
                 <div class="space-y-5">

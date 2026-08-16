@@ -1,7 +1,7 @@
 <x-show-page
     pageTitle="Dettaglio Corso"
     heading="Dati del corso"
-    backHref="/admin/courses"
+    :backHref="route('admin.courses.index')"
     :title="$course->title"
 >
 
@@ -164,7 +164,7 @@
 
     <form
         method="POST"
-        action="/admin/courses/{{ $course->id }}"
+        action="{{ route('admin.courses.destroy',$course->id) }}"
         id="delete_course"
         class="hidden"
     >
@@ -174,7 +174,7 @@
 
     <x-slot:actions>
 
-        <x-modify-button-link href="/admin/courses/{{ $course->id }}/edit">
+        <x-modify-button-link href="{{ route('admin.courses.edit',$course->id) }}">
             Modifica
         </x-modify-button-link>
 

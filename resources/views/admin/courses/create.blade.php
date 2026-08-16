@@ -4,9 +4,11 @@
     </x-slot:title>
 
     <div class="mx-auto w-full max-w-4xl">
-
-        <div class="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
+        <x-form-layout
+            action="{{ route('admin.courses.store') }}"
+            method="POST"
+        >
+            <x-slot:header>
                 <h2 class="text-lg font-semibold text-white">
                     Dati del corso
                 </h2>
@@ -14,18 +16,7 @@
                 <p class="mt-1 text-sm text-gray-400">
                     Inserisci le informazioni necessarie per creare il corso
                 </p>
-            </div>
-
-            <x-link-button href="/admin/courses">
-                Indietro
-            </x-link-button>
-        </div>
-
-        <x-form-layout
-            action="/admin/courses"
-            method="POST"
-        >
-
+            </x-slot:header>
             <x-content-section>
                 <div class="space-y-5">
 
@@ -189,7 +180,7 @@
                     Salva
                 </x-save-button>
                 
-                <a href="/admin/courses">
+                <a href="{{ route('admin.courses.index') }}">
                     <x-danger-button type="button">
                         Annulla
                     </x-danger-button>
