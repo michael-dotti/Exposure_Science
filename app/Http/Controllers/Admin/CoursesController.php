@@ -65,14 +65,12 @@ class CoursesController extends Controller
 
     public function create()
     {
-        $teachers = User::select(
-            'id',
-            'name',
-            'surname'
-        )
-            ->orderBy('name')
-            ->orderBy('surname')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('name')
+        ->orderBy('surname')
+        ->get();
+            
 
         return view(
             'admin.courses.create',
@@ -201,14 +199,11 @@ class CoursesController extends Controller
 
     public function edit(Course $course)
     {
-        $teachers = User::select(
-            'id',
-            'name',
-            'surname'
-        )
-            ->orderBy('name')
-            ->orderBy('surname')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('name')
+        ->orderBy('surname')
+        ->get();
 
         $course->load('teachers');
 
