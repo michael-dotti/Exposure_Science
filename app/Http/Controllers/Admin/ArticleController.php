@@ -270,14 +270,6 @@ class ArticleController extends Controller
 
             $users = request()->users;
 
-            //rimuovo il creatore dall'array dei partecipanti
-            //la sua incusione è trattata singolarmente
-            //in questo modo ho la certezza di inserirlo e di inserirlo una sola volta
-            if (($key = array_search(Auth::user()->id, $users)) !== false) {
-                unset($users[$key]);
-            }
-            $users[] = $article->creator_id;
-
             $article->users()->sync($users);
             $article->researchAreas()->sync(request()->areas);
         }
