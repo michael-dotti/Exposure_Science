@@ -31,7 +31,9 @@ class ArticleController extends Controller
 
         if ($authenticatedUser->hasPermissionTo('edit all articles')) {
             $articles = Article::with(['users', 'researchAreas']);
-            $users = User::all();
+            $users = User::select('id', 'name','surname')
+            ->orderBy('surname','asc')
+            ->orderBy('name', 'asc')->get();
         } else {
             $articles = $authenticatedUser
                 ->articles()
@@ -58,7 +60,9 @@ class ArticleController extends Controller
         Gate::authorize('create', Article::class);
 
         // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
-        $users = User::select('id', 'name')->get();
+        $users = User::select('id', 'name','surname')
+            ->orderBy('surname','asc')
+            ->orderBy('name', 'asc')->get();
         $areas = ResearchArea::select('id', 'name')->get();
         return view('admin.articles.create', compact('users','areas'));
     }
@@ -170,7 +174,10 @@ class ArticleController extends Controller
         Gate::authorize('update', $article);
 
         // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
-        $users = User::select('id', 'name')->get();
+        $users = User::select('id', 'name','surname')
+            ->orderBy('surname','asc')
+            ->orderBy('name', 'asc')
+            ->get();
         $areas = ResearchArea::select('id', 'name')->get();
 
         // (non necessario ma consigliato) Carico le relazioni già esistenti per l'articolo
