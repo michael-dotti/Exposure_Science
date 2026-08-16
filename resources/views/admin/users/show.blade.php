@@ -2,7 +2,7 @@
 	<x-slot:title>
 		Ciao {{ $user->name . "!" }}
 	</x-slot:title>
-	<x-form-layout action="#" :button_back="false"> {{-- usato il componente form solo per sfruttarne la struttura --}}
+	<!-- <x-form-layout action="#" :button_back="false"> {{-- usato il componente form solo per sfruttarne la struttura --}}
 		<x-slot:header>
 			<h1 class="text-base/7 font-bold text-white">Qui puoi trovare le tue informazioni personali</h2>
 		</x-slot:header>
@@ -50,5 +50,6 @@
 			</div>
 		</x-slot:buttons>
 		
-	</x-form-layout>
+	</x-form-layout> -->
+	<x-user-show :user="$user" :showButtons="true" />
 </x-layout-private>
