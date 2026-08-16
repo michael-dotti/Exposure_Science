@@ -3,7 +3,7 @@
         Crea Nuovo Utente
     </x-slot:title>
 
-    <x-form-layout action="{{ route('admin.users-management.create') }}" method="POST" >
+    <x-form-layout action="{{ route('admin.users-management.store') }}" method="POST" >
         <x-slot:header>
             <h1 class="text-base/7 font-semibold text-white">Aggiungi un nuovo collaboratore al gruppo di ricerca</h2>
             <p class="text-xs text-gray-400 mt-1">1. I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
@@ -15,14 +15,15 @@
                 <x-input-text :required="true" name="name" label="Nome Utente" />
                 <x-input-text :required="true" name="surname" label="Cognome Utente" />
             </div>
+            <x-input-text type="email" :required="true" name="email" label="Email"/>
             <div class="grid md:grid-cols-2 md:gap-6">
-                <x-input-text type="email" :required="true" name="email" label="Email"/>
                 <x-input-text type="password" :required="true" name="password" label="Password"/>
+                <x-input-text type="password" :required="true" name="password_confirmation" label="Conferma Password"/>
             </div>
         </x-content-box>
 
         <x-content-box>
-            <x-label class="md:text-lg mb-6">Assegna un ruolo al nuovo utente</x-label>
+            <x-label class="md:text-lg mb-6" :required="true" >Assegna un ruolo al nuovo utente</x-label>
             <div class="grid grid-flow-col grid-rows-4 gap-x-10 gap-y-3 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-4">
                 @foreach ($roles as $role)
                     <x-role-checkbox :role="$role" />

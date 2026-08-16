@@ -15,9 +15,12 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Models\ResearchArea;
 use App\Enums\EventType;
 use Mews\Purifier\Facades\Purifier;
+use App\Traits\EventPaginationTrait;
 
 class EventManagementController extends Controller
 {
+    use EventPaginationTrait;
+
     public function index(Request $request)
     {
         $events = Event::with('creator')
@@ -40,13 +43,21 @@ class EventManagementController extends Controller
 
     public function show(Event $event)
     {
-        // 1) carico i destinatari (recipients) con i dati della pivot e gli allegati (attachments) per questo evento specifico
-        $event->load(['recipients','attachments']);
+        // 1) Carico le relazioni in anticipo
+        $event->load(['creator', 'recipients', 'attachments']);
 
-        // 2) prendo tutti gli eventi, con il proprio creatore, per effettuare la paginazione "Precedente/Successivo"
-        // gli è gestore degli eventi (e admin) vede tutti gli eventi
-        $events = Event::with('creator')->latest()->paginate(1);
-        return view('admin.events-management.show', compact('event','events'));
+        // 2) Recupero gli ID di tutti gli eventi ordinati dal più recente:
+        $allIds = Event::orderBy('created_at', 'desc')->orderBy('id','desc')->pluck('id');
+
+       // 3. Usa la funzione del Trait per calcolare i dati che mi servono per la paginazione
+        $paginationData = $this->calculateCustomPagination($allIds, $event->id);
+
+        // 4. Passa i dati alla vista
+        return view('admin.events-management.show', array_merge(['event' => $event], $paginationData));
+        /* Spiegazione:
+        - array_merge() = unsicre gli array in uno solo
+        - laravel chiama la funzione php extract() Prende un array associativo e trasforma ogni chiave in una vera e propria variabile, assegnandole il valore corrispondente
+        */
     }
 
     public function store()
@@ -93,12 +104,26 @@ class EventManagementController extends Controller
     }
 
 
-     // l'admin, o il gestore degli eventi, decide l'evento è da eliminare
+     // l'admin, o il gestore degli eventi, decide che l'evento è da eliminare
     public function destroy(Event $event)
     {
+        // 1) elimino l'evento
         $event->delete();
-       
-        return redirect('/admin/events-management');
+
+        // 2) Cerchiamo il prossimo evento rimasto nel sistema (escludendo quello appena cancellato)
+        $nextEvent = Event::where('id', '!=', $event->id)
+            ->orderBy('created_at', 'desc') // Mantieni lo stesso ordinamento della tua index admin
+            ->first();
+
+        // 3) Se c'è un altro evento, reindirizza alla sua schermata show di gestione
+        if ($nextEvent) {
+            return redirect()->route('admin.events-management.show', $nextEvent);
+        }
+        else {
+             // 4) Altrimenti, se non ci sono più eventi nel sistema, torna alla index di gestione
+            return redirect()->route('admin.events-management.index');
+        }
+
     }
 
     
@@ -122,6 +147,6 @@ class EventManagementController extends Controller
         }
         
         // 5) Redirect
-        return redirect('/admin/events-management');
+        return $this->redirectBackOrTo('admin.events-management.index');
     }
 }

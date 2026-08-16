@@ -2,7 +2,13 @@
     <x-slot:title>
         Events
     </x-slot:title>
-    <x-event-box :events="$events" :event="$event"> 
+    <x-event-box 
+        :event="$event" 
+        :prevEventId="$prevEventId" 
+        :nextEventId="$nextEventId" 
+        :totalEvents="$totalEvents" 
+        :currentPage="$currentPage" 
+        baseRoute="admin.events-management.show">
         <x-slot:buttons>
             <x-button-delete data-modal-target="deleteModal" data-modal-toggle="deleteModal">
                 Cancella Evento

@@ -54,37 +54,15 @@
                                         <div class="flex gap-2">
                                             @if ($user->trashed())
                                                 <!-- Se è nel cestino mostro Ripristina e Elimina Definitivamente -->
-                                                <form action="{{ route('admin.users-management.restore', $user) }}" id="form-restore-{{ $user->id }}" method="POST" class="hidden">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                </form>
                                                 <x-button-blue type="submit" form="form-restore-{{ $user->id }}">Ripristina</x-button-blue>
-
-                                                <form action="{{ route('admin.users-management.force-destroy', $user) }}" method="POST" class="hidden"  id="force-delete-form-{{ $user->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
                                                 <x-danger-button data-modal-target="forceDeleteModal-{{ $user->id }}" data-modal-toggle="forceDeleteModal-{{ $user->id }}">Elimina Definitivamente</x-danger-button>
-                                                <x-confirm-delete-modal modal_id="forceDeleteModal-{{ $user->id }}" form="force-delete-form-{{ $user->id }}" icon="fa-solid fa-circle-exclamation">
-                                                        Stai per eliminare definitivamente l'utente {{ $user->name }} {{ $user->surname }}?<br>
-                                                        Questa azione NON può essere annullata.
-                                                </x-confirm-delete-modal>
                                             @else
-                                            <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
-                                            <div>
-                                                @if(auth()->id() != $user->id)
-                                                    <x-danger-button  data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}">elimina</x-danger-button>
-                                                    <x-confirm-delete-modal modal_id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
-                                                        Archiviare l'utente {{ $user->name }} {{ $user->surname }}?<br>
-                                                        L'utente non potrà più accedere al sistema e verrà nascosto dall'elenco principale. 
-                                                        Potrai comunque visualizzarlo e ripristinarlo in qualsiasi momento dal filtro "Utenti Cestinati".
-                                                    </x-confirm-delete-modal>
-                                                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                @endif
-                                            </div>
+                                                <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
+                                                <div>
+                                                    @if(auth()->id() != $user->id)
+                                                        <x-danger-button  data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}">elimina</x-danger-button>
+                                                    @endif
+                                                </div>
                                             @endif
                                         </div>
                                     </td>
@@ -106,4 +84,42 @@
         </div>
     </div>
     
+    
+    {{-- ZONA MODALI e form nascosti (i modali si trovano fuori dalla tabella per prevenire potenziali errori) --}} 
+    @foreach ($users as $user)
+        @if ($user->trashed())
+            
+            <!-- Ripristino (Niente modale, solo form nascosto collegato al bottone) -->
+            <form action="{{ route('admin.users-management.restore', $user) }}" id="form-restore-{{ $user->id }}" method="POST" class="hidden">
+                @csrf
+                @method('PATCH')
+            </form>
+
+            <!-- Eliminazione Definitiva (Modale + Form) -->
+            <form action="{{ route('admin.users-management.force-destroy', $user) }}" id="force-delete-form-{{ $user->id }}" method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+            <x-confirm-delete-modal modal_id="forceDeleteModal-{{ $user->id }}" form="force-delete-form-{{ $user->id }}" icon="fa-solid fa-circle-exclamation">
+                Stai per eliminare definitivamente l'utente {{ $user->name }} {{ $user->surname }}?<br>
+                Questa azione NON può essere annullata.
+            </x-confirm-delete-modal>
+
+        @else
+            @if(auth()->id() != $user->id)
+                
+                <!-- Eliminazione Soft (Modale + Form) -->
+                <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users-management.destroy', $user->id) }}" method="POST" class="hidden">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <x-confirm-delete-modal modal_id="deleteModal-{{ $user->id }}" form="delete-form-{{ $user->id }}">
+                    Archiviare l'utente {{ $user->name }} {{ $user->surname }}?<br>
+                    L'utente non potrà più accedere al sistema e verrà nascosto dall'elenco principale.<br> 
+                    Potrai comunque visualizzarlo e ripristinarlo in qualsiasi momento dal filtro "Utenti Cestinati".
+                </x-confirm-delete-modal>
+
+            @endif
+        @endif
+    @endforeach
 </x-layout-private>

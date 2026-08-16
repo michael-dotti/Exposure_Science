@@ -1,7 +1,7 @@
 @props(['event','showRecipients' => false])
 <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 pb-3 mb-4 border-b-2 border-white/10">
     <div class="shrink-0">
-        <x-event-types-badges type="{{ $event->type }}"/>
+        <x-event-types-badge type="{{ $event->type }}"/>
     </div>
     <h4 class="text-lg text-gray-200 font-bold wrap-break-word min-w-0"> 
         {{ $event->title }} 

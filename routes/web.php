@@ -30,17 +30,17 @@ use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\EventManagementController as AdminEventManagementController;
 
 Route::controller(HomeController::class)->group( function (){
-    Route::get('/', 'home');
+    Route::get('/', 'home')->name('public.home');
 });
 
 Route::controller(ProjectController::class)->group(function () {
-    Route::get('/public/projects','index');
-    Route::get('/public/projects/{project}','show');
+    Route::get('/public/projects','index')->name('public.projects.index');
+    Route::get('/public/projects/{project}','show')->name('public.projects.show');
 });
 
 Route::controller(CoursesController::class)->group( function (){
-    Route::get('/public/courses', 'index');
-    Route::get('/public/courses/{course}', 'show');
+    Route::get('/public/courses', 'index')->name('public.courses.index');
+    Route::get('/public/courses/{course}', 'show')->name('public.courses.show');
 });
 
 Route::controller(UserController::class)->group( function (){
@@ -55,9 +55,9 @@ Route::controller(ArticleController::class)->group( function (){
 
 
 Route::controller(NewsController::class)->group( function (){
-    Route::get('/public/news', 'index');
-    Route::get('/public/news/all', 'all');
-    Route::get('/public/news/{news}', 'show');
+    Route::get('/public/news', 'index')->name('public.news.index');
+    Route::get('/public/news/all', 'all')->name('public.news.all');
+    Route::get('/public/news/{news}', 'show')->name('public.news.show');
 });
 
 Route::controller(FileController::class)->group( function () {
@@ -114,13 +114,13 @@ Route::middleware([
     
     Route::middleware(['permission:management news'])->group(function (){
         Route::controller(AdminNewsManagementController::class)->group(function () {
-            Route::get('/admin/news-management', 'index');
-            Route::get('/admin/news-management/create', 'create');
-            Route::get('/admin/news-management/{news}', 'show');
-            Route::post('/admin/news-management', 'store');
-            Route::get('/admin/news-management/{news}/edit','edit');
-            Route::patch('/admin/news-management/{news}','update');
-            Route::delete('/admin/news-management/{news}','destroy');
+            Route::get('/admin/news-management', 'index')->name('admin.news-management.index');
+            Route::get('/admin/news-management/create', 'create')->name('admin.news-management.create');
+            Route::get('/admin/news-management/{news}', 'show')->name('admin.news-management.show');
+            Route::post('/admin/news-management', 'store')->name('admin.news-management.store');
+            Route::get('/admin/news-management/{news}/edit','edit')->name('admin.news-management.edit');
+            Route::patch('/admin/news-management/{news}','update')->name('admin.news-management.update');
+            Route::delete('/admin/news-management/{news}','destroy')->name('admin.news-management.destroy');
         });
     });
 
@@ -131,7 +131,6 @@ Route::middleware([
             Route::get('/admin/courses', 'index')->name('admin.courses.index');
             Route::get('/admin/courses/create', 'create')->name('admin.courses.create');
             Route::post('/admin/courses', 'store')->name('admin.courses.store');
-    
             Route::get('/admin/courses/{course}', 'show')->name('admin.courses.show');
             Route::get('/admin/courses/{course}/edit', 'edit')->name('admin.courses.edit');
             Route::patch('/admin/courses/{course}', 'update')->name('admin.courses.update');

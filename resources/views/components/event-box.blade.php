@@ -1,4 +1,4 @@
-@props(['events','event'])
+@props(['event', 'prevEventId' => null, 'nextEventId' => null, 'totalEvents' => 0, 'currentPage' => 0, 'baseRoute'])
 
 <div class="mt-4 w-full flex-1 bg-mist-700 shadow-xl rounded-lg flex flex-col overflow-hidden border border-mist-600">
     
@@ -8,8 +8,8 @@
             {{ $buttons }}
         </div>
         
-        @if($events->hasPages())
-            {{ $events->links('partials.event-show-pagination') }}
+        @if($totalEvents > 1)
+            @include('partials.event-show-pagination')
         @endif
     </div>
 

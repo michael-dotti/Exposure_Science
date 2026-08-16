@@ -47,6 +47,7 @@ class User extends Authenticatable
         'website',
         'bio',
         'profile_photo_path',
+        'password'
     ];
 
     /**

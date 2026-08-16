@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Enums\ProjectStatusType;
 use illuminate\support\Facades\Auth;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -17,9 +18,9 @@ class ProjectController extends Controller
 		$user = Auth::user();
 
 		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
-		if($user->can('management projects')) $projects = Project::with('users')->paginate(8);
+		if($user->can('management projects')) $projects = Project::with('users')->latest()->paginate(8);
 		//altrimenti può vedere solo i progetti a cui è associato
-		else $projects = $user->projects()->paginate(8);
+		else $projects = $user->projects()->latest()->paginate(8);
 
 		return view('admin.projects.index', compact('projects'));
 	}
@@ -42,7 +43,7 @@ class ProjectController extends Controller
 
 		// validazione
 		$validated = request()->validate([
-			'title' => ['required','min:3','max:128'],
+			'title' => ['required','min:3','max:128', 'unique:projects,title'],
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
 			'funding_agency' => ['nullable','min:3','max:128'],
@@ -55,14 +56,15 @@ class ProjectController extends Controller
 		$validated['description'] = Purifier::clean($validated['description']);
 
 		$projectData = collect($validated)->except('users')->toArray();
+		$users = $validated['users'];
 
-		// Creazione record nel Database
-		$project = Project::create($projectData);
-		$project->users()->attach($users);
-		$project->users()->attach(Auth::user());
-		$project->creator()->associate(Auth::user());
-
-		$project->save();
+		DB::transaction(function () use ($projectData, $users) {
+			// Creazione record nel Database
+			$project = Project::create($projectData);
+			$project->users()->attach($users);
+			$project->creator()->associate(Auth::user());
+		}
+        );
 	   
 		return redirect()->route('admin.projects.index');
 	}
@@ -81,7 +83,7 @@ class ProjectController extends Controller
 	{
 		// validazione
 		$validated = request()->validate([
-			'title' => ['required','min:3','max:128'],
+			'title' => ['required','min:3','max:128', 'unique:projects,title'],
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
 			'funding_agency' => ['nullable','min:3','max:128'],
@@ -94,10 +96,14 @@ class ProjectController extends Controller
 		$validated['description'] = Purifier::clean($validated['description']);
 
 		$projectData = collect($validated)->except(['users'])->toArray();
+		$users = $validated['users'];
 
-		// updetazione record nel Database
-		$project->update($projectData);
-		$project->users()->sync(request()->users);
+		DB::transaction(function () use ($project,$projectData, $users) {
+			// aggiornamento record nel Database
+			$project->update($projectData);
+			$project->users()->sync($users);
+		}
+        );
 	   
 		return redirect()->route('admin.projects.show', $project);
 	}

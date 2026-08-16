@@ -7,16 +7,8 @@
 	<x-form-layout action="{{ route('admin.projects.store') }}" method="POST" :has-files="true">
 	
 		<x-slot:header>
-			<div class="flex justify-between items-center w-full my-5">
-			<div>
-				<h1 class="text-base/7 font-semibold text-white">Nuovo progetto</h1>
-				<p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
-			</div>
-
-			<div>
-				<x-link-button href="{{ route('admin.projects.index') }}">back</x-link-button>
-			</div>
-			</div>
+			<h1 class="text-base/7 font-semibold text-white">Nuovo progetto</h1>
+			<p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
 		</x-slot:header>
 
 		<div>
@@ -88,10 +80,10 @@
 	
 	
 	<x-slot:buttons>
-		<a href="{{ route('admin.projects.index') }}">
-		<x-danger-button type="button">Annulla</x-danger-button>
-		</a>
 		<x-save-button type="submit">Salva</x-save-button>
+		<a href="{{ route('admin.projects.index') }}">
+			<x-danger-button type="button">Annulla</x-danger-button>
+		</a>
 	</x-slot:buttons>
 
 	</x-form-layout>
