@@ -159,7 +159,7 @@
         <div class="rounded-lg border border-white/10 bg-white/5 p-4 text-sm leading-6 text-gray-300">
             {!! $course->description !!}
         </div>
-
+        
     </x-content-section>
 
     <form
