@@ -23,7 +23,7 @@
             </div>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     @guest
-                    <a href="/login">
+                    <a href="{{ route('login') }}">
                       <i class="fa-regular fa-user text-white"></i>
                     </a>
                     @endguest
@@ -45,7 +45,7 @@
                       </div>
                       <ul class="p-2 text-sm text-white font-medium" aria-labelledby="user-menu-button">
                           <li>
-                              <a href="/admin/users/show" class="inline-flex items-center w-full px-3 py-2 rounded-md hover:bg-white/10 transition duration-150 ease-in-out">Dashboard</a>
+                              <a href="{{ route('admin.users.show')}}" class="inline-flex items-center w-full px-3 py-2 rounded-md hover:bg-white/10 transition duration-150 ease-in-out">Dashboard</a>
                           </li>
                           <li>
                               <form method="POST" action="{{ route('logout') }}" x-data> {{-- l'helper {{ route('logout') }} genera in automatico l'URL corretto per la rotta logout--}}
@@ -64,21 +64,21 @@
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
               <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-white/10 rounded-base bg-gray-800 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-border-white/10">
                 <li>
-                  <x-nav-link href="/" :active="request()->is('/')" >Home</x-nav-link>
+                  <x-nav-link href="{{ route('public.home') }}" :active="request()->routeIs('public.home')" >Home</x-nav-link>
                 <li>
-                   <x-nav-link href="/public/users" :active="request()->is('public/users*')" >Team</x-nav-link>
+                   <x-nav-link href="{{ route('public.users.index') }}" :active="request()->routeIs('public.users.*')" >Team</x-nav-link>
                 </li>
                 <li>
                   <x-nav-link href="{{ route('public.articles.index') }}" :active="request()->routeIs('public.articles.*')">Publicazioni</x-nav-link>
                 </li>
                 <li>
-                   <x-nav-link href="/public/news" :active="request()->is('public/news*')" >Novità</x-nav-link>
+                   <x-nav-link href="{{ route('public.news.index') }}" :active="request()->routeIs('public.news.*')" >Novità</x-nav-link>
                 </li>
                 <li>
-                   <x-nav-link href="/public/courses" :active="request()->is('public/courses*')" >Corsi</x-nav-link>
+                   <x-nav-link href="{{ route('public.courses.index') }}" :active="request()->routeIs('public.courses.*')" >Corsi</x-nav-link>
                 </li>
                 <li>
-                  <x-nav-link href="/public/projects" :active="request()->is('public/projects*')" >Progetti</x-nav-link>
+                  <x-nav-link href="{{ route('public.projects.index') }}" :active="request()->routeIs('public.projects.*')" >Progetti</x-nav-link>
                 </li>
               </ul>
             </div>

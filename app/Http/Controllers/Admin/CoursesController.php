@@ -19,8 +19,8 @@ class CoursesController extends Controller
 
         $teachers = User::permission('teaching')
         ->select('id', 'name', 'surname')
-        ->orderBy('name')
-        ->orderBy('surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
         ->get();
 
         $courses = $user
@@ -64,8 +64,8 @@ class CoursesController extends Controller
     {
         $teachers = User::permission('teaching')
         ->select('id', 'name', 'surname')
-        ->orderBy('name')
-        ->orderBy('surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
         ->get();
             
 
@@ -101,8 +101,8 @@ class CoursesController extends Controller
     {
         $teachers = User::permission('teaching')
         ->select('id', 'name', 'surname')
-        ->orderBy('name')
-        ->orderBy('surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
         ->get();
 
         $course->load('teachers');
