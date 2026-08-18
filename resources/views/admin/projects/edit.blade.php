@@ -19,11 +19,21 @@
 		</x-slot:header>
 
 		<!-- modifica dati -->
-		<div>
-			<x-input-text name="title" :required="true" label="Titolo" value="{{ $project->title }}"></x-input-text>
-		</div>
+		<x-content-box>
+			<div>
+				<x-input-text name="title" :required="true" label="Titolo" value="{{ $project->title }}"></x-input-text>
+			</div>
 
-		<div>
+			<div>
+				<x-label :required="true">
+					Descrizione
+				</x-label>
+			</div>
+
+			<x-textarea-quill name="description" value="{!! $project->description !!}"/>
+		</x-content-box>
+
+		<x-content-box>
 			<x-label name="status" :required="True">Stato</x-label>
 			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
 				name="status" id="status">
@@ -38,20 +48,13 @@
 				@endforeach
 				<x-form-error name="users" />
 			</select>
-		</div>
+		</x-content-box>
 
-		<div>
+		<x-content-box>
 			<x-input-text name="funding_agency" label="Finanziatore" value="{{ $project->funding_agency }}"></x-input-text>
-		</div>
+		</x-content-box>
 
-		<div>
-			<x-label :required="true">
-				Descrizione
-			</x-label>
-			<x-textarea-quill name="description" value="{!! $project->description !!}"/>
-		</div>
-
-		<div>
+		<x-content-box>
 			<x-label name="users" :required="True">Autori (minimo 1)</x-label>
 			<div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
 			@foreach($users as $user)
@@ -72,29 +75,28 @@
 			@endforeach
 				<x-form-error name="users" />
 			</div> 
-		</div>
+		</x-content-box>
 
-		<div>
+		<x-content-box>
 			<x-label>
 				Periodo
 			</x-label>
 
-			<div class="relative max-w-max">
-				<input type="date" name="start_date" id="start_date" class="rounded-md w-full
+			<div class="flex gap-4 items-center">
+				<span>da</span>
+				<input type="date" name="start_date" id="start_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6"
 					value="{{ $project->start_date }}">
-			</div>
-
-			<div class="relative max-w-max">
-				<input type="date" name="end_date" id="end_date" class="rounded-md w-full
+				<span>a</span>
+				<input type="date" name="end_date" id="end_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6"
 					value="{{ $project->end_date }}">
 			</div>
-		</div>
+		</x-content-box>
 	
 	
 		<!-- pulsanti di elimina e salva -->
