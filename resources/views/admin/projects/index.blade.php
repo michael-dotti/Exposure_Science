@@ -19,11 +19,11 @@
 		<div class="grid grid-cols-2 gap-4 md:gap-3 sm:gap-2">
 			@forelse($projects as $project)
 				<!-- box del singolo progetto -->
-				<article class="h-full rounded-lg border border-slate-700
+				<x-content-box class="h-full rounded-lg border border-slate-700
 						bg-gray-900 shadow-md transition duration-300
 						hover:-translate-y-1 hover:shadow-xl">
 						<a href="{{ route('admin.projects.show', $project) }}" class="ml-2 flex flex-col">
-							<div class="justify-between p-3">
+							<div class="justify-between">
 								<div>
 									<h2 class="text-xl font-bold text-white">
 										{{ $project->title }}
@@ -47,9 +47,11 @@
 									</p>
 								</div>
 
-								<div class="mb-3 inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
+								<div class="inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
 									Visualizza progetto >
 								</div>
+
+								<hr class="h-px my-3 bg-gray-600 border-0">
 
 								<!-- pulsanti modifica e cancellazione con annesso controllo -->
 								@can('management projects') 
@@ -63,7 +65,7 @@
 
 							</div>
 						</a>
-				</article>
+				</x-content-box>
 			@empty
 				<x-message-of-empty title="Nessun progetto trovato :("></x-message-of-empty>
 			@endforelse
