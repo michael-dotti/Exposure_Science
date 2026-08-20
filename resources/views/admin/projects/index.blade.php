@@ -19,9 +19,7 @@
 		<div class="grid grid-cols-2 gap-4 md:gap-3 sm:gap-2">
 			@forelse($projects as $project)
 				<!-- box del singolo progetto -->
-				<x-content-box class="h-full rounded-lg border border-slate-700
-						bg-gray-900 shadow-md transition duration-300
-						hover:-translate-y-1 hover:shadow-xl">
+				<x-content-box>
 						<a href="{{ route('admin.projects.show', $project) }}" class="ml-2 flex flex-col">
 							<div class="justify-between">
 								<div>
@@ -36,6 +34,8 @@
 										<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
 									</div>
 								@endif
+
+								<div class="mt-1 text-sm font-medium text-white"> Partecipano: @foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </div>
 
 								<!-- descrizione troncata per non far occupare troppo spazio -->
 								<div class="mt-1 text-sm font-medium text-white">
