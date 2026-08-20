@@ -19,7 +19,7 @@
 		<div class="grid grid-cols-2 gap-4 md:gap-3 sm:gap-2">
 			@forelse($projects as $project)
 				<!-- box del singolo progetto -->
-				<x-content-box>
+				<x-content-section>
 						<a href="{{ route('admin.projects.show', $project) }}" class="ml-2 flex flex-col">
 							<div class="justify-between">
 								<div>
@@ -65,7 +65,7 @@
 
 							</div>
 						</a>
-				</x-content-box>
+				</x-content-section>
 			@empty
 				<x-message-of-empty title="Nessun progetto trovato :("></x-message-of-empty>
 			@endforelse

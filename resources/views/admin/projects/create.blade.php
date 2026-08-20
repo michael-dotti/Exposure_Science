@@ -11,7 +11,7 @@
 			<p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
 		</x-slot:header>
 
-		<x-content-box>
+		<x-content-section>
 			<div>
 				<x-input-text name="title" :required="true" label="Titolo"></x-input-text>
 			</div>
@@ -22,9 +22,9 @@
 				</x-label>
 				<x-textarea-quill name="description" />
 			</div>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label name="status" :required="True">Stato</x-label>
 			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
 				name="status" id="status">
@@ -36,13 +36,13 @@
 				@endforeach
 				<x-form-error name="users" />
 			</select>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-input-text name="funding_agency" label="Finanziatore"></x-input-text>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label name="users" :required="True">Autori (minimo 1)</x-label>
 			<div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
 				@foreach($users as $user)
@@ -58,9 +58,9 @@
 				@endforeach
 				<x-form-error name="users" />
 			</div> 
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label>
 				Periodo
 			</x-label>
@@ -78,7 +78,7 @@
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6">
 			</div>
-		</x-content-box>
+		</x-content-section>
 	
 	
 	<x-slot:buttons>

@@ -19,7 +19,7 @@
 		</x-slot:header>
 
 		<!-- modifica dati -->
-		<x-content-box>
+		<x-content-section>
 			<div>
 				<x-input-text name="title" :required="true" label="Titolo" value="{{ $project->title }}"></x-input-text>
 			</div>
@@ -31,9 +31,9 @@
 			</div>
 
 			<x-textarea-quill name="description" value="{!! $project->description !!}"/>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label name="status" :required="True">Stato</x-label>
 			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
 				name="status" id="status">
@@ -48,13 +48,13 @@
 				@endforeach
 				<x-form-error name="users" />
 			</select>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-input-text name="funding_agency" label="Finanziatore" value="{{ $project->funding_agency }}"></x-input-text>
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label name="users" :required="True">Autori (minimo 1)</x-label>
 			<div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
 			@foreach($users as $user)
@@ -75,9 +75,9 @@
 			@endforeach
 				<x-form-error name="users" />
 			</div> 
-		</x-content-box>
+		</x-content-section>
 
-		<x-content-box>
+		<x-content-section>
 			<x-label>
 				Periodo
 			</x-label>
@@ -96,7 +96,7 @@
 					sm:text-sm/6"
 					value="{{ $project->end_date }}">
 			</div>
-		</x-content-box>
+		</x-content-section>
 	
 	
 		<!-- pulsanti di elimina e salva -->
