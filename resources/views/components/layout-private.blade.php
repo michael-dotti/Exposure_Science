@@ -40,34 +40,34 @@
                     <x-link-with-icon href="{{ route('admin.articles.index') }}" :active="request()->routeIs('admin.articles.*')" iconType="fas fa-book">Articoli</x-link-with-icon>
                 </li>
                 <li>
-                    <x-link-with-icon href="/admin/projects" :active="request()->is('admin/projects*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
+                    <x-link-with-icon href="{{ route('admin.projects.index') }}" :active="request()->routeIs('admin.projects.*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
                 </li>
 
                 @can('teaching')
                     <li>
-                        <x-link-with-icon href="/admin/courses" :active="request()->is('/admin/courses','/admin/courses/*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.courses.index') }}" :active="request()->routeIs('admin.courses.*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
                     </li>
                 @endcan()
                 
                 <li>
-                    <x-link-with-icon href="/admin/events" :active="request()->is('admin/events','admin/events/*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
+                    <x-link-with-icon href="{{ route('admin.events.index') }}" :active="request()->routeIs('admin.events.*')" iconType="fas fa-cube">Eventi</x-link-with-icon>
                 </li>
                 
                 @can('management news')
                     <li>
-                        <x-link-with-icon href="/admin/news-management" :active="request()->is('admin/news-management*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.news-management.index') }}" :active="request()->routeIs('admin.news-management.*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
                     </li>
                 @endcan
 
                 @can('management events')
                     <li>
-                        <x-link-with-icon href="/admin/events-management" :active="request()->is('admin/events-management*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.events-management.index') }}" :active="request()->routeIs('admin.events-management.*')" iconType="fas fa-cubes"> Gestisci Eventi</x-link-with-icon>
                     </li>
                 @endcan
                 
                 @can('management users')
                     <li>             
-                        <x-link-with-icon href="/admin/users-management" :active="request()->is('admin/users-management*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.users-management.index') }}" :active="request()->routeIs('admin.users-management.*')" iconType="fas fa-users">Gestisci Utenti</x-link-with-icon>
                     </li>
                 @endcan
         </div>
@@ -95,7 +95,7 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link href="/">Home</x-dropdown-link>
+                        <x-dropdown-link href="{{ route('public.home') }}">Home</x-dropdown-link>
                         <x-dropdown-link href="{{ route('profile.show') }}">Impostazioni avanzate</x-dropdown-link>
 
                         <div class="border-t border-gray-200"></div>

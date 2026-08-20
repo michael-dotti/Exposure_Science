@@ -34,7 +34,9 @@ class ProjectController extends Controller
 	{
 		//"statuses" e' grammaticalmente sbagliato ma lo uso per comodita' visto che "status" non cambia al plurare
 		$statuses = ProjectStatusType::cases();
-		$users = User::select('id', 'name')->get();
+		$users = User::select('id', 'name','surname')
+            ->orderBy('surname','asc')
+            ->orderBy('name', 'asc')->get();
 
 		return view('admin.projects.create', compact('users','statuses'));
 	}
@@ -72,7 +74,9 @@ class ProjectController extends Controller
 	public function edit(Project $project)
 	{
 		$statuses = ProjectStatusType::cases();
-		$users = User::select('id', 'name')->get();
+		$users = User::select('id', 'name','surname')
+            ->orderBy('surname','asc')
+            ->orderBy('name', 'asc')->get();
 
 		$project->load(['users']);
 

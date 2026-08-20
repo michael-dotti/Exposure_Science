@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Mews\Purifier\Facades\Purifier;
+use App\Http\Requests\CourseRequest;
 
 class CoursesController extends Controller
 {
@@ -16,15 +17,11 @@ class CoursesController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        $teachers = User::select(
-            'id',
-            'name',
-            'surname'
-        )
-            ->whereHas('courses')
-            ->orderBy('name')
-            ->orderBy('surname')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
+        ->get();
 
         $courses = $user
             ->courses()
@@ -65,14 +62,12 @@ class CoursesController extends Controller
 
     public function create()
     {
-        $teachers = User::select(
-            'id',
-            'name',
-            'surname'
-        )
-            ->orderBy('name')
-            ->orderBy('surname')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
+        ->get();
+            
 
         return view(
             'admin.courses.create',
@@ -80,103 +75,9 @@ class CoursesController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        $validated = $request->validate(
-            [
-                'title' => [
-                    'required',
-                    'string',
-                    'min:3',
-                    'max:255',
-                ],
-
-                'language' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-
-                'code' => [
-                    'required',
-                    'string',
-                    'max:10',
-                    'unique:courses,code',
-                ],
-
-                'points' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:255',
-                ],
-
-                'semester' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:255',
-                ],
-
-                'duration' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                ],
-
-                'description' => [
-                    'required',
-                    'string',
-                ],
-
-                'teachers' => [
-                    'required',
-                    'array',
-                    'min:1',
-                ],
-
-                'teachers.*' => [
-                    'integer',
-                    'distinct',
-                    'exists:users,id',
-                ],
-            ],
-            [
-                'title.required' => 'Il titolo è obbligatorio.',
-                'title.min' => 'Il titolo deve contenere almeno 3 caratteri.',
-                'title.max' => 'Il titolo può contenere al massimo 255 caratteri.',
-
-                'language.required' => 'La lingua è obbligatoria.',
-                'language.max' => 'La lingua può contenere al massimo 255 caratteri.',
-
-                'code.required' => 'Il codice è obbligatorio.',
-                'code.max' => 'Il codice può contenere al massimo 10 caratteri.',
-                'code.unique' => 'Esiste già un corso con questo codice.',
-
-                'points.required' => 'Il numero di crediti è obbligatorio.',
-                'points.integer' => 'I crediti devono essere un numero intero.',
-                'points.min' => 'I crediti devono essere maggiori di zero.',
-                'points.max' => 'I crediti non possono essere maggiori di 255.',
-
-                'semester.required' => 'Il semestre è obbligatorio.',
-                'semester.integer' => 'Il semestre deve essere un numero intero.',
-                'semester.min' => 'Il semestre deve essere maggiore di zero.',
-                'semester.max' => 'Il semestre non può essere maggiore di 255.',
-
-                'duration.required' => 'La durata è obbligatoria.',
-                'duration.integer' => 'La durata deve essere un numero intero.',
-                'duration.min' => 'La durata deve essere maggiore di zero.',
-
-                'description.required' => 'La descrizione è obbligatoria.',
-
-                'teachers.required' => 'Devi selezionare almeno un docente.',
-                'teachers.array' => 'La selezione dei docenti non è valida.',
-                'teachers.min' => 'Devi selezionare almeno un docente.',
-                'teachers.*.integer' => 'Uno dei docenti selezionati non è valido.',
-                'teachers.*.distinct' => 'Lo stesso docente è stato selezionato più volte.',
-                'teachers.*.exists' => 'Uno dei docenti selezionati non è valido.',
-            ]
-        );
+        $validated = $request->validated();
 
         $courseData = collect($validated)
             ->except('teachers')
@@ -192,23 +93,17 @@ class CoursesController extends Controller
             $validated['teachers']
         );
 
-        return redirect('/admin/courses')
-            ->with(
-                'success',
-                'Corso creato correttamente.'
-            );
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Corso creato correttamente.');
     }
 
     public function edit(Course $course)
     {
-        $teachers = User::select(
-            'id',
-            'name',
-            'surname'
-        )
-            ->orderBy('name')
-            ->orderBy('surname')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('surname','asc')
+        ->orderBy('name', 'asc')
+        ->get();
 
         $course->load('teachers');
 
@@ -218,104 +113,9 @@ class CoursesController extends Controller
         );
     }
 
-    public function update(Request $request, Course $course)
+    public function update(CourseRequest $request, Course $course)
     {
-        $validated = $request->validate(
-            [
-                'title' => [
-                    'required',
-                    'string',
-                    'min:3',
-                    'max:255',
-                ],
-
-                'language' => [
-                    'required',
-                    'string',
-                    'max:255',
-                ],
-
-                'code' => [
-                    'required',
-                    'string',
-                    'max:10',
-                    Rule::unique('courses', 'code')
-                        ->ignore($course->id),
-                ],
-
-                'points' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:255',
-                ],
-
-                'semester' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:255',
-                ],
-
-                'duration' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                ],
-
-                'description' => [
-                    'required',
-                    'string',
-                ],
-
-                'teachers' => [
-                    'required',
-                    'array',
-                    'min:1',
-                ],
-
-                'teachers.*' => [
-                    'integer',
-                    'distinct',
-                    'exists:users,id',
-                ],
-            ],
-            [
-                'title.required' => 'Il titolo è obbligatorio.',
-                'title.min' => 'Il titolo deve contenere almeno 3 caratteri.',
-                'title.max' => 'Il titolo può contenere al massimo 255 caratteri.',
-
-                'language.required' => 'La lingua è obbligatoria.',
-                'language.max' => 'La lingua può contenere al massimo 255 caratteri.',
-
-                'code.required' => 'Il codice è obbligatorio.',
-                'code.max' => 'Il codice può contenere al massimo 10 caratteri.',
-                'code.unique' => 'Esiste già un corso con questo codice.',
-
-                'points.required' => 'Il numero di crediti è obbligatorio.',
-                'points.integer' => 'I crediti devono essere un numero intero.',
-                'points.min' => 'I crediti devono essere maggiori di zero.',
-                'points.max' => 'I crediti non possono essere maggiori di 255.',
-
-                'semester.required' => 'Il semestre è obbligatorio.',
-                'semester.integer' => 'Il semestre deve essere un numero intero.',
-                'semester.min' => 'Il semestre deve essere maggiore di zero.',
-                'semester.max' => 'Il semestre non può essere maggiore di 255.',
-
-                'duration.required' => 'La durata è obbligatoria.',
-                'duration.integer' => 'La durata deve essere un numero intero.',
-                'duration.min' => 'La durata deve essere maggiore di zero.',
-
-                'description.required' => 'La descrizione è obbligatoria.',
-
-                'teachers.required' => 'Devi selezionare almeno un docente.',
-                'teachers.array' => 'La selezione dei docenti non è valida.',
-                'teachers.min' => 'Devi selezionare almeno un docente.',
-                'teachers.*.integer' => 'Uno dei docenti selezionati non è valido.',
-                'teachers.*.distinct' => 'Lo stesso docente è stato selezionato più volte.',
-                'teachers.*.exists' => 'Uno dei docenti selezionati non è valido.',
-            ]
-        );
+        $validated = $request->validated();
 
         $courseData = collect($validated)
             ->except('teachers')
@@ -331,11 +131,9 @@ class CoursesController extends Controller
             $validated['teachers']
         );
 
-        return redirect('/admin/courses')
-            ->with(
-                'success',
-                'Corso modificato correttamente.'
-            );
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Corso modificato correttamente.');
+       
     }
 
     public function destroy(Course $course)
