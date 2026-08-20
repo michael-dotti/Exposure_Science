@@ -54,7 +54,7 @@
                             value="{!! old('abstract', $article->abstract) !!}"
                         />
 
-                        <x-form-error name="abstract" />
+                        
                     </div>
 
                 </div>

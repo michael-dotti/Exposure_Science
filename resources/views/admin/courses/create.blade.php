@@ -127,7 +127,7 @@
                     value="{!! old('description') !!}"
                 />
 
-                <x-form-error name="description" />
+                
 
             </x-content-section>
 

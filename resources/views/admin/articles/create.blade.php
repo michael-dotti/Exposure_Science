@@ -44,7 +44,6 @@
                             value="{!! old('abstract') !!}"
                         />
 
-                        <x-form-error name="abstract" />
                     </div>
 
                 </div>

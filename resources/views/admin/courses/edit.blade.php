@@ -138,8 +138,7 @@
                     value="{!! old('description', $course->description) !!}"
                 />
 
-                <x-form-error name="description" />
-
+               
             </x-content-section>
 
             <x-content-section
