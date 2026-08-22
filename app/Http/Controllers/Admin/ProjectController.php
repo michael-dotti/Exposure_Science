@@ -39,11 +39,12 @@ class ProjectController extends Controller
                 }
             )->latest()->paginate(8);
 		//altrimenti può vedere solo i progetti a cui è associato
-		else $projects = $user->projects()->with('users')->with('creator')->when(
+		else $projects = $user->projects()->with('users')->with('creator')
+			->when(
                 $request->filled('userId'),
                 function ($query) use ($request) {
                     $query->whereHas(
-                        'teachers',
+                        'creator',
                         function ($teacherQuery) use ($request) {
                             $teacherQuery->where(
                                 'users.id',
