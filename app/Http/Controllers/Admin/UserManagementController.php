@@ -52,7 +52,7 @@ class UserManagementController extends Controller
             'name' => ['required','string', 'min:3', 'max:255'],
             'surname' => ['required','string','min:3', 'max:255'],
             'email' => ['required','email', 'max:255', 'min:5', 'unique:users,email'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
-            'roles' =>  ['required', 'array', 'min:1'],
+            'roles' =>  ['nullable', 'array'],
             'roles.*' => ['required', 'exists:roles,id'],
             'password' => $this->passwordRules()
         ]);
@@ -66,11 +66,15 @@ class UserManagementController extends Controller
         ]);
 
         // 3) Assegna ruoli
-        $user->assignRole(array_map('intval', $validated['roles']));
-        // array_map('intval', array_di_id) = converte gli id dell'array in variabili di tipo 'int'
+        $roles = $validated['roles'] ?? []; 
+    
+        if (!empty($roles)) {
+            $user->assignRole(array_map('intval', $roles)); // array_map('intval', array_di_id) = converte gli id dell'array in variabili di tipo 'int'
+        }
+       
 
         // 4) redirect
-        return redirect()->route('admin.users-management.index');
+        return redirect()->route('admin.users-management.index')->with('success', 'Nuovo utente creato: ' . $user->name . ' ' . $user->surname . '.');
     }
     
    /*  public function edit()
@@ -78,10 +82,22 @@ class UserManagementController extends Controller
         
     } */
 
-    public function update()
+    public function update(User $user)
     {
-        // usato per cambiare i permessi di uno user dalla pagina admin.users-management.index
-        dd(request()->all());
+        // 1) Validazione
+        $validated = request()->validate([
+            'roles' => ['nullable', 'array'],  // 'nullable' permette che l'array sia vuoto
+            'roles.*' => ['exists:roles,id'],  // Verifica che l'ID passato esista nella tabella roles
+        ]);
+
+        // 2) Estraggo i ruoli
+        $roles = $validated['roles'] ?? [];
+
+        // 3) converto i ruoli in int 
+        $user->syncRoles(array_map('intval', $roles));
+
+        return redirect()->route('admin.users-management.index')->with('success', 'I ruoli di ' . $user->name . ' ' . $user->surname . ' sono stati aggiornati con successo.');
+
     }
 
     public function destroy(User $user)

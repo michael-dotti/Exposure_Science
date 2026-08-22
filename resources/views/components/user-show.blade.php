@@ -5,7 +5,10 @@
 ])
 
 <div {{ $attributes->merge(['class' => 'mt-3 w-full']) }}>
-    <div class="mx-auto w-full max-w-4xl space-y-6 text-white">
+    <div @class([
+        'mx-auto w-full max-w-4xl space-y-6 text-white',
+        'pb-12' => !$showButtons // Aggiunge padding in basso se i bottoni sono disabilitati
+    ])>
         
         {{-- Header --}}
         <div class="border-b border-white/10 pb-4">
