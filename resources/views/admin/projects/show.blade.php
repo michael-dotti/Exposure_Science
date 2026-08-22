@@ -48,6 +48,11 @@
 					@endif <span class="text-white">@foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach</span></div>
 			</div>
 
+			<!-- creatore -->
+			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
+				<div> Creatore al progetto: {{ $project->creator->name }} {{ $project->creator->name }}</div>
+			</div>
+
 			<!-- descrizione del progetto -->
 			<hr class="h-px my-6 bg-gray-600 border-0">
 
