@@ -81,7 +81,7 @@ class UserManagementController extends Controller
     public function update()
     {
         // usato per cambiare i permessi di uno user dalla pagina admin.users-management.index
-        dd("TODO");
+        dd(request()->all());
     }
 
     public function destroy(User $user)

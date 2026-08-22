@@ -3,7 +3,8 @@
     'method' => 'POST',
     'hasFiles' => false,
     'title' => '',
-    'button_back' => true
+    'button_back' => true,
+    'divider' => true // stabilisce se inserire le linee che separato le diverse parti del form (titolo, input, pulsanti)
 ])
 
 @php
@@ -38,7 +39,7 @@
 
     <div class="mx-auto w-full max-w-4xl space-y-6 text-white">
         @if (isset($header) || $title)
-            <div class="border-b border-white/10 pb-4">
+            <div @class(['pb-4', 'border-b border-white/10' => $divider])> {{-- Applico la linea che divide titolo,input,bottoni nell'input solo se il props divider è true --}}
                 @if (isset($header))
                 <div class="flex justify-between items-center w-full my-4">
                     <div>
@@ -71,7 +72,10 @@
     </div>
 
     @if (isset($buttons))
-        <div class="mx-auto mt-6 flex w-full max-w-4xl items-center justify-end gap-x-3 border-t border-white/10 py-5">
+        <div @class([
+            'mx-auto mt-6 flex w-full max-w-4xl items-center justify-end gap-x-3 py-5',
+            'border-t border-white/10' => $divider
+        ])>
             {{ $buttons }}
         </div>
     @endif
