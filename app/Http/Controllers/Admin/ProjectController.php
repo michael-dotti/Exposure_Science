@@ -13,16 +13,49 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
 		$user = Auth::user();
 
-		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
-		if($user->can('management projects')) $projects = Project::with('users')->latest()->paginate(8);
-		//altrimenti può vedere solo i progetti a cui è associato
-		else $projects = $user->projects()->latest()->paginate(8);
+		$creators = User::permission('manage all projects')
+		->select('id', 'name', 'surname')
+		->orderBy('surname','asc')
+		->orderBy('name', 'asc')
+		->get();
 
-		return view('admin.projects.index', compact('projects'));
+		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
+		if($user->can('manage all projects')) $projects = Project::with('users')->with('creator')->when(
+                $request->filled('userId'),
+                function ($query) use ($request) {
+                    $query->whereHas(
+                        'creator',
+                        function ($teacherQuery) use ($request) {
+                            $teacherQuery->where(
+                                'users.id',
+                                $request->integer('userId')
+                            );
+                        }
+                    );
+                }
+            )->latest()->paginate(8);
+		//altrimenti può vedere solo i progetti a cui è associato
+		else $projects = $user->projects()->with('users')->with('creator')
+			->when(
+                $request->filled('userId'),
+                function ($query) use ($request) {
+                    $query->whereHas(
+                        'creator',
+                        function ($teacherQuery) use ($request) {
+                            $teacherQuery->where(
+                                'users.id',
+                                $request->integer('userId')
+                            );
+                        }
+                    );
+                }
+            )->latest()->paginate(8);
+
+		return view('admin.projects.index', compact('projects', 'creators'));
 	}
 
 	public function show(Project $project)
@@ -116,6 +149,10 @@ class ProjectController extends Controller
 	{
 		$project->delete();
 
-		return redirect()->route('admin.projects.index');
+		return $this->redirectBackOrTo('admin.projects.index')->with(
+                'success',
+                'Progetto eliminato correttamente.'
+            );
+;
 	}
 }
