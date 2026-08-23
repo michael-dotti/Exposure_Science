@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
+use App\Enums\ProjectStatusType;
 
 class Project extends Model
 {
@@ -15,6 +15,12 @@ class Project extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    // Cast automatico della colonna status verso l'Enum
+    protected $casts = [
+        'status' => ProjectStatusType::class,
+    ];
+
 
     // gli utenti che lavorano a questo project
     public function users(): BelongsToMany  
@@ -33,13 +39,5 @@ class Project extends Model
         return $this->belongsToMany(ResearchArea::class);
     }
 
-    public function news(): BelongsToMany
-    {
-        return $this->belongsToMany(News::class);
-    }
 
-    public function status()
-    {
-        return $this->belongsTo(ProjectStatus::class, 'creator_user_id');
-    }
 }

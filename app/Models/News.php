@@ -13,10 +13,4 @@ class News extends Model
 
     protected $guarded = [];
 
-    // progetti legati a questa news
-    public function projects():BelongsToMany
-    {
-        return $this->belongsToMany(Project::class);
-    }
-
 }
