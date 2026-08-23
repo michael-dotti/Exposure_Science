@@ -17,14 +17,14 @@ class ProjectController extends Controller
 	{
 		$user = Auth::user();
 
-		$creators = User::permission('management projects')
+		$creators = User::permission('manage all projects')
 		->select('id', 'name', 'surname')
 		->orderBy('surname','asc')
 		->orderBy('name', 'asc')
 		->get();
 
 		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
-		if($user->can('management projects')) $projects = Project::with('users')->with('creator')->when(
+		if($user->can('manage all projects')) $projects = Project::with('users')->with('creator')->when(
                 $request->filled('userId'),
                 function ($query) use ($request) {
                     $query->whereHas(

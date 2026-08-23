@@ -1,15 +1,15 @@
 <x-layout-private>
 	<x-slot:title>
-		@can('management projects') 
+		@can('manage all projects') 
 			I progetti del Team
 		@endcan
-		@cannot('management projects')
+		@cannot('manage all projects')
 			I tuoi progetti
 		@endcan
 	</x-slot:title>
 	
 	<!-- pulsante di creazione -->
-	@can('management projects') 
+	@can('create projects') 
 		<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
 	@endcan
 
@@ -18,6 +18,8 @@
 			{{ session('success') }}
 		</div>
 	@endif
+
+	<div class="mt-2"></div>
 
 	<x-filter-box
 		title="Filtra i progetti"
@@ -104,7 +106,7 @@
 								<hr class="h-px my-3 bg-gray-600 border-0">
 
 								<!-- pulsanti modifica e cancellazione con annesso controllo -->
-								@can('management projects') 
+								@canany(['manage all projects', 'manage my projects'])
 									<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
 									<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
 									<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
