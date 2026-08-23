@@ -31,7 +31,7 @@
     </div>
 
     {{-- Preview container --}}
-    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-48 h-48 overflow-hidden border-4 border-solid flex justify-center">
+    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-48 h-48 overflow-hidden border-3 border-white/20 border-solid flex justify-center">
         <img class="size-full max-h-100 shadow-sm object-cover" 
              src="{{ $currentImage ?? '' }}" 
              alt="Preview Image" 

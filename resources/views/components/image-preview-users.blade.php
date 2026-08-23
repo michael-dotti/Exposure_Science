@@ -3,7 +3,7 @@
 <div class="font-sans max-w-200 flex flex-col">
 
     {{-- Preview container --}}
-    <div class="w-32 h-32 overflow-hidden border-4 border-solid rounded-full mt-2 border-white flex justify-center">
+    <div class="w-32 h-32 overflow-hidden border-3 border-solid border-white/20 rounded-full mt-2  flex justify-center">
         <img class="size-full max-h-100 shadow-sm object-cover" 
        src="{{ $currentImage }}"  {{--  significato " A ?? B" -> se A != null fai A, altrimenti fai B --}}
        alt="Preview Image" 

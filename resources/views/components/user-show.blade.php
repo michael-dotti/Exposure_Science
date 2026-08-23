@@ -70,7 +70,7 @@
             @endif
             <div>
                 <p class="text-base/7 font-bold text-white">La tua immagine profilo: </p>
-                <img src="{{ $user->profilePhotoUrl }}" alt="profile_photo" class="rounded-full w-32 h-32 object-cover ml-8 mt-2">
+                <img src="{{ $user->profilePhotoUrl }}" alt="profile_photo" class="rounded-full w-32 h-32 border-3 border-white/20 object-cover ml-8 mt-2">
             </div>
         </div>
     </div>
@@ -83,9 +83,11 @@
                 {{ $buttons }}
             @else
                 {{-- Comportamento di default se non passi nessuno slot --}}
-                <a href="{{ route('admin.users.edit', $user) }}">
-                    <x-save-button type="button">MODIFICA DATI</x-save-button>
-                </a>
+                <x-modify-button-link
+                    href="{{ route('admin.users.edit', $user->id) }}"
+                >
+                    Modifica Dati
+                </x-modify-button-link>
             @endif
         </div>
     @endif

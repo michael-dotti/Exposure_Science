@@ -15,7 +15,7 @@
                     $currentImage !== rtrim($emptyStorageUrl, '/');
 @endphp
 
-<div class="mb-2 font-sans max-w-200 flex flex-col gap-3">
+<div class="mb-2 font-sans w-full flex flex-col gap-3">
 
     {{-- File Input --}}
     <div class="justify-start rounded-sm flex items-center gap-2">
@@ -23,8 +23,8 @@
     </div>
 
     {{-- Preview container --}}
-    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-96 h-96 overflow-hidden border-4 border-solid flex justify-center">
-        <img class="size-full shadow-sm object-cover" 
+    <div id="previewContainer" class="{{ $isValidImage ? '' : 'hidden' }} w-full h-96 overflow-hidden border-2 border-solid border-white/20 flex items-center justify-center bg-slate-900/30">
+        <img class="w-full h-full object-contain" 
              src="{{ $currentImage ?? '' }}" 
              alt="Preview Image" 
              id="image_preview"> 

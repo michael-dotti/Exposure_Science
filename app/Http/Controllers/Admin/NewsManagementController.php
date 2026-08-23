@@ -35,7 +35,7 @@ class NewsManagementController extends Controller
         $validated = request()->validate([
             'title' => ['required','min:3','max:128'],
             'content' =>['required','max:60000'],
-            'imagePath' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
+            'image_path' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
         
         // pulisco il testo da eventuali script malevoli
@@ -43,17 +43,20 @@ class NewsManagementController extends Controller
 
         $newsData = collect($validated)->toArray();
 
-        if (request()->hasFile('imagePath')) {
+       
+        // salva l'immagine 
+        $file = request()->file('image_path');
+        $image = Image::read($file);
+        
+        // Ritaglia a 1200px di larghezza e 675px di altezza (Proporzione 16:9)
+        $image->cover(1200, 675);
+        
+        $encoded = $image->toWebp(80);
+        $filename = 'uploads/news/covers/' . uniqid() . '.webp';
+        Storage::disk('public')->put($filename, $encoded->toString());
 
-            $file = request()->file('imagePath');
-            $image = Image::read($file);
-            $image->cover(250,250);
-            $encoded = $image->toWebp(80);
-            $filename = 'uploads/news/covers/' . uniqid() . '.webp';
-            Storage::disk('public')->put($filename, $encoded->toString());
-
-            $newsData['imagePath'] = $filename;
-        }
+        $newsData['image_path'] = $filename;
+        
 
         // Creazione record nel Database
         News::create($newsData);
@@ -69,34 +72,37 @@ class NewsManagementController extends Controller
 
     public function update(News $news)
     {
-        $imagePath = $news->imagePath;
+        $image_path = $news->image_path;
         
         $validated = request()->validate([
             'title' => ['required','min:3','max:128'],
             'content' =>['required','max:60000'],
-            'imagePath' =>[$imagePath ? 'nullable' : 'required','image','max:5120','mimes:jpeg,png,jpg,webp'],
+            'image_path' =>[$image_path ? 'nullable' : 'required','image','max:5120','mimes:jpeg,png,jpg,webp'],
         ]);
 
         // pulisco il testo da eventuali script malevoli
         $validated['content'] = Purifier::clean($validated['content']);
 
-        if (request()->hasFile('imagePath')) {
+        if (request()->hasFile('image_path')) {
             // Elimina la vecchia immagine
-            if ($news->imagePath && $news->imagePath !== 'uploads/news/defaultNews.webp') {
-                Storage::disk('public')->delete($news->imagePath);
+            if ($news->image_path && $news->image_path !== 'uploads/news/defaultNews.webp') {
+                Storage::disk('public')->delete($news->image_path);
             }
 
-            $file = request()->file('imagePath');
+            $file = request()->file('image_path');
 
             $image = Image::read($file);
-            $image->cover(250,250);
+
+            // Ritaglia a 1200px di larghezza e 675px di altezza (Proporzione 16:9)
+            $image->cover(1200, 675);
+            
             $encoded = $image->toWebp(80);
             $filename = 'uploads/news/' . uniqid() . '.webp';
             Storage::disk('public')->put($filename, $encoded->toString());
-            $validated['imagePath'] = $filename;
+            $validated['image_path'] = $filename;
 
         } else {
-            unset($validated['imagePath']);
+            unset($validated['image_path']);
         }
 
         $news->update($validated);
@@ -108,9 +114,9 @@ class NewsManagementController extends Controller
 
     public function destroy(News $news)
     {
-        if($news->imagePath && $news->imagePath !== 'uploads/news/defaultNews.webp')
+        if($news->image_path && $news->image_path !== 'uploads/news/defaultNews.webp')
         {
-            Storage::disk('public')->delete($news->imagePath);
+            Storage::disk('public')->delete($news->image_path);
         }
 
         $news->delete();
