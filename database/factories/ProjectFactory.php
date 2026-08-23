@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\ProjectStatusType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
@@ -32,7 +33,7 @@ class ProjectFactory extends Factory
 			'title' => fake()->sentence(3),
 			'description' => fake()->sentence(80),
 			'funding_agency' => $finanziatore,
-			'status' => "planned",
+			'status' => fake()->randomElement(ProjectStatusType::cases())->value,
 			'creator_id' => 3,
 			'start_date' => $s_date,
 			'end_date' => $e_date,

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use App\Enums\ProjectStatusType;
+use Illuminate\Validation\Rule;
 use illuminate\support\Facades\Auth;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Facades\DB;
@@ -82,7 +83,7 @@ class ProjectController extends Controller
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
 			'funding_agency' => ['nullable','min:3','max:128'],
-			'status' => ['required','min:3','max:128'],
+			'status' => ['required', Rule::enum(ProjectStatusType::class)],
 			'start_date' => ['nullable','date'],
 			'end_date' => ['nullable','date','after:start_date'],
 		]);
@@ -93,11 +94,13 @@ class ProjectController extends Controller
 		$projectData = collect($validated)->except('users')->toArray();
 		$users = $validated['users'];
 
+		// inserisco nell'array il creatore del progetto, che è l'utente attualmente loggato
+		$projectData['creator_id'] = Auth::id(); 
+
 		DB::transaction(function () use ($projectData, $users) {
 			// Creazione record nel Database
 			$project = Project::create($projectData);
-			$project->users()->attach($users);
-			$project->creator()->associate(Auth::user());
+            $project->users()->attach($users);
 		}
         );
 	   
@@ -120,11 +123,11 @@ class ProjectController extends Controller
 	{
 		// validazione
 		$validated = request()->validate([
-			'title' => ['required','min:3','max:128', 'unique:projects,title'],
+			'title' => ['required', 'min:3', 'max:128', Rule::unique('projects')->ignore($project->id)],
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
 			'funding_agency' => ['nullable','min:3','max:128'],
-			'status' => ['required','min:3','max:128'],
+			'status' => ['required', Rule::enum(ProjectStatusType::class)],
 			'start_date' => ['nullable','date'],
 			'end_date' => ['nullable','date','after:start_date'],
 		]);

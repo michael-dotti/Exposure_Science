@@ -89,6 +89,5 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsSeeder::class);
         $this->call(CourseSeeder::class);
         $this->call(ProjectSeeder::class);
-        $this->call(ProjectStatusSeeder::class);
     }
 }
