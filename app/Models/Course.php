@@ -19,8 +19,4 @@ class Course extends Model
         return $this->belongsToMany(User::class)->withTimestamps()->withTrashed();
     }
 
-    public function news():BelongsToMany
-    {
-        return $this->belongsToMany(News::class);
-    }
 }
