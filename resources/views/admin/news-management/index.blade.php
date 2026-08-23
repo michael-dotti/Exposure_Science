@@ -6,16 +6,14 @@
 
     <div class="space-y-4 mt-4">
         @if($news->isEmpty())
-            <x-message-of-empty title="Nessuna notizia trovata" description="Crea la prima notizia del sito">
-                <x-button-create href="{{ route('admin.news-management.create') }}" text="Nuova News" class="mt-2"></x-button-create>
-            </x-message-of-empty>
+            <x-message-of-empty title="Nessuna Notizia Trovata" />
         @else
             @foreach ($news as $n)
                 <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
                     
                     @if($n->image_path) {{-- if non necessario, image_path è obbligatorio --}}
                         <div class="shrink-0 w-48">
-                            <img src="{{ asset('storage/' . $n->image_path) }}"
+                            <img src="{{ Storage::url($n->image_path) }}"
                                 alt="{{ $n->title }}" 
                                 class="w-full h-40 object-contain rounded-md border border-white/10">
                         </div>

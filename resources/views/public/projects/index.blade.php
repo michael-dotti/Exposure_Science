@@ -17,11 +17,7 @@
 	<div class="max-w-4xl mx-auto">
 		<!-- controlle se ci sono progetti nel sito -->
 		@if ($projects->isEmpty())
-			<div class="py-10 text-center">
-				<p class="text-base text-gray-300">
-					Al momento non sono presenti progetti.
-				</p>
-			</div>
+			<x-message-of-empty title="Al Momento Non Sono Presenti Progetti" image="fas fa-chart-bar" />
 		@else
 			<div class="grid grid-cols-2 gap-4">
 				<!-- ciclo sui progetti nel sito (i tot che paginate del controller mi ha dato) -->

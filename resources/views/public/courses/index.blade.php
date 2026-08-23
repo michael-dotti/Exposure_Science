@@ -19,11 +19,7 @@
         <div class="max-w-4xl px-4 mx-auto lg:px-6">
 
             @if ($courses->isEmpty())
-                <div class="py-10 text-center">
-                    <p class="text-base text-gray-300">
-                        Al momento non sono presenti corsi.
-                    </p>
-                </div>
+                <x-message-of-empty title="Al Momento Non Sono Presenti Corsi" image="fa-solid fa-person-chalkboard" />
             @else
                 <div class="grid gap-5 md:grid-cols-2">
 

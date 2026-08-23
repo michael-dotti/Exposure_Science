@@ -48,7 +48,7 @@
                 </a>
             </div>
         @else
-            <x-message-of-empty title="Nessuna News al Momento" image="fa-regular fa-newspaper" />
+            <x-message-of-empty title="Nessuna Notizia al Momento" image="fa-regular fa-newspaper" />
         @endif
     </div>
 
