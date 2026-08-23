@@ -42,17 +42,18 @@ class RoleAndPermissionSeeder extends Seeder
         $newsManager->givePermissionTo('management news');
 
         $projectsManager = Role::create(['name'=>'projects manager']);
+        $projectsManager->givePermissionTo('create projects');
         $projectsManager->givePermissionTo('manage my projects');
 
         $bigProjectsManager = Role::create(['name'=>'big projects manager']);
-        $bigProjectsManager->givePermissionTo('create projects');
+        $bigProjectsManager->givePermissionTo($projectsManager->permissions);
         $bigProjectsManager->givePermissionTo('manage all projects');
 
         $reliableResearcher = Role::create(['name'=>'reliable researcher']);
         $reliableResearcher->givePermissionTo($Researcher->permissions);
+        $reliableResearcher->givePermissionTo($bigProjectsManager->permissions);
         $reliableResearcher->givePermissionTo('edit all articles');
         $reliableResearcher->givePermissionTo('management events');
-        $reliableResearcher->givePermissionTo('manage my projects');
 
         $teacher = Role::create(['name'=>'teacher']);
         $teacher->givePermissionTo('teaching');

@@ -145,7 +145,7 @@ Route::middleware([
         Route::post('/admin/projects', 'store')->name('admin.projects.store');
         Route::get('/admin/projects/{project}/edit','edit')->name('admin.projects.edit')->middleware(['permission:manage my projects']);
         Route::patch('/admin/projects/{project}', 'update')->name('admin.projects.update');
-        Route::delete('/admin/projects/{project}', 'destroy')->name('admin.projects.destroy');
+        Route::delete('/admin/projects/{project}', 'destroy')->name('admin.projects.destroy')->middleware(['permission:manage my projects']);
     });
     
     Route::middleware(['permission:management users'])->group(function (){
