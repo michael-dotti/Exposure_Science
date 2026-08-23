@@ -303,7 +303,10 @@ class ArticleController extends Controller
         $article->delete();
 
         // 4) redirect: Si usa il redirect dopo aver modificato il database
-        return $this->redirectBackOrTo('admin.articles.index');
+        return $this->redirectBackOrTo('admin.articles.index')->with(
+                'success',
+                'Corso eliminato correttamente.'
+            );
     }
     
 }
