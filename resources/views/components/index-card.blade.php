@@ -40,7 +40,7 @@
             {{ $details ?? '' }}
 
             @isset($description)
-                <p class="mt-3 text-sm leading-5 text-gray-400">
+                <p class="mt-3 max-w-full break-words text-sm leading-5 text-gray-400 [overflow-wrap:anywhere]">
                     {{ $description }}
                 </p>
             @endisset
