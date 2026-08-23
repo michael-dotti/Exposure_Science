@@ -19,11 +19,7 @@
         <div class="max-w-4xl px-4 mx-auto lg:px-6">
 
             @if ($users->isEmpty())
-                <div class="py-10 text-center">
-                    <p class="text-base text-gray-300">
-                        Al momento non sono presenti membri del team.
-                    </p>
-                </div>
+                <x-message-of-empty title="Al momento non sono presenti membri del team" image="fas fa-user" />
             @else
                 <div class="grid gap-5 md:grid-cols-2">
 

@@ -85,10 +85,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ResearchAreaSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(EventSeeder::class);
-       // $this->call(ArticleSeeder::class);
-      //  $this->call(NewsSeeder::class);
-      //  $this->call(CourseSeeder::class);
-       // $this->call(ProjectSeeder::class);
+        $this->call(ArticleSeeder::class);
+        $this->call(NewsSeeder::class);
+        $this->call(CourseSeeder::class);
+        $this->call(ProjectSeeder::class);
         $this->call(ProjectStatusSeeder::class);
     }
 }
