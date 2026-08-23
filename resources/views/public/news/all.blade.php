@@ -12,7 +12,7 @@
                     <div class="flex justify-center items-center">
                         <div class="grid grid-cols-2 gap-4">
                             @foreach ($news as $n)
-                                <x-news-block :n='$n' where="public"/>
+                                <x-news-block :n='$n' hrefShow="{{ route('public.news.show',$n->id) }}"/>
                             @endforeach
                         </div>
                     </div>

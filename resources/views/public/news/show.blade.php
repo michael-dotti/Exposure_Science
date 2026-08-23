@@ -1,5 +1,6 @@
 <x-layout-public>
     <x-slot:title>
+        {{ $n->title }}
     </x-slot:title>
     <x-slot:heading>
         <div class="text-white text-3xl"> {{ $n->title }} </div>
@@ -13,7 +14,7 @@
 
             </div>
             <div class="mb-6 text-small text-white">
-                <img src="{{ Storage::url($n->imagePath) }}" alt="{{ $n->title }}" class="md:size-96 size-72" />
+                <img src="{{ Storage::url($n->image_path) }}" alt="{{ $n->title }}" class="md:size-96 size-72" />
             </div>
             </div>
         </div>

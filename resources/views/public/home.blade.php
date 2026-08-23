@@ -42,17 +42,17 @@
                             <div class="relative overflow-hidden border border-gray-500 rounded-lg flex-1 transition hover:-translate-y-1 h-32 md:h-auto md:bg-[#253041]/80 md:p-3">
                                 
                                 <div class="absolute inset-0 md:hidden bg-cover bg-center" 
-                                    style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url('{{ Storage::url($n->imagePath) }}');">
+                                    style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url('{{ Storage::url($n->image_path) }}');">
                                 </div>
 
-                                <a href="/public/news/{{ $n->id }}" class="relative z-10 flex flex-col justify-end md:justify-start h-full p-3 md:p-0">
+                                <a href="{{ route('public.news.show',$n->id) }}" class="relative z-10 flex flex-col justify-end md:justify-start h-full p-3 md:p-0">
                                     
                                     <span class="font-bold text-sm text-white hover:text-blue-400 transition mb-1 md:mb-0"> 
                                         {{ $n->title }} 
                                     </span> 
                                     
                                     <div class="h-24 overflow-hidden rounded hidden md:block my-2">
-                                        <img src="{{ Storage::url($n->imagePath) }}" alt="news_image" class="w-full h-full object-cover">
+                                        <img src="{{ Storage::url($n->image_path) }}" alt="news_image" class="w-full h-full object-cover">
                                     </div>
 
                                     <p class="text-xs text-gray-300 mt-auto md:mt-0">

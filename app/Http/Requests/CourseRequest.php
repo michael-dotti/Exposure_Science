@@ -95,39 +95,11 @@ class CourseRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Il titolo è obbligatorio.',
-            'title.min' => 'Il titolo deve contenere almeno 3 caratteri.',
-            'title.max' => 'Il titolo può contenere al massimo 255 caratteri.',
-
-            'language.required' => 'La lingua è obbligatoria.',
-            'language.max' => 'La lingua può contenere al massimo 255 caratteri.',
-
-            'code.required' => 'Il codice è obbligatorio.',
-            'code.max' => 'Il codice può contenere al massimo 10 caratteri.',
-            'code.unique' => 'Esiste già un corso con questo codice.',
-
-            'points.required' => 'Il numero di crediti è obbligatorio.',
-            'points.integer' => 'I crediti devono essere un numero intero.',
-            'points.min' => 'I crediti devono essere maggiori di zero.',
-            'points.max' => 'I crediti non possono essere maggiori di 255.',
-
-            'semester.required' => 'Il semestre è obbligatorio.',
-            'semester.integer' => 'Il semestre deve essere un numero intero.',
-            'semester.min' => 'Il semestre deve essere maggiore di zero.',
-            'semester.max' => 'Il semestre non può essere maggiore di 255.',
-
-            'duration.required' => 'La durata è obbligatoria.',
-            'duration.integer' => 'La durata deve essere un numero intero.',
-            'duration.min' => 'La durata deve essere maggiore di zero.',
-
-            'description.required' => 'La descrizione è obbligatoria.',
-
-            'teachers.required' => 'Devi selezionare almeno un docente.',
-            'teachers.array' => 'La selezione dei docenti non è valida.',
-            'teachers.min' => 'Devi selezionare almeno un docente.',
-            'teachers.*.integer' => 'Uno dei docenti selezionati non è valido.',
-            'teachers.*.distinct' => 'Lo stesso docente è stato selezionato più volte.',
-            'teachers.*.exists' => 'Uno dei docenti selezionati non è valido.',
+            // Messaggio specifico per il controllo sul permesso "teaching"
+            'teachers.*.in' => 'Uno dei docenti selezionati non ha i permessi per insegnare.',
+            
+            // (Opzionale) Se vuoi una sfumatura diversa da quella di default
+            'teachers.required' => 'Devi selezionare almeno un docente per il corso.',
         ];
     }
 }

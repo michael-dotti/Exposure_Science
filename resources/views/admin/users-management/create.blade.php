@@ -23,7 +23,7 @@
         </x-content-section>
 
         <x-content-section>
-            <x-label class="md:text-lg mb-6" :required="true" >Assegna un ruolo al nuovo utente</x-label>
+            <x-label class="md:text-lg mb-6" >Assegna un ruolo al nuovo utente</x-label>
             <div class="grid grid-flow-col grid-rows-4 gap-x-10 gap-y-3 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-4">
                 @foreach ($roles as $role)
                     <x-role-checkbox :role="$role" />

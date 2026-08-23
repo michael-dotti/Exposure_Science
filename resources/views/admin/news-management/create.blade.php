@@ -4,7 +4,7 @@
     </x-slot:title>
    
     
-    <x-form-layout action="/admin/news-management" method="POST" :has-files="true">
+    <x-form-layout action="{{ route('admin.news-management.store') }}" method="POST" :has-files="true">
       
       <x-slot:header>
         <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
@@ -20,14 +20,14 @@
       </div>
       
       <div>
-        <x-label name="imagePath" :required="true">Immagine</x-label>
-        <x-image-preview-news name="imagePath"/>
-        <x-form-error name="imagePath"/>
+        <x-label name="image_path" :required="true">Immagine</x-label>
+        <x-image-preview-news name="image_path"/>
+        <x-form-error name="image_path"/>
       </div>
       
       <x-slot:buttons>
         <x-save-button type="submit">Salva</x-save-button>
-        <a href="/admin/news-management">
+        <a href="{{ route('admin.news-management.index') }}">
           <x-danger-button type="button">Annulla</x-danger-button>
         </a>
       </x-slot:buttons>
