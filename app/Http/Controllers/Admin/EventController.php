@@ -139,6 +139,9 @@ class EventController extends Controller
         }
         
         // 5) Redirect
-        return $this->redirectBackOrTo('admin.events.index');
+        return $this->redirectBackOrTo('admin.events.index')->with(
+                'success',
+                'Eventi eliminati correttamente.'
+            );
     }
 }

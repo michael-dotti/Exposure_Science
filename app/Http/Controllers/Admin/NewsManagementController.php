@@ -62,7 +62,10 @@ class NewsManagementController extends Controller
         News::create($newsData);
 
        
-        return redirect()->route('admin.news-management.index');
+        return redirect()->route('admin.news-management.index')->with(
+                'success',
+                'Notizia creata correttamente.'
+            );
     }
 
     public function edit(News $news)
@@ -106,7 +109,10 @@ class NewsManagementController extends Controller
         }
 
         $news->update($validated);
-        return redirect()->route('admin.news-management.index');
+        return redirect()->route('admin.news-management.index')->with(
+                'success',
+                'Notizia modifica correttamente.'
+            );
     }
 
 
@@ -121,6 +127,9 @@ class NewsManagementController extends Controller
 
         $news->delete();
 
-        return $this->redirectBackOrTo('admin.news-management.index');
+        return $this->redirectBackOrTo('admin.news-management.index')->with(
+                'success',
+                'Notizia eliminata correttamente.'
+            );
     }
 }

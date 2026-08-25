@@ -104,7 +104,10 @@ class ProjectController extends Controller
 		}
         );
 	   
-		return redirect()->route('admin.projects.index');
+		return redirect()->route('admin.projects.index')->with(
+                'success',
+                'Progetto creato correttamente.'
+            );
 	}
 	
 	public function edit(Project $project)

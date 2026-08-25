@@ -100,7 +100,10 @@ class EventManagementController extends Controller
             }
         });
         
-        return redirect()->route('admin.events-management.index');
+        return redirect()->route('admin.events-management.index')->with(
+                'success',
+                'Evento creato correttamente.'
+            );
     }
 
 
@@ -121,7 +124,10 @@ class EventManagementController extends Controller
         }
         else {
              // 4) Altrimenti, se non ci sono più eventi nel sistema, torna alla index di gestione
-            return redirect()->route('admin.events-management.index');
+            return redirect()->route('admin.events-management.index')->with(
+                'success',
+                'Evento eliminato correttamente.'
+            );
         }
 
     }
@@ -147,6 +153,9 @@ class EventManagementController extends Controller
         }
         
         // 5) Redirect
-        return $this->redirectBackOrTo('admin.events-management.index');
+        return $this->redirectBackOrTo('admin.events-management.index')->with(
+                'success',
+                'Eventi eliminati correttamente.'
+            );
     }
 }

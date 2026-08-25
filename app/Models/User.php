@@ -191,7 +191,7 @@ class User extends Authenticatable
 
 
                 // 2) se l'utente è admin, ignora tutti gli altri ruoli e mostra solo questo ruolo
-                if ($roles->contains('admin')) {
+                if ($roles->contains('name', 'admin')) {
                     return collect(['admin']);
                 }
 

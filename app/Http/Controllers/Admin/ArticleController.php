@@ -165,7 +165,10 @@ class ArticleController extends Controller
         });
 
         // 3) redirect
-        return redirect()->route('admin.articles.index'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
+        return redirect()->route('admin.articles.index')->with(
+                'success',
+                'Articolo creato correttamente.'
+            ); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
     }
 
     // edit =porta alla pagina di modifica articolo
@@ -282,7 +285,10 @@ class ArticleController extends Controller
         }
         );
 
-        return redirect()->route('admin.articles.index'); //Nota Bene: il redirect ha bisogno dell'url. Si usa il redirect dopo aver modificato il database
+        return redirect()->route('admin.articles.index')->with(
+                'success',
+                'Articolo modificato correttamente.'
+            ); //Nota Bene: Si usa il redirect dopo aver modificato il database
     }
 
     // destroy = distrugge un articolo
@@ -305,7 +311,7 @@ class ArticleController extends Controller
         // 4) redirect: Si usa il redirect dopo aver modificato il database
         return $this->redirectBackOrTo('admin.articles.index')->with(
                 'success',
-                'Corso eliminato correttamente.'
+                'Articolo eliminato correttamente.'
             );
     }
     

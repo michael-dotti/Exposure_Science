@@ -187,17 +187,15 @@
             </x-content-section>
 
             <x-slot:buttons>
+                <x-save-button type="submit">
+                    Salva
+                </x-save-button>
 
                 <a href="{{ route('admin.articles.index') }}">
                     <x-danger-button type="button">
                         Annulla
                     </x-danger-button>
                 </a>
-
-                <x-save-button type="submit">
-                    Salva
-                </x-save-button>
-
             </x-slot:buttons>
 
         </x-form-layout>

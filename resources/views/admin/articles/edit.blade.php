@@ -220,18 +220,15 @@
             </x-content-section>
 
             <x-slot:buttons>
-
+                <x-save-button type="submit">
+                    Salva modifiche
+                </x-save-button>
                 <x-danger-button
                     type="submit"
                     form="delete_form"
                 >
                     Elimina
                 </x-danger-button>
-
-                <x-save-button type="submit">
-                    Salva modifiche
-                </x-save-button>
-
             </x-slot:buttons>
 
         </x-form-layout>
