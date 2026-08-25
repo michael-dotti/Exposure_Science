@@ -180,33 +180,60 @@ class User extends Authenticatable
     }
 
     /**
-     * Filtra i ruoli per la visualizzazione in admin.users-management.index
+     * Filtra i ruoli per la visualizzazione
      */
     protected function displayRoles(): Attribute
     {
         return Attribute::make(
             get: function() {
-                // 1) recupera l'elenco dei ruoli (come stringhe)
-                $allRoles = $this->roles->pluck('name');
+                // 1) recupera l'elenco dei ruoli di questo User
+                $roles = $this->roles->loadMissing('permissions');
 
 
                 // 2) se l'utente è admin, ignora tutti gli altri ruoli e mostra solo questo ruolo
-                if ($allRoles->contains('admin')) {
+                if ($roles->contains('admin')) {
                     return collect(['admin']);
                 }
 
 
-                // 3) altrimenti, rimuovo il ruolo base "researcher"
-                $filteredRoles = $allRoles->reject(fn($role) => $role === 'researcher');
+                // 3) creo una collection vuota
+                $topLevelRoles = collect(); 
 
-                // 4) se l'utente non ha più ruoli, significa che era solo un ricercatore base, quindi restituisco quel ruolo
-                if ($filteredRoles->isEmpty() && $allRoles->contains('researcher')) {
-                    
-                    return collect(['researcher']);
+                // 4) Confronto i ruoli posseduti dall'utente tra di loro
+                // primo ciclo, scorro tutti i ruoli dell'utente
+                foreach ($roles as $currentRole) {
+                    $isSubsumed = false;
+                    $currentPerms = $currentRole->permissions->pluck('name'); // estrae i permessi legati a questo ruolo
+
+                    // secondo ciclo per confrontare il ruolo attuale con gli altri ruoli
+                    foreach ($roles as $otherRole) {
+                        // Non confrontare il ruolo con se stesso
+                        if ($currentRole->id === $otherRole->id) {
+                            continue;
+                        }
+
+                        $otherPerms = $otherRole->permissions->pluck('name'); // estraggo i permessi del secondo ruolo
+
+                        
+                        // Se la differenza tra i permessi correnti e gli altri è vuota,
+                        // significa che $otherRole possiede TUTTI i permessi di $currentRole.
+                        // Se $otherRole ha anche PIÙ permessi, allora $currentRole è un sottoinsieme.
+                        if ($currentPerms->diff($otherPerms)->isEmpty() && $otherPerms->count() > $currentPerms->count()) { 
+                            $isSubsumed = true;
+                            break; // Inutile controllare altri ruoli, questo è già "assorbito"
+                        }
+
+                        // $group1->diff($group2) = prende gli elementi del primo e rimuove quelli presenti nel secondo
+                        // $otherPerms->count() > $currentPerms->count() = verifica che il ruolo B ($otherPerms) contiene davvero più permessi del ruolo A ($currentPerms)
+                    }
+
+                    // Se il ruolo non è stato assorbito da nessun altro ruolo più grande, lo teniamo
+                    if (!$isSubsumed) {
+                        $topLevelRoles->push($currentRole->name);
+                    }
                 }
 
-                // 5) altrimenti, restituisco tutti i ruoli "speciali" (gestore notizie, gestore progetti, ecc...)
-                return $filteredRoles;
+                return $topLevelRoles;
             }
         );
     }
