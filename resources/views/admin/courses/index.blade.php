@@ -164,4 +164,4 @@
     <div class="mt-6">
         {{ $courses->links() }}
     </div>
-    </x-layout-private>
+</x-layout-private>

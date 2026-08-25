@@ -1,45 +1,51 @@
 <x-layout-private>
     <x-slot:title>
-        Gestione News
+        Gestione Notizie
     </x-slot:title>
     <x-button-create href="{{ route('admin.news-management.create') }}">Nuova Notizia</x-button-create>
 
-    <div class="space-y-4 mt-4">
-        @if($news->isEmpty())
-            <x-message-of-empty title="Nessuna Notizia Trovata" />
-        @else
-            @foreach ($news as $n)
-                <div class="flex px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
-                    
-                    @if($n->image_path) {{-- if non necessario, image_path è obbligatorio --}}
-                        <div class="shrink-0 w-48">
-                            <img src="{{ Storage::url($n->image_path) }}"
+   <div class="space-y-3">
+        @forelse ($news as $n)
+            <x-index-card
+                :href="route('admin.news-management.show', $n)"
+                :title="$n->title" 
+            >
+                <x-slot:image>
+                    <div class="flex h-36 w-full items-center justify-center overflow-hidden rounded-lg border border-blue-400/20 bg-blue-500/5">
+                        <img src="{{ Storage::url($n->image_path) }}"
                                 alt="{{ $n->title }}" 
                                 class="w-full h-40 object-contain rounded-md border border-white/10">
-                        </div>
-                    @endif
-                    
-                    <div class="block pl-3">
-                        <div class="text-white" >
-                            <a href="{{ route('admin.news-management.show',$n->id) }}" class="hover:underline">
-                                <strong>{{ $n->title }}</strong>
-                            </a>
-                            : 
-                            <p class="text-sm mt-1"> {{ Str::limit(strip_tags($n->content), 240, '...') }} </p>
-                        </div>
-
-                        <div class="mt-4 flex gap-2">
-                            <x-modify-button-link href="{{ route('admin.news-management.edit',$n->id) }}">Modifica</x-modify-button-link>
-                            <x-danger-button form="delete_form_{{ $n->id }}" type="submit">Elimina</x-danger-button>
-                            <form method="POST" action="{{ route('admin.news-management.destroy',$n->id) }}" class="hidden" id="delete_form_{{ $n->id }}">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                        </div>
-
                     </div>
-                </div>
-                @endforeach
-        @endif
+                </x-slot:image>
+
+                <x-slot:description>
+                    {{ \Illuminate\Support\Str::limit(
+                        strip_tags($n->content),
+                        180
+                    ) }}
+                </x-slot:description>
+                <x-slot:actions>
+                    <x-modify-button-link href="{{ route('admin.news-management.edit',$n->id) }}">
+                        Modifica
+                    </x-modify-button-link>
+                    <x-danger-button form="delete_form_{{ $n->id }}" type="submit">
+                        Elimina
+                    </x-danger-button>
+                    <form 
+                        method="POST" 
+                        action="{{ route('admin.news-management.destroy',$n->id) }}" 
+                        class="hidden" 
+                        id="delete_form_{{ $n->id }}"
+                    >
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </x-slot:actions>  
+
+            </x-index-card>
+        @empty
+            <x-message-of-empty title="Nessuna Notizia Trovata" image="fas fa-newspaper" />
+        @endforelse
+        
     </div>
 </x-layout-private>

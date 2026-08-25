@@ -1,9 +1,8 @@
 <x-layout-private>
     <x-slot:title>
-		Nuova notizia
+		Creazione Nuova Notizia
     </x-slot:title>
    
-    
     <x-form-layout action="{{ route('admin.news-management.store') }}" method="POST" :has-files="true">
       
       <x-slot:header>
@@ -25,14 +24,6 @@
         </div>
       </x-content-section>
 
-      @if ($errors->any())
-        <div class="space-y-2 mb-4">
-            @foreach ($errors->all() as $error)
-                <x-error-message>{{ $error }}</x-error-message>
-            @endforeach
-        </div>
-      @endif
-      
       <x-slot:buttons>
         <x-save-button type="submit">Salva</x-save-button>
         <a href="{{ route('admin.news-management.index') }}">
