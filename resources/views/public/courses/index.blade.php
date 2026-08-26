@@ -80,14 +80,14 @@
 
                                         </div>
 
-                                        @if ($course->description)
-                                            <p class="mt-4 text-sm leading-6 text-gray-300">
-                                                {{ \Illuminate\Support\Str::limit(
-                                                    strip_tags($course->description),
-                                                    120
-                                                ) }}
-                                            </p>
-                                        @endif
+                                        {{-- DESCRIZIONE CORSO --}}
+                                        <p class="mt-4 text-sm leading-6 text-gray-300">
+                                            {{ \Illuminate\Support\Str::limit(
+                                                strip_tags($course->description),
+                                                120
+                                            ) }}
+                                        </p>
+                                        
                                     </div>
 
                                     <div class="mt-4">

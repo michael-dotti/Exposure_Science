@@ -156,8 +156,7 @@
             </x-index-card>
 
         @empty
-            <x-message-of-empty title="Nessun corso trovato">
-            </x-message-of-empty>
+            <x-message-of-empty title="Nessun corso trovato" image="" />
         @endforelse
     </div>
 

@@ -4,7 +4,8 @@
     'hasFiles' => false,
     'title' => '',
     'button_back' => true,
-    'divider' => true // stabilisce se inserire le linee che separato le diverse parti del form (titolo, input, pulsanti)
+    'divider' => true, // stabilisce se inserire le linee che separato le diverse parti del form (titolo, input, pulsanti)
+    'required_field_note' => true // inserire sotto l'header, al nota che ricorda che i campi con l'asterisco (*) rosso sono obbligatori
 ])
 
 @php
@@ -44,6 +45,7 @@
                 <div class="flex justify-between items-center w-full my-4">
                     <div>
                         {{ $header }}
+                        @if ($required_field_note) <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> @endif
                     </div>
 
                     @if ($button_back)
@@ -56,6 +58,7 @@
                 @elseif ($title)
                     <h1 class="text-base font-semibold text-white">
                         {{ $title }}
+                        @if ($required_field_note) <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> @endif
                     </h1>
                     @if ($button_back)
                         <div>

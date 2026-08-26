@@ -34,8 +34,9 @@
 
             <div class="flex justify-center items-center">
                 <div class="grid grid-cols-2 gap-4">
-                    @for ($i = 1; $i < count($news); $i++)
-                        <x-news-block :n="$news[$i]" hrefShow="{{ route('public.news.show',$n->id) }}"/>
+                    @foreach ($news as $n)
+                        @if ($this-isfirst()) continue @endif
+                        <x-news-block :n="$n" hrefShow="{{ route('public.news.show',$n->id) }}"/>
                     @endfor
                 </div>
             </div>

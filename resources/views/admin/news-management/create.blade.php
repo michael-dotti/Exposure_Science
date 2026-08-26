@@ -7,7 +7,6 @@
       
       <x-slot:header>
         <h1 class="text-base/7 font-semibold text-white">Nuova notizia</h1>
-        <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p>
       </x-slot:header>
 
       <x-content-section>
