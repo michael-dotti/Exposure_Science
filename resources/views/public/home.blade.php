@@ -99,16 +99,16 @@
 
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($news as $n)
-
-                        <a
+                    <x-news-block :n='$n' hrefShow="{{ route('public.news.show',$n->id) }}" />
+                        <!-- <a
                             href="{{ route('public.news.show', $n) }}"
                             class="group overflow-hidden rounded-xl border border-white/10 bg-slate-800/50 transition duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-slate-800"
                         >
                             <div class="h-48 overflow-hidden">
-                                @if($n->imagePath)
+                                @if($n->image_path)
 
                                     <img
-                                        src="{{ Storage::url($n->imagePath) }}"
+                                        src="{{ Storage::url($n->image_path) }}"
                                         alt="{{ $n->title }}"
                                         class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                     >
@@ -139,12 +139,12 @@
                                     Leggi la novità →
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                     @endforeach
                 </div>
                 <div class="mt-10 text-center">
                     <a
-                        href="{{ route('public.news.index') }}"
+                        href="{{ route('public.news.all') }}"
                         class="inline-flex items-center rounded-lg border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-gray-200 transition hover:bg-white/10 hover:text-white"
                     >
                         Visualizza tutte le novità →

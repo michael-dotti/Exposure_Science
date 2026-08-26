@@ -32,12 +32,15 @@
             </a>
             </div>
 
-            <div class="flex justify-center items-center">
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach ($news as $n)
-                        @if ($this-isfirst()) continue @endif
-                        <x-news-block :n="$n" hrefShow="{{ route('public.news.show',$n->id) }}"/>
-                    @endfor
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {{-- Salto la prima notizia usando $news->skip(1) --}}
+                    @foreach ($news->skip(1) as $n)  
+                        <x-news-block  
+                            :n="$n" 
+                            :hrefShow="route('public.news.show',$n->id)" 
+                        />
+                    @endforeach
                 </div>
             </div>
         
