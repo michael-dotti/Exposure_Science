@@ -1,13 +1,9 @@
 <x-layout-public :fullWidth="true">
-
     <x-slot:title>
         Home
     </x-slot:title>
-
-    <x-slot:heading>
-    </x-slot:heading>
-
-    <section class="relative flex min-h-[75vh] items-center overflow-hidden text-white">
+    
+    <section class="relative flex min-h-[85vh] items-center overflow-hidden text-white">
         <div class="absolute inset-0">
 
             <img
@@ -17,7 +13,7 @@
             >
             <div class="absolute inset-0 bg-black/60"></div>
 
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent"></div>
 
         </div>
         <div class="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10">

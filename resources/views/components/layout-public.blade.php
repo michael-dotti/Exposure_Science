@@ -85,23 +85,26 @@
         </div>
       </nav>
 
-
-        <header class=" pt-16 relative bg-gray-800 after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold tracking-tight text-white ">{{ $heading }}</h1>
-        </div>
-      </header>
-      <main>
-        @if ($fullWidth)
-          {{ $slot }}
-        @else
-          {{-- Div con class dimensione massima e padding-y: max-w-7xl py-6 --}}
-        <div class="mx-auto px-4 py-6 max-w-7xl sm:px-6 lg:px-8">
-          {{ $slot }}
-        </div>
-        @endif
-        
-      </main>
+      <div class="pt-16">
+        @if(isset($heading) && (string) $heading !== '') 
+          <header class="relative bg-gray-800 after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+              <h1 class="text-3xl font-bold tracking-tight text-white ">{{ $heading }}</h1>
+            </div>
+          </header>
+        @endif 
+        <main>
+          @if ($fullWidth)
+            {{ $slot }}
+          @else
+            {{-- Div con class dimensione massima e padding-y: max-w-7xl py-6 --}}
+          <div class="mx-auto px-4 py-6 max-w-7xl sm:px-6 lg:px-8">
+            {{ $slot }}
+          </div>
+          @endif
+          
+        </main>
+      </div>
     @livewireScripts 
     {{-- necessario insieme a @livewireStyles, nel tag <head>, per caricare Alpine --}}
 
