@@ -43,6 +43,10 @@
             'text-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600', 
             'Gestore Progetti'
         ],
+        'projects admin' => [
+            'text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600', 
+            'Amministratore Progetti'
+        ],
         // Gray / Mist / Default Base
         default => [
             'text-gray-500 focus:ring-gray-500 dark:focus:ring-gray-600', 

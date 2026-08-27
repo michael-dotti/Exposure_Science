@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Actions\Fortify\PasswordValidationRules;
+use Illuminate\Support\Facades\DB;
 
 class UserManagementController extends Controller
 {
@@ -57,30 +58,30 @@ class UserManagementController extends Controller
             'password' => $this->passwordRules()
         ]);
 
-        // 2) creare nuovo User
-        $user = User::create([
-            'name' => $validated['name'],
-            'surname' => $validated['surname'],
-            'email' => $validated['email'], 
-            'password' => Hash::make($validated['password']),
-        ]);
+        
+        $user = DB::transaction(function () use ($validated) {
+            // 2) creare nuovo User
+            $user = User::create([
+                'name' => $validated['name'],
+                'surname' => $validated['surname'],
+                'email' => $validated['email'], 
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        // 3) Assegna ruoli
-        $roles = $validated['roles'] ?? []; 
-    
-        if (!empty($roles)) {
-            $user->assignRole(array_map('intval', $roles)); // array_map('intval', array_di_id) = converte gli id dell'array in variabili di tipo 'int'
-        }
-       
+            // 3) Assegna ruoli (assegna il ruolo 'researcher' se l'array è vuoto)
+            if (!empty($validated['roles'])) {
+                $user->assignRole(array_map('intval', $validated['roles']));
+            } else {
+                $user->assignRole('researcher');
+            }
+
+            return $user;// Nota Bene: le variabili definite dentro a DB::transaction() non sono utilizzabili all'esterno a meno che non le restituisci
+        });
 
         // 4) redirect
         return redirect()->route('admin.users-management.index')->with('success', 'Nuovo utente creato: ' . $user->name . ' ' . $user->surname . '.');
     }
     
-   /*  public function edit()
-    {
-        
-    } */
 
     public function update(User $user)
     {

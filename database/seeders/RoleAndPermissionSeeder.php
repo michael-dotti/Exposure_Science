@@ -45,7 +45,7 @@ class RoleAndPermissionSeeder extends Seeder
         $projectsManager->givePermissionTo('create projects');
         $projectsManager->givePermissionTo('manage my projects');
 
-        $bigProjectsManager = Role::create(['name'=>'big projects manager']);
+        $bigProjectsManager = Role::create(['name'=>'projects admin']);
         $bigProjectsManager->givePermissionTo($projectsManager->permissions);
         $bigProjectsManager->givePermissionTo('manage all projects');
 
