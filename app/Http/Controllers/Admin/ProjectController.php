@@ -30,8 +30,8 @@ class ProjectController extends Controller
                 function ($query) use ($request) {
                     $query->whereHas(
                         'creator',
-                        function ($teacherQuery) use ($request) {
-                            $teacherQuery->where(
+                        function ($ProjectQuery) use ($request) {
+                            $ProjectQuery->where(
                                 'users.id',
                                 $request->integer('userId')
                             );
@@ -46,8 +46,8 @@ class ProjectController extends Controller
                 function ($query) use ($request) {
                     $query->whereHas(
                         'creator',
-                        function ($teacherQuery) use ($request) {
-                            $teacherQuery->where(
+                        function ($ProjectQuery) use ($request) {
+                            $ProjectQuery->where(
                                 'users.id',
                                 $request->integer('userId')
                             );

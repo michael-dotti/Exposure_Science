@@ -4,7 +4,7 @@
     </x-slot:title>
 
     <x-dashboard-index-header
-        title="Gestione articoli"
+        title="Gestione Articoli"
         subtitle="Visualizza e gestisci gli articoli presenti nel portale"
     >
         <x-slot:actions>

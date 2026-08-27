@@ -3,7 +3,7 @@
     'subtitle'=>''
 ])
 
-<div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+<div class="my-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div>
         <h1 class="text-xl font-bold text-white">
             {{ $title }}

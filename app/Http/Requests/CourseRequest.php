@@ -98,7 +98,6 @@ class CourseRequest extends FormRequest
             // Messaggio specifico per il controllo sul permesso "teaching"
             'teachers.*.in' => 'Uno dei docenti selezionati non ha i permessi per insegnare.',
             
-            // (Opzionale) Se vuoi una sfumatura diversa da quella di default
             'teachers.required' => 'Devi selezionare almeno un docente per il corso.',
         ];
     }
