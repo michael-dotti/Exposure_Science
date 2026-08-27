@@ -1,4 +1,9 @@
-@props(['events', 'bulkDeleteRoute', 'showRoute'])
+@props([
+    'events',
+    'bulkDeleteRoute',
+    'showRoute',
+    'table_title'=>'Ultime Notifiche ricevute' // per settare questo prop a "null", quando richiami il componente devi inserirgli una stringa vuota ''
+])
 <div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
         
         <div class="w-full flex flex-col flex-1 min-h-0">
@@ -6,9 +11,11 @@
             <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-gray-800 overflow-hidden">
                 
                 <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4 shrink-0">
-                    <div class="flex items-center flex-1 space-x-4">
-                        <h5 class="text-white">Ultime Notifiche ricevute</h5>
-                    </div>
+                    @if($table_title)
+                        <div class="flex items-center flex-1 space-x-4">
+                            <h5 class="text-white">{{ $table_title }}</h5>
+                        </div>
+                    @endif
                     <div class="flex flex-col shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                         {{ $buttons }}
                     </div>

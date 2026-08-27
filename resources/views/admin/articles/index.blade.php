@@ -3,23 +3,6 @@
         Articoli
     </x-slot:title>
 
-    <!-- <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-            <h1 class="text-xl font-bold text-white">
-                Gestione articoli
-            </h1>
-
-            <p class="mt-1 text-xs text-gray-400">
-                Visualizza e gestisci gli articoli presenti nel portale
-            </p>
-        </div>
-
-        @can('create', App\Models\Article::class)
-            <x-button-create href="{{ route('admin.articles.create') }}">
-                Nuovo Articolo
-            </x-button-create>
-        @endcan
-    </div> -->
     <x-dashboard-index-header
         title="Gestione articoli"
         subtitle="Visualizza e gestisci gli articoli presenti nel portale"
