@@ -56,13 +56,7 @@
 			</div>
 
 			<div class="-ml-2 mt-8">
-				<a href="/public/projects"
-					class="inline-flex items-center px-4 py-2 text-sm font-semibold
-							text-slate-900 transition rounded-md bg-amber-300
-							hover:bg-amber-200"
-				>
-					< Torna ai progetti
-				</a>
+				<x-public-botton-back title="Torna ai progetti" :href="route('public.projects.index')" />
 			</div>
 		</article>
 	</div>

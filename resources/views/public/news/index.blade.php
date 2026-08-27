@@ -33,7 +33,7 @@
             </div>
 
             <div class="max-w-6xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <x-public-news-grid>
                     {{-- Salto la prima notizia usando $news->skip(1) --}}
                     @foreach ($news->skip(1) as $n)  
                         <x-news-block  
@@ -41,7 +41,7 @@
                             :hrefShow="route('public.news.show',$n->id)" 
                         />
                     @endforeach
-                </div>
+                </x-public-news-grid>
             </div>
         
             <div class="my-4">

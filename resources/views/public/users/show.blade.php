@@ -8,13 +8,7 @@
 
 	<!-- bottone per tornare all'index del team -->
 	<div class="mt-1">
-		<a href="{{ route('public.users.index') }}"
-			class="inline-flex items-center px-4 py-2 text-sm font-semibold
-					text-slate-900 transition rounded-md bg-amber-300
-					hover:bg-amber-200"
-		>
-			< Torna al team
-		</a>
+		<x-public-botton-back title="Torna al team" :href="route('public.users.index')" />
 	</div>
 
 	<!-- Contenitore principale centrato nella pagina -->

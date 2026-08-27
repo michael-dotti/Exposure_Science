@@ -95,30 +95,7 @@
                     </div>
 
                     <div class="mt-8">
-                        <a
-                            href="/public/courses"
-
-                            
-                            class="inline-flex items-center px-4 py-2 text-sm font-semibold
-                                   text-slate-900 transition rounded-md bg-amber-300
-                                   hover:bg-amber-200"
-                        >
-                            <svg
-                                class="w-4 h-4 mr-2"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M15 19l-7-7 7-7"
-                                />
-                            </svg>
-
-                            Torna ai corsi
-                        </a>
+                        <x-public-botton-back title="Torna ai corsi" :href="route('public.courses.index')" />
                     </div>
 
                 </div>
