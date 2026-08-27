@@ -1,17 +1,27 @@
 <x-layout-private>
 	<x-slot:title>
 		@can('manage all projects') 
-			I progetti del Team
-		@endcan
-		@cannot('manage all projects')
-			I tuoi progetti
+			Progetti del Team
+		@else
+			I Tuoi Progetti
 		@endcan
 	</x-slot:title>
 	
-	<!-- pulsante di creazione -->
-	@can('create projects') 
-		<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
-	@endcan
+	<x-dashboard-index-header
+		:title="auth()->user()->can('manage all projects') ? 'Gestisci Progetti' : 'Visualizza Progetti'"
+        :subtitle="auth()->user()->can('manage all projects') 
+		? 'Visualizza e gestisci i progetti presenti nel portale' 
+		: (auth()->user()->can('manage my projects') 
+			? 'Visualizza e gestisci i tuoi progetti' 
+			:'Visualizza i progetti che ti sono stati assegnati')"
+	>
+		<x-slot:actions>
+			@can('create projects') 
+				<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
+			@endcan
+		</x-slot:actions>
+	</x-dashboard-index-header>
+	
 
 	@if (session('success'))
 		<div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">

@@ -2,7 +2,7 @@
     'events',
     'bulkDeleteRoute',
     'showRoute',
-    'table_title'=>'Ultime Notifiche ricevute' // per settare questo prop a "null", quando richiami il componente devi inserirgli una stringa vuota ''
+    'table_title'=>'Ultime Comunicazioni Ricevute' // per settare questo prop a "null", quando richiami il componente devi inserirgli una stringa vuota ''
 ])
 <div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
         

@@ -7,7 +7,7 @@
         :events="$events" 
         bulkDeleteRoute="admin.events-management.bulkDelete" 
         showRoute="admin.events-management.show"
-        table_title="Gestisci le comunicazioni per il team" 
+        table_title="Gestisci le Comunicazioni per il Team" 
         > {{-- paso il nome della rotta come stringa e utilizzo {{ route(...) }} dentro al componente stesso--}}
 
         <x-slot:buttons>
