@@ -3,7 +3,7 @@
         Articoli
     </x-slot:title>
 
-    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <!-- <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <h1 class="text-xl font-bold text-white">
                 Gestione articoli
@@ -19,7 +19,19 @@
                 Nuovo Articolo
             </x-button-create>
         @endcan
-    </div>
+    </div> -->
+    <x-dashboard-index-header
+        title="Gestione articoli"
+        subtitle="Visualizza e gestisci gli articoli presenti nel portale"
+    >
+        <x-slot:actions>
+            @can('create', App\Models\Article::class)
+                <x-button-create href="{{ route('admin.articles.create') }}">
+                    Nuovo Articolo
+                </x-button-create>
+            @endcan
+        </x-slot:actions>
+    </x-dashboard-index-header>
 
     @if (session('success'))
         <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">

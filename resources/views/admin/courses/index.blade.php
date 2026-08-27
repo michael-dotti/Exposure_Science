@@ -4,22 +4,17 @@
         Corsi
     </x-slot:title>
 
-    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-            <h1 class="text-xl font-bold text-white">
-                Gestione corsi
-            </h1>
-
-            <p class="mt-1 text-xs text-gray-400">
-                Visualizza e gestisci i corsi associati al tuo profilo
-            </p>
-        </div>
-
-        <x-button-create href="{{ route('admin.courses.create') }}">
-            Nuovo Corso
-        </x-button-create>
-    </div>
-
+    <x-dashboard-index-header 
+        title="Gestione corsi" 
+        subtitle="Visualizza e gestisci i corsi associati al tuo profilo"
+    >
+        <x-slot:actions>
+            <x-button-create href="{{ route('admin.courses.create') }}">
+                Nuovo Corso
+            </x-button-create>
+        </x-slot:actions>
+    </x-dashboard-index-header>
+    
     @if (session('success'))
         <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
             {{ session('success') }}
