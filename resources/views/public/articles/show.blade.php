@@ -10,14 +10,8 @@
 	</x-slot:heading>
 
 	<!-- bottone per tornare all'index degli articoli -->
-	<div class="mt-1">
-		<a href="{{ route('public.articles.index') }}"
-			class="inline-flex items-center px-4 py-2 text-sm font-semibold
-					text-slate-900 transition rounded-md bg-amber-300
-					hover:bg-amber-200"
-		>
-			< Torna agli articoli
-		</a>
+	<div class="mb-3">
+		<x-public-botton-back title="Torna agli articoli" />
 	</div>
 
 	<!-- corpo dello show -->

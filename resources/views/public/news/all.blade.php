@@ -7,8 +7,11 @@
     </x-slot:heading>
 
     <div class="text-white max-w-6xl mx-auto">
+        <div>
+            <x-public-botton-back title="Torna alle ultime notizie" :href="route('public.news.index')" />
+        </div>
         @if($news)
-            <h3 class="px-1 py-4 font-bold text-2xl font-sans text-amber-300 my-4">Tutte le notizie:</h3>
+            <h3 class="px-1 py-4 font-bold text-2xl font-sans text-amber-300 mb-4 mt-2">Tutte le notizie:</h3>
             <div class="flex justify-center items-center">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach ($news as $n)
