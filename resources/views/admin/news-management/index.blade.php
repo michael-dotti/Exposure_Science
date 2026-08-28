@@ -1,21 +1,28 @@
 <x-layout-private>
     <x-slot:title>
-        Gestione Notizie
+        Notizie del Gruppo di Ricerca
     </x-slot:title>
-    <x-button-create href="{{ route('admin.news-management.create') }}">Nuova Notizia</x-button-create>
-
+    
+    <x-dashboard-index-header
+        title="Gestione Notizie"
+        subtitle="Visualizza e gestisci le notizie sul gruppo di ricerca"
+    >
+        <x-slot:actions>
+            <x-button-create href="{{ route('admin.news-management.create') }}">Nuova Notizia</x-button-create>
+        </x-slot:actions>
+    </x-dashboard-index-header>
    <div class="space-y-3">
         @forelse ($news as $n)
             <x-index-card
                 :href="route('admin.news-management.show', $n)"
-                :title="$n->title" 
+                :title="$n->title"
+                imageWidth="sm:w-72" 
+                :flushImage="true" 
             >
                 <x-slot:image>
-                    <div class="flex h-36 w-full items-center justify-center overflow-hidden rounded-lg border border-blue-400/20 bg-blue-500/5">
-                        <img src="{{ Storage::url($n->image_path) }}"
-                                alt="{{ $n->title }}" 
-                                class="w-full h-40 object-contain rounded-md border border-white/10">
-                    </div>
+                    <img src="{{ Storage::url($n->image_path) }}"
+                         alt="{{ $n->title }}" 
+                         class="absolute inset-0 h-full w-full object-cover">
                 </x-slot:image>
 
                 <x-slot:description>

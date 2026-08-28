@@ -1,6 +1,8 @@
 @props([
     'href',
-    'title'
+    'title',
+    'imageWidth' => 'sm:w-48', // dimensione di default dell'immagine
+    'flushImage' => false // Se true, toglie il padding per far espandere l'immagine
 ])
 
 <article
@@ -11,11 +13,11 @@
         class="absolute inset-0 z-10"
     ></a>
 
-    <div class="pointer-events-none absolute bottom-0 left-0 top-0 w-1 bg-blue-500"></div>
+    <!-- <div class="pointer-events-none absolute bottom-0 left-0 top-0 z-30 w-1 bg-blue-500"></div> -->
 
     <div class="pointer-events-none relative z-20 flex flex-col sm:flex-row">
 
-        <div class="flex items-center justify-center border-b border-white/10 bg-slate-900/30 p-4 sm:w-48 sm:border-b-0 sm:border-r">
+        <div class="relative flex shrink-0 items-center justify-center overflow-hidden border-b border-white/10 bg-slate-900/30 {{ $imageWidth }} {{ $flushImage ? 'min-h-[160px] sm:min-h-full' : 'p-4' }} sm:border-b-0 sm:border-r">
             {{ $image }}
         </div>
 

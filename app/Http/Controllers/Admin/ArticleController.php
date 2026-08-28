@@ -111,8 +111,8 @@ class ArticleController extends Controller
             // Leggi l'immagine
             $image = Image::read($file);
 
-            // cover(800,450) =  formato 16:9, ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (200px)
-            $image->cover(250,250);
+            //invece un cover(800,450) genererebbe: formato 16:9, ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (200px)
+            $image->cover(600,600);
 
             // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
@@ -213,7 +213,7 @@ class ArticleController extends Controller
 
         if (request()->hasFile('image_path')) {
             // Elimina la vecchia immagine
-            if ($article->image_path && $article->image_path !== 'articles/covers/default.png') {
+            if ($article->image_path && $article->image_path !== 'uploads/articles/covers/default.webp') {
                 Storage::disk('public')->delete($article->image_path);
             }
 
@@ -222,7 +222,7 @@ class ArticleController extends Controller
             // Leggi l'immagine
             $image = Image::read($file);
             // ridimensiona l'immagine in modo che il lato più corto sia adatti alla misura richiesta (250px)
-            $image->cover(250,250);
+            $image->cover(600,600);
             // Converti in WebP (qualità 80%)
             $encoded = $image->toWebp(80);
             // Genera un nome unico con estensione .webp
@@ -233,7 +233,7 @@ class ArticleController extends Controller
             $articleData['image_path'] = $filename;
         }
         elseif (request()->input('remove_photo') == '1'){
-                if($article->image_path){
+                if($article->image_path && $article->image_path !== 'uploads/articles/covers/default.webp'){
                     Storage::disk('public')->delete($article->image_path);
                 }
 
