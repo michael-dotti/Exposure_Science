@@ -14,81 +14,56 @@
                 </x-button-create>
             @endcan
         </x-slot:actions>
+        <x-slot:filters>
+            @if (session('success'))
+                <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
+            @php
+                // Prepariamo un array con i filtri attualmente attivi
+                $currentFilters = [];
+
+                if (request()->filled('userId') && $selectedUser = $users?->firstWhere('id', request('userId'))) {
+                    $currentFilters[] = [
+                        'label' => 'Autore',
+                        'value' => $selectedUser->name . ' ' . $selectedUser->surname
+                    ];
+                }
+
+                if (request()->filled('areaId') && $selectedArea = $areas?->firstWhere('id', request('areaId'))) {
+                    $currentFilters[] = [
+                        'label' => 'Area',
+                        'value' => $selectedArea->name
+                    ];
+                }
+            @endphp
+            
+            <x-filter-box
+                title="Filtra gli articoli"
+                description="Filtra gli articoli per autore o per area di ricerca"
+                resetUrl="{{ route('admin.articles.index') }}"
+                :activeFilters="$currentFilters"
+            >
+                @can('edit all articles')
+                    <x-user-filter
+                        title="Autore"
+                        href="{{ route('admin.articles.index') }}"
+                        :users="$users"
+                    />
+                @endcan
+
+                <x-research-area-filter
+                    href="{{ route('admin.articles.index') }}"
+                    :researchAreas="$areas"
+                />
+
+            </x-filter-box>
+        </x-slot:filters>
     </x-dashboard-index-header>
 
-    @if (session('success'))
-        <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <x-filter-box
-    title="Filtra gli articoli"
-    description="Filtra gli articoli per autore o per area di ricerca"
->
-
-    @can('edit all articles')
-        <x-user-filter
-            title="Autore"
-            href="{{ route('admin.articles.index') }}"
-            :users="$users"
-        />
-    @endcan
-
-    <x-research-area-filter
-        href="{{ route('admin.articles.index') }}"
-        :researchAreas="$areas"
-    />
-
-    @if (
-        request()->filled('userId') ||
-        request()->filled('areaId')
-    )
-        <a
-            href="{{ route('admin.articles.index') }}"
-            class="inline-flex items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-gray-300 transition hover:bg-white/10 hover:text-white"
-        >
-            Rimuovi filtri
-        </a>
-    @endif
-
-    @if (request()->filled('userId') || request()->filled('areaId'))
-
-        <x-slot:activeFilters>
-
-            @if (request()->filled('userId'))
-                @php
-                    $selectedUser = $users?->firstWhere('id', request('userId'));
-                @endphp
-
-                @if ($selectedUser)
-                    <span class="rounded-full border border-green-400/20 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300">
-                        Autore:
-                        {{ $selectedUser->name }}
-                        {{ $selectedUser->surname }}
-                    </span>
-                @endif
-            @endif
-
-            @if (request()->filled('areaId'))
-                @php
-                    $selectedArea = $areas->firstWhere('id', request('areaId'));
-                @endphp
-
-                @if ($selectedArea)
-                    <span class="rounded-full border border-green-400/20 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300">
-                        Area:
-                        {{ $selectedArea->name }}
-                    </span>
-                @endif
-            @endif
-
-        </x-slot:activeFilters>
-
-    @endif
-
-</x-filter-box>
-
+   
     <div class="space-y-3">
         @forelse ($articles as $article)
 

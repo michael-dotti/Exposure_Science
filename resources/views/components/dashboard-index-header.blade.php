@@ -22,3 +22,9 @@
         </div>
     @endif
 </div>
+
+@if(isset($filters))
+    <div>
+        {{ $filters }}
+    </div>
+@endif
