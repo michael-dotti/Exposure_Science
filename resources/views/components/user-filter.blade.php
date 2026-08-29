@@ -1,6 +1,13 @@
-@props(['users','href','title'=>'Autore'])
+{{-- PROPS PER PASSARE I DATI DI CUI A BISOGNO IL MENU A TENDINA --}}
+@props([
+    'users', // LISTA DEGLI UTENTI PRESENTI NEL SITO
+    'href', // URL (meglio se generato con i nomi delle rotte) DELLA PAGINA INDEX IN CUI CI TROVIAMO 
+    'title'=>'Autore' // TITOLO DEL MENU A TENDINA
+])
 
+{{-- COMPONENTE CHE GENERA UN MENU A TENDINA --}}
 <x-dropdown class="inline-block">
+{{-- TITOLO DEL MENU A TENDINA --}}
 <x-slot name="trigger">
     <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20">
         Seleziona per {{ $title }}
@@ -12,21 +19,24 @@
     </button>
 </x-slot>
 
+{{-- CONTENUTO DEL MENU A TENDINA --}}
 <x-slot name="content">
     <div class="divide-y divide-gray-400">
-        <x-dropdown-link href="{{ $href }}"
-            href="{{ $href . '?' . http_build_query(
-                request()->except('userId')) }}"
+        {{-- LINK CHE RIMUOVE IL FILTRO PER UTENTI --}}
+        <x-dropdown-link
+            href="{{ request()->fullUrlWithQuery(['userId' => null, 'page' => null]) }}"
         > Tutti </x-dropdown-link>
         
         <div class="py-1">
-            @foreach ( $users as $user)
+            {{-- FOREACH PER CICLARE I VARI UTENTI --}}
+            {{-- USIAMO ?? [] PER SICUREZZA SE $users DOVESSE ESSERE NULL --}}
+            @foreach ($users ?? [] as $user)
+                {{-- LINK PER FILTRARE (imposta userId e resetta la pagina) --}}
                 <x-dropdown-link
-                    href="{{ $href . '?' . http_build_query(array_merge(
-                        request()->query(),
-                        ['userId' => $user->id]
-                    )) }}"
-                >{{ $user->name }} {{ $user->surname }} </x-dropdown-link>
+                    href="{{ request()->fullUrlWithQuery(['userId' => $user->id, 'page' => null]) }}"
+                >
+                    {{ $user->name }} {{ $user->surname }}
+                </x-dropdown-link>
             @endforeach
         </div>
     </div>

@@ -50,13 +50,18 @@ class ArticleController extends Controller
         // Preparlo gli array per i filtri attivi
         $currentFilters = [];
 
+        // L'IF CONTROLLA SE IL PARAMETRO userID ESISTE NELL'URL E CHE NON SIA VUOTO
+            // $user?->... = se è null laravel non va in errore ma restitusice semplicemente NULL
+            // firstWhere('id', $request->query('userId')) = Cerca nella collezione degli utenti già recuperati dal database il primo utente che ha l'ID uguale a quello presente nell'URL.
+            // $selectedUser = ... -> Assegna l'utente trovato alla variabile $selectedUser
         if ($request->filled('userId') && $selectedUser = $users?->firstWhere('id', $request->query('userId'))) {
-            $currentFilters[] = [
+            $currentFilters[] = [ // $currentiFilters[] = [...] -> aggiunge in coda all'array $currentFilters() la struttura richiesta dal component efilter-box: label (intestazioen del filtro) e un valore (nome e cognome dell'utente concatenati)
                 'label' => 'Autore',
                 'value' => $selectedUser->name . ' ' . $selectedUser->surname
             ];
         }
 
+        // ANALOGO AL CASO PER userID
         if ($request->filled('areaId') && $selectedArea = $areas->firstWhere('id', $request->query('areaId'))) {
             $currentFilters[] = [
                 'label' => 'Area',

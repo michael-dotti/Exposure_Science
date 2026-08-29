@@ -20,6 +20,24 @@
 				<x-button-create href="{{ route('admin.projects.create') }}">Nuovo Progetto</x-button-create>
 			@endcan
 		</x-slot:actions>
+
+		
+		<x-slot:filters>
+			<x-filter-box
+				title="Filtra i progetti"
+				description="secondo creatore, collaboratore o area"
+				resetUrl="{{ route('admin.projects.index') }}"
+				:activeFilters="$currentFilters"
+			>
+
+				<x-user-filter
+					title="Creatore"
+					href="{{ route('admin.projects.index') }}"
+					:users="$creators"
+				/>
+			</x-filter-box>
+		</x-slot:filters>
+
 	</x-dashboard-index-header>
 	
 
@@ -29,45 +47,9 @@
 		</div>
 	@endif
 
-	<div class="mt-2"></div>
+	
 
-	<x-filter-box
-		title="Filtra i progetti"
-		description="secondo creatore, collaboratore o area"
-	>
-
-	<x-user-filter
-		title="Creatore"
-		href="{{ route('admin.projects.index') }}"
-		:users="$creators"
-	/>
-
-	@if (request()->filled('userId'))
-		<a
-			href="{{ route('admin.projects.index') }}"
-			class="inline-flex items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-gray-300 transition hover:bg-white/10 hover:text-white"
-		>
-			Rimuovi filtro
-		</a>
-	@endif
-
-	@if (request()->filled('userId'))
-		@php
-			$selectedCreator = $creators->firstWhere('id', request('userId'));
-		@endphp
-
-		@if ($selectedCreator)
-			<x-slot:activeFilters>
-				<span class="rounded-full border border-green-400/20 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300">
-					Creatore:
-					{{ $selectedCreator->name }}
-					{{ $selectedCreator->surname }}
-				</span>
-			</x-slot:activeFilters>
-		@endif
-	@endif
-
-	</x-filter-box>
+	
 
 	<!-- div per il centramento -->
 	<div class="pt-4 px-16 md:mx-8 sm:mx-4">

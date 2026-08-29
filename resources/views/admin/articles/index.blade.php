@@ -6,6 +6,7 @@
     <x-dashboard-index-header
         title="Gestione Articoli"
         subtitle="Visualizza e gestisci gli articoli presenti nel portale"
+        showSessionStatus="true"
     >
         <x-slot:actions>
             @can('create', App\Models\Article::class)
@@ -15,11 +16,6 @@
             @endcan
         </x-slot:actions>
         <x-slot:filters>
-            @if (session('success'))
-                <div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
-                    {{ session('success') }}
-                </div>
-            @endif
             
             <x-filter-box
                 title="Filtra gli articoli"

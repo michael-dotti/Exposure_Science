@@ -24,39 +24,30 @@ class ProjectController extends Controller
 		->orderBy('name', 'asc')
 		->get();
 
-		//se un il tizio che guarda può managementare i progetti può vedere tutti i progetti
-		if($user->can('manage all projects')) $projects = Project::with('users')->with('creator')->when(
-                $request->filled('userId'),
-                function ($query) use ($request) {
-                    $query->whereHas(
-                        'creator',
-                        function ($ProjectQuery) use ($request) {
-                            $ProjectQuery->where(
-                                'users.id',
-                                $request->integer('userId')
-                            );
-                        }
-                    );
-                }
-            )->latest()->paginate(8);
-		//altrimenti può vedere solo i progetti a cui è associato
-		else $projects = $user->projects()->with('users')->with('creator')
-			->when(
-                $request->filled('userId'),
-                function ($query) use ($request) {
-                    $query->whereHas(
-                        'creator',
-                        function ($ProjectQuery) use ($request) {
-                            $ProjectQuery->where(
-                                'users.id',
-                                $request->integer('userId')
-                            );
-                        }
-                    );
-                }
-            )->latest()->paginate(8);
+		// 1. Definiamo la query base in base ai permessi
+		$query = $user->can('manage all projects')
+			? Project::with(['users', 'creator'])
+			: $user->projects()->with(['users', 'creator']);
 
-		return view('admin.projects.index', compact('projects', 'creators'));
+		// 2. Applico il filtro, ordino e uso la paginazione
+		$projects = $query
+			->filterByCreator($request->query('userId'))
+			->latest()
+			->paginate(8)
+			->withQueryString();
+
+		// 3. Creo l'array $currentFilters per il filter-box
+		$currentFilters = [];
+
+		if ($request->filled('userId') && $selectedCreator = $creators->firstWhere('id', $request->integer('userId'))) {
+			$currentFilters[] = [
+				'label' => 'Creatore',
+				'value' => $selectedCreator->name . ' ' . $selectedCreator->surname,
+			];
+		}
+
+		// 4. Passo $currentFilters e le altre variabili a compact()
+		return view('admin.projects.index', compact('projects', 'creators', 'currentFilters'));
 	}
 
 	public function show(Project $project)

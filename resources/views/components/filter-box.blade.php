@@ -1,16 +1,16 @@
 @props([
-    'title',
-    'description',
-    'resetUrl' => null,
-    'activeFilters' => [] // Array vuoto di default
+    'title', // titolo che appare a schermo (obbligatorio)
+    'description', // descrizione che appare a schermo (obbligatorio)
+    'resetUrl' => null, // l'url per azzerare la ricerca, se non viene passato di default vale null
+    'activeFilters' => [] // L'array contenente i filtri applicati. Di default è un array vuoto [], così da evitare errori PHP se non viene passato alcun filtro.
 ])
 
-<!-- Corretto bg-white/3 in bg-white/[0.03] -->
-<div class="mb-4 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3">
+
+<div class="mb-4 rounded-lg border border-white/10 bg-white/3 px-4 py-3">
 
     <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
 
-        <!-- Colonna di SINISTRA: Titolo e Descrizione -->
+        {{--INTESTAZIONE: titolo e descrizione --}}
         <div>
             <h2 class="text-sm font-semibold text-white">
                 {{ $title }}
@@ -21,14 +21,14 @@
             </p>
         </div>
 
-        <!-- Colonna di DESTRA: Raggruppa i filtri (sopra) e i badge (sotto) -->
+        {{-- Colonna di DESTRA: Raggruppa i filtri (sopra) e i badge (sotto) --}}
         <div class="flex flex-col gap-2">
 
             <!-- Riga 1: Slot (Dropdowns) e Tasto Rimuovi -->
             <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
                 {{ $slot }}
 
-                {{-- Il tasto "Rimuovi filtri" compare automaticamente se c'è almeno un filtro e un URL --}}
+                {{-- Il tasto "Rimuovi filtri" compare automaticamente se c'è almeno un filtro attivo ed è stato passato $resetURL --}}
                 @if (count($activeFilters) > 0 && $resetUrl)
                     <a
                         href="{{ $resetUrl }}"
@@ -39,13 +39,15 @@
                 @endif
             </div>
 
-            <!-- Riga 2: Badge dei filtri applicati -->
-            @if (count($activeFilters) > 0)
+            
+            {{-- MOSTRA GRAFICAMENTE I FILTRI ATTIVATI --}}
+            @if (count($activeFilters) > 0) {{-- mostra la sezione sol ose ci sono filtri attivi --}}
                 <div class="mt-2 flex flex-wrap items-center gap-2 lg:mt-0">
                     <span class="text-xs font-semibold text-gray-400">
                         Filtri applicati:
                     </span>
-
+                    
+                    {{-- Ciclo @foreach che scorre l'array $activeFilters passato dal controller --}}
                     @foreach ($activeFilters as $filter)
                         <span class="rounded-full border border-green-400/20 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300">
                             {{ $filter['label'] }}: {{ $filter['value'] }}

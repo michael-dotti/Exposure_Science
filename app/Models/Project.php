@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Enums\ProjectStatusType;
@@ -39,5 +40,14 @@ class Project extends Model
         return $this->belongsToMany(ResearchArea::class);
     }
 
+    public function scopeFilterByCreator(Builder $query, ?int $userId): Builder
+    {
+        if (empty($userId)) {
+            return $query;
+        }
 
+        return $query->whereHas('creator', function (Builder $q) use ($userId) {
+            $q->where('users.id', $userId);
+        });
+    }
 }

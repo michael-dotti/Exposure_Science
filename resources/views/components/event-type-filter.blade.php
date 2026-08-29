@@ -1,4 +1,4 @@
-@props(['types','href'])
+@props(['types'])
 
 <x-dropdown class="inline-block">
     <x-slot name="trigger">
@@ -12,13 +12,21 @@
 
     <x-slot name="content">
         <div class="divide-y divide-gray-400">
-            <x-dropdown-link href="{{ $href }}"> Tutti </x-dropdown-link>
+           {{-- LINK "TUTTI": Rimuove il filtro 'type' e resetta la paginazione --}}
+            <x-dropdown-link 
+                href="{{ request()->fullUrlWithQuery(['type' => null, 'page' => null]) }}"
+            > 
+                Tutti 
+            </x-dropdown-link>
             
             <div class="py-1">
-                @foreach ($types as $type)
-                    <x-dropdown-link href="{{ $href }}?type={{ $type->value }}">
-                        {{-- Se hai un metodo personalizzato nell'enum per le etichette usalo qui, altrimenti usa ->name o ->value --}}
-                        {{ ucfirst($type->value) }} 
+                @foreach ($types ?? [] as $type)
+                    {{-- LINK PER FILTRARE: Imposta 'type' con il valore dell'Enum/Oggetto e resetta la paginazione --}}
+                    <x-dropdown-link 
+                        href="{{ request()->fullUrlWithQuery(['type' => $type->value, 'page' => null]) }}"
+                    >
+                        {{-- Gestisce sia l'Enum PHP con $type->value sia oggetti con ->name/->label --}}
+                        {{ ucfirst($type->label ?? $type->name ?? $type->value) }} 
                     </x-dropdown-link>
                 @endforeach
             </div>

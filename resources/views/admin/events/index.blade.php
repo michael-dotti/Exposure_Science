@@ -11,7 +11,7 @@
         {{-- paso il nome della rotta come stringa e utilizzi {{ route(...) }} dentro al componente stesso--}}
         
         <x-slot:buttons>
-            <x-event-type-filter href="{{ route('admin.events.index') }}" :types="$types"></x-event-type-filter>
+            <x-event-type-filter :types="$types" />
             <x-danger-button disabled id="bulk-delete-btn" form="bulk-delete-form">Elimina Eventi selezionati</x-danger-button>
         </x-slot:buttons>
     </x-event-index>

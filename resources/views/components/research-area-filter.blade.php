@@ -12,17 +12,21 @@
 
 <x-slot name="content">
     <div class="divide-y divide-gray-400">
-        <x-dropdown-link href="{{ $href . '?' . http_build_query(
-                request()->except('areaId')) }}"
-        > Tutti </x-dropdown-link>
+        <x-dropdown-link 
+            href="{{ request()->fullUrlWithQuery(['areaId' => null, 'page' => null]) }}"
+        >
+            Tutti
+        </x-dropdown-link>
+        
         
         <div class="py-1">
-            @foreach ( $researchAreas as $area)
+            @foreach ($researchAreas as $area)
+                {{-- LINK PER FILTRARE (imposta areaId e resetta la pagina) --}}
                 <x-dropdown-link
-                    href="{{ $href . '?' . http_build_query(array_merge(
-                        request()->query(),
-                        ['areaId' => $area->id]
-                    )) }}">{{ $area->name }}</x-dropdown-link>
+                    href="{{ request()->fullUrlWithQuery(['areaId' => $area->id, 'page' => null]) }}"
+                >
+                    {{ $area->name }}
+                </x-dropdown-link>
             @endforeach
         </div>
     </div>
