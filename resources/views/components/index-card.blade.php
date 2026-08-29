@@ -6,18 +6,18 @@
 ])
 
 <article
-    class="group relative overflow-hidden rounded-lg border border-white/10 bg-slate-800/40 shadow-sm transition duration-200 hover:border-blue-400/40 hover:bg-slate-800/60"
+   class="group relative flex overflow-hidden rounded-lg border border-white/10 bg-slate-800/40 shadow-sm transition duration-200 hover:border-blue-400/40 hover:bg-slate-800/60"
 >
     <a
         href="{{ $href }}"
         class="absolute inset-0 z-10"
     ></a>
 
-    <!-- <div class="pointer-events-none absolute bottom-0 left-0 top-0 z-30 w-1 bg-blue-500"></div> -->
+    <div class="w-1.5 shrink-0 bg-blue-500 transition-colors group-hover:bg-blue-400"></div>
 
     <div class="pointer-events-none relative z-20 flex flex-col sm:flex-row">
 
-        <div class="relative flex shrink-0 items-center justify-center overflow-hidden border-b border-white/10 bg-slate-900/30 {{ $imageWidth }} {{ $flushImage ? 'min-h-[160px] sm:min-h-full' : 'p-4' }} sm:border-b-0 sm:border-r">
+        <div class="relative flex shrink-0 items-center justify-center overflow-hidden border-b border-white/10 bg-slate-900/30 {{ $imageWidth }} {{ $flushImage ? 'min-h-40 sm:min-h-full' : 'p-4' }} sm:border-b-0 sm:border-r">
             {{ $image }}
         </div>
 

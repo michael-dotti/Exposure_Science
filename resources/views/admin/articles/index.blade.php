@@ -21,25 +21,6 @@
                 </div>
             @endif
             
-            @php
-                // Prepariamo un array con i filtri attualmente attivi
-                $currentFilters = [];
-
-                if (request()->filled('userId') && $selectedUser = $users?->firstWhere('id', request('userId'))) {
-                    $currentFilters[] = [
-                        'label' => 'Autore',
-                        'value' => $selectedUser->name . ' ' . $selectedUser->surname
-                    ];
-                }
-
-                if (request()->filled('areaId') && $selectedArea = $areas?->firstWhere('id', request('areaId'))) {
-                    $currentFilters[] = [
-                        'label' => 'Area',
-                        'value' => $selectedArea->name
-                    ];
-                }
-            @endphp
-            
             <x-filter-box
                 title="Filtra gli articoli"
                 description="Filtra gli articoli per autore o per area di ricerca"

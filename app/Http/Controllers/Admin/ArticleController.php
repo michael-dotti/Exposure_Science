@@ -47,9 +47,26 @@ class ArticleController extends Controller
             ->simplePaginate(5)
             ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
 
+        // Preparlo gli array per i filtri attivi
+        $currentFilters = [];
+
+        if ($request->filled('userId') && $selectedUser = $users?->firstWhere('id', $request->query('userId'))) {
+            $currentFilters[] = [
+                'label' => 'Autore',
+                'value' => $selectedUser->name . ' ' . $selectedUser->surname
+            ];
+        }
+
+        if ($request->filled('areaId') && $selectedArea = $areas->firstWhere('id', $request->query('areaId'))) {
+            $currentFilters[] = [
+                'label' => 'Area',
+                'value' => $selectedArea->name
+            ];
+        }
+
         return view(
             'admin.articles.index',
-            compact('articles', 'areas', 'users')
+            compact('articles', 'areas', 'users', 'currentFilters')
         );
     }
 
