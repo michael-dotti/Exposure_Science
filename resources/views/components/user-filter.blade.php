@@ -1,8 +1,8 @@
 {{-- PROPS PER PASSARE I DATI DI CUI A BISOGNO IL MENU A TENDINA --}}
 @props([
     'users', // LISTA DEGLI UTENTI PRESENTI NEL SITO
-    'href', // URL (meglio se generato con i nomi delle rotte) DELLA PAGINA INDEX IN CUI CI TROVIAMO 
-    'title'=>'Autore' // TITOLO DEL MENU A TENDINA
+    'title'=>'Autore', // TITOLO DEL MENU A TENDINA
+    'paramName'=> "userId" // IMPOSTA IL NOME DELLA VARIABILE DA INVIARE NELL'URL, DEFAULT userID
 ])
 
 {{-- COMPONENTE CHE GENERA UN MENU A TENDINA --}}
@@ -24,16 +24,16 @@
     <div class="divide-y divide-gray-400">
         {{-- LINK CHE RIMUOVE IL FILTRO PER UTENTI --}}
         <x-dropdown-link
-            href="{{ request()->fullUrlWithQuery(['userId' => null, 'page' => null]) }}"
+            href="{{ request()->fullUrlWithQuery([$paramName => null, 'page' => null]) }}"
         > Tutti </x-dropdown-link>
         
         <div class="py-1">
             {{-- FOREACH PER CICLARE I VARI UTENTI --}}
-            {{-- USIAMO ?? [] PER SICUREZZA SE $users DOVESSE ESSERE NULL --}}
+            {{-- USIAMO ?? [] PER SICUREZZA SE $paramName DOVESSE ESSERE NULL --}}
             @foreach ($users ?? [] as $user)
-                {{-- LINK PER FILTRARE (imposta userId e resetta la pagina) --}}
+                {{-- LINK PER FILTRARE (imposta paramName(es:userID) e resetta la pagina) --}}
                 <x-dropdown-link
-                    href="{{ request()->fullUrlWithQuery(['userId' => $user->id, 'page' => null]) }}"
+                    href="{{ request()->fullUrlWithQuery([$paramName => $user->id, 'page' => null]) }}"
                 >
                     {{ $user->name }} {{ $user->surname }}
                 </x-dropdown-link>

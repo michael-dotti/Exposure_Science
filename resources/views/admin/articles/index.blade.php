@@ -26,13 +26,11 @@
                 @can('edit all articles')
                     <x-user-filter
                         title="Autore"
-                        href="{{ route('admin.articles.index') }}"
                         :users="$users"
                     />
                 @endcan
 
                 <x-research-area-filter
-                    href="{{ route('admin.articles.index') }}"
                     :researchAreas="$areas"
                 />
 

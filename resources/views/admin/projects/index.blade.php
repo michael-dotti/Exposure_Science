@@ -30,11 +30,26 @@
 				:activeFilters="$currentFilters"
 			>
 
-				<x-user-filter
-					title="Creatore"
-					href="{{ route('admin.projects.index') }}"
-					:users="$creators"
-				/>
+				{{-- FILTRO STATO --}}
+    			<x-project-status-filter :statuses="$statuses" />
+
+				{{-- FILTRO COLLABORATORI (Manager e Project Admin) --}}
+				@can('manage my projects')
+					<x-user-filter 
+						:users="$allUsers" 
+						title="Collaboratore" 
+						paramName="collaboratorId" 
+					/>
+				@endcan
+
+				{{-- FILTRO CREATORI (Solo project Admin) --}}
+				@can('manage all projects')
+					<x-user-filter 
+						:users="$creators" 
+						title="Creatore" 
+						paramName="creatorId" 
+					/>
+				@endcan
 			</x-filter-box>
 		</x-slot:filters>
 

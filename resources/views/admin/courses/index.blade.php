@@ -22,7 +22,6 @@
             
                 <x-user-filter
                     title="Docente"
-                    href="/admin/courses"
                     :users="$teachers"
                 />
 

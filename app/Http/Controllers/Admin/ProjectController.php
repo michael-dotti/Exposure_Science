@@ -18,36 +18,58 @@ class ProjectController extends Controller
 	{
 		$user = Auth::user();
 
+		// Dati per i menu a tendina
+    	$statuses = ProjectStatusType::cases();
+
 		$creators = User::permission('manage all projects')
 		->select('id', 'name', 'surname')
 		->orderBy('surname','asc')
 		->orderBy('name', 'asc')
 		->get();
 
-		// 1. Definiamo la query base in base ai permessi
-		$query = $user->can('manage all projects')
-			? Project::with(['users', 'creator'])
-			: $user->projects()->with(['users', 'creator']);
 
-		// 2. Applico il filtro, ordino e uso la paginazione
-		$projects = $query
-			->filterByCreator($request->query('userId'))
+		// Carichiamo tutti gli utenti per il menu collaboratori (puoi filtrare se preferisci)
+		$allUsers = User::select('id', 'name', 'surname')
+			->orderBy('surname','asc')->orderBy('name', 'asc')->get();
+
+		// Una sola riga per gestire permessi, relazioni, filtri URL e paginazione
+		$projects = Project::visibleTo($user)
+			->with(['users', 'creator'])
+			->filterByCreator($request->integer('creatorId'))         // <--- NOTA: cambiato in creatorId
+			->filterByCollaborator($request->integer('collaboratorId')) // <--- Nuovo
+			->filterByStatus($request->query('status'))                 // <--- Nuovo
 			->latest()
 			->paginate(8)
 			->withQueryString();
 
-		// 3. Creo l'array $currentFilters per il filter-box
+		// Prepariamo i filtri correnti per la UI (filter-box)
 		$currentFilters = [];
 
-		if ($request->filled('userId') && $selectedCreator = $creators->firstWhere('id', $request->integer('userId'))) {
+		// Filtro: Creatore
+		if ($request->filled('creatorId') && $selectedCreator = $creators->firstWhere('id', $request->integer('creatorId'))) {
 			$currentFilters[] = [
 				'label' => 'Creatore',
 				'value' => $selectedCreator->name . ' ' . $selectedCreator->surname,
 			];
 		}
 
-		// 4. Passo $currentFilters e le altre variabili a compact()
-		return view('admin.projects.index', compact('projects', 'creators', 'currentFilters'));
+		// Filtro: Collaboratore
+		if ($request->filled('collaboratorId') && $selectedCollab = $allUsers->firstWhere('id', $request->integer('collaboratorId'))) {
+			$currentFilters[] = [
+				'label' => 'Collaboratore',
+				'value' => $selectedCollab->name . ' ' . $selectedCollab->surname,
+			];
+		}
+
+		// Filtro: Stato (Usa l'enum per recuperare la label in italiano!)
+		if ($request->filled('status') && $selectedStatus = ProjectStatusType::tryFrom($request->query('status'))) {
+			$currentFilters[] = [
+				'label' => 'Stato',
+				'value' => $selectedStatus->label(), // Usa il metodo label() del tuo Enum
+			];
+		}
+
+		return view('admin.projects.index', compact('projects', 'creators', 'allUsers', 'statuses', 'currentFilters'));
 	}
 
 	public function show(Project $project)

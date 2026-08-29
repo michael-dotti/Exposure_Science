@@ -1,4 +1,4 @@
-@props(['researchAreas','href'])
+@props(['researchAreas'])
 
 <x-dropdown class="inline-block">
 <x-slot name="trigger">
