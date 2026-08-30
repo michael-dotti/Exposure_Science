@@ -10,6 +10,15 @@
         <x-slot:actions>
             <x-button-create href="{{ route('admin.news-management.create') }}">Nuova Notizia</x-button-create>
         </x-slot:actions>
+
+        <x-slot:filters>
+            <x-filter-box 
+                title="Filtra le notizie"
+                description="Filtra le notizie per data"
+            >
+                <x-news-sort-filter />
+            </x-filter-box>
+        </x-slot:filters>
     </x-dashboard-index-header>
    <div class="space-y-3">
         @forelse ($news as $n)

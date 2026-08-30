@@ -13,10 +13,13 @@ use Mews\Purifier\Facades\Purifier;
 
 class NewsManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {    
-        $news = News::latest()->get();
-        return view('admin.news-management.index', ['news' => $news]);
+        $news = News::sortByDate($request->query('sort', 'desc'))
+            ->paginate(10)
+            ->withQueryString();
+        
+        return view('admin.news-management.index', compact('news'));
     }
 
     public function show(News $news)
