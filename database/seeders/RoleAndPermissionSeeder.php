@@ -29,7 +29,9 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name'=>'write articles']);
         Permission::create(['name'=>'edit own articles']);
         Permission::create(['name'=>'edit all articles']);
+        
         Permission::create(['name'=>'teaching']);
+        Permission::create(['name'=>'manage all courses']);
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
@@ -38,6 +40,10 @@ class RoleAndPermissionSeeder extends Seeder
         $Researcher->givePermissionTo('write articles'); 
         $Researcher->givePermissionTo('edit own articles');
         
+        $articleAdmin = Role::create(['name'=>'articles admin']);
+        $articleAdmin->givePermissionTo($Researcher->permissions);
+        $articleAdmin->givePermissionTo('edit all articles'); 
+
         $newsManager = Role::create(['name'=>'news manager']);
         $newsManager->givePermissionTo('management news');
 
@@ -49,17 +55,24 @@ class RoleAndPermissionSeeder extends Seeder
         $bigProjectsManager->givePermissionTo($projectsManager->permissions);
         $bigProjectsManager->givePermissionTo('manage all projects');
 
-        $reliableResearcher = Role::create(['name'=>'reliable researcher']);
-        $reliableResearcher->givePermissionTo($Researcher->permissions);
-        $reliableResearcher->givePermissionTo($bigProjectsManager->permissions);
-        $reliableResearcher->givePermissionTo('edit all articles');
-        $reliableResearcher->givePermissionTo('management events');
+        $eventsAdmin = Role::create(['name'=>'events admin']);
+        $eventsAdmin->givePermissionTo('management events');
 
         $teacher = Role::create(['name'=>'teacher']);
         $teacher->givePermissionTo('teaching');
 
+        $coursesAdmin = Role::create(['name'=>'courses admin']);
+        $coursesAdmin->givePermissionTo($teacher->permissions);
+        $coursesAdmin->givePermissionTo('manage all courses');
+        
+        $reliableResearcher = Role::create(['name'=>'reliable researcher']);
+        $reliableResearcher->givePermissionTo($articleAdmin->permissions);
+        $reliableResearcher->givePermissionTo($bigProjectsManager->permissions);
+        $reliableResearcher->givePermissionTo($coursesAdmin->permissions);
+        $reliableResearcher->givePermissionTo($eventsAdmin->permissions);
+        
         $admin = Role::create(['name'=>'admin']);
-        $admin->givePermissionTo(Permission::all());
+        $admin->givePermissionTo(Permission::all()); // l'admin è l'unico utente che ha il permesso di gestire gli utenti
 
     }
 }
