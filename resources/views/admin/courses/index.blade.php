@@ -18,37 +18,13 @@
             <x-filter-box
                 title="Filtra per docente"
                 description="Seleziona un docente per visualizzare i corsi associati"
+                resetUrl="{{ route('admin.articles.index') }}"
+                :activeFilters="$currentFilters"
             >
-            
                 <x-user-filter
                     title="Docente"
                     :users="$teachers"
                 />
-
-                @if (request()->filled('userId'))
-                    <a
-                        href="{{ route('admin.courses.index') }}"
-                        class="inline-flex items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-gray-300 transition hover:bg-white/10 hover:text-white"
-                    >
-                        Rimuovi filtro
-                    </a>
-                @endif
-
-                @if (request()->filled('userId'))
-                    @php
-                        $selectedTeacher = $teachers->firstWhere('id', request('userId'));
-                    @endphp
-
-                    @if ($selectedTeacher)
-                        <x-slot:activeFilters>
-                            <span class="rounded-full border border-green-400/20 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300">
-                                Docente:
-                                {{ $selectedTeacher->name }}
-                                {{ $selectedTeacher->surname }}
-                            </span>
-                        </x-slot:activeFilters>
-                    @endif
-                @endif
             </x-filter-box>
         </x-slot:filters>
     </x-dashboard-index-header>
