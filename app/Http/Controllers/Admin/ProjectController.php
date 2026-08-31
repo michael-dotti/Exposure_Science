@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use illuminate\support\Facades\Auth;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
@@ -74,11 +75,14 @@ class ProjectController extends Controller
 
 	public function show(Project $project)
 	{
+		Gate::authorize('view', $project);
+
 		return view('admin.projects.show', compact('project'));
 	}
 
 	public function create()
 	{
+		Gate::authorize('create', Project::class);
 		//"statuses" e' grammaticalmente sbagliato ma lo uso per comodita' visto che "status" non cambia al plurare
 		$statuses = ProjectStatusType::cases();
 		$users = User::select('id', 'name','surname')
@@ -88,7 +92,9 @@ class ProjectController extends Controller
 		return view('admin.projects.create', compact('users','statuses'));
 	}
 
-	public function store(){
+	public function store()
+	{
+		Gate::authorize('create', Project::class);
 
 		// validazione
 		$validated = request()->validate([
@@ -125,6 +131,8 @@ class ProjectController extends Controller
 	
 	public function edit(Project $project)
 	{
+		Gate::authorize('update', $project);
+
 		$statuses = ProjectStatusType::cases();
 		$users = User::select('id', 'name','surname')
             ->orderBy('surname','asc')
@@ -137,6 +145,8 @@ class ProjectController extends Controller
 
 	public function update(Project $project)
 	{
+		Gate::authorize('update', $project);
+
 		// validazione
 		$validated = request()->validate([
 			'title' => ['required', 'min:3', 'max:128', Rule::unique('projects')->ignore($project->id)],
@@ -166,12 +176,12 @@ class ProjectController extends Controller
 
 	public function destroy(Project $project)
 	{
+		Gate::authorize('delete', $project);
 		$project->delete();
 
 		return $this->redirectBackOrTo('admin.projects.index')->with(
                 'success',
                 'Progetto eliminato correttamente.'
             );
-;
 	}
 }

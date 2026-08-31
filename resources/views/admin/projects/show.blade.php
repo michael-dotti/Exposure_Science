@@ -50,7 +50,7 @@
 
 			<!-- creatore -->
 			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				<div> Creatore al progetto: {{ $project->creator->name }} {{ $project->creator->name }}</div>
+				<div> Creatore al progetto: {{ $project->creator->name }} {{ $project->creator->surname }}</div>
 			</div>
 
 			<!-- descrizione del progetto -->
@@ -80,8 +80,11 @@
 					<div></div>
 					<!-- pulsanti modifica ed elimina -->
 					<div class="justify-self-end-safe">
-						@can('management projects') 
+						@can('update', $project)
 							<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
+						@endcan
+
+						@can('delete', $project)
 							<x-danger-button form="delete_form_{{ $project->id }}" >Elimina</x-danger-button>
 							<form method="POST" action="{{ route('admin.projects.destroy', $project) }}" id="delete_form_{{ $project->id }}" class="hidden">
 								@csrf

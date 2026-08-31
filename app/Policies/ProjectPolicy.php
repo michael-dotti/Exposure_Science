@@ -21,13 +21,11 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        // 1. Admin vede tutto
         if ($user->hasPermissionTo('manage all projects')) {
             return true;
         }
 
-        // 2. PM e Researcher possono vederlo se ne sono creatori o collaboratori
-        $isCreator = $project->author_id === $user->id;
+        $isCreator = $project->creator_id === $user->id;
         $isCollaborator = $project->collaborators()->where('users.id', $user->id)->exists();
 
         return $isCreator || $isCollaborator;
@@ -38,31 +36,28 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        // Solo Admin e PM
-        return $user->hasPermissionTo('manage all projects') 
-            || $user->hasPermissionTo('manage own projects');
+        return $user->hasPermissionTo('create projects');
     }
 
     /**
-     * Chi può modificare uno SPECIFICO progetto?
+     * Chi può modificare uno specifico progetto?
      */
     public function update(User $user, Project $project): bool
     {
-        // 1. Admin modifica tutto
         if ($user->hasPermissionTo('manage all projects')) {
             return true;
         }
 
-        // 2. PM modifica SOLO se è l'autore (Researcher viene bloccato in automatico perché non ha questo permesso)
-        if ($user->hasPermissionTo('manage own projects')) {
-            return $project->author_id === $user->id;
+        // Usa 'manage my projects' come definito nel Seeder
+        if ($user->hasPermissionTo('manage my projects')) {
+            return $project->creator_id === $user->id;
         }
 
         return false;
     }
 
     /**
-     * Chi può eliminare uno SPECIFICO progetto?
+     * Chi può eliminare uno specifico progetto?
      */
     public function delete(User $user, Project $project): bool
     {
@@ -70,8 +65,9 @@ class ProjectPolicy
             return true;
         }
 
-        if ($user->hasPermissionTo('manage own projects')) {
-            return $project->author_id === $user->id;
+        // Usa 'manage my projects' come definito nel Seeder
+        if ($user->hasPermissionTo('manage my projects')) {
+            return $project->creator_id === $user->id;
         }
 
         return false;
