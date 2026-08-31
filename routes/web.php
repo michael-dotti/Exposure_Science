@@ -85,9 +85,9 @@ Route::middleware([
     });
 
     Route::controller(AdminArticleController::class)->group(function () {
-        Route::get('/admin/articles', 'index')->middleware('can:viewAny,' . Article::class)->name('admin.articles.index');
-        Route::get('/admin/articles/create','create')->middleware('can:create,' . Article::class)->name('admin.articles.create');
-        Route::post('/admin/articles', 'store')->middleware('can:create,' . Article::class)->name('admin.articles.store');
+        Route::get('/admin/articles', 'index')->name('admin.articles.index');
+        Route::get('/admin/articles/create','create')->name('admin.articles.create');
+        Route::post('/admin/articles', 'store')->name('admin.articles.store');
         Route::get('/admin/articles/{article}', 'show')->name('admin.articles.show');
         Route::get('/admin/articles/{article}/edit','edit')->name('admin.articles.edit');
         Route::patch("/admin/articles/{article}", 'update')->name('admin.articles.update');

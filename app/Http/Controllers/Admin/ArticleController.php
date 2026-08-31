@@ -21,8 +21,6 @@ class ArticleController extends Controller
     // Index = mostra tutti gli articoli
     public function index(Request $request)
     {
-        Gate::authorize('viewAny', Article::class);
-
         $areas = ResearchArea::all();
         $users = null;
 
@@ -78,14 +76,13 @@ class ArticleController extends Controller
     // create = porta alla view di creazione di un articolo
     public function create()
     {
-        // già controllato nelle rotte, ma per chiarezza
-        Gate::authorize('create', Article::class);
-
         // carico delle tabelle Users e ResearchAreas per il form solo le colonne necessarie (id e name) per non appesantire la quer
         $users = User::select('id', 'name','surname')
             ->orderBy('surname','asc')
             ->orderBy('name', 'asc')->get();
+        
         $areas = ResearchArea::select('id', 'name')->get();
+
         return view('admin.articles.create', compact('users','areas'));
     }
 
@@ -93,14 +90,13 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         Gate::authorize('view', $article);
+
         return view('admin.articles.show', ['article' => $article]);    
     }
 
     // store = esegue l'autenticazione e poi aggiunge un articolo
     public function store()
-    {
-        Gate::authorize('create', Article::class);
-        
+    {   
         // 1) validazione
         $validated = request()->validate([
             'title' => ['required','min:3','max:255'],
@@ -171,19 +167,17 @@ class ArticleController extends Controller
                 ]);
             }
 
-            $users = request()->users;
+            // gestione autori
+            $users = request()->input('users', []);
 
-            //rimuovo il creatore dall'array dei partecipanti
-            //la sua incusione è trattata singolarmente
-            //in questo modo ho la certezza di inserirlo e di inserirlo una sola volta
-            if (($key = array_search(Auth::user()->id, $users)) !== false) {
-                unset($users[$key]);
+            // Se NON è Admin, forzol'aggiunta dell'utente corrente (una sola volta)
+            if (! Auth::user()->hasPermissionTo('edit all articles') && ! in_array(Auth::id(), $users)) {
+                $users[] = Auth::id();
             }
 
-            // Collegamento Autori e aree
+            // Collegamento Autori e Aree di ricerca
             $article->users()->attach($users);
-            $article->users()->attach(Auth::user());
-            $article->researchAreas()->attach(request()->areas);
+            $article->researchAreas()->attach(request()->input('areas', []));
         });
 
         // 3) redirect
@@ -288,7 +282,7 @@ class ArticleController extends Controller
                 );
 
                 // Ricarica la relazione aggiornata per svuotare la cache in memoria
-                $article->load('curriculum');
+                $article->load('document');
             }
             // 
             elseif (request()->input('remove_file') == '1' || request()->filled('external_url')) {
@@ -300,11 +294,19 @@ class ArticleController extends Controller
                 }
             }
 
-            $users = request()->users;
+            // gestione autori
+            $users = request()->input('users', []);
+
+            // Se l'utente NON è Admin ed era già tra gli autori, non gli permettiamo di sfilarsi tramite sync
+            if (! Auth::user()->hasPermissionTo('edit all articles') && $article->users->contains(Auth::id())) {
+                if (! in_array(Auth::id(), $users)) {
+                    $users[] = Auth::id();
+                }
+            }
 
             $article->users()->sync($users);
-            $article->researchAreas()->sync(request()->areas);
-        }
+            $article->researchAreas()->sync(request()->input('areas', []));
+            }
         );
 
         return redirect()->route('admin.articles.index')->with(

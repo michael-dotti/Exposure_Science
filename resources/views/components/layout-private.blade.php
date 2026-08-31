@@ -36,9 +36,11 @@
                 <li>
                     <x-link-with-icon href="{{ route('admin.users.show') }}" :active="request()->routeIs('admin.users.*')" iconType="fas fa-user">Area Personale</x-link-with-icon>
                 </li>
+                
                 <li>
                     <x-link-with-icon href="{{ route('admin.articles.index') }}" :active="request()->routeIs('admin.articles.*')" iconType="fas fa-book">Articoli</x-link-with-icon>
                 </li>
+                
                 <li>
                     <x-link-with-icon href="{{ route('admin.projects.index') }}" :active="request()->routeIs('admin.projects.*')" iconType="fas fa-chart-bar">Progetti</x-link-with-icon>
                 </li>
@@ -47,7 +49,7 @@
                     <li>
                         <x-link-with-icon href="{{ route('admin.courses.index') }}" :active="request()->routeIs('admin.courses.*')" iconType="fa-solid fa-person-chalkboard">Corsi</x-link-with-icon>
                     </li>
-                @endcan()
+                @endcan
                 
                 <li>
                     <x-link-with-icon href="{{ route('admin.events.index') }}" :active="request()->routeIs('admin.events.*')" iconType="fas fa-cube">Eventi</x-link-with-icon>

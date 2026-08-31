@@ -9,71 +9,57 @@ use Illuminate\Auth\Access\Response;
 class ArticlePolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * Tutti gli utenti loggati possono vedere la lista articoli.
      */
     public function viewAny(User $user): bool 
     {
-       return $user->hasPermissionTo('edit all articles') 
-        || $user->hasPermissionTo('edit own articles')
-        || $user->hasPermissionTo('write articles');
+        return true;
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Chi può vedere il dettaglio di uno specifico articolo.
      */
     public function view(User $user, Article $article): bool
     {
-        // Se ha il permesso di gestire TUTTI gli articoli, può vederlo anche se non è l'autore
         if ($user->hasPermissionTo('edit all articles')) {
             return true;
         }
 
-        // Altrimenti, può vederlo solo se è uno degli autori
         return $article->users()->where('users.id', $user->id)->exists();
     }
 
     /**
-     * Determine whether the user can create models.
+     * Tutti gli utenti loggati possono creare un articolo.
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('write articles');
+        return true;
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Chi può modificare un articolo (Admin/Articles Admin OPPURE autore dell'articolo).
      */
     public function update(User $user, Article $article): bool
     {
-            // 1. Controllo "Super": Se hai il permesso di modificare TUTTO, salta le altre regole
-            if ($user->hasPermissionTo('edit all articles')) {
-                return true;
-            }
+        // 1. L'admin/articles admin può modificare qualsiasi articolo
+        if ($user->hasPermissionTo('edit all articles')) {
+            return true;
+        }
 
-            // 2. Controllo "Normale": Se ha il permesso di modificare SOLO i propri articoli
-            if ($user->hasPermissionTo('edit own articles')) {
-                // allora applichiamo la regola della Policy: deve essere tra gli autori
-                return $article->users()->where('users.id', $user->id)->exists();
-            }
-
-            // 3. Se non ha nessuno dei due permessi, accesso negato.
-            return false;
+        // 2. Qualsiasi altro utente registrato può modificare SOLO i propri articoli
+        return $article->users()->where('users.id', $user->id)->exists();
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Chi può eliminare un articolo (Admin/Articles Admin OPPURE autore dell'articolo).
      */
     public function delete(User $user, Article $article): bool
     {
-            if ($user->hasPermissionTo('edit all articles')) {
-                return true;
-            }
+        if ($user->hasPermissionTo('edit all articles')) {
+            return true;
+        }
 
-            if ($user->hasPermissionTo('edit own articles')) {
-                return $article->users()->where('users.id', $user->id)->exists();
-            }
-
-            return false;
+        return $article->users()->where('users.id', $user->id)->exists();
     }
 
 }

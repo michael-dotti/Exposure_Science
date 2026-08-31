@@ -77,8 +77,9 @@
                                 name="users[]"
                                 value="{{ $user->id }}"
                                 type="checkbox"
-                                @if ($user->id == auth()->id())
+                                @if ($user->id === auth()->id() && !auth()->user()->hasPermissionTo('edit all articles'))
                                     onclick="return false;"
+                                    {{-- i ricercatori standard non possono deselezionare la propria spunta --}}
                                 @endif
                                 @checked(
                                     in_array(

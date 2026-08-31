@@ -14,7 +14,8 @@
             </x-button-create>
         </x-slot:actions>
 
-        <x-slot:filters>
+        @can('manage all courses')
+            <x-slot:filters>
             <x-filter-box
                 title="Filtra per docente"
                 description="Seleziona un docente per visualizzare i corsi associati"
@@ -27,12 +28,10 @@
                 />
             </x-filter-box>
         </x-slot:filters>
+        @endcan
+        
     </x-dashboard-index-header>
     
-    
-
-    
-
     <div class="space-y-3">
         @forelse ($courses as $course)
 

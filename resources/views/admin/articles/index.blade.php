@@ -9,14 +9,12 @@
         showSessionStatus="true"
     >
         <x-slot:actions>
-            @can('create', App\Models\Article::class)
-                <x-button-create href="{{ route('admin.articles.create') }}">
-                    Nuovo Articolo
-                </x-button-create>
-            @endcan
+            <x-button-create href="{{ route('admin.articles.create') }}">
+                Nuovo Articolo
+            </x-button-create>
         </x-slot:actions>
+
         <x-slot:filters>
-            
             <x-filter-box
                 title="Filtra gli articoli"
                 description="Filtra gli articoli per autore o per area di ricerca"
@@ -113,47 +111,32 @@
                 </x-slot:description>
 
                 <x-slot:actions>
+                    <x-modify-button-link
+                        href="{{ route('admin.articles.edit', $article) }}"
+                    >
+                        Modifica
+                    </x-modify-button-link>
+                
+                    <x-danger-button
+                        type="submit"
+                        form="delete_form_{{ $article->id }}"
+                    >
+                        Elimina
+                    </x-danger-button>
 
-                    @can('update', $article)
-
-                        <x-modify-button-link
-                            href="{{ route('admin.articles.edit', $article) }}"
-                        >
-                            Modifica
-                        </x-modify-button-link>
-
-                    @endcan
-
-                    @can('delete', $article)
-
-                        <x-danger-button
-                            type="submit"
-                            form="delete_form_{{ $article->id }}"
-                        >
-                            Elimina
-                        </x-danger-button>
-
-                        <form
-                            method="POST"
-                            action="{{ route('admin.articles.destroy', $article) }}"
-                            id="delete_form_{{ $article->id }}"
-                            class="hidden"
-                        >
-                            @csrf
-                            @method('DELETE')
-                        </form>
-
-                    @endcan
-
+                    <form
+                        method="POST"
+                        action="{{ route('admin.articles.destroy', $article) }}"
+                        id="delete_form_{{ $article->id }}"
+                        class="hidden"
+                    >
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </x-slot:actions>
-
             </x-index-card>
-
         @empty
-
-            <x-message-of-empty title="Nessun articolo trovato">
-            </x-message-of-empty>
-
+            <x-message-of-empty title="Nessun articolo trovato" />
         @endforelse
     </div>
 

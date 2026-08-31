@@ -239,26 +239,16 @@
     </form>
 
     <x-slot:actions>
+        <x-modify-button-link href="{{ route('admin.articles.edit', $article) }}">
+            Modifica
+        </x-modify-button-link>
 
-        @can('update', $article)
-
-            <x-modify-button-link href="{{ route('admin.articles.edit', $article) }}">
-                Modifica
-            </x-modify-button-link>
-
-        @endcan
-
-        @can('delete', $article)
-
-            <x-danger-button
-                type="submit"
-                form="delete_article"
-            >
-                Elimina
-            </x-danger-button>
-
-        @endcan
-
+        <x-danger-button
+            type="submit"
+            form="delete_article"
+        >
+            Elimina
+        </x-danger-button>
     </x-slot:actions>
 
 </x-show-page>
