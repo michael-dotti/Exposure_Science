@@ -165,15 +165,4 @@ class UserFactory extends Factory
         ]);
     }
 
-    /**
-     * configure: metodo eseguito sempre appena la factory viene invocata
-     * in questo caso, assegno il ruolo di default  "researcher" a tutti gli utenti creati con la factory
-     */
-    public function configure(): static
-    {
-        // afterCreating viene eseguito dopo che l'utente è stato creato nel database
-        return $this->afterCreating(function (User $user) {
-            $user->assignRole('researcher');
-        });
-    }
 }

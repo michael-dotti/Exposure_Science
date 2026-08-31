@@ -34,7 +34,6 @@ class UserManagementController extends Controller
     public function show(User $user)
     {
         $user->load(['curriculum', 'roles']);
-
         $roles = Role::all();
 
         return view('admin.users-management.show',compact('user','roles'));
@@ -61,25 +60,25 @@ class UserManagementController extends Controller
         
         $user = DB::transaction(function () use ($validated) {
             // 2) creare nuovo User
-            $user = User::create([
+            $newUser = User::create([
                 'name' => $validated['name'],
                 'surname' => $validated['surname'],
                 'email' => $validated['email'], 
                 'password' => Hash::make($validated['password']),
             ]);
 
-            // 3) Assegna ruoli (assegna il ruolo 'researcher' se l'array è vuoto)
+           // 3) Assegna ruoli (se l'array è vuoto, l'utente nasce senza ruoli, senza generare errori)
             if (!empty($validated['roles'])) {
-                $user->assignRole(array_map('intval', $validated['roles']));
-            } else {
-                $user->assignRole('researcher');
+                $roles = Role::whereIn('id', $validated['roles'])->get();
+                $newUser->syncRoles($roles);
             }
 
-            return $user;// Nota Bene: le variabili definite dentro a DB::transaction() non sono utilizzabili all'esterno a meno che non le restituisci
+            return $newUser;// Nota Bene: le variabili definite dentro a DB::transaction() non sono utilizzabili all'esterno a meno che non le restituisci
         });
 
         // 4) redirect
-        return redirect()->route('admin.users-management.index')->with('success', 'Nuovo utente creato: ' . $user->name . ' ' . $user->surname . '.');
+        return redirect()->route('admin.users-management.index')
+            ->with('success', 'Nuovo utente creato: ' . $user->name . ' ' . $user->surname . '.');
     }
     
 
@@ -91,13 +90,13 @@ class UserManagementController extends Controller
             'roles.*' => ['exists:roles,id'],  // Verifica che l'ID passato esista nella tabella roles
         ]);
 
-        // 2) Estraggo i ruoli
-        $roles = $validated['roles'] ?? [];
+        // 2) Sincronizzo i ruoli in modo pulito usando Spatie
+        $rolesInput = $validated['roles'] ?? [];
+        $roles = Role::whereIn('id', $rolesInput)->get();
+        $user->syncRoles($roles);
 
-        // 3) converto i ruoli in int 
-        $user->syncRoles(array_map('intval', $roles));
-
-        return redirect()->route('admin.users-management.index')->with('success', 'I ruoli di ' . $user->name . ' ' . $user->surname . ' sono stati aggiornati con successo.');
+        return redirect()->route('admin.users-management.index')
+            ->with('success', 'I ruoli di ' . $user->name . ' ' . $user->surname . ' sono stati aggiornati con successo.');
 
     }
 
@@ -107,28 +106,29 @@ class UserManagementController extends Controller
         // ma imposterà semplicemente il campo deleted_at con la data e ora attuali. 
         $user->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Utente spostato nel cestino.');
     }
 
     public function forceDestroy(User $user)
     {
-        // 1) Sgangia le relazioni Molti-a-Molti per non lasciare record orfani
-        $user->articles()->detach();
-        $user->projects()->detach();
-        $user->events_receives()->detach();
-        $user->courses()->detach();
+        DB::transaction(function () use ($user) {
+            // 1) Sgangia le relazioni Molti-a-Molti per non lasciare record orfani
+            $user->articles()->detach();
+            $user->projects()->detach();
+            $user->events_receives()->detach();
+            $user->courses()->detach();
 
-        // 2) Forza l'eliminazione definitiva
-        $user->forceDelete();
-
+            // 2) Forza l'eliminazione definitiva
+            $user->forceDelete();
+        });
         // 3) Ritorna alla pagina precedente
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Utente eliminato definitivamente.');
     }
     
     public function restore(User $user)
     {
         $user->restore();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Utente ripristinato.');
     }
 }
