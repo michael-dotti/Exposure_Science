@@ -20,6 +20,7 @@
             </x-filter-box>
         </x-slot:filters>
     </x-dashboard-index-header>
+    
    <div class="space-y-3">
         @forelse ($news as $n)
             <x-index-card

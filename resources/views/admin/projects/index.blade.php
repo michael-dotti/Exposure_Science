@@ -54,18 +54,8 @@
 		</x-slot:filters>
 
 	</x-dashboard-index-header>
-	
-
-	@if (session('success'))
-		<div class="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-300">
-			{{ session('success') }}
-		</div>
-	@endif
 
 	
-
-	
-
 	<!-- div per il centramento -->
 	<div class="pt-4 px-4 sm:px-6 md:px-8">
 		<!-- div per la grigliatura -->

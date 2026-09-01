@@ -23,7 +23,7 @@ class Project extends Model
     ];
 
 
-    // gli utenti che lavorano a questo project
+    // gli utenti che lavorano a questo project (i collaboratori)
     public function users(): BelongsToMany  
     {
         return $this->belongsToMany(User::class)->withTrashed();
