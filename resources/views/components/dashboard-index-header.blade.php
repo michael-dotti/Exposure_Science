@@ -5,7 +5,7 @@
 ])
 
 @if($showSessionStatus)
-    <x-session-status />
+    <x-session-status class="mt-3" />
 @endif
 
 <div class="my-4 flex flex-col gap-3 md:flex-row sm:items-center sm:justify-between">
