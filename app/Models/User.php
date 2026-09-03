@@ -189,7 +189,11 @@ class User extends Authenticatable
                 // 1) recupera l'elenco dei ruoli di questo User
                 $roles = $this->roles->loadMissing('permissions');
 
-
+                // Se l'utente non ha ruoli assegnati a DB, restituiamo subito 'researcher'
+                if ($roles->isEmpty()) {
+                    return collect(['researcher']);
+                }
+                
                 // 2) se l'utente è admin, ignora tutti gli altri ruoli e mostra solo questo ruolo
                 if ($roles->contains('name', 'admin')) {
                     return collect(['admin']);
