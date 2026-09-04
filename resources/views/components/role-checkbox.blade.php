@@ -23,28 +23,40 @@
             'text-red-600 focus:ring-red-500 dark:focus:ring-red-600', 
             'Admin'
         ],
+        'articles admin' => [
+            'text-yellow-600 focus:ring-amber-500 dark:focus:ring-amber-300', 
+            'Amministratore Articoli'
+        ],
         // Green / Success
         'teacher' => [
-            'text-green-600 focus:ring-green-500 dark:focus:ring-green-600', 
+            'text-lime-500 focus:ring-green-500 dark:focus:ring-green-600', 
             'Docente'
+        ],
+        'courses admin' => [
+            'text-green-700 focus:ring-emerald-500 dark:focus:ring-emerald-600', 
+            'Amministratore Corsi'
         ],
         // Amber/Yellow / Warning
         'reliable researcher' => [
-            'text-amber-500 focus:ring-amber-500 dark:focus:ring-amber-600', 
+            'text-orange-700 focus:ring-amber-500 dark:focus:ring-amber-600', 
             'Ricercatore Affidabile'
         ],
         // Purple / Brand
         'news manager' => [
-            'text-teal-600 focus:ring-teal-500 dark:focus:ring-teal-600', 
+            'text-teal-600 focus:ring-teal-500 dark:focus:ring-teal-700', 
             'Gestore Notizie'
+        ],
+        'events admin' => [
+            'text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-700', 
+            'Amministratore Eventi'
         ],
         // Teal / Neutral Soft
         'projects manager' => [
-            'text-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600', 
+            'text-pink-600 focus:ring-pink-700 dark:focus:ring-pink-700', 
             'Gestore Progetti'
         ],
         'projects admin' => [
-            'text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600', 
+            'text-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600', 
             'Amministratore Progetti'
         ],
         // Gray / Mist / Default Base

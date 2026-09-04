@@ -18,18 +18,19 @@
         @if($news->isNotEmpty())          
             <div class="relative max-w-6xl mx-auto h-100 md:h-137.5 rounded-xl overflow-hidden mb-12 shadow-lg transition hover:-translate-y-1">
                 <a href="{{ route('public.news.show',$news[0]->id) }}" class="font-bold text-sm hover:text-blue-400 transition"> 
-                <img src="{{ Storage::url($news[0]->image_path)}}"
-                alt="{{ $news[0]->title }}"
-                class="absolute inset-0 w-full h-full object-cover object-center -z-20">
-                    <div class="absolute inset-0 bg-black opacity-50 -z-10"></div>
-                    
-                    <!-- Il contenuto (Titolo) -->
-                    <div class="relative z-10 p-10 h-full flex items-end">
-                        <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
-                            {{ $news[0]->title }}
-                        </h1>
-                    </div>
-            </a>
+                    <img src="{{ Storage::url($news[0]->image_path)}}"
+                        alt="{{ $news[0]->title }}"
+                        class="absolute inset-0 w-full h-full object-cover object-center -z-20"
+                    >
+                        <div class="absolute inset-0 bg-black opacity-50 -z-10"></div>
+                        
+                        {{-- Notizia più Recente --}}
+                        <div class="relative z-10 p-10 h-full flex items-end">
+                            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                                {{ $news[0]->title }}
+                            </h1>
+                        </div>
+                </a>
             </div>
 
             <div class="max-w-6xl mx-auto">

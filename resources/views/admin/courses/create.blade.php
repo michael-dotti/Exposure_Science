@@ -151,7 +151,7 @@
                                 @checked(
                                     in_array(
                                         $teacher->id,
-                                        old('teachers', [auth()->id()])
+                                        old('teachers', $defaultTeachers)
                                     )
                                 )
                                 class="h-4 w-4 rounded border-white/10 bg-transparent text-indigo-600 focus:ring-indigo-600"

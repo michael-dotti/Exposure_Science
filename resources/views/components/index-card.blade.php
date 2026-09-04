@@ -15,7 +15,7 @@
 
     <div class="w-1.5 shrink-0 bg-blue-500 transition-colors group-hover:bg-blue-400"></div>
 
-    <div class="pointer-events-none relative z-20 flex flex-col sm:flex-row">
+    <div class="pointer-events-none relative z-20 flex flex-1 flex-col sm:flex-row w-full">
 
         <div class="relative flex shrink-0 items-center justify-center overflow-hidden border-b border-white/10 bg-slate-900/30 {{ $imageWidth }} {{ $flushImage ? 'min-h-40 sm:min-h-full' : 'p-4' }} sm:border-b-0 sm:border-r">
             {{ $image }}

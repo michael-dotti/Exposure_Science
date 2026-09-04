@@ -13,9 +13,13 @@
 			</p>
 		</div>
 	</x-slot:heading>
-
+    
 	<div class="max-w-4xl mx-auto">
-		<!-- controlle se ci sono progetti nel sito -->
+		{{-- FILTRO STATO --}}
+		<div class="flex flex-1 justify-center items-center mb-8">
+			<x-project-status-filter :statuses="$statuses" />
+		</div>
+
 		@if ($projects->isEmpty())
 			<x-message-of-empty title="Al Momento Non Sono Presenti Progetti" image="fas fa-chart-bar" />
 		@else

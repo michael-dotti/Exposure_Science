@@ -26,7 +26,7 @@ class ProjectPolicy
         }
 
         $isCreator = $project->creator_id === $user->id;
-        $isCollaborator = $project->collaborators()->where('users.id', $user->id)->exists();
+        $isCollaborator = $project->users()->where('users.id', $user->id)->exists();
 
         return $isCreator || $isCollaborator;
     }

@@ -6,7 +6,6 @@
     <x-dashboard-index-header
         title="Gestione Articoli"
         subtitle="Visualizza e gestisci gli articoli presenti nel portale"
-        showSessionStatus="true"
     >
         <x-slot:actions>
             <x-button-create href="{{ route('admin.articles.create') }}">
@@ -23,7 +22,6 @@
             >
                 @can('edit all articles')
                     <x-user-filter
-                        title="Autore"
                         :users="$users"
                     />
                 @endcan
