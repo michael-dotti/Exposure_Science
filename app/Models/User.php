@@ -237,7 +237,7 @@ class User extends Authenticatable
                     }
                 }
 
-                return $topLevelRoles;
+                $topLevelRoles->isEmpty() ? collect(['researcher']) : $topLevelRoles;
             }
         );
     }

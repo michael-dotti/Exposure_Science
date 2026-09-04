@@ -22,7 +22,6 @@
             >
                 @can('edit all articles')
                     <x-user-filter
-                        title="Autore"
                         :users="$users"
                     />
                 @endcan

@@ -14,12 +14,16 @@
         </div>
     </x-slot:heading>
 
-    <div class="relative z-10 flex flex-col justify-center items-center text-center text-white">
+   <div class="relative z-10 w-full text-white">
 
         <!--filtraggi-->
-        <div class="flex space-x-2 my-4">
-            <x-user-filter href="/public/articles" :users="$users"></x-user-filter>
-            <x-research-area-filter href="/public/articles" :researchAreas="$areas"></x-research-area-filter>     
+        <div class="my-6 flex w-full gap-3">
+            <div class="flex-1 flex justify-end">
+                <x-user-filter :users="$users" />
+            </div>
+            <div class="flex-1 flex justify-start">
+                <x-research-area-filter :researchAreas="$areas" />    
+            </div>
         </div>
 
         <!--esposizione articoli-->
