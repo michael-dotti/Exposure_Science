@@ -35,15 +35,17 @@
 						<a href="/public/projects/{{ $project->id }}" class="flex flex-col h-full ml-2 sm:flex-row">
 							<div class="flex flex-col justify-between flex-1 p-3">
 								<div>
-									<h2 class="text-xl font-bold text-white">
+									<h2 class="text-xl font-bold text-white flex justify-center items-center">
 										{{ $project->title }}
 									</h2>
 								</div>
 
 								@if($project->funding_agency)
-									<div class="mt-1 text-sm font-medium text-white">
-										Progetto finanziato da 
-										<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
+									<div class="mt-1 text-sm font-medium text-white flex justify-center items-center">
+										<p>
+											Progetto finanziato da 
+											<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
+										</p>
 									</div>
 								@endif
 

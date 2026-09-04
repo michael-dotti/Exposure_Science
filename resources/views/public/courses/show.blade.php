@@ -150,7 +150,7 @@
                 </div>
 
                 @if (filled(strip_tags($course->description ?? '')))
-                    <div class="course-content max-w-none break-words text-base leading-8 text-gray-300">
+                    <div class="course-content max-w-none break-words text-base leading-8 text-gray-300 [overflow-wrap:anywhere]">
                         {!! $course->description !!}
                     </div>
                 @else

@@ -1,7 +1,8 @@
 @props([
     'user', 
     'showButtons' => false, // Di default i bottoni si vedono, ma puoi disabilitarli
-    'isUserManagement' => false
+    'isUserManagement' => false,
+    'showButtonBack' => true
 ])
 
 <div {{ $attributes->merge(['class' => 'mt-3 w-full']) }}>
@@ -18,9 +19,11 @@
                         Qui puoi trovare le informazioni personali
                     </h1>
                 </div>
-                <div>
-                    <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
-                </div>
+                @if($showButtonBack)
+                    <div>
+                        <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
+                    </div>    
+                @endif
             </div>
         </div>
 

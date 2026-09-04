@@ -105,41 +105,15 @@
                                     class="relative h-48 w-full shrink-0
                                            overflow-hidden bg-gray-900"
                                 >
-                                    @if ($article->image_path)
-                                        <img
-                                            src="{{ Storage::url($article->image_path) }}"
-                                            alt="Immagine della pubblicazione {{ $article->title }}"
-                                            loading="lazy"
-                                            class="h-full w-full object-cover
-                                                   transition duration-500
-                                                   group-hover:scale-105"
-                                        />
-                                    @else
-                                        <!-- Segnaposto -->
-                                        <div
-                                            class="flex h-full w-full flex-col
-                                                   items-center justify-center gap-3
-                                                   bg-gradient-to-br
-                                                   from-gray-800 to-gray-900
-                                                   text-gray-500"
-                                        >
-                                            <div
-                                                class="flex h-16 w-16 items-center
-                                                       justify-center rounded-2xl
-                                                       bg-gray-700/70 text-2xl
-                                                       text-amber-400"
-                                            >
-                                                <i
-                                                    class="fa-regular fa-image"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </div>
-
-                                            <span class="text-sm font-medium">
-                                                Immagine non disponibile
-                                            </span>
-                                        </div>
-                                    @endif
+                                    
+                                    <img
+                                        src="{{ Storage::url($article->image_path) }}"
+                                        alt="Immagine della pubblicazione {{ $article->title }}"
+                                        loading="lazy"
+                                        class="h-full w-full object-cover
+                                                transition duration-500
+                                                group-hover:scale-105"
+                                    />
                                 </div>
 
 

@@ -59,6 +59,8 @@
 			</div> 
 		</x-content-section>
 
+
+
 		<x-content-section>
 			<x-label>
 				Periodo
@@ -77,8 +79,10 @@
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
 					sm:text-sm/6">
 			</div>
+			<x-form-error name="start_date" />
+			<x-form-error name="end_date" />
 		</x-content-section>
-	
+
 	
 	<x-slot:buttons>
 		<x-save-button type="submit">Salva</x-save-button>

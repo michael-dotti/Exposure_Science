@@ -88,7 +88,7 @@
                     </div>
 
                     @if (filled(strip_tags($article->abstract ?? '')))
-                        <div class="article-content">
+                        <div class="article-content [overflow-wrap:anywhere]">
                             {!! $article->abstract !!}
                         </div>
                     @else

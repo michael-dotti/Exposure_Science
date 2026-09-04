@@ -51,8 +51,8 @@
 				
 			</div>
 
-			<div class="ml-2 mt-2 text-sm font-medium text-gray-300">
-				{{ $project->description }}
+			<div class="ml-2 mt-2 text-sm font-medium text-gray-300 [overflow-wrap:anywhere]">
+				{!! $project->description !!}
 			</div>
 
 			<div class="-ml-2 mt-8">

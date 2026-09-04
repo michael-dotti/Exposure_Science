@@ -43,14 +43,15 @@
                                 <div class="flex flex-col justify-between flex-1 p-4">
 
                                     <div>
-                                        <h2 class="text-xl font-bold text-white">
+                                        <h2 class="text-xl font-bold text-white flex justify-center items-center">
                                             {{ $course->title }}
                                         </h2>
 
-                                        <p class="mt-1 text-sm font-medium text-amber-400">
+                                        <p class="mt-1 text-sm font-medium text-amber-400 flex justify-center items-center">
                                             Codice corso: {{ $course->code }}
                                         </p>
 
+                                        
                                         <div class="grid grid-cols-2 gap-2 mt-4 text-sm text-gray-300">
 
                                             <p>
