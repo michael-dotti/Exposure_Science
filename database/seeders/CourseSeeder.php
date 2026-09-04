@@ -41,5 +41,11 @@ class CourseSeeder extends Seeder
             $user1->id,
             $user2->id
         ]);
+
+        $courses = Course::factory()->count(30)->create();
+        foreach ($courses as $course) {
+            $course->teachers()->attach([$user2->id]);
+        }
+        
     }
 }

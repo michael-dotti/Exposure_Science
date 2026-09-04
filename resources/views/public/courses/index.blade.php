@@ -18,6 +18,13 @@
     <section class="py-8">
         <div class="max-w-4xl px-4 mx-auto lg:px-6">
 
+            <div class="flex flex-1 justify-center items-center mb-8">
+                <x-user-filter
+                    title="Docente"
+                    :users="$teachers"
+                />
+            </div>
+
             @if ($courses->isEmpty())
                 <x-message-of-empty title="Al Momento Non Sono Presenti Corsi" image="fa-solid fa-person-chalkboard" />
             @else
@@ -30,7 +37,7 @@
                                    hover:-translate-y-1 hover:shadow-xl"
                         >
                             <a
-                                href="/public/courses/{{ $course->id }}"
+                                href="{{ route('public.courses.show',$course->id) }}"
                                 class="flex flex-col h-full"
                             >
                                 <div class="flex flex-col justify-between flex-1 p-4">
@@ -118,6 +125,10 @@
                         </article>
                     @endforeach
 
+                </div>
+                {{-- Paginazione --}}
+                <div class="mt-8 flex justify-center">
+                    {{ $courses->links() }}
                 </div>
             @endif
 

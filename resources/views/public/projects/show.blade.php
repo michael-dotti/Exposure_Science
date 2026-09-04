@@ -11,7 +11,7 @@
 
 			<div class="mb-6 text-sm font-small text-gray-300">
 				Stato attuale:
-				<span class="text-white"> {{ $project->status }} </span>
+				<span class="text-white"> {{ $project->status->label() }} </span>
 			</div>
 
 			@if($project->start_date || ($project->end_date))

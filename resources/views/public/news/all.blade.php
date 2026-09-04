@@ -6,9 +6,19 @@
         Storico Notizie
     </x-slot:heading>
 
-    <div class="text-white max-w-7xl mx-auto">
-        <div>
-            <x-public-botton-back title="Torna alle ultime notizie" :href="route('public.news.index')" />
+    <div class="w-full max-w-7xl mx-auto px-4 mt-6 text-white">
+        {{-- BLOCCO AZIONI SUPERIORE (Bottone + Filtro) --}}
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            {{-- Pulsante Indietro (Sinistra) --}}
+            <div>
+                <x-public-botton-back title="Torna alle ultime notizie" :href="route('public.news.index')" />
+            </div>
+            
+            {{-- Filtro (Destra)--}}
+            <div class="w-full sm:w-auto flex sm:justify-end">
+                <x-news-sort-filter />
+            </div>
+            
         </div>
         @if($news)
             <h3 class="py-4 font-bold text-2xl font-sans text-amber-300 mb-4 mt-2">Tutte le notizie:</h3>
