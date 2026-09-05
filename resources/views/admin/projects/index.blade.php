@@ -59,63 +59,79 @@
 	<!-- div per il centramento -->
 	<div class="pt-4 px-4 sm:px-6 md:px-8">
 		<!-- div per la grigliatura -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-1 gap-4">
 			@forelse($projects as $project)
-				<x-content-section>
-					<a href="{{ route('admin.projects.show', $project) }}">
-						<div class="ml-2 flex flex-col">
-							
-							<div class="justify-between">
-								<h2 class="text-xl font-bold text-white">
-									{{ $project->title }}
-								</h2>
-							</div>
+				<x-index-card
+						:href="route('admin.projects.show', $project)"
+						:title="$project->title"
+					>
 
-							@if($project->funding_agency)
-								<div class="mt-1 text-sm font-medium text-white">
-									Progetto finanziato da 
-									<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
+						<x-slot:image>
+							<div class="flex h-28 w-full flex-col items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/5">
+								<div class="text-4xl leading-none">
+									<i class="fa-solid fa-arrow-trend-up text-blue-300"></i>
 								</div>
-							@endif
 
-							<!-- partecipanti -->
-							<div class="mt-1 text-sm font-medium text-white"> 
-								Partecipano: @foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach 
+								<span class="mt-3 rounded-md border border-blue-400/20 bg-blue-500/10 px-2.5 py-1 text-xs font-bold tracking-wide text-blue-300">
+									stato: {{ $project->status }}
+								</span>
 							</div>
+						</x-slot:image>
 
-							<!-- creatore -->
-							<div class="mt-1 text-sm font-medium text-white">
-								Creatore del progetto: {{ $project->creator->name }} {{ $project->creator->surname }}
+						<x-slot:people>
+							<div class="mt-1 flex flex-wrap items-center gap-1 text-sm">
+
+								<span class="font-semibold text-blue-400">
+									Partecipanti:
+								</span>
+
+								<span class="text-gray-300">
+									@forelse ($project->users as $user)
+										{{ $user->name }}
+										{{ $user->surname }}@if (!$loop->last), @endif
+									@empty
+										Nessun autore associato
+									@endforelse
+								</span>
+
 							</div>
-							
-							<!-- descrizione troncata -->
-							<div class="mt-1 text-sm font-medium text-white">
-								<p class="mt-3 text-sm leading-6 text-gray-300">
-									{{ \Illuminate\Support\Str::limit(strip_tags($project->description), 85) }}
-								</p>
-							</div>
+						</x-slot:people>
 
-							<!-- LINK PER VISUALIZZARE (Separato dai bottoni) -->
-							<p class="mt-2 inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
-								Visualizza progetto >
-							</p>
+						<x-slot:details>
+						</x-slot:details>
 
-							<hr class="h-px my-3 bg-gray-600 border-0">
+						<x-slot:description>
+							{{ \Illuminate\Support\Str::limit(
+								strip_tags($project->description),
+								180
+							) }}
+						</x-slot:description>
 
-							<!-- pulsanti modifica e cancellazione -->
-							<div class="flex flex-wrap items-center gap-2">
-								@can('update', $project)
-									<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
-								@endcan
-								
-								@can('delete', $project)
-									<x-danger-button form="delete_form_{{ $project->id }}">Elimina</x-danger-button>
-								@endcan
-							</div>
+						<x-slot:actions>
+							<x-modify-button-link
+								href="{{ route('admin.projects.edit', $project) }}"
+							>
+								Modifica
+							</x-modify-button-link>
+						
+							<x-danger-button
+								type="submit"
+								form="delete_form_{{ $project->id }}"
+							>
+								Elimina
+							</x-danger-button>
 
-						</div>
-					</a>
-                </x-content-section>
+							<form
+								method="POST"
+								action="{{ route('admin.projects.destroy', $project) }}"
+								id="delete_form_{{ $project->id }}"
+								class="hidden"
+							>
+								@csrf
+								@method('DELETE')
+							</form>
+						</x-slot:actions>
+					</x-index-card>
 			@empty
 				<x-message-of-empty title="Nessun Progetto Trovato" image="fas fa-chart-bar" />
 			@endforelse
