@@ -3,7 +3,15 @@
         Storico Notizie
     </x-slot:title>
     <x-slot:heading>
-        Storico Notizie
+        <div class="py-5 text-center">
+            <h1 class="text-3xl font-bold text-amber-300">
+                Storico Notizie
+            </h1>
+
+            <p class="max-w-2xl mx-auto mt-3 text-base text-gray-300">
+                Tutte le Notizie
+            </p>
+        </div>
     </x-slot:heading>
 
     <div class="w-full max-w-7xl mx-auto px-4 mt-6 text-white">

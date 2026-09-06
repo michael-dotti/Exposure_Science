@@ -69,7 +69,7 @@
 						<x-slot:image>
 							<div class="flex h-28 w-full flex-col items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/5">
 								<div class="text-4xl leading-none">
-									<i class="fa-solid fa-arrow-trend-up text-blue-300"></i>
+									<i class="fa-solid fa-diagram-predecessor text-blue-300"></i>
 								</div>
 
 								<span class="mt-3 rounded-md border border-blue-400/20 bg-blue-500/10 px-2.5 py-1 text-xs font-bold tracking-wide text-blue-300">
