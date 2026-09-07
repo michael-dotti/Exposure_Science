@@ -22,7 +22,7 @@
             @if ($news->isNotEmpty())
 
             {{-- Notizia più recente --}}
-            <article class="h-[420px] md:h-[500px]">
+            <article class="h-105 md:h-125">
                 <a
                     href="{{ route('public.news.show', $news[0]->id) }}"
                     class="group relative block h-full overflow-hidden
@@ -61,7 +61,7 @@
 
                     {{-- Sfumatura per rendere leggibili le scritte --}}
                     <div
-                        class="absolute inset-0 bg-gradient-to-t
+                        class="absolute inset-0 bg-linear-to-t
                             from-black/90 via-black/25 to-black/10
                             transition duration-300
                             group-hover:from-black/95"
@@ -101,7 +101,7 @@
 
                         {{-- Titolo --}}
                         <h2
-                            class="mt-3 max-w-4xl break-words
+                            class="mt-3 max-w-4xl wrap-break-word
                                 text-3xl font-extrabold leading-tight
                                 text-white transition-colors
                                 group-hover:text-amber-300

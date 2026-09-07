@@ -46,13 +46,18 @@ class DatabaseSeeder extends Seeder
                 File::get($sourcePath));
             }
 
-            $imageNewsName = 'defaultNews.webp';
-            $sourcePath = public_path('images/'. $imageNewsName);
+            $imagesNewsName = ['defaultNews_0.webp','defaultNews_1.webp','defaultNews_2.webp','defaultNews_3.webp',
+                'defaultNews_4.webp','defaultNews_5.webp','defaultNews_6.webp','defaultNews_7.webp',
+                'defaultNews_8.webp','defaultNews_9.webp'];
+            
+            foreach ($imagesNewsName as $imageNewsName) {
+                $sourcePath = public_path('images/'. $imageNewsName);
 
-            if(File::exists($sourcePath)){
-                Storage::disk('public')->put(
-                    'uploads/news/'.$imageNewsName, 
-                    File::get($sourcePath));
+                if(File::exists($sourcePath)){
+                    Storage::disk('public')->put(
+                        'uploads/news/'.$imageNewsName, 
+                        File::get($sourcePath));
+                }
             }
 
             //1) prendi nome file

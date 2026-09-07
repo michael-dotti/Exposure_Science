@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="287.02454mm"
+   height="53.462433mm"
+   viewBox="0 0 287.02454 53.462433"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <rect
+       x="466.14337"
+       y="698.48895"
+       width="198.94592"
+       height="132.14661"
+       id="rect3" />
+    <rect
+       x="110.36416"
+       y="646.21118"
+       width="108.912"
+       height="65.347198"
+       id="rect4" />
+    <rect
+       x="110.36416"
+       y="752.21887"
+       width="248.31937"
+       height="78.416687"
+       id="rect5" />
+    <rect
+       x="0"
+       y="573.60321"
+       width="793.70081"
+       height="257.03232"
+       id="rect2" />
+  </defs>
+  <g
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.92834957,0,0,0.9354861,-314.19461,-545.04478)"
+       id="text1"
+       style="font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect2);fill:#ffffff;fill-opacity:1;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"><tspan
+         x="337.59013"
+         y="611.29263"
+         id="tspan3"><tspan
+           style="font-weight:bold;font-size:42.6667px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold'"
+           id="tspan2">EXPO</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.9042275,0,0,0.9042275,-386.15883,-647.4945)"
+       id="text2"
+       style="font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3);fill:#51a2ff;fill-opacity:1;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"><tspan
+         x="541.88705"
+         y="773.86642"
+         id="tspan5"><tspan
+           style="font-weight:bold;font-size:85.3333px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold'"
+           id="tspan4">S</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.78798609,0,0,0.79613546,48.482918,-521.98623)"
+       id="text3"
+       style="font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4);fill:#ffffff;fill-opacity:1;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"><tspan
+         x="119.77764"
+         y="683.90005"
+         id="tspan7"><tspan
+           style="font-weight:bold;font-size:42.6667px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold'"
+           id="tspan6">URE</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.89284987,0,0,0.89284987,5.2536031,-652.38333)"
+       id="text4"
+       style="font-size:21.3333px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect5);fill:#ffffff;fill-opacity:1;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"><tspan
+         x="151.54421"
+         y="789.90786"
+         id="tspan9"><tspan
+           style="font-weight:bold;font-size:42.6667px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold'"
+           id="tspan8">CIENCE</tspan></tspan></text>
+  </g>
+</svg>
