@@ -1,77 +1,137 @@
 <x-layout-public>
-	<x-slot:title>
-		Progetti
-	</x-slot:title>
-	<x-slot:heading>
-		<div class="py-5 text-center">
-			<h1 class="text-3xl font-bold text-amber-300">
-				I nostri progetti
-			</h1>
 
-			<p class="max-w-2xl mx-auto mt-3 text-base text-gray-300">
-				Scopri dove l'impegno dei nostri ricercatori viene allocato.
-			</p>
-		</div>
-	</x-slot:heading>
-    
-	<div class="max-w-4xl mx-auto">
-		{{-- FILTRO STATO --}}
-		<div class="flex flex-1 justify-center items-center mb-8">
-			<x-project-status-filter :statuses="$statuses" />
-		</div>
+    <x-slot:title>
+        Progetti
+    </x-slot:title>
 
-		@if ($projects->isEmpty())
-			<x-message-of-empty title="Al Momento Non Sono Presenti Progetti" image="fas fa-chart-bar" />
-		@else
-			<div class="grid grid-cols-2 gap-4">
-				<!-- ciclo sui progetti nel sito (i tot che paginate del controller mi ha dato) -->
-				@foreach($projects as $project)
-					<!-- riquadro del singolo progetto (ho ripreso lo stile dei riquadri del team e dei corsi) -->
-					<article class="overflow-hidden rounded-lg border border-slate-700
-									bg-gray-800 shadow-md transition duration-300
-									hover:-translate-y-1 hover:shadow-xl"
-						>
-						<!-- linkaggio al singolo progetto -->
-						<a href="/public/projects/{{ $project->id }}" class="flex flex-col h-full ml-2 sm:flex-row">
-							<div class="flex flex-col justify-between flex-1 p-3">
-								<div>
-									<h2 class="text-xl font-bold text-white flex justify-center items-center">
-										{{ $project->title }}
-									</h2>
-								</div>
+    <x-slot:heading>
+        <div class="py-5 text-center">
+            <h1 class="text-3xl font-bold text-amber-300">
+                I nostri progetti
+            </h1>
 
-								@if($project->funding_agency)
-									<div class="mt-1 text-sm font-medium text-white flex justify-center items-center">
-										<p>
-											Progetto finanziato da 
-											<span class="text-sm font-medium text-amber-400"> {{ $project->funding_agency }} </span>
-										</p>
-									</div>
-								@endif
+            <p class="mx-auto mt-3 max-w-2xl text-base text-gray-300">
+                Scopri dove l'impegno dei nostri ricercatori viene allocato.
+            </p>
+        </div>
+    </x-slot:heading>
 
-								<!-- descrizione troncata per non far occupare troppo spazio -->
-								<div class="mt-1 text-sm font-medium text-white">
-									<p class="mt-3 text-sm leading-6 text-gray-300">
-										{{ \Illuminate\Support\Str::limit(
-											strip_tags($project->description),
-											85
-										) }}
-									</p>
-								</div>
+    <section class="py-8">
+        <div class="mx-auto max-w-4xl px-4 lg:px-6">
 
-								<div class="mt-7 inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
-									Visualizza progetto >
-								</div>
-							</div>
-						</a>
-					</article>
-				@endforeach
-			</div>
-		@endif
-	</div>
+            {{-- Filtro dei progetti --}}
+            <x-filter-box
+                variant="public"
+                title="Filtra i progetti"
+                description="Seleziona uno stato per visualizzare i progetti corrispondenti"
+                resetUrl="{{ route('public.projects.index') }}"
+                :activeFilters="$currentFilters"
+            >
+                <x-project-status-filter
+                    :statuses="$statuses"
+                />
+            </x-filter-box>
 
-	<!-- numerazione per la paginazione -->
-	<div class="mt-2">
-		{{ $projects->links() }}
-	</div>
+            @if ($projects->isEmpty())
+
+                <x-message-of-empty
+                    title="Al momento non sono presenti progetti"
+                    image="fas fa-chart-bar"
+                />
+
+            @else
+
+                <div class="grid gap-5 md:grid-cols-2">
+
+                    @foreach ($projects as $project)
+                        <article
+                            class="overflow-hidden rounded-lg border border-slate-700
+                                   bg-gray-800 shadow-md transition duration-300
+                                   hover:-translate-y-1 hover:shadow-xl"
+                        >
+                            <a
+                                href="{{ route('public.projects.show', $project) }}"
+                                class="flex h-full flex-col"
+                            >
+                                <div class="flex flex-1 flex-col justify-between p-5">
+
+                                    <div>
+                                        <div class="flex items-start justify-between gap-3">
+                                            <h2 class="min-w-0 text-xl font-bold text-white">
+                                                {{ $project->title }}
+                                            </h2>
+
+                                        </div>
+
+                                        @if ($project->funding_agency)
+                                            <p class="mt-3 text-sm text-gray-300">
+                                                Finanziato da
+
+                                                <span class="font-semibold text-amber-400">
+                                                    {{ $project->funding_agency }}
+                                                </span>
+                                            </p>
+                                        @endif
+
+                                        @if ($project->start_date || $project->end_date)
+                                            <div class="mt-4 grid grid-cols-1 gap-2 text-sm text-gray-300 sm:grid-cols-2">
+
+                                                @if ($project->start_date)
+                                                    <p>
+                                                        <span class="font-semibold text-white">
+                                                            Data di avvio:
+                                                        </span>
+
+                                                        {{ \Illuminate\Support\Carbon::parse($project->start_date)->format('d/m/Y') }}
+                                                    </p>
+                                                @endif
+
+                                                @if ($project->end_date)
+                                                    <p>
+                                                        <span class="font-semibold text-white">
+                                                            Data di fine:
+                                                        </span>
+
+                                                        {{ \Illuminate\Support\Carbon::parse($project->end_date)->format('d/m/Y') }}
+                                                    </p>
+                                                @endif
+
+                                            </div>
+                                        @endif
+
+                                        <p class="mt-4 text-sm leading-6 text-gray-300">
+                                            {{ \Illuminate\Support\Str::limit(
+                                                strip_tags($project->description),
+                                                120
+                                            ) }}
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <span class="inline-flex items-center text-sm font-semibold text-amber-300 hover:text-amber-200">
+                                            Visualizza progetto
+
+                                            <i
+                                                class="fa-solid fa-arrow-right ml-2 text-xs"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </article>
+                    @endforeach
+
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    {{ $projects->links() }}
+                </div>
+
+            @endif
+
+        </div>
+    </section>
+
 </x-layout-public>

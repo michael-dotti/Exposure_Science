@@ -21,9 +21,10 @@
 
             <!-- Filtri -->
             <x-filter-box
+                variant="public"
                 title="Filtra le pubblicazioni"
                 description="Seleziona un autore o un’area di ricerca per restringere i risultati"
-                reset-url="{{ url('/public/articles') }}"
+                reset-url="{{ route('public.articles.index') }}"
                 :active-filters="$currentFilters"
             >
                 <x-user-filter

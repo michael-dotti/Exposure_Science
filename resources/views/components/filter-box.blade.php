@@ -3,12 +3,22 @@
     'description',
     'resetUrl' => null,
     'activeFilters' => [],
+    'variant' => 'private',
 ])
+
+@php
+    $backgroundClass = match ($variant) {
+        'public'  => 'bg-slate-900',
+        'private' => 'bg-transparent',
+        default   => 'bg-transparent',
+    };
+@endphp
 
 <div
     {{ $attributes->class([
-        'relative z-20 mb-6 overflow-visible rounded-xl',
-        'border border-white/10 bg-gray-900/60',
+        'relative z-10 mb-6 overflow-visible rounded-xl',
+        'border border-white/10',
+        $backgroundClass,
         'px-4 py-4 shadow-md',
     ]) }}
 >

@@ -1,57 +1,14 @@
 <x-layout-public>
+
     <x-slot:title>
         {{ $article->title }}
     </x-slot:title>
 
     <x-slot:heading>
         <div class="mx-auto w-full max-w-6xl px-4 py-6 text-center sm:px-6 lg:px-8">
-
             <h1 class="break-words text-3xl font-bold leading-tight text-amber-300">
                 {{ $article->title }}
             </h1>
-
-            <div class="mt-4 flex flex-col items-center justify-center gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6">
-
-                {{-- Autori --}}
-                <div class="flex min-w-0 items-center justify-center gap-2">
-                    <i
-                        class="fa-solid fa-users shrink-0 text-cyan-400"
-                        aria-hidden="true"
-                    ></i>
-
-                    <span class="font-semibold text-gray-400">
-                        {{ $article->users->count() === 1 ? 'Autore:' : 'Autori:' }}
-                    </span>
-
-                    <span class="break-words font-medium text-white">
-                        @forelse ($article->users as $user)
-                            {{ $user->name }} {{ $user->surname }}@if (!$loop->last), @endif
-                        @empty
-                            Non indicato
-                        @endforelse
-                    </span>
-                </div>
-
-                {{-- Aree di ricerca --}}
-                <div class="flex min-w-0 items-center justify-center gap-2">
-                    <i
-                        class="fa-solid fa-flask shrink-0 text-amber-300"
-                        aria-hidden="true"
-                    ></i>
-
-                    <span class="font-semibold text-gray-400">
-                        {{ $article->researchAreas->count() === 1
-                            ? 'Area di ricerca:'
-                            : 'Aree di ricerca:' }}
-                    </span>
-
-                    <span class="break-words font-medium text-white">
-                        {{ $article->researchAreas->pluck('name')->join(', ')
-                            ?: 'Non indicate' }}
-                    </span>
-                </div>
-
-            </div>
         </div>
     </x-slot:heading>
 
@@ -74,7 +31,8 @@
                 {{-- Abstract --}}
                 <section class="min-w-0 p-6 sm:p-8 lg:p-10">
 
-                    <div class="mb-7 flex items-center gap-3">
+                    {{-- Titolo della sezione --}}
+                    <div class="flex items-center gap-3">
                         <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-400/20 bg-amber-400/10 text-amber-300">
                             <i
                                 class="fa-solid fa-align-left"
@@ -87,31 +45,105 @@
                         </h2>
                     </div>
 
-                    @if (filled(strip_tags($article->abstract ?? '')))
-                        <div class="article-content [overflow-wrap:anywhere]">
-                            {!! $article->abstract !!}
+                    {{-- Autori e aree di ricerca --}}
+                    <div class="mt-6 flex flex-col gap-3 border-b border-white/10 pb-6">
+
+                        {{-- Autori --}}
+                        <div class="flex min-w-0 items-start gap-2 text-sm">
+                            <i
+                                class="fa-solid fa-user-group mt-1 shrink-0 text-cyan-400"
+                                aria-hidden="true"
+                            ></i>
+
+                            <span class="shrink-0 font-semibold text-gray-400">
+                                {{ $article->users->count() === 1
+                                    ? 'Autore:'
+                                    : 'Autori:' }}
+                            </span>
+
+                            <span class="break-words font-medium text-gray-200 [overflow-wrap:anywhere]">
+                                @forelse ($article->users as $user)
+                                    {{ $user->name }}
+                                    {{ $user->surname }}@if (!$loop->last), @endif
+                                @empty
+                                    Non indicato
+                                @endforelse
+                            </span>
                         </div>
-                    @else
-                        <p class="text-base italic text-gray-400">
-                            Abstract non disponibile.
-                        </p>
-                    @endif
+
+                        {{-- Aree di ricerca --}}
+                        <div class="flex min-w-0 items-start gap-2 text-sm">
+                            <i
+                                class="fa-solid fa-flask mt-1 shrink-0 text-amber-300"
+                                aria-hidden="true"
+                            ></i>
+
+                            <span class="shrink-0 font-semibold text-gray-400">
+                                {{ $article->researchAreas->count() === 1
+                                    ? 'Area di ricerca:'
+                                    : 'Aree di ricerca:' }}
+                            </span>
+
+                            <span class="break-words font-medium text-gray-200 [overflow-wrap:anywhere]">
+                                {{ $article->researchAreas
+                                    ->pluck('name')
+                                    ->join(', ') ?: 'Non indicate' }}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    {{-- Testo dell’Abstract --}}
+                    <div class="mt-6">
+
+                        @if (filled(strip_tags($article->abstract ?? '')))
+
+                            <div class="article-content [overflow-wrap:anywhere]">
+                                {!! $article->abstract !!}
+                            </div>
+
+                        @else
+
+                            <p class="text-base italic text-gray-400">
+                                Abstract non disponibile.
+                            </p>
+
+                        @endif
+
+                    </div>
 
                 </section>
 
                 {{-- Immagine --}}
-                <section class="flex min-h-72 items-center justify-center border-t border-white/10 bg-gray-900/50 p-6 lg:border-l lg:border-t-0 lg:p-8">
+                <section
+                    class="flex min-h-72 items-center justify-center
+                           border-t border-white/10
+                           bg-gray-900/50 p-6
+                           lg:border-l lg:border-t-0 lg:p-8"
+                >
 
                     @if ($article->image_path)
+
                         <img
                             src="{{ Storage::url($article->image_path) }}"
                             alt="Immagine della pubblicazione {{ $article->title }}"
                             class="max-h-[390px] w-full rounded-xl object-contain shadow-lg"
                         >
-                    @else
-                        <div class="flex min-h-64 w-full flex-col items-center justify-center rounded-xl border border-dashed border-white/10 bg-white/[0.03] px-6 text-center">
 
-                            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-400/10 text-2xl text-amber-300">
+                    @else
+
+                        <div
+                            class="flex min-h-64 w-full flex-col
+                                   items-center justify-center rounded-xl
+                                   border border-dashed border-white/10
+                                   bg-white/[0.03] px-6 text-center"
+                        >
+                            <span
+                                class="flex h-16 w-16 items-center
+                                       justify-center rounded-2xl
+                                       bg-amber-400/10
+                                       text-2xl text-amber-300"
+                            >
                                 <i
                                     class="fa-regular fa-image"
                                     aria-hidden="true"
@@ -122,6 +154,7 @@
                                 Immagine non disponibile
                             </p>
                         </div>
+
                     @endif
 
                 </section>
@@ -159,18 +192,31 @@
                     <div class="shrink-0">
 
                         @if ($article->document)
+
                             <x-button-download-file
                                 :file="$article->document"
                                 text=""
                             />
 
                         @elseif ($article->external_url)
+
                             <a
                                 href="{{ $article->external_url }}"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 title="Apri la pubblicazione in una nuova scheda"
-                                class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-cyan-950/30 transition hover:-translate-y-0.5 hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-gray-900"
+                                class="inline-flex min-h-11 items-center
+                                       justify-center gap-2 rounded-lg
+                                       bg-cyan-500 px-5 py-3
+                                       text-sm font-bold text-white
+                                       shadow-lg shadow-cyan-950/30
+                                       transition
+                                       hover:-translate-y-0.5
+                                       hover:bg-cyan-400
+                                       focus:outline-none
+                                       focus:ring-2 focus:ring-cyan-300
+                                       focus:ring-offset-2
+                                       focus:ring-offset-gray-900"
                             >
                                 <i
                                     class="fa-solid fa-arrow-up-right-from-square"
@@ -181,7 +227,13 @@
                             </a>
 
                         @else
-                            <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-gray-400">
+
+                            <span
+                                class="inline-flex items-center gap-2
+                                       rounded-lg border border-white/10
+                                       bg-white/5 px-4 py-3
+                                       text-sm text-gray-400"
+                            >
                                 <i
                                     class="fa-solid fa-circle-info"
                                     aria-hidden="true"
@@ -189,21 +241,22 @@
 
                                 Non disponibile
                             </span>
+
                         @endif
 
                     </div>
 
                 </div>
+
             </section>
 
         </article>
+
     </main>
 
     <style>
         /*
          * Visualizzazione pubblica del contenuto creato con Quill.
-         * Non utilizziamo la classe ql-editor perché appartiene
-         * all'editor e può sovrascrivere colori e allineamenti.
          */
         .article-content {
             width: 100%;
@@ -319,4 +372,5 @@
             border-radius: 0.5rem;
         }
     </style>
+
 </x-layout-public>

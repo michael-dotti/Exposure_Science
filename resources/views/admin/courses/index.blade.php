@@ -4,8 +4,8 @@
         Corsi
     </x-slot:title>
 
-    <x-dashboard-index-header 
-        title="Gestione corsi" 
+    <x-dashboard-index-header
+        title="Gestione corsi"
         subtitle="Visualizza e gestisci i corsi associati al tuo profilo"
     >
         <x-slot:actions>
@@ -16,22 +16,21 @@
 
         @can('manage all courses')
             <x-slot:filters>
-            <x-filter-box
-                title="Filtra per docente"
-                description="Seleziona un docente per visualizzare i corsi associati"
-                resetUrl="{{ route('admin.articles.index') }}"
-                :activeFilters="$currentFilters"
-            >
-                <x-user-filter
-                    title="Docente"
-                    :users="$teachers"
-                />
-            </x-filter-box>
-        </x-slot:filters>
+                <x-filter-box
+                    title="Filtra i corsi"
+                    description="Seleziona un docente per visualizzare i corsi associati"
+                    resetUrl="{{ route('admin.courses.index') }}"
+                    :activeFilters="$currentFilters"
+                >
+                    <x-user-filter
+                        title="Docente"
+                        :users="$teachers"
+                    />
+                </x-filter-box>
+            </x-slot:filters>
         @endcan
-        
     </x-dashboard-index-header>
-    
+
     <div class="space-y-3">
         @forelse ($courses as $course)
 
@@ -39,7 +38,6 @@
                 :href="route('admin.courses.show', $course)"
                 :title="$course->title"
             >
-
                 <x-slot:image>
                     <div class="flex h-28 w-full flex-col items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/5">
                         <div class="text-4xl leading-none">
@@ -99,7 +97,9 @@
                 </x-slot:description>
 
                 <x-slot:actions>
-                    <x-modify-button-link href="{{ route('admin.courses.edit', $course) }}">
+                    <x-modify-button-link
+                        href="{{ route('admin.courses.edit', $course) }}"
+                    >
                         Modifica
                     </x-modify-button-link>
 
@@ -120,15 +120,18 @@
                         @method('DELETE')
                     </form>
                 </x-slot:actions>
-
             </x-index-card>
 
         @empty
-            <x-message-of-empty title="Nessun corso trovato" image="" />
+            <x-message-of-empty
+                title="Nessun corso trovato"
+                image=""
+            />
         @endforelse
     </div>
 
     <div class="mt-6">
         {{ $courses->links() }}
     </div>
+
 </x-layout-private>

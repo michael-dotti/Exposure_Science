@@ -2,27 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Project;
 use App\Enums\ProjectStatusType;
+use App\Models\Project;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
+        $selectedStatus = $request->query('status');
+
         $projects = Project::with('users')
-            ->filterByStatus($request->query('status'))
+            ->filterByStatus($selectedStatus)
             ->paginate(8)
             ->withQueryString();
-        
+
         $statuses = ProjectStatusType::cases();
 
-        return view('public.projects.index',compact('projects','statuses'));
+        $currentFilters = [];
+
+        if ($selectedStatus) {
+            $status = collect($statuses)->first(function ($status) use ($selectedStatus) {
+                return (string) $status->value === (string) $selectedStatus;
+            });
+
+            if ($status) {
+                $currentFilters[] = [
+                    'label' => 'Stato',
+                    'value' => $status->label(),
+                ];
+            }
+        }
+
+        return view('public.projects.index', compact(
+            'projects',
+            'statuses',
+            'currentFilters'
+        ));
     }
 
     public function show(Project $project)
     {
-        return view('public.projects.show',compact('project'));
-    }
+        $project->load('users');
 
+        return view('public.projects.show', compact('project'));
+    }
 }
