@@ -14,7 +14,7 @@ class ProjectController extends Controller
 
         $projects = Project::with('users')
             ->filterByStatus($selectedStatus)
-            ->paginate(8)
+            ->paginate(9)
             ->withQueryString();
 
         $statuses = ProjectStatusType::cases();
