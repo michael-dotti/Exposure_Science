@@ -29,7 +29,6 @@
             
         </div>
         @if($news)
-            <h3 class="py-4 font-bold text-2xl font-sans text-amber-300 mb-4 mt-2">Tutte le notizie:</h3>
             <x-public-news-grid class="ml-10">
                 @foreach ($news as $n)
                     <x-news-block :n='$n' hrefShow="{{ route('public.news.show',$n->id) }}" :showDate="true" />

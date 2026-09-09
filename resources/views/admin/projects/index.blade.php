@@ -69,7 +69,15 @@
 						<x-slot:image>
 							<div class="flex h-28 w-full flex-col items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/5">
 								<div class="text-4xl leading-none">
-									<i class="fa-solid fa-diagram-predecessor text-blue-300"></i>
+									@if($project->status == $statuses[3])
+										<i class="fa-solid fa-diagram-predecessor text-green-300"></i>
+									@elseif($project->status == $statuses[1])
+										<i class="fa-solid fa-diagram-predecessor text-blue-300"></i>
+									@elseif($project->status == $statuses[0])
+										<i class="fa-solid fa-diagram-predecessor text-yellow-300"></i>
+									@else
+										<i class="fa-solid fa-diagram-predecessor text-pink-300"></i>
+									@endif
 								</div>
 
 								<span class="mt-3 rounded-md border border-blue-400/20 bg-blue-500/10 px-2.5 py-1 text-xs font-bold tracking-wide text-blue-300">
