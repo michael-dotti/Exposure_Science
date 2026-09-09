@@ -1,69 +1,273 @@
 <x-layout-public>
     <x-slot:title>
-        Publicazioni
+        Pubblicazioni
     </x-slot:title>
+
     <x-slot:heading>
         <div class="py-5 text-center">
             <h1 class="text-3xl font-bold text-amber-300">
-                Le nostre publicazioni
+                Le nostre pubblicazioni
             </h1>
 
-            <p class="max-w-2xl mx-auto mt-3 text-base text-gray-300">
-                Scopri come la scienza ogni giorno avanza.
+            <p class="mx-auto mt-3 max-w-2xl text-base text-gray-300">
+                Scopri come la scienza avanza ogni giorno.
             </p>
         </div>
     </x-slot:heading>
 
-   <div class="relative z-10 w-full text-white">
 
-        <!--filtraggi-->
-        <div class="my-6 flex w-full gap-3">
-            <div class="flex-1 flex justify-end">
-                <x-user-filter :users="$users" />
-            </div>
-            <div class="flex-1 flex justify-start">
-                <x-research-area-filter :researchAreas="$areas" />    
-            </div>
-        </div>
+    <main class="relative z-10 my-6 text-white">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        <!--esposizione articoli-->
-        @if ($articles->isEmpty())
-            <div class="w-full max-w-7xl mx-auto px-4 bg-transparent">
-                <x-message-of-empty title="Nessun articolo trovato"></x-message-of-empty>
-            </div>
-        @else
-            <div class="w-full max-w-7xl mx-auto text-white grid grid-cols-2 gap-2">
-                @foreach ($articles as $article)
-                    <a href="{{ route('public.articles.show',$article->id) }}" class="block h-full">
-                        <div class="rounded-md bg-gray-800 border-2 border-black transition delay-10 duration-300 ease-in-out hover:-translate-y-1 hover:bg-gray-700 *:m-3">
-                            <p class="text-center">{{ $article->title }} </p>
-                            <p class="h-12 overflow-hidden text-center text-sm">
-                                {!! \Illuminate\Support\Str::limit(
-                                    strip_tags($article->abstract),
-                                    150
-                                ) !!}
-                            </p>
-                            @if($article->image_path)
-                                <div class="flex justify-center"> 
-                                    <img src="{{ Storage::url($article->image_path) }}" alt="profile_photo" class="w-16 h-16 object-cover">
+            <!-- Filtri -->
+            <x-filter-box
+                variant="public"
+                title="Filtra le pubblicazioni"
+                description="Seleziona un autore o un’area di ricerca per restringere i risultati"
+                reset-url="{{ route('public.articles.index') }}"
+                :active-filters="$currentFilters"
+            >
+                <x-user-filter
+                    title="Autore"
+                    href="/public/articles"
+                    :users="$users"
+                />
+
+                <x-research-area-filter
+                    href="/public/articles"
+                    :researchAreas="$areas"
+                />
+            </x-filter-box>
+
+
+            @if ($articles->isEmpty())
+
+                <!-- Nessun risultato -->
+                <div class="rounded-2xl bg-gray-800/60 p-8 shadow-xl">
+                    <x-message-of-empty
+                        title="Nessun articolo trovato"
+                    />
+                </div>
+
+            @else
+
+                <!-- Elenco pubblicazioni -->
+                <section
+                    class="grid grid-cols-1 items-stretch gap-6
+                           md:grid-cols-2 xl:grid-cols-3"
+                >
+                    @foreach ($articles as $article)
+                        @php
+                            /*
+                             * Quill salva l'abstract come HTML.
+                             * Sostituiamo i tag con spazi, decodifichiamo
+                             * le entità e normalizziamo gli spazi.
+                             */
+                            $abstractPulito = preg_replace(
+                                '/<[^>]+>/u',
+                                ' ',
+                                $article->abstract ?? ''
+                            );
+
+                            $abstractPulito = html_entity_decode(
+                                $abstractPulito,
+                                ENT_QUOTES | ENT_HTML5,
+                                'UTF-8'
+                            );
+
+                            $abstractPulito = preg_replace(
+                                '/\s+/u',
+                                ' ',
+                                trim($abstractPulito)
+                            );
+
+                            $abstractBreve = \Illuminate\Support\Str::limit(
+                                $abstractPulito,
+                                180
+                            );
+                        @endphp
+
+
+                        <article class="h-full min-w-0">
+                            <a
+                                href="{{ route('public.articles.show', $article->id) }}"
+                                class="group flex h-full min-w-0 flex-col
+                                       overflow-hidden rounded-2xl bg-gray-800
+                                       shadow-lg ring-1 ring-white/5
+                                       transition duration-300
+                                       hover:-translate-y-1
+                                       hover:bg-gray-700
+                                       hover:shadow-2xl
+                                       hover:ring-amber-400/40"
+                            >
+
+                                <!-- Immagine -->
+                                <div
+                                    class="relative h-48 w-full shrink-0
+                                           overflow-hidden bg-gray-900"
+                                >
+                                    
+                                    <img
+                                        src="{{ Storage::url($article->image_path) }}"
+                                        alt="Immagine della pubblicazione {{ $article->title }}"
+                                        loading="lazy"
+                                        class="h-full w-full object-cover
+                                                transition duration-500
+                                                group-hover:scale-105"
+                                    />
                                 </div>
-                            @else
-                                {{-- Segnaposto opzionale: se l'immagine manca, manteniamo lo spazio --}}
-                                <div class="h-16 w-16 mx-auto"></div>
-                            @endif
-                            
-                            <div class="flex flex-col mt-auto">
-                                <small> Autori: @foreach($article->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach </small>
-                                <small> Area:  {{ $article->researchAreas->pluck('name')->join(', ') }}  </small>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        @endif
-    </div>
-    
-    <div class="mt-2">
-        {{ $articles->links() }}
-    </div>
+
+
+                                <!-- Contenuto della card -->
+                                <div class="flex min-w-0 flex-1 flex-col p-6">
+
+                                    <!-- Titolo -->
+                                    <h2
+                                        class="line-clamp-2 min-h-[3.5rem]
+                                               break-words text-xl font-bold
+                                               leading-7 text-white
+                                               [overflow-wrap:anywhere]
+                                               transition-colors
+                                               group-hover:text-amber-300"
+                                    >
+                                        {{ $article->title }}
+                                    </h2>
+
+
+                                    <!-- Abstract -->
+                                    <div
+                                        class="mt-3 min-h-[4.5rem] min-w-0
+                                               text-sm leading-6 text-gray-300"
+                                    >
+                                        @if ($abstractBreve)
+                                            <p
+                                                class="line-clamp-3 break-words
+                                                       [overflow-wrap:anywhere]"
+                                            >
+                                                {{ $abstractBreve }}
+                                            </p>
+                                        @else
+                                            <p class="italic text-gray-500">
+                                                Nessuna descrizione disponibile.
+                                            </p>
+                                        @endif
+                                    </div>
+
+
+                                    <!-- Autori e aree -->
+                                    <div
+                                        class="mt-auto min-w-0 space-y-4
+                                               border-t border-gray-700 pt-5"
+                                    >
+
+                                        <!-- Autori -->
+                                        <div class="flex min-w-0 items-start gap-3">
+                                            <span
+                                                class="flex h-9 w-9 shrink-0
+                                                       items-center justify-center
+                                                       rounded-lg bg-cyan-500/10
+                                                       text-cyan-400"
+                                            >
+                                                <i
+                                                    class="fa-solid fa-user-group"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </span>
+
+                                            <div class="min-w-0">
+                                                <p
+                                                    class="text-xs font-bold uppercase
+                                                           tracking-wide text-gray-500"
+                                                >
+                                                    Autori
+                                                </p>
+
+                                                <p
+                                                    class="mt-1 line-clamp-2
+                                                           break-words text-sm
+                                                           font-medium text-gray-200
+                                                           [overflow-wrap:anywhere]"
+                                                >
+                                                    @forelse ($article->users as $user)
+                                                        {{ $user->name }} {{ $user->surname }}@if (! $loop->last), @endif
+                                                    @empty
+                                                        Non specificati
+                                                    @endforelse
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Aree di ricerca -->
+                                        <div class="flex min-w-0 items-start gap-3">
+                                            <span
+                                                class="flex h-9 w-9 shrink-0
+                                                       items-center justify-center
+                                                       rounded-lg bg-amber-400/10
+                                                       text-amber-400"
+                                            >
+                                                <i
+                                                    class="fa-solid fa-flask"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </span>
+
+                                            <div class="min-w-0">
+                                                <p
+                                                    class="text-xs font-bold uppercase
+                                                           tracking-wide text-gray-500"
+                                                >
+                                                    Aree di ricerca
+                                                </p>
+
+                                                <p
+                                                    class="mt-1 line-clamp-2
+                                                           break-words text-sm
+                                                           font-medium text-gray-200
+                                                           [overflow-wrap:anywhere]"
+                                                >
+                                                    @if ($article->researchAreas->isNotEmpty())
+                                                        {{ $article->researchAreas->pluck('name')->join(', ') }}
+                                                    @else
+                                                        Non specificate
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Link finale -->
+                                    <div
+                                        class="mt-5 flex items-center justify-end
+                                               gap-2 text-sm font-semibold
+                                               text-cyan-400"
+                                    >
+                                        <span>Leggi la pubblicazione</span>
+
+                                        <i
+                                            class="fa-solid fa-arrow-right
+                                                   transition-transform
+                                                   group-hover:translate-x-1"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </article>
+                    @endforeach
+                </section>
+
+
+                <!-- Paginazione -->
+                <div class="mt-10">
+                    {{ $articles->links() }}
+                </div>
+
+            @endif
+
+        </div>
+    </main>
 </x-layout-public>

@@ -17,8 +17,21 @@ class UserController extends Controller
     }
 
 
-    public function show(User $user){
-        return view('public.users.show',['user'=> $user] );
+    public function show(User $user)
+    {
+        $user->load([
+            'courses' => function ($query) {
+                $query
+                    ->select(
+                        'courses.id',
+                        'courses.title',
+                        'courses.code'
+                    )
+                    ->orderBy('courses.title');
+            },
+        ]);
+
+        return view('public.users.show', compact('user'));
     }
 
 }
