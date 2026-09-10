@@ -14,7 +14,7 @@ class NewsController extends Controller
     public function index()
     {
         //mostro nella home le tre notizie più recenti
-        $news = News::latest()->take(5)->get();
+        $news = News::latest()->take(7)->get();
 
         return view('public.news.index', ['news' => $news]);
     }
