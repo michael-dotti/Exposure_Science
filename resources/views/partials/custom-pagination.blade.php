@@ -2,11 +2,11 @@
     <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0 shrink-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         
         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-            Showing 
+            Mostrati elementi da
             <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->firstItem() }}</span>
             -
             <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->lastItem() }}</span>
-            of
+            di
             <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span>
         </span>
 

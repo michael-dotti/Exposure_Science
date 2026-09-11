@@ -19,7 +19,7 @@
     <nav class="bg-gray-800 fixed w-full z-20 top-0 inset-s-0 border-b-4 border-gray-900/50">
         <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="shrink-0 flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="{{ asset('images/ExposureScienceLogo_v2.svg') }}" alt="Your Company" class="h-20 w-44" />
+                <img src="{{ asset('images/ExposureScienceLogo_v2.svg') }}" alt="Your Company" class="h-8 w-auto" />
             </div>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     @guest
@@ -30,7 +30,7 @@
                     @auth
                       <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-white/10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->profilePhotoUrl }}" alt="user photo">
+                        <img class="h-10 w-10  rounded-full" src="{{ auth()->user()->profilePhotoUrl }}" alt="user photo">
                       </button>
                     @endauth    
                 

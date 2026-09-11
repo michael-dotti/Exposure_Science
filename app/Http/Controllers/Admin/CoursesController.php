@@ -30,7 +30,7 @@ class CoursesController extends Controller
             ->with('teachers')
             ->filterByTeacher($request->integer('userId'))
             ->latest('courses.created_at')
-            ->simplePaginate(5)
+            ->Paginate(5)
             ->withQueryString();
 
         $currentFilters = [];

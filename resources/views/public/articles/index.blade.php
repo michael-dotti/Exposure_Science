@@ -123,8 +123,8 @@
 
                                     <!-- Titolo -->
                                     <h2
-                                        class="line-clamp-2 min-h-[3.5rem]
-                                               break-words text-xl font-bold
+                                        class="line-clamp-2 min-h-14
+                                               wrap-break-word text-xl font-bold
                                                leading-7 text-white
                                                [overflow-wrap:anywhere]
                                                transition-colors
@@ -136,12 +136,12 @@
 
                                     <!-- Abstract -->
                                     <div
-                                        class="mt-3 min-h-[4.5rem] min-w-0
+                                        class="mt-3 min-h-18 min-w-0
                                                text-sm leading-6 text-gray-300"
                                     >
                                         @if ($abstractBreve)
                                             <p
-                                                class="line-clamp-3 break-words
+                                                class="line-clamp-3 wrap-break-word
                                                        [overflow-wrap:anywhere]"
                                             >
                                                 {{ $abstractBreve }}
@@ -184,7 +184,7 @@
 
                                                 <p
                                                     class="mt-1 line-clamp-2
-                                                           break-words text-sm
+                                                           wrap-break-word text-sm
                                                            font-medium text-gray-200
                                                            [overflow-wrap:anywhere]"
                                                 >
@@ -222,7 +222,7 @@
 
                                                 <p
                                                     class="mt-1 line-clamp-2
-                                                           break-words text-sm
+                                                           wrap-break-word text-sm
                                                            font-medium text-gray-200
                                                            [overflow-wrap:anywhere]"
                                                 >

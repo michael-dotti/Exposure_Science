@@ -142,9 +142,7 @@
 		@endcan
 	@endforeach
 
-	
-
-	<div class="my-2">
-		{{ $projects->links() }}
-	</div>
+	<div class="my-6">
+        {{ $projects->links('partials.custom-pagination') }}
+    </div>
 </x-layout-private>

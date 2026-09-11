@@ -42,7 +42,7 @@ class ArticleController extends Controller
             ->filterByArea($request->query('areaId'))
             ->filterByUser($request->query('userId'))
             ->latest()
-            ->simplePaginate(5)
+            ->Paginate(5)
             ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
 
         // Preparlo gli array per i filtri attivi

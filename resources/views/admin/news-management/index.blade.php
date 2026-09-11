@@ -63,6 +63,9 @@
         @empty
             <x-message-of-empty title="Nessuna Notizia Trovata" image="fas fa-newspaper" />
         @endforelse
-        
+    </div>
+
+    <div class="my-6">
+        {{ $courses->links('partials.custom-pagination') }}
     </div>
 </x-layout-private>

@@ -130,8 +130,8 @@
         @endforelse
     </div>
 
-    <div class="mt-6">
-        {{ $courses->links() }}
+    <div class="my-6">
+        {{ $courses->links('partials.custom-pagination') }}
     </div>
 
 </x-layout-private>
