@@ -26,8 +26,8 @@
             <x-index-card
                 :href="route('admin.news-management.show', $n)"
                 :title="$n->title"
-                imageWidth="sm:w-72" 
-                :flushImage="true" 
+                :flushImage="true"
+                imageWidth="sm:w-72"  
             >
                 <x-slot:image>
                     <img src="{{ Storage::url($n->image_path) }}"

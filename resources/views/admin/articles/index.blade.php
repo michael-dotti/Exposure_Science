@@ -41,6 +41,8 @@
             <x-index-card
                 :href="route('admin.articles.show', $article)"
                 :title="$article->title"
+                :flushImage="true"
+                imageWidth="sm:w-72"
             >
 
                 <x-slot:image>
@@ -56,7 +58,7 @@
                                 <i class="fa-regular fa-file"></i>
                             </div>
                             <span class="mt-3 text-xs font-medium text-slate-400">
-                                Nessuna immagine
+                                Errore, nessuna immagine
                             </span>
                         </div>
                     @endif
