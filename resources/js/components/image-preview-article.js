@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => { // eseguie il codice dopo 
     const imageUpload = document.getElementById('imageUpload');
     const imagePreview = document.getElementById('image_preview');
     const previewContainer = document.getElementById('previewContainer');
-    const deleteButton = document.getElementById('deleteButton');
-    const deleteButtonWrapper = document.getElementById('deleteButtonWrapper');
-    const removePhotoInput = document.getElementById('remove_photo');
+
+    // Controllo difensivo: se l'input non esiste nella pagina, interrompi lo script
+    if (!imageUpload) return;
 
     // verifico se l'oggetto imageUpload (l'input dell'immagine) viene usato
     imageUpload.addEventListener('change', handleFileSelect);
@@ -17,32 +17,18 @@ document.addEventListener('DOMContentLoaded', () => { // eseguie il codice dopo 
 
         // se nessun file è stato selezionato, resetto la preview
         if(!file) {
-            resetPreview();
             return;
         }
 
         // verifico, tramite una funzione creata da noi, se il file è del tipo corretto
         if (!isValidImageFile(file)) {
             alert('Please select a valid image file (JPG, PNG, GIF, etc.)');
-            resetPreview();
+            imageUpload.value = ''; // Resetta l'input file per non inviare dati errati
             return;
         }
 
-        // se l'utente ha selezionare un file valido, azzero il flag di rimozione
-        removePhotoInput.value = '0';
-
         // metodo creato per aggiornare la preview dell'immagine
         displayPreview(file);
-    }
-
-    // resetto il valore di src per l'immagine e il valore di input
-    function resetPreview() {
-        imagePreview.src = '';
-        imageUpload.value = '';
-
-        // Nascondo il cerchio della preview e il pulsante elimina
-        previewContainer.classList.add('hidden');
-        deleteButtonWrapper.classList.add('hidden');
     }
 
     function isValidImageFile(file){
@@ -78,28 +64,16 @@ document.addEventListener('DOMContentLoaded', () => { // eseguie il codice dopo 
 
             // Mostro la preview dell'immagine e il pulsante elimina
             previewContainer.classList.remove('hidden');
-            deleteButtonWrapper.classList.remove('hidden');
         };
 
         // Nel raro caso in cui FileReader fallisca (es: immagine troppo grande), gestisco l'errore
         reader.onerror = function (){
             alert(`Errore nella lettura del file: ${file.name}. Riprovare.`);
-            resetPreview();
+            imageUpload.value = '';
         }
 
         // leggi il file come un data URL (base64-encoded string)
         reader.readAsDataURL(file);
     }
-
-    // event listener per il tasto "elimina"
-    deleteButton.addEventListener('click', () =>{
-        // 1) ripristina l'immagine di default nella preview
-        resetPreview();
-
-        // 2) segnala al controller che vogliamo rimuovere l'immagine profilo
-        removePhotoInput.value = '1'; 
-
-    });
-
 
 });

@@ -46,22 +46,11 @@
             >
 
                 <x-slot:image>
-                    @if ($article->image_path)
-                        <img
-                            src="{{ Storage::url($article->image_path) }}"
-                            alt="{{ $article->title }}"
-                            class="absolute inset-0 h-full w-full object-cover"
-                        >
-                    @else
-                        <div class="absolute inset-0 flex h-full w-full flex-col items-center justify-center bg-slate-800/50 text-center">
-                            <div class="text-4xl leading-none text-slate-500">
-                                <i class="fa-regular fa-file"></i>
-                            </div>
-                            <span class="mt-3 text-xs font-medium text-slate-400">
-                                Errore, nessuna immagine
-                            </span>
-                        </div>
-                    @endif
+                   <img
+                        src="{{ Storage::url($article->image_path) }}"
+                        alt="{{ $article->title }}"
+                        class="absolute inset-0 h-full w-full object-cover"
+                    >
                 </x-slot:image>
 
                 <x-slot:people>

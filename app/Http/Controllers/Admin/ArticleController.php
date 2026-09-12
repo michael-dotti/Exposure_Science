@@ -105,7 +105,7 @@ class ArticleController extends Controller
             'users' => ['required', 'array', 'min:1'],
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:51200'],
             'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
-            'image_path' =>['nullable','image','max:5120','mimes:jpeg,png,jpg,webp'],
+            'image_path' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
             'areas' => ['required','array','min:1'],
         ]);
 
@@ -212,7 +212,8 @@ class ArticleController extends Controller
     {
         Gate::authorize('update', $article);
 
-       $hasExistingFile = $article->document()->exists() && request()->input('remove_file') !== '1';    
+        $hasExistingFile = $article->document()->exists() && request()->input('remove_file') !== '1';    
+        $hasImage = $article->image_path;
 
         $validated = request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
@@ -221,7 +222,7 @@ class ArticleController extends Controller
             'areas' => ['required', 'array', 'min:1'],
             'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:51200'],
             'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','url', 'max:1024'],
-            'image_path' => ['nullable', 'image', 'max:5120'],
+            'image_path' => [$hasImage ? 'nullable' : 'required', 'image', 'max:5120', 'mimes:jpeg,png,jpg,webp'],
         ]);
 
         $articleData = collect($validated)->except(['users', 'areas','file_path'])->toArray();
@@ -248,13 +249,6 @@ class ArticleController extends Controller
             Storage::disk('public')->put($filename, $encoded->toString());
             // Salva il percorso nel database
             $articleData['image_path'] = $filename;
-        }
-        elseif (request()->input('remove_photo') == '1'){
-                if($article->image_path && $article->image_path !== 'uploads/articles/covers/default.webp'){
-                    Storage::disk('public')->delete($article->image_path);
-                }
-
-                $articleData['image_path']  = null;
         }
         else {
             unset($articleData['image_path']);

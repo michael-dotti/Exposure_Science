@@ -95,21 +95,9 @@
 
                     {{-- Testo dell’Abstract --}}
                     <div class="mt-6">
-
-                        @if (filled(strip_tags($article->abstract ?? '')))
-
-                            <div class="article-content [overflow-wrap:anywhere]">
-                                {!! $article->abstract !!}
-                            </div>
-
-                        @else
-
-                            <p class="text-base italic text-gray-400">
-                                Abstract non disponibile.
-                            </p>
-
-                        @endif
-
+                        <div class="article-content [overflow-wrap:anywhere]">
+                            {!! $article->abstract !!}
+                        </div>
                     </div>
 
                 </section>
@@ -127,7 +115,7 @@
                         <img
                             src="{{ Storage::url($article->image_path) }}"
                             alt="Immagine della pubblicazione {{ $article->title }}"
-                            class="max-h-[390px] w-full rounded-xl object-contain shadow-lg"
+                            class="max-h-97.5 w-full rounded-xl object-contain shadow-lg"
                         >
 
                     @else
@@ -136,7 +124,7 @@
                             class="flex min-h-64 w-full flex-col
                                    items-center justify-center rounded-xl
                                    border border-dashed border-white/10
-                                   bg-white/[0.03] px-6 text-center"
+                                   bg-white/3 px-6 text-center"
                         >
                             <span
                                 class="flex h-16 w-16 items-center

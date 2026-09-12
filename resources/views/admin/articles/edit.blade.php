@@ -204,16 +204,12 @@
 
             <x-content-section>
                 <x-label name="image_path"> 
-                            {{ $article->image_path
-                            ? 'Immagine corrente'
-                            : 'Seleziona immagine' }}
+                    Immagine corrente
                 </x-label>
 
                 <x-image-preview-articles
                     name="image_path"
-                    :currentImage="$article->image_path
-                        ? Storage::url($article->image_path)
-                        : null"
+                    :currentImage="Storage::url($article->image_path)"
                 />
 
                 <x-form-error name="image_path" />
