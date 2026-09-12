@@ -43,6 +43,7 @@ class ArticleController extends Controller
             ->filterByUser($request->query('userId'))
             ->latest()
             ->Paginate(5)
+            ->onEachSide(1)
             ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
 
         // Preparlo gli array per i filtri attivi

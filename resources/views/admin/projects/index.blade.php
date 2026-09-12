@@ -143,6 +143,6 @@
 	@endforeach
 
 	<div class="my-6">
-        {{ $projects->links('partials.custom-pagination') }}
+        {{ $projects->links() }}
     </div>
 </x-layout-private>

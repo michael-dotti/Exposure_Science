@@ -79,7 +79,10 @@
                     </table>
                 </div>
 
-                {{ $users->links('partials.custom-pagination') }} {{-- Dico a Laravel di non utilizzare al paginazione custom per "$users", ma quella custom creata da me in: partials.custom-pagination --}}
+                {{-- Paginazione --}}
+                <div class="my-6">
+                    {{ $users->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -123,7 +126,7 @@
         @endif
     @endforeach
     
-    <div class="my-6">
-        {{ $projects->links('partials.custom-pagination') }}
-    </div>
+    <!-- <div class="my-6">
+        {{ $users->links() }}
+    </div> -->
 </x-layout-private>

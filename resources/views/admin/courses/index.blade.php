@@ -131,7 +131,7 @@
     </div>
 
     <div class="my-6">
-        {{ $courses->links('partials.custom-pagination') }}
+        {{ $courses->links() }}
     </div>
 
 </x-layout-private>

@@ -24,6 +24,7 @@ class NewsController extends Controller
         //mostro nella home le tre notizie più nuove
         $news = News::sortByDate($request->query('sort', 'desc'))
             ->paginate(12)
+            ->onEachSide(1)
             ->withQueryString();
 
         return view('public.news.all', ['news' => $news]);

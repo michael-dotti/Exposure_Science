@@ -46,6 +46,7 @@ class ArticleController extends Controller
             ->filterByUser($userId)
             ->latest('articles.created_at')
             ->paginate(9)
+            ->onEachSide(1)
             ->withQueryString();
 
         /*

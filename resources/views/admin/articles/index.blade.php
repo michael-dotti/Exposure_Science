@@ -139,7 +139,7 @@
     </div>
 
     <div class="my-6">
-        {{ $articles->links('partials.custom-pagination') }}
+        {{ $articles->links() }}
     </div>
 
 </x-layout-private>

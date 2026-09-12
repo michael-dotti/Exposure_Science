@@ -31,7 +31,7 @@
             @foreach ($elements as $element)
                 {{-- Separatore a tre punti "..." --}}
                 @if (is_string($element))
-                    <li>
+                    <li class="hidden lg:block">
                         <span class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">{{ $element }}</span>
                     </li>
                 @endif
@@ -40,11 +40,11 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li>
+                            <li class="hidden lg:block">
                                 <span aria-current="page" class="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 dark:bg-gray-700 dark:text-white font-semibold">{{ $page }}</span>
                             </li>
                         @else
-                            <li>
+                            <li class="hidden lg:block">
                                 <a href="{{ $url }}" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
                             </li>
                         @endif

@@ -66,6 +66,6 @@
     </div>
 
     <div class="my-6">
-        {{ $courses->links('partials.custom-pagination') }}
+        {{ $news->links() }}
     </div>
 </x-layout-private>

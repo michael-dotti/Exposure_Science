@@ -262,7 +262,7 @@
 
 
                 <!-- Paginazione -->
-                <div class="mt-10">
+                <div class="mt-9">
                     {{ $articles->links() }}
                 </div>
 

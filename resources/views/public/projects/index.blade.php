@@ -124,7 +124,7 @@
 
                 </div>
 
-                <div class="mt-8 flex justify-center">
+                <div class="mt-8">
                     {{ $projects->links() }}
                 </div>
 
