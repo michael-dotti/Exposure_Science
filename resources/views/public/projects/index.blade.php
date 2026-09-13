@@ -99,7 +99,7 @@
                                             </div>
                                         @endif
 
-                                        <p class="mt-4 text-sm leading-6 text-gray-300">
+                                        <p class="mt-4 text-sm leading-6 text-gray-300 wrap-anywhere">
                                             {{ \Illuminate\Support\Str::limit(
                                                 strip_tags($project->description),
                                                 120

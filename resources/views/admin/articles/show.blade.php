@@ -185,7 +185,7 @@
 
                 <div class="overflow-hidden rounded-lg border border-white/10 bg-white/5">
 
-                    <div class="p-4 text-sm leading-6 text-gray-300">
+                    <div class="p-4 text-sm leading-6 wrap-break-word text-gray-300">
                         {!! $article->abstract !!}
                     </div>
 

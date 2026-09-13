@@ -123,10 +123,9 @@
 
                                     <!-- Titolo -->
                                     <h2
-                                        class="line-clamp-2 min-h-[3.5rem]
-                                               break-words text-xl font-bold
+                                        class="line-clamp-2 min-h-14
+                                               text-xl font-bold
                                                leading-7 text-white
-                                               [overflow-wrap:anywhere]
                                                transition-colors
                                                group-hover:text-amber-300"
                                     >
@@ -136,13 +135,12 @@
 
                                     <!-- Abstract -->
                                     <div
-                                        class="mt-3 min-h-[4.5rem] min-w-0
+                                        class="mt-3 min-h-18 min-w-0
                                                text-sm leading-6 text-gray-300"
                                     >
                                         @if ($abstractBreve)
                                             <p
-                                                class="line-clamp-3 break-words
-                                                       [overflow-wrap:anywhere]"
+                                                class="line-clamp-3 wrap-break-word"
                                             >
                                                 {{ $abstractBreve }}
                                             </p>
@@ -184,9 +182,8 @@
 
                                                 <p
                                                     class="mt-1 line-clamp-2
-                                                           break-words text-sm
-                                                           font-medium text-gray-200
-                                                           [overflow-wrap:anywhere]"
+                                                           wrap-break-word text-sm
+                                                           font-medium text-gray-200"
                                                 >
                                                     @forelse ($article->users as $user)
                                                         {{ $user->name }} {{ $user->surname }}@if (! $loop->last), @endif
@@ -222,9 +219,8 @@
 
                                                 <p
                                                     class="mt-1 line-clamp-2
-                                                           break-words text-sm
-                                                           font-medium text-gray-200
-                                                           [overflow-wrap:anywhere]"
+                                                           wrap-break-word text-sm
+                                                           font-medium text-gray-200"
                                                 >
                                                     @if ($article->researchAreas->isNotEmpty())
                                                         {{ $article->researchAreas->pluck('name')->join(', ') }}

@@ -6,7 +6,7 @@
     <x-slot:heading>
         <div class="mx-auto w-full max-w-6xl px-4 py-6 text-center sm:px-6 lg:px-8">
 
-            <h1 class="break-words text-3xl font-bold leading-tight text-amber-300">
+            <h1 class="text-3xl font-bold leading-tight text-amber-300">
                 {{ $user->name }} {{ $user->surname }}
             </h1>
 
@@ -45,7 +45,7 @@
                             Descrizione
                         </p>
 
-                        <p class="max-w-3xl break-words text-base font-medium leading-7 text-gray-100">
+                        <p class="max-w-3xl wrap-break-word text-base font-medium leading-7 text-gray-100">
                             {{ $user->bio ?: 'Nessuna descrizione disponibile.' }}
                         </p>
                     </div>
@@ -58,7 +58,8 @@
                         <img
                             src="{{ $user->profilePhotoUrl }}"
                             alt="Foto di {{ $user->name }} {{ $user->surname }}"
-                            class="h-48 w-48 rounded-full object-cover shadow-xl"
+                            class="h-48 w-48 rounded-full object-cover border-2 
+                            border-slate-600 bg-slate-900 shadow-md"
                         >
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                                 {{-- Freccia --}}
                                 <i
                                     class="fa-solid fa-chevron-right shrink-0
-                                        text-[10px] text-gray-500 transition
+                                        text-2xs text-gray-500 transition
                                         group-hover:translate-x-0.5
                                         group-hover:text-cyan-400"
                                     aria-hidden="true"
@@ -231,7 +232,7 @@
                                     <p class="min-w-0 text-center text-sm font-medium leading-6 text-gray-200 sm:text-left">
                                         Curriculum di
 
-                                        <span class="block break-words font-bold text-white">
+                                        <span class="block wrap-break-word font-bold text-white">
                                             {{ $user->name }} {{ $user->surname }}
                                         </span>
                                     </p>

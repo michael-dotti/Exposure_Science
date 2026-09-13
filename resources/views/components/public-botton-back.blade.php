@@ -8,7 +8,7 @@
 			transition rounded-md bg-amber-300
 			hover:bg-amber-200"
 >
-	<p class="text-sm font-semibold text-slate-900">
+	<p class="text-md font-semibold text-slate-900">
 		<i class="{{ $icon }}"></i> {{ $title }}
 	</p> 
 </a>
