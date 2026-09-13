@@ -1,6 +1,6 @@
 <x-layout-private>
 	<x-slot:title>
-		{{ $project->title }}
+		Visualizzazione Progetto
 	</x-slot:title>
 	
 	<div class="max-w-4xl mx-auto mt-8">
