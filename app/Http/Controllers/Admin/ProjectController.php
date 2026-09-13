@@ -75,9 +75,11 @@ class ProjectController extends Controller
 
 	public function show(Project $project)
 	{
+		$statuses = ProjectStatusType::cases();
+
 		Gate::authorize('view', $project);
 
-		return view('admin.projects.show', compact('project'));
+		return view('admin.projects.show', compact('project', 'statuses'));
 	}
 
 	public function create()

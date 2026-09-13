@@ -12,7 +12,19 @@
 			<!-- stato -->
 			<div class="mb-6 text-sm font-small text-gray-300">
 				Stato attuale:
-				<span class="text-white"> {{ $project->status->label() }} </span>
+
+				@if($project->status == $statuses[3])
+						<span class="text-green-300">
+					@elseif($project->status == $statuses[1])
+						<span class="text-blue-300">
+					@elseif($project->status == $statuses[0])
+						<span class="text-yellow-300">
+					@else
+						<span class="text-pink-300">
+					@endif
+
+					{{ $project->status->label() }}
+				</span>
 			</div>
 
 			<!-- date del progetto -->
