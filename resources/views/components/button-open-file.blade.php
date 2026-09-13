@@ -6,7 +6,7 @@
 
 <div
     {{ $attributes->class([
-        'flex w-full flex-col items-center justify-center gap-5 text-center'
+        'flex flex-col items-start gap-3 mt-2'
     ]) }}
 >
     @if ($text)

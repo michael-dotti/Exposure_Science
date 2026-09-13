@@ -95,21 +95,9 @@
 
                     {{-- Testo dell’Abstract --}}
                     <div class="mt-6">
-
-                        @if (filled(strip_tags($article->abstract ?? '')))
-
-                            <div class="article-content wrap-anywhere">
-                                {!! $article->abstract !!}
-                            </div>
-
-                        @else
-
-                            <p class="text-base italic text-gray-400">
-                                Abstract non disponibile.
-                            </p>
-
-                        @endif
-
+                        <div class="article-content wrap-anywhere">
+                            {!! $article->abstract !!}
+                        </div>
                     </div>
 
                 </section>

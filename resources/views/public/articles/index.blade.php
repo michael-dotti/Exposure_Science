@@ -136,6 +136,7 @@
                                     <!-- Abstract -->
                                     <div
                                         class="mt-3 min-h-18 min-w-0
+                                        class="mt-3 min-h-18 min-w-0
                                                text-sm leading-6 text-gray-300"
                                     >
                                         @if ($abstractBreve)
@@ -258,7 +259,7 @@
 
 
                 <!-- Paginazione -->
-                <div class="mt-10">
+                <div class="mt-9">
                     {{ $articles->links() }}
                 </div>
 

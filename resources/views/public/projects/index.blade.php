@@ -56,11 +56,10 @@
                                 <div class="flex flex-1 flex-col justify-between p-5">
 
                                     <div>
-                                        <div class="flex items-start justify-between gap-3">
-                                            <h2 class="min-w-0 text-xl font-bold text-white">
+                                       <div class="flex items-center justify-center gap-3">
+                                            <h2 class="w-full text-center text-xl font-bold text-white">
                                                 {{ $project->title }}
                                             </h2>
-
                                         </div>
 
                                         @if ($project->funding_agency)
@@ -125,7 +124,7 @@
 
                 </div>
 
-                <div class="mt-8 flex justify-center">
+                <div class="mt-8">
                     {{ $projects->links() }}
                 </div>
 

@@ -6,7 +6,7 @@
     <x-slot:heading>
         <div class="mx-auto w-full max-w-6xl px-4 py-6 text-center sm:px-6 lg:px-8">
 
-            <h1 class="text-3xl font-bold leading-tight text-amber-300">
+            <h1 class="wrap-break-word text-3xl font-bold leading-tight text-amber-300">
                 {{ $user->name }} {{ $user->surname }}
             </h1>
 

@@ -16,7 +16,8 @@ class NewsManagementController extends Controller
     public function index(Request $request)
     {    
         $news = News::sortByDate($request->query('sort', 'desc'))
-            ->paginate(10)
+            ->paginate(5)
+            ->onEachSide(1)
             ->withQueryString();
         
         return view('admin.news-management.index', compact('news'));

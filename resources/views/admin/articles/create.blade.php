@@ -175,7 +175,7 @@
             </x-content-section>
 
             <x-content-section>
-                <x-label name="image_path" description="Seleziona un'immagine di copertina per l'articolo" > 
+                <x-label name="image_path" description="Seleziona un'immagine di copertina per l'articolo" :required="true"> 
                         Immagine
                 </x-label>
 
