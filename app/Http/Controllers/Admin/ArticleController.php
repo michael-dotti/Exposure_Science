@@ -15,6 +15,7 @@ use App\Models\ResearchArea;
 use Illuminate\Support\Facades\Gate;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
 {
@@ -100,7 +101,7 @@ class ArticleController extends Controller
     {   
         // 1) validazione
         $validated = request()->validate([
-            'title' => ['required','min:3','max:255'],
+            'title' => ['required', 'min:3', 'max:255', 'unique:articles,title'],
             'abstract' =>['required','max:5000'],
             'users' => ['required', 'array', 'min:1'],
             'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:51200'],
@@ -216,7 +217,7 @@ class ArticleController extends Controller
         $hasImage = $article->image_path;
 
         $validated = request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
+            'title' => ['required', 'string', 'max:255', Rule::unique('articles', 'title')->ignore($article->id)],
             'abstract' => ['required', 'max:5000'],
             'users' => ['required', 'array', 'min:1'],
             'areas' => ['required', 'array', 'min:1'],

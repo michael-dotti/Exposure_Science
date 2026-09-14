@@ -157,6 +157,11 @@ return [
     'url'                    => 'Il formato del campo :attribute non è valido.',
     'uuid'                   => ':Attribute deve essere un UUID valido.',
     'attributes'             => [
+        'roles'                    => 'ruoli',
+        'surname'                  => 'cognome',
+        'end_date'                 => 'data_fine',
+        'start_date'               => 'data_inizio',
+        'funding_agency'           => 'finanziatore',
         'attachments'              => 'allegati',
         'recipients'               => 'destinatari',
         'teachers'                 => 'docenti',
@@ -296,5 +301,10 @@ return [
         'winner'                   => 'winner',
         'work'                     => 'work',
         'year'                     => 'anno',
+    ],
+    'custom' => [
+        'title' => [
+            'unique' => 'Il titolo ":input" è già stato utilizzato.',
+        ],
     ],
 ];
