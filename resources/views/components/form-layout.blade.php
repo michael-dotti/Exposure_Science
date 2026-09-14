@@ -28,9 +28,9 @@
     @if ($hasFiles)
         enctype="multipart/form-data"
     @endif
-    {{ $attributes->merge([
-        'class' => 'mt-3 w-full',
-    ]) }}
+        {{ $attributes->merge([
+            'class' => 'mt-3 w-full',
+        ]) }}
 >
     @csrf
 
@@ -56,15 +56,22 @@
                 </div>
             
                 @elseif ($title)
-                    <h1 class="text-base font-semibold text-white">
-                        {{ $title }}
-                        @if ($required_field_note) <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> @endif
-                    </h1>
-                    @if ($button_back)
+                    <div class="flex justify-between items-center w-full my-4">
                         <div>
-                            <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
+                            <h1 class="text-base font-semibold text-white">
+                                {{ $title }}
+                            </h1>
+                            @if ($required_field_note) 
+                                <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> 
+                            @endif
                         </div>
-                    @endif
+                        
+                        @if ($button_back)
+                            <div>
+                                <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
+                            </div>
+                        @endif
+                    </div>
                 @endif
             </div>
         @endif

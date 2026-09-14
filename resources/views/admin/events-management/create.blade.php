@@ -3,20 +3,17 @@
     Nuovo evento
   </x-slot:title>
    
-  <div class="my-4 w-full flex-1 bg-mist-700 shadow-xl rounded-lg flex flex-col overflow-hidden border border-mist-600">
-    
-
-    <div class="flex-1 bg-mist-700 p-6 overflow-y-auto custom-scrollbar">
-      <x-event-form-layout :action="route('admin.events-management.store')" :hasFiles="True" title="iewnidenm">
+  <div class="mx-auto w-full max-w-4xl">
+      <!-- <x-event-form-layout :action="route('admin.events-management.store')" :hasFiles="True" title="iewnidenm">
 
         <div>
           <x-input-text label="Titolo" name="title" :required="true"/>
         </div>
 
         <div>
-          <x-label :required="true">Tag</x-label>
+          <x-label :required="true">Tipo di evento</x-label>
             <select id="type" name="type" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-s-0 border-default-medium text-heading text-sm rounded-e-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
-              <option value="" disabled selected>Scegli un tag da assegnare all'evento</option>
+              <option value="" disabled selected>Scegli un tag d'assegnare all'evento</option>
               @foreach ( $types as $type)
                 <option value="{{ $type->value }}"> {{ $type->value }} </option>
               @endforeach
@@ -50,7 +47,13 @@
             <x-danger-button type="button">Cancella</x-danger-button>
           </a>
         </x-slot:buttons>
-      </x-event-form-layout>
-    </div>
+      </x-event-form-layout> -->
+    <x-form-layout
+      :action="route('admin.events-management.store')"
+      method="POST"
+      :hasFiles="true"
+    >
+
+    </x-form-layout>
   </div>
 </x-layout-private>

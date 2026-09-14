@@ -5,7 +5,7 @@
 
     <div class="mx-auto w-full max-w-4xl">
         <x-form-layout
-            action="{{ route('admin.articles.store') }}"
+            :action="route('admin.articles.store')"
             method="POST"
             :hasFiles="true"
         >
