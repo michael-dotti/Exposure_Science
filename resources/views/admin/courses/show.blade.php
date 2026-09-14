@@ -156,7 +156,7 @@
         description="Contenuto e obiettivi del corso"
     >
 
-        <div class="rounded-lg border border-white/10 bg-white/5 p-4 text-sm leading-6 text-gray-300">
+        <div class="rounded-lg border border-white/10 bg-white/5 p-4 text-sm leading-6 wrap-break-word text-gray-300">
             {!! $course->description !!}
         </div>
         

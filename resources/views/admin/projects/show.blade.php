@@ -73,7 +73,7 @@
 				
 			</div>
 
-			<div class="ml-2 mt-2 text-sm font-medium text-gray-300">
+			<div class="ml-2 mt-2 wrap-break-word text-sm font-medium text-gray-300">
 				{!! $project->description !!}
 			</div>
 

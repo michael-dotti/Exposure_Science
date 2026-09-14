@@ -35,6 +35,7 @@ class CourseRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:255',
+                Rule::unique('courses', 'title')->ignore($this->course?->id),
             ],
 
             'language' => [

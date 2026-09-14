@@ -73,24 +73,11 @@
                 <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
 
                     <div class="h-9 w-9 shrink-0 overflow-hidden rounded-full border border-blue-400/20 bg-blue-500/10">
-
-                        @if ($user->profilephotourl)
-
-                            <img
-                                src="{{ $user->profilephotourl }}"
-                                alt="{{ $user->name }} {{ $user->surname }}"
-                                class="h-full w-full object-cover"
-                            >
-
-                        @else
-
-                            <div class="flex h-full w-full items-center justify-center text-sm font-semibold text-blue-300">
-                                {{ strtoupper(substr($user->name, 0, 1)) }}
-                                {{ strtoupper(substr($user->surname, 0, 1)) }}
-                            </div>
-
-                        @endif
-
+                        <img
+                            src="{{ $user->profilephotourl }}"
+                            alt="{{ $user->name }} {{ $user->surname }}"
+                            class="h-full w-full object-cover"
+                        >
                     </div>
 
                     <div class="min-w-0">
@@ -185,7 +172,7 @@
 
                 <div class="overflow-hidden rounded-lg border border-white/10 bg-white/5">
 
-                    <div class="p-4 text-sm leading-6 text-gray-300">
+                    <div class="p-4 text-sm leading-6 wrap-break-word text-gray-300">
                         {!! $article->abstract !!}
                     </div>
 

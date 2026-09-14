@@ -20,14 +20,6 @@
     {{-- File Input --}}
     <div class="justify-start rounded-sm flex items-center gap-2">
         <x-input-image :name="$name"/>
-        
-        {{--il Pulsante Elimina --}}
-        <input type="hidden" name="remove_photo" id="remove_photo" value="0"/> 
-        <div id="deleteButtonWrapper" class="{{ $isValidImage ? '' : 'hidden' }}">
-            <x-danger-button type="button" id="deleteButton">
-                Elimina
-            </x-danger-button>
-        </div>
     </div>
 
     {{-- Preview container --}}

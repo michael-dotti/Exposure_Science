@@ -37,11 +37,9 @@
         @else
             <x-message-of-empty title="Nessuna Notizia al Momento" image="fa-regular fa-newspaper" />
         @endif
+        <div class="mt-9 ml-10">
+                    {{ $news->links() }}
+                </div>
         </div>
     </div>
-
-    <div class="mt-2">
-        {{ $news->links() }}
-    </div>
-
 </x-layout-public>
