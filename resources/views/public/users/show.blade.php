@@ -27,7 +27,7 @@
 
         {{-- Pulsante fuori dalla scheda --}}
         <div class="mb-8">
-            <x-public-botton-back
+            <x-public-button-back
                 title="Torna al team"
                 :href="route('public.users.index')"
             />

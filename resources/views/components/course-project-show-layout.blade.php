@@ -61,7 +61,7 @@
 
     <x-slot:heading>
         <div class="mx-auto w-full max-w-6xl px-4 py-6 text-center sm:px-6 lg:px-8">
-            <h1 class="break-words text-3xl font-bold leading-tight text-amber-300">
+            <h1 class="wrap-break-word text-3xl font-bold leading-tight text-amber-300">
                 {{ $title }}
             </h1>
         </div>
@@ -71,7 +71,7 @@
 
         {{-- Pulsante indietro --}}
         <div class="mb-8">
-            <x-public-botton-back
+            <x-public-button-back
                 :title="$backTitle"
                 :href="$backHref"
             />

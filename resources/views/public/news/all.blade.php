@@ -19,7 +19,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
             {{-- Pulsante Indietro (Sinistra) --}}
             <div>
-                <x-public-botton-back title="Torna alle ultime notizie" :href="route('public.news.index')" />
+                <x-public-button-back title="Torna alle ultime notizie" :href="route('public.news.index')" />
             </div>
             
             {{-- Filtro (Destra)--}}

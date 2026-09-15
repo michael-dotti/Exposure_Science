@@ -42,18 +42,16 @@
         @if (isset($header) || $title)
             <div @class(['pb-4', 'border-b border-white/10' => $divider])> {{-- Applico la linea che divide titolo,input,bottoni nell'input solo se il props divider è true --}}
                 @if (isset($header))
-                <div class="flex justify-between items-center w-full my-4">
-                    <div>
-                        {{ $header }}
-                        @if ($required_field_note) <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> @endif
-                    </div>
-
-                    @if ($button_back)
+                    <div class="flex justify-between items-center w-full my-4">
                         <div>
-                            <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
+                            {{ $header }}
+                            @if ($required_field_note) <p class="text-xs text-gray-400 mt-1">I campi contrassegnati con <span class="text-red-500">*</span> sono obbligatori</p> @endif
                         </div>
-                    @endif
-                </div>
+
+                        @if ($button_back)
+                            <x-private-button-back />
+                        @endif
+                    </div>
             
                 @elseif ($title)
                     <div class="flex justify-between items-center w-full my-4">
@@ -67,9 +65,7 @@
                         </div>
                         
                         @if ($button_back)
-                            <div>
-                                <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
-                            </div>
+                            <x-private-button-back />
                         @endif
                     </div>
                 @endif

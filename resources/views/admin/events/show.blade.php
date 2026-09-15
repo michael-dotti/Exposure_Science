@@ -13,7 +13,7 @@
             <x-button-delete form="delete_form">
                 Cancella Evento
             </x-button-delete>
-            <x-link-button href="{{ route('admin.events.index') }}" class="my-2">Indietro</x-link-button>
+            <x-private-button-back :href="route('admin.events.index')" class="my-2" />
         </x-slot:buttons>
 
         <x-event-content :event="$event"/>

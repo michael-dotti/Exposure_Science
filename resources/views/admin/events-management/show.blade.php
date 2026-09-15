@@ -8,12 +8,13 @@
         :nextEventId="$nextEventId" 
         :totalEvents="$totalEvents" 
         :currentPage="$currentPage" 
-        baseRoute="admin.events-management.show">
+        baseRoute="admin.events-management.show"
+    >
         <x-slot:buttons>
             <x-button-delete data-modal-target="deleteModal" data-modal-toggle="deleteModal">
                 Cancella Evento
             </x-button-delete>
-            <x-link-button href="{{ route('admin.events-management.index') }}" class="my-2">Indietro</x-link-button>
+            <x-private-button-back :href="route('admin.events-management.index')" class="my-2" />
         </x-slot:buttons>
 
         <x-event-content :event="$event" :showRecipients="true" />

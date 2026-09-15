@@ -14,7 +14,7 @@ class CoursesController extends Controller
 
         $courses = Course::latest()
             ->filterByTeacher($selectedTeacherId)
-            ->paginate(2)
+            ->paginate(8)
             ->onEachSide(1)
             ->withQueryString();
 

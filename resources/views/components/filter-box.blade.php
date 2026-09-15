@@ -83,7 +83,7 @@
             @if (count($activeFilters) > 0)
                 <div class="flex flex-wrap items-center gap-1.5 sm:justify-end">
 
-                    <span class="mr-1 text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+                    <span class="mr-1 text-2xs font-semibold uppercase tracking-wider text-gray-500">
                         Filtri:
                     </span>
 

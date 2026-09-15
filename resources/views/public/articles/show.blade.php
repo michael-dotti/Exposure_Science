@@ -16,7 +16,7 @@
 
         {{-- Pulsante indietro --}}
         <div class="mb-8">
-            <x-public-botton-back
+            <x-public-button-back
                 title="Torna agli articoli"
                 :href="route('public.articles.index')"
             />

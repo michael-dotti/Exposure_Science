@@ -16,7 +16,7 @@
 
         {{-- Unico pulsante indietro --}}
         <div class="mb-7">
-            <x-public-botton-back
+            <x-public-button-back
                 title="Torna alle novità"
                 :href="route('public.news.index')"
             />

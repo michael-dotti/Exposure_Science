@@ -79,19 +79,13 @@
 
 			<!-- pulsanti -->
 			<div class="-ml-2 mt-8">
-				<div class="grid grid-cols-3 content-stretch">
+				<div class="flex items-center justify-between">
 					<!-- pulsante di ritorno all'index -->
-					<a href="{{ route('admin.projects.index') }}"
-						class="inline-flex w-fit items-center px-4 py-2 text-sm font-semibold
-								text-slate-900 transition rounded-md bg-amber-300
-								hover:bg-amber-200"
-					>
-						< Torna ai progetti
-					</a>
-					<!-- spazio vuoto -->
-					<div></div>
+					<x-private-button-back :href="route('admin.projects.index')" class="flex justify-start"/>
+					
 					<!-- pulsanti modifica ed elimina -->
-					<div class="justify-self-end-safe">
+					<div class="flex items-center space-x-2.5">
+
 						@can('update', $project)
 							<x-modify-button-link href="{{ route('admin.projects.edit', $project) }}">Modifica</x-modify-button-link>
 						@endcan

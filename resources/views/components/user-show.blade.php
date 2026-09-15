@@ -20,9 +20,7 @@
                     </h1>
                 </div>
                 @if($showButtonBack)
-                    <div>
-                        <x-link-button href="{{ url()->previous() }}">Indietro</x-link-button>
-                    </div>    
+                    <x-private-button-back />
                 @endif
             </div>
         </div>

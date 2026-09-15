@@ -26,9 +26,7 @@
                 @endif
             </div>
 
-            <x-link-button :href="$backHref">
-                Indietro
-            </x-link-button>
+            <x-private-button-back :href="$backHref"/>
         </div>
 
         <div class="relative w-full overflow-hidden rounded-lg border border-white/10 bg-slate-800/50">
