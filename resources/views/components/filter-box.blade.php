@@ -9,8 +9,8 @@
 @php
     $backgroundClass = match ($variant) {
         'public'  => 'bg-slate-900',
-        'private' => 'bg-transparent',
-        default   => 'bg-transparent',
+        'private' => 'bg-slate-800',
+        default   => 'bg-slate-800',
     };
 @endphp
 

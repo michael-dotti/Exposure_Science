@@ -2,10 +2,10 @@
     <x-slot:title>
         Gestione Utenti 
     </x-slot:title>
-    <div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
-        <div class="w-full flex flex-col flex-1 min-h-0">
+    <div class="flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
+        <div class="w-full flex flex-col flex-1 min-h-0 p-4 sm:p-6">
             
-            <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-gray-800 overflow-hidden">
+            <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-slate-800 rounded-xl border border-transparent dark:border-slate-700/50 overflow-hidden">
                 
                 <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4 shrink-0">
                     <div class="flex items-center flex-1 space-x-4">
@@ -19,7 +19,7 @@
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Nome</th>
                                 <th scope="col" class="px-4 py-3">Ruolo/i</th>
@@ -30,10 +30,10 @@
                         <tbody>
                             @forelse ( $users as $user )
                             {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
-                                <tr class="border-b dark:border-gray-600 transition-colors duration-150 {{ 
+                                <tr class="border-b border-gray-100 dark:border-slate-700/50 transition-colors duration-150 {{ 
                                     $user->trashed() 
                                         ? 'bg-red-900/20 dark:bg-red-950/40 hover:bg-red-800/30 dark:hover:bg-red-900/40 opacity-80' 
-                                        : 'hover:bg-gray-100 dark:hover:bg-mist-700' 
+                                        : 'hover:bg-gray-50 dark:hover:bg-slate-700/50' 
                                 }}">
                                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
@@ -80,7 +80,7 @@
                 </div>
 
                 {{-- Paginazione --}}
-                <div class="my-6">
+                <div class="my-6 px-4">
                     {{ $users->links() }}
                 </div>
             </div>

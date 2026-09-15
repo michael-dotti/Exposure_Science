@@ -4,11 +4,11 @@
     'showRoute',
     'table_title'=>'Ultime Comunicazioni Ricevute' // per settare questo prop a "null", quando richiami il componente devi inserirgli una stringa vuota ''
 ])
-<div class="bg-gray-50 dark:bg-gray-900 flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
+<div class="flex flex-col flex-1 w-full min-h-[calc(100vh-3.5rem)]">
         
-        <div class="w-full flex flex-col flex-1 min-h-0">
+        <div class="w-full flex flex-col flex-1 min-h-0 p-4 sm:p-6">
             
-            <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-gray-800 overflow-hidden">
+            <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-slate-800 rounded-xl border border-transparent dark:border-slate-700/50 overflow-hidden">
                 
                 <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4 shrink-0">
                     @if($table_title)
@@ -23,11 +23,11 @@
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr>
                                 <th scope="col" class="p-4">
                                     <div class="flex items-center">
-                                        <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-slate-700 dark:border-gray-600">
                                         <label for="checkbox-all" class="sr-only" >checkbox</label>
                                     </div>
                                 </th>
@@ -40,10 +40,10 @@
                         <tbody>
                             @forelse ( $events as $event )
                             {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
-                                <tr onclick="window.location='{{ route($showRoute, $event->id) }}'" class="cursor-pointer border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-mist-700">
+                                <tr onclick="window.location='{{ route($showRoute, $event->id) }}'" class="cursor-pointer border-b border-gray-100 dark:border-slate-700/50 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150">
                                     <td class="w-4 px-4 py-3">
                                         <div class="flex items-center">
-                                            <input name="event_ids[]" form="bulk-delete-form" value="{{ $event->id }}" type="checkbox" onclick="event.stopPropagation()" class="event-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <input name="event_ids[]" form="bulk-delete-form" value="{{ $event->id }}" type="checkbox" onclick="event.stopPropagation()" class="event-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-slate-700 dark:border-gray-600">
                                             <label class="sr-only" >checkbox</label>
                                         </div>
                                     </td>
@@ -75,7 +75,7 @@
                 </div>
 
                 {{-- Paginazione --}}
-                <div class="my-6">
+                <div class="my-6 px-4">
                     {{ $events->links() }}
                 </div>
 
