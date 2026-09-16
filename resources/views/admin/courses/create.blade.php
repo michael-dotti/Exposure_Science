@@ -27,46 +27,59 @@
                         value="{{ old('title') }}"
                     />
 
-                    <div>
-                        <x-label
-                            name="language"
-                            :required="true"
-                        >
-                            Lingua
-                        </x-label>
-
-                        <select
-                            id="language"
-                            name="language"
-                            required
-                            class="block w-full rounded-md border-0
-                                bg-white/5 px-3 py-2 text-white
-                                shadow-sm ring-1 ring-inset ring-white/10
-                                focus:ring-2 focus:ring-inset
-                                focus:ring-indigo-500 sm:text-sm"
-                        >
-                            <option
-                                value=""
-                                class="bg-gray-800 text-gray-400"
-                                @selected(old('language') === null)
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <div>
+                            <x-label
+                                name="language"
+                                :required="true"
                             >
-                                Seleziona una lingua
-                            </option>
+                                Lingua
+                            </x-label>
 
-                            @foreach ($languages as $language)
+                            <select
+                                id="language"
+                                name="language"
+                                required
+                                class="block w-full rounded-md border-0
+                                    bg-white/5 px-3 py-2 text-white
+                                    shadow-sm ring-1 ring-inset ring-white/10
+                                    focus:ring-2 focus:ring-inset
+                                    focus:ring-indigo-500 sm:text-sm"
+                            >
                                 <option
-                                    value="{{ $language->value }}"
-                                    class="bg-gray-800 text-white"
-                                    @selected(old('language') === $language->value)
+                                    value=""
+                                    class="bg-gray-800 text-gray-400"
+                                    @selected(old('language') === null)
                                 >
-                                    {{ ucfirst($language->value) }}
+                                    Seleziona una lingua
                                 </option>
-                            @endforeach
-                        </select>
 
-                        <x-form-error name="language" />
+                                @foreach ($languages as $language)
+                                    <option
+                                        value="{{ $language->value }}"
+                                        class="bg-gray-800 text-white"
+                                        @selected(old('language') === $language->value)
+                                    >
+                                        {{ ucfirst($language->value) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <x-form-error name="language" />
+                        </div>
+
+                        <div>
+                            <x-input-text
+                                :required="true"
+                                label="Codice"
+                                name="code"
+                            />
+
+                            <p class="mt-1 text-xs text-gray-400">
+                                Massimo 10 caratteri
+                            </p>
+                        </div>
                     </div>
-
                     <div class="grid gap-5 md:grid-cols-3">
 
                         <div>

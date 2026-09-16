@@ -40,7 +40,8 @@ class ProjectController extends Controller
 			->filterByCollaborator($request->integer('collaboratorId')) // <--- Nuovo
 			->filterByStatus($request->query('status'))                 // <--- Nuovo
 			->latest()
-			->paginate(8)
+			->paginate(5)
+			->onEachSide(1)
 			->withQueryString();
 
 		// Prepariamo i filtri correnti per la UI (filter-box)

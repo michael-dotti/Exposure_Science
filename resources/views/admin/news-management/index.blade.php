@@ -26,8 +26,8 @@
             <x-index-card
                 :href="route('admin.news-management.show', $n)"
                 :title="$n->title"
-                imageWidth="sm:w-72" 
-                :flushImage="true" 
+                :flushImage="true"
+                imageWidth="sm:w-72"  
             >
                 <x-slot:image>
                     <img src="{{ Storage::url($n->image_path) }}"
@@ -63,6 +63,9 @@
         @empty
             <x-message-of-empty title="Nessuna Notizia Trovata" image="fas fa-newspaper" />
         @endforelse
-        
+    </div>
+
+    <div class="my-6">
+        {{ $news->links() }}
     </div>
 </x-layout-private>

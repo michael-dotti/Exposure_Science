@@ -102,7 +102,7 @@
                                         </div>
 
                                         {{-- Descrizione del corso --}}
-                                        <p class="mt-4 text-sm leading-6 text-gray-300">
+                                        <p class="mt-4 text-sm leading-6 wrap-break-word text-gray-300">
                                             {{ \Illuminate\Support\Str::limit(
                                                 strip_tags($course->description),
                                                 120
@@ -142,7 +142,7 @@
                 </div>
 
                 {{-- Paginazione --}}
-                <div class="mt-8 flex justify-center">
+                <div class="mt-8">
                     {{ $courses->links() }}
                 </div>
 

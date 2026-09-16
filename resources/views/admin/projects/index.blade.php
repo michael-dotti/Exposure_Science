@@ -162,9 +162,7 @@
 		@endcan
 	@endforeach
 
-	
-
-	<div class="my-2">
-		{{ $projects->links() }}
-	</div>
+	<div class="my-6">
+        {{ $projects->links() }}
+    </div>
 </x-layout-private>

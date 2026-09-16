@@ -5,7 +5,7 @@
 
     <div class="mx-auto w-full max-w-4xl">
         <x-form-layout
-            action="{{ route('admin.articles.store') }}"
+            :action="route('admin.articles.store')"
             method="POST"
             :hasFiles="true"
         >
@@ -175,7 +175,7 @@
             </x-content-section>
 
             <x-content-section>
-                <x-label name="image_path" description="Seleziona un'immagine di copertina per l'articolo" > 
+                <x-label name="image_path" description="Seleziona un'immagine di copertina per l'articolo" :required="true"> 
                         Immagine
                 </x-label>
 

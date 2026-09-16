@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="min-w-0 flex-1">
-                    <h2 class="text-base font-semibold text-white">
+                    <h2 class="text-white wrap-break-word text-2xl font-bold">
                         {{ $title }}
                     </h2>
 

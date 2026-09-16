@@ -27,8 +27,9 @@
 
                 <div class="min-w-0">
 
-                    <h2 class="text-lg font-bold text-white transition group-hover:text-blue-300">
+                    <h2 class="text-lg font-bold text-white transition group-hover:text-blue-300 wrap-break-word line-clamp-2 min-w-0">
                         {{ $title }}
+                        {{-- SE il tiolo è troppo grande, va a capo, ingrandendo al card, ma arrivando ad occupare al massimo 2 righe --}}
                     </h2>
 
                     {{ $people ?? '' }}
@@ -42,7 +43,7 @@
             {{ $details ?? '' }}
 
             @isset($description)
-                <p class="mt-3 max-w-full break-words text-sm leading-5 text-gray-400 [overflow-wrap:anywhere]">
+                <p class="mt-3 max-w-full wrap-break-word text-sm leading-5 text-gray-400">
                     {{ $description }}
                 </p>
             @endisset

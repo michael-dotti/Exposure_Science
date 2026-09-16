@@ -25,6 +25,7 @@ class UserManagementController extends Controller
                     ->orderBy('surname','asc') // ordino in ordine alfabetico, partendo dal cognome
                     ->orderBy('name', 'asc')
                     ->paginate(10)
+                    ->onEachSide(1)
                     ->withQueryString(); // Mantiene i parametri URL (es. ?status=trashed) navigando tra le pagine della paginazione (altrimenti perdi il filtraggio)
 
         
