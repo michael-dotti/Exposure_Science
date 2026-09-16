@@ -31,7 +31,7 @@ class NewsFactory extends Factory
             'title' => fake()->sentence(rand(1, 3)),
             'content' => $contenents[rand(0, sizeof($contenents) - 1)],
             //'publicationDate' => $date->format('Y-m-d'),//Carbon::now()->toDateString(),
-            'image_path' => 'uploads/news/defaultNews_' . rand(0,6) . '.webp'
+            'image_path' => 'uploads/news/defaultNews/defaultNews_' . rand(0,6) . '.webp'
         ];
     }
 }

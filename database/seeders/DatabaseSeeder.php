@@ -51,11 +51,11 @@ class DatabaseSeeder extends Seeder
                 'defaultNews_8.webp','defaultNews_9.webp'];
             
             foreach ($imagesNewsName as $imageNewsName) {
-                $sourcePath = public_path('images/'. $imageNewsName);
+                $sourcePath = public_path('images/defaultNews/'. $imageNewsName);
 
                 if(File::exists($sourcePath)){
                     Storage::disk('public')->put(
-                        'uploads/news/'.$imageNewsName, 
+                        'uploads/news/defaultNews/'.$imageNewsName, 
                         File::get($sourcePath));
                 }
             }
