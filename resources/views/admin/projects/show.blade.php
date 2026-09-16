@@ -47,10 +47,6 @@
 					Progetto finanziato con il gentile contributo di 
 					<span class="text-amber-400">{{ $project->funding_agency }}</span>.
 				</div>
-			@elseif(random_int(0,1000) == 69)
-				<div class="my-6 text-sm font-small text-white">
-					Progetto finanziato con il gentile contributo di tua mamma.
-				</div>
 			@endif
 
 			<!-- partecipanti -->
