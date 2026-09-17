@@ -1,6 +1,6 @@
 @props(['types'])
 
-<x-dropdown class="inline-block">
+<x-dropdown class="w-full sm:w-fit">
     <x-slot name="trigger">
         <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20">
             Seleziona per Tipo di Evento

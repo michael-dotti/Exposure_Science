@@ -16,50 +16,56 @@
                             <h5 class="text-white">{{ $table_title }}</h5>
                         </div>
                     @endif
-                    <div class="flex flex-col shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                    <div class="flex flex-col items-start shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                         {{ $buttons }}
                     </div>
                 </div>
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table class="w-full table-fixed text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr>
-                                <th scope="col" class="p-4">
+                                <th scope="col" class="px-4 py-3 w-14">
                                     <div class="flex items-center">
                                         <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-slate-700 dark:border-gray-600">
                                         <label for="checkbox-all" class="sr-only" >checkbox</label>
                                     </div>
                                 </th>
-                                <th scope="col" class="px-4 py-3">Mittente</th>
-                                <th scope="col" class="px-4 py-3">Tipo di Evento</th>
+                                <th scope="col" class="px-4 py-3 w-36 sm:w-44">Mittente</th>
+                                <th scope="col" class="px-4 py-3 w-20 hidden md:table-cell lg:w-28">Tipo di Evento</th>
                                 <th scope="col" class="px-4 py-3">Titolo</th>
-                                <th scope="col" class="px-4 py-3">Data</th>
+                                <th scope="col" class="px-4 py-3 w-28 hidden lg:table-cell">Data</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ( $events as $event )
                             {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
                                 <tr onclick="window.location='{{ route($showRoute, $event->id) }}'" class="cursor-pointer border-b border-gray-100 dark:border-slate-700/50 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150">
-                                    <td class="w-4 px-4 py-3">
+                                    <td class="px-4 py-3 w-14">
                                         <div class="flex items-center">
                                             <input name="event_ids[]" form="bulk-delete-form" value="{{ $event->id }}" type="checkbox" onclick="event.stopPropagation()" class="event-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-slate-700 dark:border-gray-600">
                                             <label class="sr-only" >checkbox</label>
                                         </div>
                                     </td>
                                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" class="mr-1"/>
-                                        {{ $event->creator->name }} {{ $event->creator->surname }}
+                                        <div class="flex items-center min-w-0">
+                                            <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" class="mr-1"/>
+                                            <span class="truncate text-sm font-semibold">
+                                                {{ $event->creator->name }} {{ $event->creator->surname }}
+                                            </span>
+                                        </div>
                                     </th>
-                                    <td class="px-4 py-2">
+                                    <td class="px-4 py-2 w-20 hidden md:table-cell lg:w-28 align-middle">
                                        <x-event-types-badge type="{{ $event->type }}"/>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle max-w-0">
+                                        <div class="line-clamp-2 break-all text-sm leading-snug">
                                             {{ $event->title}}
                                         </div>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $event->created_at->format('M d, Y') }}</td>
+                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell w-28 align-middle">
+                                        {{ $event->created_at->format('M d, Y') }}
+                                    </td>
                                 </tr>
                             @empty 
                             {{-- Eseguito solo se $events è vuoto --}}
