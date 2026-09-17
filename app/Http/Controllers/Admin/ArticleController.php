@@ -218,7 +218,7 @@ class ArticleController extends Controller
 
         $validated = request()->validate([
             'title' => ['required', 'string', 'max:255', Rule::unique('articles', 'title')->ignore($article->id)],
-            'abstract' => ['required', 'max:5000'],
+            'abstract' => ['required','min:30', 'max:3000'],
             'users' => ['required', 'array', 'min:1'],
             'areas' => ['required', 'array', 'min:1'],
             'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:51200'],

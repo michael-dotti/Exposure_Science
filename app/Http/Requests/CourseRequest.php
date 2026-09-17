@@ -74,6 +74,7 @@ class CourseRequest extends FormRequest
             'description' => [
                 'required',
                 'string',
+                'max:20000'
             ],
 
             'teachers' => [

@@ -50,9 +50,9 @@ class UserManagementController extends Controller
     {
         // 1) validazione
         $validated = request()->validate([
-            'name' => ['required','string', 'min:3', 'max:255'],
-            'surname' => ['required','string','min:3', 'max:255'],
-            'email' => ['required','email', 'max:255', 'min:5', 'unique:users,email'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'name' => ['required','string', 'min:2', 'max:255'],
+            'surname' => ['required','string','min:2', 'max:255'],
+            'email' => ['required','email', 'max:255', 'unique:users,email'], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
             'roles' =>  ['nullable', 'array'],
             'roles.*' => ['required', 'exists:roles,id'],
             'password' => $this->passwordRules()

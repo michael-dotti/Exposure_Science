@@ -65,7 +65,7 @@ class EventManagementController extends Controller
     {
         $validated = request()->validate([
             'title'         => ['required','min:3','max:255'],
-            'content'       => ['required','max:5000'],
+            'content'       => ['required','max:65535'],
             'type'          => ['required'],
             'recipients'    => ['required', 'array', 'min:1'], // l'array degli user destinatari
             'recipients.*'  => ['exists:users,id'], // Verifico che ogni ID inviato esista davvero

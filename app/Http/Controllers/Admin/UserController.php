@@ -35,11 +35,11 @@ class UserController extends Controller
 
         // validate 
         $validated = request()->validate([
-            'name' => ['required', 'min:3', 'max:255'],
-            'surname' => ['required','min:3', 'max:255'],
-            'email' => ['required','email', 'max:255', 'min:5', Rule::unique('users')->ignore($user->id)], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
+            'name' => ['required', 'min:2', 'max:255'],
+            'surname' => ['required','min:2', 'max:255'],
+            'email' => ['required','email', 'max:255', Rule::unique('users')->ignore($user->id)], // Diciamo a Laravel: deve essere unica, ma ignora questo utente specifico
             'website' => ['nullable','url','max:511'],
-            'bio' => ['nullable','max:5000'],
+            'bio' => ['nullable','max:500'],
             'curriculum' => ['nullable','file','mimes:pdf,doc,docx','max:51200'],
             'profile_photo_path' => ['nullable', 'image', 'max:5120'],
         ]);
