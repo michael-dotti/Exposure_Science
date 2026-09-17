@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table class="w-full table-fixed text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr>
                                 <th scope="col" class="px-4 py-3 w-14">
@@ -33,7 +33,7 @@
                                 </th>
                                 <th scope="col" class="px-4 py-3 w-36 sm:w-44">Mittente</th>
                                 <th scope="col" class="px-4 py-3 w-20 hidden md:table-cell lg:w-28">Tipo di Evento</th>
-                                <th scope="col" class="px-4 py-3">Titolo</th>
+                                <th scope="col" class="px-4 py-3 w-80">Titolo</th>
                                 <th scope="col" class="px-4 py-3 w-28 hidden lg:table-cell">Data</th>
                             </tr>
                         </thead>
@@ -58,8 +58,8 @@
                                     <td class="px-4 py-2 w-20 hidden md:table-cell lg:w-28 align-middle">
                                        <x-event-types-badge type="{{ $event->type }}"/>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle max-w-0">
-                                        <div class="line-clamp-2 break-all text-sm leading-snug">
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle">
+                                        <div class="line-clamp-2 break-all text-sm leading-snug max-w-80">
                                             {{ $event->title}}
                                         </div>
                                     </td>
