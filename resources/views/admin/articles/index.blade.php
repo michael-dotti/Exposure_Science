@@ -93,10 +93,7 @@
                 </x-slot:details>
 
                 <x-slot:description>
-                    {{ \Illuminate\Support\Str::limit(
-                        strip_tags($article->abstract),
-                        180
-                    ) }}
+                    {!! $article->abstract !!}
                 </x-slot:description>
 
                 <x-slot:actions>

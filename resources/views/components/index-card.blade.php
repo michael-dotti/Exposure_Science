@@ -1,9 +1,25 @@
 @props([
     'href',
     'title',
+    'description' => null, // può essere usato (preferibilmente) come "<x-slot:description>..." oppure come ':description="..."' (in quel caso non servirebbero le graffe e i !!)
+    'descriptionLimit' => 180,
     'imageWidth' => 'sm:w-48', // dimensione di default dell'immagine
     'flushImage' => false // Se true, toglie il padding per far espandere l'immagine
 ])
+
+@php
+    $formattedDescription = null;
+
+    if ($description) {
+        // Rimuove i tag HTML dell'editor Quill
+        $cleanText = strip_tags((string) $description);
+
+        // Se descriptionLimit è valorizzato, applica Str::limit
+        $formattedDescription = $descriptionLimit 
+            ? \Illuminate\Support\Str::limit($cleanText, $descriptionLimit) 
+            : $cleanText;
+    }
+@endphp
 
 <article
    class="group relative flex overflow-hidden rounded-lg border border-white/10 bg-slate-800/40 shadow-sm transition duration-200 hover:border-blue-400/40 hover:bg-slate-800/60"
@@ -42,11 +58,11 @@
 
             {{ $details ?? '' }}
 
-            @isset($description)
-                <p class="mt-3 max-w-full wrap-break-word text-sm leading-5 text-gray-400">
-                    {{ $description }}
+            @if($formattedDescription)
+                <p class="mt-3 max-w-full wrap-break-word line-clamp-2 min-w-0 text-sm leading-5 text-gray-400">
+                    {{ $formattedDescription }}
                 </p>
-            @endisset
+            @endif
 
             <div class="pointer-events-auto relative z-30 mt-4 flex flex-wrap items-center gap-2 border-t border-white/10 pt-3">
 

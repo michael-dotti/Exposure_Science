@@ -36,11 +36,9 @@
                 </x-slot:image>
 
                 <x-slot:description>
-                    {{ \Illuminate\Support\Str::limit(
-                        strip_tags($n->content),
-                        180
-                    ) }}
+                    {!! $n->content !!}
                 </x-slot:description>
+                
                 <x-slot:actions>
                     <x-modify-button-link href="{{ route('admin.news-management.edit',$n->id) }}">
                         Modifica

@@ -90,10 +90,7 @@
                 </x-slot:details>
 
                 <x-slot:description>
-                    {{ \Illuminate\Support\Str::limit(
-                        strip_tags($course->description),
-                        180
-                    ) }}
+                    {!! $course->description !!}
                 </x-slot:description>
 
                 <x-slot:actions>
