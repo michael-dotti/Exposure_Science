@@ -19,54 +19,65 @@
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
                     <table class="w-full text-sm table-auto text-left text-gray-500 dark:text-gray-400">
+
+                        {{-- Intestazione Tabella --}}
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
-                            <tr>
-                                <th scope="col" class="px-4 py-3 w-48 sm:w-60">Nome</th>
-                                <th scope="col" class="px-4 py-3 w-48 hidden lg:table-cell">Ruolo/i</th>
-                                <th scope="col" class="px-4 py-3 w-48 hidden md:table-cell">Email</th>
-                                <th scope="col" class="px-4 py-3">Azioni</th>
+                            <tr class="w-auto">
+                                <th scope="col" class="px-4 py-3">Nome</th>
+                                <th scope="col" class="px-4 py-3 max-w-40 hidden lg:table-cell lg:max-w-52">Ruolo/i</th>
+                                <th scope="col" class="px-4 py-3 hidden md:table-cell max-w-36">Email</th>
+                                <th scope="col" class="px-4 py-3 max-w-36">Azioni</th>
                             </tr>
                         </thead>
+
+                        {{-- Corpo tabella --}}
                         <tbody>
                             @forelse ( $users as $user )
-                            {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
+                                {{-- nuova riga --}}
                                 <tr class="border-b border-gray-100 dark:border-slate-700/50 transition-colors duration-150 {{ 
                                     $user->trashed() 
                                         ? 'bg-red-900/20 dark:bg-red-950/40 hover:bg-red-800/30 dark:hover:bg-red-900/40 opacity-80' 
                                         : 'hover:bg-gray-50 dark:hover:bg-slate-700/50' 
                                 }}">
-                                    <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-48 sm:w-60 align-middle">
+
+                                    {{-- Foto Profilo + Nome + Cognome --}}
+                                    <td scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-full sm:w-auto align-middle">
                                         <div class="flex items-center min-w-0">
                                             <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
                                             <span class="truncate text-sm font-semibold">
                                                 {{ $user->name }} {{ $user->surname }}
                                             </span>
                                         </div>
-                                    </th>
-                                    <td class="px-4 py-2 hidden lg:table-cell w-48">
+                                    </td>
+
+                                    {{-- Ruoli --}}
+                                    <td class="px-2 py-2  max-w-40 hidden lg:table-cell lg:max-w-52">
                                        <div class="flex flex-wrap gap-1">
                                             @foreach ($user->display_roles as $role)
                                                 <x-role-badge :role="$role" />
                                             @endforeach
                                         </div>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white hidden md:table-cell w-48 align-middle">
-                                        <span class="truncate max-w-48 lg:max-w-xs text-sm">
+
+                                    {{-- Email --}}
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white hidden md:table-cell align-middle max-w-52">
+                                        <div class="truncate text-sm">
                                             {{ $user->email }}
-                                        </span>
+                                        </div>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle">
-                                        {{-- azioni --}}
-                                        <div class="flex gap-2 items-center">
+
+                                    {{-- Azioni --}}
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white w-auto align-middle">
+                                        <div class="flex flex-col xl:flex-row gap-2 items-center max-w-36">
                                             @if ($user->trashed())
-                                                <!-- Se è nel cestino mostro Ripristina e Elimina Definitivamente -->
-                                                <x-button-blue type="submit" form="form-restore-{{ $user->id }}">Ripristina</x-button-blue>
-                                                <x-danger-button data-modal-target="forceDeleteModal-{{ $user->id }}" data-modal-toggle="forceDeleteModal-{{ $user->id }}">Elimina Definitivamente</x-danger-button>
+                                                <!-- Se è nel cestino mostro Ripristina ed Elimina Definitivamente -->
+                                                <x-button-blue type="submit" form="form-restore-{{ $user->id }}" class="px-2">Ripristina</x-button-blue>
+                                                <x-danger-button data-modal-target="forceDeleteModal-{{ $user->id }}" data-modal-toggle="forceDeleteModal-{{ $user->id }}" class="px-2">Elimina Definitivamente</x-danger-button>
                                             @else
                                                 <x-view-button-link href="{{ route('admin.users-management.show',$user->id) }}">Gestisci</x-view-button-link>
                                                 <div>
                                                     @if(auth()->id() != $user->id)
-                                                        <x-danger-button  data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}">elimina</x-danger-button>
+                                                        <x-danger-button  data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}">Elimina</x-danger-button>
                                                     @endif
                                                 </div>
                                             @endif
@@ -77,7 +88,7 @@
                             {{-- Senza tr e td il contenuto di <tbody> non appare correttamente --}}
                                 <tr>
                                     <td colspan="4" class="px-4 py-8 text-center">
-                                        <x-message-of-empty title="Nessun Ricercatore Trovato" image="fa-regular fa-envelope"></x-message-of-empty>
+                                        <x-message-of-empty title="Nessun Ricercatore Trovato" image="fa-regular fa-envelope" />
                                     </td>
                                 </tr>
                             @endforelse
@@ -132,7 +143,4 @@
         @endif
     @endforeach
     
-    <!-- <div class="my-6">
-        {{ $users->links() }}
-    </div> -->
 </x-layout-private>
