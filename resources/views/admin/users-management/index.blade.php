@@ -18,12 +18,12 @@
                 </div>
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table class="w-full text-sm table-auto text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Nome</th>
-                                <th scope="col" class="px-4 py-3">Ruolo/i</th>
-                                <th scope="col" class="px-4 py-3">Email</th>
+                                <th scope="col" class="px-4 py-3 w-48 sm:w-60">Nome</th>
+                                <th scope="col" class="px-4 py-3 w-48 hidden lg:table-cell">Ruolo/i</th>
+                                <th scope="col" class="px-4 py-3 w-48 hidden md:table-cell">Email</th>
                                 <th scope="col" class="px-4 py-3">Azioni</th>
                             </tr>
                         </thead>
@@ -35,23 +35,29 @@
                                         ? 'bg-red-900/20 dark:bg-red-950/40 hover:bg-red-800/30 dark:hover:bg-red-900/40 opacity-80' 
                                         : 'hover:bg-gray-50 dark:hover:bg-slate-700/50' 
                                 }}">
-                                    <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
-                                        {{ $user->name }} {{ $user->surname }}
+                                    <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-48 sm:w-60 align-middle">
+                                        <div class="flex items-center min-w-0">
+                                            <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
+                                            <span class="truncate text-sm font-semibold">
+                                                {{ $user->name }} {{ $user->surname }}
+                                            </span>
+                                        </div>
                                     </th>
-                                    <td class="px-4 py-2">
-                                       <div class="flex flex-wrap gap-2">
+                                    <td class="px-4 py-2 hidden lg:table-cell w-48">
+                                       <div class="flex flex-wrap gap-1">
                                             @foreach ($user->display_roles as $role)
                                                 <x-role-badge :role="$role" />
                                             @endforeach
                                         </div>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->email }}
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white hidden md:table-cell w-48 align-middle">
+                                        <span class="truncate max-w-48 lg:max-w-xs text-sm">
+                                            {{ $user->email }}
+                                        </span>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle">
                                         {{-- azioni --}}
-                                        <div class="flex gap-2">
+                                        <div class="flex gap-2 items-center">
                                             @if ($user->trashed())
                                                 <!-- Se è nel cestino mostro Ripristina e Elimina Definitivamente -->
                                                 <x-button-blue type="submit" form="form-restore-{{ $user->id }}">Ripristina</x-button-blue>
@@ -70,7 +76,7 @@
                             @empty 
                             {{-- Senza tr e td il contenuto di <tbody> non appare correttamente --}}
                                 <tr>
-                                    <td colspan="5" class="px-4 py-8 text-center">
+                                    <td colspan="4" class="px-4 py-8 text-center">
                                         <x-message-of-empty title="Nessun Ricercatore Trovato" image="fa-regular fa-envelope"></x-message-of-empty>
                                     </td>
                                 </tr>
