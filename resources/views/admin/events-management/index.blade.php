@@ -13,7 +13,7 @@
         <x-slot:buttons>
             <x-button-create href="{{ route('admin.events-management.create') }}">Nuovo Evento</x-button-create>
             <x-event-type-filter :types="$types" />
-            <x-danger-button disabled id="bulk-delete-btn" data-modal-target="deleteModal" data-modal-toggle="deleteModal">Elimina Eventi selezionati</x-danger-button>
+            <x-danger-button class="w-full sm:w-fit" disabled id="bulk-delete-btn" data-modal-target="deleteModal" data-modal-toggle="deleteModal">Elimina Eventi selezionati</x-danger-button>
         </x-slot:buttons>
     </x-event-index>
     <x-confirm-delete-modal form="bulk-delete-form">

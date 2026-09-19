@@ -11,34 +11,31 @@
 		</x-slot:header>
 
 		<x-content-section>
-			<div>
-				<x-input-text name="title" :required="true" label="Titolo"></x-input-text>
-			</div>
-
-			<div>
-				<x-label :required="true">
-					Descrizione
-				</x-label>
-				<x-textarea-quill name="description" />
+			<div class="space-y-5">
+				<x-input-text name="title" :required="true" label="Titolo" />
+	
+				<x-textarea-quill name="description" label="Descrizione" :required="true" />
 			</div>
 		</x-content-section>
 
 		<x-content-section>
-			<x-label name="status" :required="True">Stato</x-label>
-			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
-				name="status" id="status">
-				@foreach($statuses as $status)
-					<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
-						class="w-max">
-							{{ $status->label() }}
-					</option>
-				@endforeach
-				<x-form-error name="users" />
-			</select>
-		</x-content-section>
-
-		<x-content-section>
-			<x-input-text name="funding_agency" label="Finanziatore"></x-input-text>
+			<div class="space-y-5">
+				<div>
+					<x-label name="status" :required="True">Stato</x-label>
+					<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
+						name="status" id="status">
+						@foreach($statuses as $status)
+							<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
+								class="w-max">
+									{{ $status->label() }}
+							</option>
+						@endforeach
+						<x-form-error name="users" />
+					</select>
+				</div>
+		
+				<x-input-text name="funding_agency" label="Finanziatore" />
+			</div>
 		</x-content-section>
 
 		<x-content-section>

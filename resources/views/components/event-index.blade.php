@@ -16,7 +16,7 @@
                             <h5 class="text-white">{{ $table_title }}</h5>
                         </div>
                     @endif
-                    <div class="flex flex-col items-start shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                    <div class="flex flex-col items-start space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                         {{ $buttons }}
                     </div>
                 </div>

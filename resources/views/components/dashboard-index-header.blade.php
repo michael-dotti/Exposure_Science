@@ -22,9 +22,9 @@
     </div>
 
     @if(isset($actions)) {{-- verifica se l'utente non vuole dei bottoni nel componente --}}
-        <div class="shrink-0">
-            {{ $actions }}
-        </div>
+        
+        {{ $actions }}
+        
     @endif
 </div>
 
