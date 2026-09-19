@@ -23,9 +23,9 @@
                         {{-- Intestazione Tabella --}}
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
                             <tr class="w-auto">
-                                <th scope="col" class="px-4 py-3">Nome</th>
+                                <th scope="col" class="px-4 py-3 max-w-44">Nome</th>
                                 <th scope="col" class="px-4 py-3 max-w-40 hidden lg:table-cell lg:max-w-52">Ruolo/i</th>
-                                <th scope="col" class="px-4 py-3 hidden md:table-cell max-w-36">Email</th>
+                                <th scope="col" class="px-4 py-3 hidden md:table-cell max-w-48">Email</th>
                                 <th scope="col" class="px-4 py-3 max-w-36">Azioni</th>
                             </tr>
                         </thead>
@@ -41,10 +41,10 @@
                                 }}">
 
                                     {{-- Foto Profilo + Nome + Cognome --}}
-                                    <td scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-full sm:w-auto align-middle">
+                                    <td scope="row" class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle">
                                         <div class="flex items-center min-w-0">
-                                            <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-1"/>
-                                            <span class="truncate text-sm font-semibold">
+                                            <x-profile-foto-mini src="{{ $user->profilePhotoUrl }}" class="mr-2 shrink-0"/>
+                                            <div class="line-clamp-2 wrap-break-word whitespace-normal text-sm font-semibold leading-snug max-w-44">
                                                 {{ $user->name }} {{ $user->surname }}
                                             </span>
                                         </div>
@@ -60,7 +60,7 @@
                                     </td>
 
                                     {{-- Email --}}
-                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white hidden md:table-cell align-middle max-w-52">
+                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white hidden md:table-cell align-middle max-w-48">
                                         <div class="truncate text-sm">
                                             {{ $user->email }}
                                         </div>

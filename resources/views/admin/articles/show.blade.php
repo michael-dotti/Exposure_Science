@@ -143,74 +143,50 @@
 
     </x-content-section>
 
+    {{-- Sezione Immagine + Testo + Bottone Download/Open-Link --}}
     <x-content-section
         title="Abstract"
         description="Sintesi del contenuto dell'articolo"
     >
 
-        <div class="flex flex-col gap-5 md:flex-row md:items-start">
+        <div class="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-6">
 
-            @if ($article->image_path)
-
-                <div class="w-full shrink-0 md:w-48">
-
-                    <div class="overflow-hidden rounded-lg border border-white/10 bg-white/5 p-3">
-
-                        <img
-                            src="{{ Storage::url($article->image_path) }}"
-                            alt="{{ $article->title }}"
-                            class="block h-auto w-full rounded-md"
-                        >
-
-                    </div>
-
-                </div>
-
-            @endif
-
-            <div class="min-w-0 flex-1">
-
-                <div class="overflow-hidden rounded-lg border border-white/10 bg-white/5">
-
-                    <div class="p-4 text-sm leading-6 wrap-break-word text-gray-300">
-                        {!! $article->abstract !!}
-                    </div>
-
-                    @if ($article->document || $article->external_url)
-
-                        <div class="flex flex-col gap-3 border-t border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-
-                            <span class="text-xs text-gray-400">
-                                Consulta l'articolo
-                            </span>
-
-                            @if ($article->document)
-
-                                <x-button-download-file
-                                    :file="$article->document"
-                                />
-
-                            @elseif ($article->external_url)
-
-                                <a
-                                    href="{{ $article->external_url }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex items-center justify-center rounded-md border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-300 transition hover:bg-blue-500/20"
-                                >
-                                    Apri articolo
-                                </a>
-
-                            @endif
-
-                        </div>
-
-                    @endif
-
-                </div>
-
+            <div class="mb-4 mx-auto w-fit rounded-lg md:float-right md:mb-4 md:ml-6 md:max-w-[50%]">
+                <img
+                    src="{{ Storage::url($article->image_path) }}"
+                    alt="{{ $article->title }}"
+                    class="mx-auto block h-auto max-h-72  rounded-xl md:max-h-80 md:w-auto"
+                >
+            </div>
+            
+            
+            <div class="mb-4 min-h-30 text-sm leading-6 text-gray-300 break-all md:min-h-0">
+                {!! $article->abstract !!}
             </div>
 
+            {{-- Documento Scaricabile o Link per Acquistare l'Articolo--}}
+            <div class="clear-both flex flex-col gap-3 border-t border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                
+                <span class="text-xs text-gray-400">
+                    Consulta l'articolo
+                </span>
+
+                @if ($article->document)
+                    <x-button-download-file
+                        :file="$article->document"
+                    />
+                @elseif ($article->external_url)
+                    <a
+                        href="{{ $article->external_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center rounded-md border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-300 transition hover:bg-blue-500/20"
+                    >
+                        Apri articolo
+                    </a>
+                @endif
+            </div>
+            
         </div>
 
     </x-content-section>
@@ -230,7 +206,7 @@
             Modifica
         </x-modify-button-link>
 
-        <x-danger-button
+        <x-danger-button 
             type="submit"
             form="delete_article"
         >

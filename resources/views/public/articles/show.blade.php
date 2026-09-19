@@ -93,6 +93,16 @@
 
                     </div>
 
+                    {{-- IMMAGINE VERSIONE MOBILE --}}
+                    {{-- Mostrata solo su schermi piccoli. Nascosta da lg in su (lg:hidden) --}}
+                    <div class="mt-6 flex items-center justify-center rounded-xl border border-white/10 bg-gray-900/50 p-4 lg:hidden">
+                        <img
+                            src="{{ Storage::url($article->image_path) }}"
+                            alt="Immagine della pubblicazione {{ $article->title }}"
+                            class="max-h-72 w-full rounded-xl object-contain shadow-lg"
+                        >
+                    </div>
+
                     {{-- Testo dell’Abstract --}}
                     <div class="mt-6">
                         <div class="article-content wrap-anywhere">
@@ -102,48 +112,20 @@
 
                 </section>
 
-                {{-- Immagine --}}
+                {{-- IMMAGINE VERSIONE DESKTOP --}}
+                {{-- Nascosta su mobile (hidden). Mostrata come flexbox da lg in su (lg:flex) --}}
                 <section
-                    class="flex min-h-72 items-center justify-center
+                    class="hidden lg:flex min-h-72 items-center justify-center
                            border-t border-white/10
                            bg-gray-900/50 p-6
                            lg:border-l lg:border-t-0 lg:p-8"
                 >
 
-                    @if ($article->image_path)
-
-                        <img
-                            src="{{ Storage::url($article->image_path) }}"
-                            alt="Immagine della pubblicazione {{ $article->title }}"
-                            class="max-h-97.5 w-full rounded-xl object-contain shadow-lg"
-                        >
-
-                    @else
-
-                        <div
-                            class="flex min-h-64 w-full flex-col
-                                   items-center justify-center rounded-xl
-                                   border border-dashed border-white/10
-                                   bg-white/3 px-6 text-center"
-                        >
-                            <span
-                                class="flex h-16 w-16 items-center
-                                       justify-center rounded-2xl
-                                       bg-amber-400/10
-                                       text-2xl text-amber-300"
-                            >
-                                <i
-                                    class="fa-regular fa-image"
-                                    aria-hidden="true"
-                                ></i>
-                            </span>
-
-                            <p class="mt-4 font-medium text-gray-400">
-                                Immagine non disponibile
-                            </p>
-                        </div>
-
-                    @endif
+                    <img
+                        src="{{ Storage::url($article->image_path) }}"
+                        alt="Immagine della pubblicazione {{ $article->title }}"
+                        class="max-h-97.5 w-full rounded-xl object-contain shadow-lg"
+                    >
 
                 </section>
 
@@ -186,7 +168,7 @@
                                 text=""
                             />
 
-                        @elseif ($article->external_url)
+                        @else
 
                             <a
                                 href="{{ $article->external_url }}"
@@ -213,23 +195,6 @@
 
                                 Leggi l’articolo
                             </a>
-
-                        @else
-
-                            <span
-                                class="inline-flex items-center gap-2
-                                       rounded-lg border border-white/10
-                                       bg-white/5 px-4 py-3
-                                       text-sm text-gray-400"
-                            >
-                                <i
-                                    class="fa-solid fa-circle-info"
-                                    aria-hidden="true"
-                                ></i>
-
-                                Non disponibile
-                            </span>
-
                         @endif
 
                     </div>

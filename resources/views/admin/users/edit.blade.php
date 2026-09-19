@@ -79,11 +79,9 @@
 </x-form-layout>
 
   <hr class="h-1 mb-8 bg-gray-100 border-0 rounded-sm">
-
-    <div class="mt-10 sm:mt-0">
+    <div class="mt-10 sm:mt-0 pb-8">
         @livewire('profile.update-password-form')
     </div>
-
-    <x-section-border />
+  </hr>
 
 </x-layout-private>

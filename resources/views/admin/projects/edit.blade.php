@@ -56,22 +56,22 @@
 		<x-content-section>
 			<x-label name="users" :required="True">Autori (minimo 1)</x-label>
 			<div class="grid grid-rows-4 grid-flow-col gap-x-12 gap-y-3 bg-white/5 p-6 rounded-md border border-white/10 overflow-x-auto">
-			@foreach($users as $user)
-				<div class="flex items-center gap-x-3 pr-4"> 
-					<input 
-						id="user-{{ $user->id }}" 
-						name="users[]" 
-						value="{{ $user->id }}" 
-						type="checkbox"
-							@if(in_array($user->id, old('users', $project->users->pluck('id')->toArray()))) checked
-							@endif
-						class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
+				@foreach($users as $user)
+					<div class="flex items-center gap-x-3 pr-4"> 
+						<input 
+							id="user-{{ $user->id }}" 
+							name="users[]" 
+							value="{{ $user->id }}" 
+							type="checkbox"
+								@if(in_array($user->id, old('users', $project->users->pluck('id')->toArray()))) checked
+								@endif
+							class="h-4 w-4 rounded border-white/10 text-indigo-600 focus:ring-indigo-600 bg-transparent">
 
-					<label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
-						{{ $user->name }}
-					</label>
-				</div>
-			@endforeach
+						<label for="user-{{ $user->id }}" class="text-sm text-white whitespace-nowrap">
+							{{ $user->name }}
+						</label>
+					</div>
+				@endforeach
 				<x-form-error name="users" />
 			</div> 
 		</x-content-section>
