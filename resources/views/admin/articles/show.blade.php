@@ -70,7 +70,7 @@
 
             @forelse ($article->users as $user)
 
-                <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+                <div class="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3 min-w-0">
 
                     <div class="h-9 w-9 shrink-0 overflow-hidden rounded-full border border-blue-400/20 bg-blue-500/10">
                         <img
@@ -80,7 +80,7 @@
                         >
                     </div>
 
-                    <div class="min-w-0">
+                    <div class="min-w-0 flex-1">
 
                         <p class="truncate text-sm font-medium text-white">
                             {{ $user->name }} {{ $user->surname }}
