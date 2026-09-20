@@ -25,7 +25,6 @@ class EventManagementController extends Controller
     {
         $events = Event::with('creator')
         ->filterByType($request->query('type'))
-        //->latest()  ordina gli eventi in base alla colonna: events.created_at
         ->orderByDesc('events.created_at')
         ->orderByDesc('events.id')
         ->paginate(10)
@@ -50,7 +49,9 @@ class EventManagementController extends Controller
         $event->load(['creator', 'recipients', 'attachments']);
 
         // 2) Recupero gli ID di tutti gli eventi ordinati dal più recente:
-        $allIds = Event::orderBy('created_at', 'desc')->orderBy('id','desc')->pluck('id');
+        $allIds = Event::orderBy('created_at','asc')
+            ->orderBy('id','asc')
+            ->pluck('id');
 
        // 3. Usa la funzione del Trait per calcolare i dati che mi servono per la paginazione
         $paginationData = $this->calculateCustomPagination($allIds, $event->id);
