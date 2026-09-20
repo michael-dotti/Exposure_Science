@@ -121,28 +121,30 @@
 				</x-slot:description>
 
 				<x-slot:actions>
-					<x-modify-button-link
-						href="{{ route('admin.projects.edit', $project) }}"
-					>
-						Modifica
-					</x-modify-button-link>
-				
-					<x-danger-button
-						type="submit"
-						form="delete_form_{{ $project->id }}"
-					>
-						Elimina
-					</x-danger-button>
+					@can('update', $project)
+						<x-modify-button-link
+							href="{{ route('admin.projects.edit', $project) }}"
+						>
+							Modifica
+						</x-modify-button-link>
 
-					<form
-						method="POST"
-						action="{{ route('admin.projects.destroy', $project) }}"
-						id="delete_form_{{ $project->id }}"
-						class="hidden"
-					>
-						@csrf
-						@method('DELETE')
-					</form>
+						<x-danger-button
+							type="submit"
+							form="delete_form_{{ $project->id }}"
+						>
+							Elimina
+						</x-danger-button>
+
+						<form
+							method="POST"
+							action="{{ route('admin.projects.destroy', $project) }}"
+							id="delete_form_{{ $project->id }}"
+							class="hidden"
+						>
+							@csrf
+							@method('DELETE')
+						</form>
+					@endcan
 				</x-slot:actions>
 			</x-index-card>
 		

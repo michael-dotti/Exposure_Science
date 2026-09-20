@@ -1,7 +1,6 @@
 @props([
     'user', 
     'showButtons' => false, // Di default i bottoni si vedono, ma puoi disabilitarli
-    'isUserManagement' => false,
     'showButtonBack' => true
 ])
 
@@ -55,22 +54,23 @@
                 @endif
                 
             </div>
-            @if ($isUserManagement)
-                <p class="text-base/7 font-bold text-white mt-2">Ruoli assegnati: </p>
-                <div class="text-base/7 text-white ml-8">
-                    @forelse ($user->display_roles as $role)
-                        @if ($loop->first)
-                            <div class="flex flex-wrap gap-2">
-                        @endif
-                                <x-role-badge :role="$role" />
-                        @if ($loop->last)
-                            </div> 
-                        @endif
-                    @empty
-                        <span class="text-gray-500 italic">[Nessun ruolo assegnato]</span>
-                    @endforelse
-                </div>
-            @endif
+
+            {{-- I ruoli dell'utente --}}
+            <p class="text-base/7 font-bold text-white mt-2">Ruoli assegnati: </p>
+            <div class="text-base/7 text-white ml-8">
+                @forelse ($user->display_roles as $role)
+                    @if ($loop->first)
+                        <div class="flex flex-wrap gap-2">
+                    @endif
+                            <x-role-badge :role="$role" />
+                    @if ($loop->last)
+                        </div> 
+                    @endif
+                @empty
+                        <span class="bg-white/10 text-heading text-sm font-medium px-2 py-1 rounded">Ricercatore Base</span>
+                @endforelse
+            </div>
+           
             <div>
                 <p class="text-base/7 font-bold text-white">La tua immagine profilo: </p>
                 <img src="{{ $user->profilePhotoUrl }}" alt="profile_photo" class="rounded-full w-32 h-32 border-3 border-white/20 object-cover ml-8 mt-2">

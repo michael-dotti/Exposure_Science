@@ -3,7 +3,7 @@
         Users Show
     </x-slot:title>
     
-    <x-user-show :user="$user" :isUserManagement="true" />
+    <x-user-show :user="$user" />
     
     @if(Auth()->user()->id !== $user->id)
         <hr class="h-1 mb-8 mt-12 bg-gray-100 border-0 rounded-sm">
