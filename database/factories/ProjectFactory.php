@@ -13,7 +13,7 @@ class ProjectFactory extends Factory
 	//lista di sedicenti finanziatori
 	public static $finanziatori = array("Monti dei Paschi di Siena", "Banco Agricolo Campano",
 		"Università degli Studi di Brescia", "Università degli Studi di Milano", "Università Statale di Bergamo",
-		"Comune di Pavia", "Comune di Brescia", "Luigi", "mio zio", "Università degli Studi di Capodimonte",
+		"Comune di Pavia", "Comune di Brescia", "Università degli Studi di Capodimonte",
 		"Comune di Melegnano", "Comune di Vello", "New York MoMA", "Crypton Future Media Inc", "ASST Franciacorta",
 		"Comune di Orzinuovi");
 	
