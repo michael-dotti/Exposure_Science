@@ -113,12 +113,11 @@ class UserFactory extends Factory
             'password'=>'password',
             'profile_photo_path' => 'uploads/defaultUser/Mario_Rossi.webp',
             'bio' => <<<EOT
-            Sono Mario Rossi, ho 27 anni e lavoro come Liutaio di Strumenti Elettronici.
-            Fondo il legno pregiato con circuiti analogici fatti a mano per creare sintetizzatori che suonano
-            come violini antichi, dopo aver studiato ingegneria a Milano e falegnameria a Cremona. Amo cucinare piatti della
-            tradizione contadina seguendo ricette scritte in codice binario sul mio blog. Segretamente, ho inserito una frequenza
-            impercettibile in ogni strumento che produco, capace di far vibrare leggermente i bicchieri di cristallo quando
-            viene suonata una nota specifica.
+            Sono Mario Rossi, ho 27 anni e sono uno studioso di analisi applicata alla statistica qui a Brescia.
+            La mia ricerca ha come fulcro l'applicazione di costrutti matematici iperbo-parabolici su problemi
+            analitici complessi che le persone possono imbattersi in un contesto giornaliero.
+            Questi problemi includono la ricerca di stabilità e controllo ottimale su sistemi matematicamente 
+            caotici come: crowd dynamics, flusso del traffico, dinamiche dei gas e molto altro.
             EOT,
         ]);
 
@@ -139,12 +138,12 @@ class UserFactory extends Factory
             'password' => 'password',
             'profile_photo_path' => 'uploads/defaultUser/Emilia_Rossi.webp',
             'bio' => <<<EOT
-            Sono Emilia Rossi, 31 anni, e la mia professione è "Designer di Esperienze Olfattive". 
-            Creo profumi non per il corpo, ma per gli spazi: installazioni effimere in gallerie d'arte o ambienti privati,
-             capaci di evocare ricordi specifici o indurre stati d'animo. Il mio naso è il mio strumento principale,
-              affinato da anni di studio in Grasse. Nel tempo libero, compongo fragranze "cattive" che nessuno oserebbe 
-              indossare, ma che per me rappresentano sfide olfattive uniche. Nessuno sa che il mio senso dell'olfatto è
-               così sviluppato da poter distinguere l'età di una bottiglia di vino solo annusando il sughero.
+            Sono Emilia Rossi, 31 anni, e la mia professione è storica dell'arte con
+            specializzazione in opere prodotte nelle zone del bresciano tra il XIV e XVII secolo.
+            Il mio lavoro consiste nella ricerca storica, restauro e divulgazione al pubblico delle
+            opere d'arte del territorio.
+            Vanto numerose pubblicazioni con importanti case editrici, i testi di mia produzione sono
+            utilizzati anche come referenza per testi scolastici e opere derivate.
             EOT,
         ]);
         $emilia->assignRole(['news Manager']);
