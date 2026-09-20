@@ -90,7 +90,7 @@
         description="Docenti associati al corso"
     >
 
-        <div class="grid gap-3 sm:grid-cols-2">
+        <div class="min-w-0 grid gap-3 sm:grid-cols-2">
 
             @forelse ($course->teachers as $teacher)
 
@@ -108,7 +108,7 @@
 
                         @else
 
-                            <div class="flex h-full w-full items-center justify-center text-sm font-semibold text-blue-300">
+                            <div class="flex h-full w-full items-center justify-center text-sm font-semibold text-blue-300 min-w-0">
                                 {{ strtoupper(substr($teacher->name, 0, 1)) }}
                                 {{ strtoupper(substr($teacher->surname, 0, 1)) }}
                             </div>
