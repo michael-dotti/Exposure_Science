@@ -25,7 +25,9 @@ class EventManagementController extends Controller
     {
         $events = Event::with('creator')
         ->filterByType($request->query('type'))
-        ->latest() // ordina gli eventi in base alla colonna: events.created_at
+        //->latest()  ordina gli eventi in base alla colonna: events.created_at
+        ->orderByDesc('events.created_at')
+        ->orderByDesc('events.id')
         ->paginate(10)
         ->onEachSide(1)
         ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione

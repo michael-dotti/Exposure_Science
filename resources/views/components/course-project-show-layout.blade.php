@@ -4,55 +4,6 @@
     'backHref',
 ])
 
-@once
-    @push('styles')
-        <style>
-            .course-project-content,
-            .course-project-content p {
-                max-width: 100%;
-                overflow-wrap: anywhere;
-                white-space: normal;
-            }
-
-            .course-project-content p {
-                margin-bottom: 1rem;
-            }
-
-            .course-project-content p:last-child {
-                margin-bottom: 0;
-            }
-
-            .course-project-content ul {
-                margin: 1rem 0;
-                padding-left: 1.5rem;
-                list-style: disc;
-            }
-
-            .course-project-content ol {
-                margin: 1rem 0;
-                padding-left: 1.5rem;
-                list-style: decimal;
-            }
-
-            .course-project-content li {
-                margin-bottom: 0.25rem;
-            }
-
-            .course-project-content a {
-                color: rgb(34 211 238);
-                text-decoration: underline;
-                text-underline-offset: 3px;
-            }
-
-            .course-project-content img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 0.5rem;
-            }
-        </style>
-    @endpush
-@endonce
-
 <x-layout-public>
 
     <x-slot:title>
