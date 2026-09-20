@@ -25,7 +25,9 @@ class EventController extends Controller
             ->wherePivotNull('deleted_at') // se la colonna "deleted_at" della tabella pivot è null, allora significa che l'utente non ha "eliminato logicamente" l'evento e che quindi può visualizzarlo nelal sua schermata
             ->with('creator')
             ->filterByType($request->query('type')) // filtro per tipo di evento se presente nel request (Nota: $request->query('type) restitusice null se non c'è request)
-            ->latest() // ordina gli eventi in base alla colonna: events.created_at
+            //->latest() // ordina gli eventi in base alla colonna: events.created_at
+            ->orderByDesc('events.created_at')
+            ->orderByDesc('events.id')
             ->Paginate(10)
             ->onEachSide(1)
             ->withQueryString(); // Mantiene i parametri nell'URL cosi da non perdere il filtraggio mentre ti sposti tra le pagine della paginazione
@@ -56,8 +58,10 @@ class EventController extends Controller
         // 3. Prendi tutti gli ID
         $allIds = $user->events_receives()
             ->wherePivotNull('deleted_at')
-            ->orderBy('events.created_at', 'desc')
-            ->orderBy('events.id', 'desc')
+            //->orderBy('events.created_at', 'desc')
+            //->orderBy('events.id', 'desc')
+            ->orderByDesc('events.created_at')
+            ->orderByDesc('events.id')
             ->pluck('events.id');
 
         // 4. Usa la funzione del Trait
