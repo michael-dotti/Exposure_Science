@@ -94,7 +94,6 @@
                     </x-slot>
                     <x-slot name="content">
                         <x-dropdown-link href="{{ route('public.home') }}">Home</x-dropdown-link>
-                        <x-dropdown-link href="{{ route('profile.show') }}">Impostazioni avanzate</x-dropdown-link>
                         <div class="border-t border-gray-200"></div>
                         <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
