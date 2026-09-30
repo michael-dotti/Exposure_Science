@@ -2,5 +2,5 @@
 	<x-slot:title>
 		Ciao {{ $user->name . "!" }}
 	</x-slot:title>
-	<x-user-show :user="$user" :showButtons="true" :showButtonBack="false" />
+	<x-user-private-show :isPersonal="true" :user="$user" :showButtons="true" />
 </x-layout-private>

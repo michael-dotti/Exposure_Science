@@ -1,9 +1,9 @@
 <x-layout-private>
     <x-slot:title>
-        Users Show
+        {{ $user->name }} {{ $user->surname }}
     </x-slot:title>
     
-    <x-user-show :user="$user" />
+    <x-user-private-show :user="$user" />
     
     @if(Auth()->user()->id !== $user->id)
         <hr class="h-1 mb-8 mt-12 bg-gray-100 border-0 rounded-sm">

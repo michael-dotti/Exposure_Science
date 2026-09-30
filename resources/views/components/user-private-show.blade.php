@@ -1,7 +1,7 @@
 @props([
     'user', 
     'showButtons' => false, // Di default i bottoni si vedono, ma puoi disabilitarli
-    'showButtonBack' => true
+    'isPersonal' => false // stabilisce se ci troviamo nella pagina personale o nello show di gestisci utenti e cambia di conseguenza il testo da mostrare
 ])
 
 <div {{ $attributes->merge(['class' => 'mt-3 w-full']) }}>
@@ -15,10 +15,10 @@
             <div class="flex justify-between items-center w-full my-4">
                 <div>
                     <h1 class="text-base/7 font-bold text-white">
-                        Qui puoi trovare le informazioni personali
+                        {{ $isPersonal ? 'Qui puoi trovare le tue informazioni personali' : 'Informazioni di ' . $user->name . ' ' . $user->surname }}
                     </h1>
                 </div>
-                @if($showButtonBack)
+                @if(!$isPersonal)
                     <x-private-button-back />
                 @endif
             </div>
@@ -27,30 +27,36 @@
         {{-- Contenuto Dati Utente --}}
         <div class="space-y-6">
             <div>
-                <p class="text-base/7 font-bold text-white">Il tuo nominativo: </p>
+                <p class="text-base/7 font-bold text-white">{{ $isPersonal ? 'Il tuo nominativo:' : 'Nominativo:' }}</p>
                 <p class="text-base/7 text-white ml-8"> {{ $user->name }} {{ $user->surname }} </p>
                 
-                <p class="text-base/7 font-bold text-white mt-2">La tua e-mail: </p>
+                <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'La tua e-mail:' : 'E-mail:' }}</p>
                 <p class="text-base/7 text-white ml-8"> {{ $user->email }} </p>
                 
-                <p class="text-base/7 font-bold text-white mt-2">La tua bio: </p>
+                <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'La tua bio:' : 'Bio:' }}</p>
                 <p class="text-base/7 text-white ml-8"> {{ $user->bio ?? '[Nessuna bio inserita]' }} </p>
                 
-                <p class="text-base/7 font-bold text-white mt-2">Il tuo sito web: </p>
+                <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'Il tuo sito web:' : 'Sito web:' }}</p>
                 @if ($user->website)    
                     <a class="text-cyan-400 transition duration-200 hover:text-cyan-600 ml-8" href="{{ $user->website }}" target="_blank"> 
                         {{ $user->website }} 
                     </a>
                 @else
-                    <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun sito a tuo nome] </p>
+                    <p class="text-base/7 text-gray-500 ml-8 italic">
+                        {{ $isPersonal ? '[non hai inserito nessun sito a tuo nome]' : '[nessun sito web inserito]' }}
+                    </p>
                 @endif
 
-                <p class="text-base/7 font-bold text-white mt-2">Il tuo CV:</p>
+                <p class="text-base/7 font-bold text-white mt-2">
+                    {{ $isPersonal ? 'Il tuo CV:' : 'Curriculum Vitae:' }}
+                </p>
                 
                 @if ($user->curriculum)
                     <x-button-open-file :file="$user->curriculum" class="ml-8"/>
                 @else
-                    <p class="text-base/7 text-gray-500 ml-8 italic"> [non hai inserito nessun CV a tuo nome] </p>
+                    <p class="text-base/7 text-gray-500 ml-8 italic">
+                        {{ $isPersonal ? '[non hai inserito nessun CV a tuo nome]' : '[nessun CV inserito]' }}
+                    </p>
                 @endif
                 
             </div>
@@ -72,7 +78,7 @@
             </div>
            
             <div>
-                <p class="text-base/7 font-bold text-white">La tua immagine profilo: </p>
+                <p class="text-base/7 font-bold text-white">{{ $isPersonal ? 'La tua immagine profilo:' : 'Immagine profilo:' }}</p>
                 <img src="{{ $user->profilePhotoUrl }}" alt="profile_photo" class="rounded-full w-32 h-32 border-3 border-white/20 object-cover ml-8 mt-2">
             </div>
         </div>
