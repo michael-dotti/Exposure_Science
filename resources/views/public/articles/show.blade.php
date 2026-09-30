@@ -105,7 +105,7 @@
 
                     {{-- Testo dell’Abstract --}}
                     <div class="mt-6">
-                        <div class="article-content wrap-anywhere">
+                        <div class="article-content wrap-anywhere text-gray-300">
                             {!! $article->abstract !!}
                         </div>
                     </div>
