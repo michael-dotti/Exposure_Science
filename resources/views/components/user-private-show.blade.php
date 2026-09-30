@@ -1,15 +1,11 @@
 @props([
     'user', 
-    'showButtons' => false, // Di default i bottoni si vedono, ma puoi disabilitarli
-    'isPersonal' => false // stabilisce se ci troviamo nella pagina personale o nello show di gestisci utenti e cambia di conseguenza il testo da mostrare
+    'isPersonal' => false, // stabilisce se ci troviamo nella pagina personale o nello show di gestisci utenti e cambia di conseguenza il testo da mostrare
+    'roles' => [] // Necessario quando isPersonal è false per generare le checkbox dei ruoli
 ])
 
 <div {{ $attributes->merge(['class' => 'mt-3 w-full']) }}>
-    <div @class([
-        'mx-auto w-full max-w-4xl space-y-6 text-white',
-        'pb-12' => !$showButtons // Aggiunge padding in basso se i bottoni sono disabilitati
-    ])>
-        
+    <div class="mx-auto w-full max-w-4xl space-y-6 text-white">  
         {{-- Header --}}
         <div class="border-b border-white/10 pb-4">
             <div class="flex justify-between items-center w-full my-4">
@@ -84,20 +80,51 @@
         </div>
     </div>
 
-    {{-- Footer con Bottoni Opzionali --}}
-    @if ($showButtons)
-        <div class="mx-auto mt-6 flex w-full max-w-4xl items-center justify-end gap-x-3 border-t border-white/10 py-5">
-            @if (isset($buttons))
-                {{-- Se passi uno slot <x-slot:buttons>, mostra quello --}}
-                {{ $buttons }}
-            @else
-                {{-- Comportamento di default se non passi nessuno slot --}}
-                <x-modify-button-link
-                    href="{{ route('admin.users.edit', $user->id) }}"
-                >
+    {{-- Sezione Azioni / Footer --}}
+    <div class="mx-auto w-full max-w-4xl">
+        @if ($isPersonal)
+            {{-- Pagina Personale: Modifica Informazioni Personali --}}
+            <div class="mt-6 flex items-center justify-end gap-x-3 border-t border-white/10 py-5">
+                <x-modify-button-link href="{{ route('admin.users.edit', $user->id) }}">
                     Modifica Dati
                 </x-modify-button-link>
+            </div>
+        @else
+            {{-- Vista Gestione Utenti: Cambia Ruolo All'utente --}}
+            @if (auth()->id() !== $user->id)
+                <div class="mt-8 border-t-4 border-white/60 pt-6">
+                    <x-form-layout :button_back="false" method="PATCH" action="{{ route('admin.users-management.update', $user->id) }}" :divider="false">
+                        <x-slot:header>
+                            <h2 class="text-xl font-bold text-amber-500">
+                                Modifica i ruoli di {{ $user->name }} {{ $user->surname }}
+                            </h2>
+                        </x-slot:header>
+
+                        <x-content-section>
+                            <div class="grid grid-flow-col grid-rows-4 gap-x-10 gap-y-3 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-4">
+                                @foreach ($roles as $role)
+                                    <x-role-checkbox 
+                                        :role="$role" 
+                                        :isEdit="true"
+                                        :user="$user" 
+                                    />
+                                @endforeach
+                            </div>
+                        </x-content-section>
+
+                        <x-slot:buttons>
+                            <x-save-button type="submit">
+                                Salva
+                            </x-save-button>
+                            <a href="{{ url()->previous() }}">
+                                <x-danger-button type="button">
+                                    Annulla
+                                </x-danger-button>
+                            </a>   
+                        </x-slot:buttons>
+                    </x-form-layout>
+                </div>
             @endif
-        </div>
-    @endif
+        @endif
+    </div>
 </div>

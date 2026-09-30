@@ -7,12 +7,12 @@
     <x-news-show 
         :news="$news"
     >
-        <x-slot:button_back>
+        <x-slot:buttonBack>
              <x-private-button-back
                 title="Torna alle novità"
                 :href="route('admin.news-management.index')"
             />
-        </x-slot:button_back>
+        </x-slot:buttonBack>
     </x-news-show>
     
 </x-layout-private>

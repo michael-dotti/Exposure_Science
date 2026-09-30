@@ -78,10 +78,8 @@
 
 </x-form-layout>
 
-  <hr class="h-1 mb-8 bg-gray-100 border-0 rounded-sm">
-    <div class="mt-10 sm:mt-0 pb-8">
-        @livewire('profile.update-password-form')
-    </div>
-  </hr>
+  <div class="mx-auto w-full max-w-4xl mt-7 border-t-4 border-white/60 pt-6 pb-8">
+      @livewire('profile.update-password-form')
+  </div>  
 
 </x-layout-private>

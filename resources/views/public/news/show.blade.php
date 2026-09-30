@@ -15,12 +15,12 @@
     <x-news-show 
         :news="$n"
     >
-        <x-slot:button_back>
+        <x-slot:buttonBack>
              <x-public-button-back
                 title="Torna alle novità"
                 :href="route('public.news.index')"
             />
-        </x-slot:button_back>
+        </x-slot:buttonBack>
     </x-news-show>
     
 </x-layout-public>
