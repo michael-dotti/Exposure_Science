@@ -18,10 +18,11 @@ class CoursesController extends Controller
             ->onEachSide(1)
             ->withQueryString();
 
-        $teachers = User::select('id', 'name', 'surname')
-            ->orderBy('surname', 'asc')
-            ->orderBy('name', 'asc')
-            ->get();
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('surname', 'asc')
+        ->orderBy('name', 'asc')
+        ->get();
 
         $currentFilters = [];
 

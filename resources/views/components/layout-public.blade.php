@@ -69,7 +69,7 @@
                    <x-nav-link href="{{ route('public.users.index') }}" :active="request()->routeIs('public.users.*')" >Team</x-nav-link>
                 </li>
                 <li>
-                  <x-nav-link href="{{ route('public.articles.index') }}" :active="request()->routeIs('public.articles.*')">Publicazioni</x-nav-link>
+                  <x-nav-link href="{{ route('public.articles.index') }}" :active="request()->routeIs('public.articles.*')">Pubblicazioni</x-nav-link>
                 </li>
                 <li>
                    <x-nav-link href="{{ route('public.news.index') }}" :active="request()->routeIs('public.news.*')" >Novità</x-nav-link>
