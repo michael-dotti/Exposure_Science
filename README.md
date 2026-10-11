@@ -1,61 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EXPOSURE SCIENCE
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introduzione 
+Questa è un'applicazione web per la gestione e la promozione di un gruppo di ricerca universitario. Si divide in una parte pubblica, accessibile a tutti, e una parte privata, riservata agli utenti autenticati. 
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Parte pubblica: 
+È la vetrina del gruppo di ricerca e può essere consultata da chiunque, senza necessità di autenticazione. L'obiettivo è fornire una panoramica completa e trasparente sulle attività del gruppo. Gli utenti potranno visualizzare le seguenti informazioni:
+- **Descrizione del gruppo:** una panoramica sulle aree di ricerca, la missione e gli obiettivi del gruppo. 
+- **Membri del gruppo:** un elenco completo dei componenti, con i rispettivi ruoli, biografie, corsi insegnati e contatti. 
+- **Pubblicazioni:** una pagina dedicata alla ricerca e alla consultazione delle pubblicazioni scientifiche del gruppo, con filtri e strumenti di ricerca. 
+- **Progetti:** una sezione che elenca i progetti di ricerca, suddivisi per stato (attivi, conclusi e futuri). 
+- **Novità ed eventi:** una bacheca aggiornata con seminari, articoli appena pubblicati, comunicazioni di servizio e altri eventi rilevanti.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### 2. Parte privata: 
+Sezione del sito nascosta agli utenti che non hanno eseguito l’accesso, utilizzata per la modifica dei contenuti del sito. Le azioni che l’utente registrato può compiere dipendono dal ruolo a lui assegnato nel gruppo di ricerca:
+- **Ricercatore:** può pubblicare nuovi articoli, modificare quelli a cui ha partecipato e aggiornare la propria pagina personale con biografia e informazioni di contatto.
+- **Amministratore:** eredita tutti i permessi del ricercatore, può aggiungere, rimuovere e modificare i membri del gruppo, pubblicare e modificare articoli senza limiti di partecipazione, gestire pagine personali dei membri e gestire bacheca informazioni.
+	
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Tecnologie utilizzate:
+- **Front-end:** HTML, Tailwind, JavaScript;
+- **Back-end:** Laravel (con Jetstream per l'autenticazione e Spatie per la gestione dei ruoli ), php, mySQL.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Requisiti di sistema
+- **PHP >= 8.2** con le seguenti estensioni abilitate: `fileinfo`, `gd` (o `imagick`), `mbstring`, `openssl`, `pdo`, `bcmath`, `xml`.
+- **Limiti PHP consigliati** (nel `php.ini`) per la gestione dei file:
+  - `post_max_size = 256M`
+  - `upload_max_filesize = 256M`
+  - `memory_limit = 512M`
+- Composer
+- Node.js & NPM
+- MariaDB 
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Istruzioni per l'installazione
+1. **Clona il repository:**
+```bash
+git clone <URL_DEL_TUO_REPOSITORY>
+cd nome-cartella-progetto
+```
 
-### Premium Partners
+2. **Installa le dipendenze PHP**
+```bash
+composer install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. **Configura l'ambiente**
+- duplica il file **`.env.example`** e rinominalo in **`.env`**.
+- Genera la chiave dell'applicazione:
+```bash
+php artisan key:generate 
+```
 
-## Contributing
+4. **Configura il Database**
+- Crea un database locale vuoto chiamato **`exposure_science`**.
+- Verifica che i parametri di connessione nel file **`.env`** (**`DB_USERNAME`** e **`DB_PASSWORD`**) corrispondano al tuo ambiente locale.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Esegui le migrazioni del database e carica i dati di default:**
+```bash
+php artisan migrate --seed
+```
 
-## Code of Conduct
+6. **Installa le dipendenze Frontend:**
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Avvia l'applicazione**
+Tieni aperti due terminali separati:
+- Terminale 1 (Compilatore Asset Vite):
+```bash
+npm run dev
+```
+- Terminale 2 (Server Locale Laravel):
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+8. **Accedi All'applicazione**
+Apri il browser all'indirizzo **`http://127.0.0.1:8000`**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
