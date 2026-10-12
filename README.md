@@ -26,14 +26,17 @@ Sezione del sito nascosta agli utenti che non hanno eseguito l’accesso, utiliz
 
 
 ## Requisiti di sistema
-- **PHP >= 8.2** con le seguenti estensioni abilitate: `fileinfo`, `gd` (o `imagick`), `mbstring`, `openssl`, `pdo`, `bcmath`, `xml`.
-- **Limiti PHP consigliati** (nel `php.ini`) per la gestione dei file:
-  - `post_max_size = 256M`
-  - `upload_max_filesize = 256M`
+- **PHP >= 8.2** (testato e sviluppato con PHP 8.4.4) con le seguenti estensioni abilitate nel file `php.ini`: 
+  `fileinfo`, `gd`, `mysqli`, `curl`, `intl`, `mbstring`, `openssl`, `pdo_mysql`, `zip`.
+- **Limiti e parametri PHP consigliati** (nel `php.ini`):
   - `memory_limit = 512M`
+  - `post_max_size = 260M`
+  - `upload_max_filesize = 55M`
+  - `max_execution_time = 180`
+  - `max_input_time = 180`
 - Composer
 - Node.js & NPM
-- MariaDB 
+- MariaDB / MySQL
 
 
 ## Istruzioni per l'installazione
