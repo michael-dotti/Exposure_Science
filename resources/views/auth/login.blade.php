@@ -33,11 +33,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
+                <!-- @if (Route::has('password.request'))
                     <a class="underline text-sm text-white hover:text-orange-400 rounded-md " href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif
+                @endif -->
 
                 <x-button class="ms-4 hover:bg-violet-900">
                     {{ __('Log in') }}
