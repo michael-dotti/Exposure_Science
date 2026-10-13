@@ -69,7 +69,12 @@ php artisan migrate --seed
 npm install
 ```
 
-7. **Avvia l'applicazione**
+7. **Crea il collegamento simbolico (Storage Link):**
+```bash
+php artisan storage:link
+```
+
+8. **Avvia l'applicazione**
 Tieni aperti due terminali separati:
 - Terminale 1 (Compilatore Asset Vite):
 ```bash
@@ -80,6 +85,6 @@ npm run dev
 php artisan serve
 ```
 
-8. **Accedi All'applicazione**
+9. **Accedi All'applicazione**
 Apri il browser all'indirizzo **`http://127.0.0.1:8000`**
 
