@@ -16,7 +16,7 @@
   
   <body class="h-full">
 
-    <nav class="bg-gray-800 fixed w-full z-20 top-0 inset-s-0 border-b-4 border-gray-900/50">
+    <nav class="bg-gray-800 fixed w-full z-40 top-0 inset-s-0 border-b-4 border-gray-900/50">
         <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="shrink-0 flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ asset('images/ExposureScienceLogo_v2.svg') }}" alt="Your Company" class="h-8 w-auto" />

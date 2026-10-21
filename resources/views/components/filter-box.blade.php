@@ -16,7 +16,7 @@
 
 <div
     {{ $attributes->class([
-        'relative z-20 mb-6 overflow-visible rounded-xl',
+        'relative z-30 mb-6 overflow-visible rounded-xl',
         'border border-white/10',
         $backgroundClass,
         'px-4 py-4 shadow-md',
