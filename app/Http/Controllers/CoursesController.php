@@ -50,7 +50,14 @@ class CoursesController extends Controller
 
     public function show(Course $course)
     {
+        $teachers = User::permission('teaching')
+        ->select('id', 'name', 'surname')
+        ->orderBy('surname', 'asc')
+        ->orderBy('name', 'asc')
+        ->get();
+
         return view('public.courses.show', [
+            'teachers' => $teachers,
             'course' => $course,
         ]);
     }
