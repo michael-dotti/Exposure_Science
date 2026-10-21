@@ -128,6 +128,90 @@
 
     </section>
 
+     {{-- Ricercatori partecipanti --}}
+    <section class="border-t border-white/10 bg-gray-900/30 p-6 sm:p-8">
+
+        <div class="flex items-center gap-3">
+
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
+                <i
+                    class="fa-solid fa-users"
+                    aria-hidden="true"
+                ></i>
+            </div>
+
+            <h2 class="text-xl font-bold text-white">
+                @if ($teachers->count() === 1)
+                    Docente
+                @else
+                    Docenti
+                @endif
+            </h2>
+
+        </div>
+
+        @if ($teachers->isNotEmpty())
+
+            <div class="mt-5 grid gap-3 md:grid-cols-2">
+
+                @foreach ($teachers as $user)
+
+                    <a
+                        href="{{ route('public.users.show', $user) }}"
+                        class="group flex items-center gap-4 rounded-xl
+                               border border-slate-700 bg-gray-800
+                               px-4 py-3 transition duration-200
+                               hover:border-cyan-400/30
+                               hover:bg-slate-700/50"
+                    >
+
+                        {{-- Icona ricercatore --}}
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
+                            <i
+                                class="fa-solid fa-user"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        {{-- Informazioni ricercatore --}}
+                        <div class="min-w-0 flex-1">
+
+                            <p class="truncate font-semibold text-white">
+                                {{ $user->name }} {{ $user->surname }}
+                            </p>
+
+                            <p class="mt-0.5 text-xs text-gray-400">
+                                Visualizza il profilo
+                            </p>
+
+                        </div>
+
+                        {{-- Freccia --}}
+                        <i
+                            class="fa-solid fa-chevron-right
+                                   text-xs text-gray-500
+                                   transition
+                                   group-hover:translate-x-1
+                                   group-hover:text-cyan-400"
+                            aria-hidden="true"
+                        ></i>
+
+                    </a>
+
+                @endforeach
+
+            </div>
+
+        @else
+
+            <p class="mt-5 text-sm text-gray-400">
+                Attualmente nessun docente Insegna in questo corso.
+            </p>
+
+        @endif
+
+    </section>
+
     {{-- Descrizione --}}
     <section class="border-t border-white/10 bg-gray-900/60 p-6 sm:p-8 lg:p-10">
 
