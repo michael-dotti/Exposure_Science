@@ -19,7 +19,7 @@
         </svg>
     </button>
 
-    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0 flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-900/50" aria-label="Sidenav">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0 flex flex-col bg-gray-800 border-r border-gray-900/50" aria-label="Sidenav">
         
         <div class="flex items-center justify-center h-16 bg-cordes-blue shrink-0 shadow-xl z-10">
             <div class="flex items-center justify-center h-16 bg-cordes-blue">

@@ -8,7 +8,7 @@
         
         <div class="w-full flex flex-col flex-1 min-h-0 p-4 sm:p-6">
             
-            <div class="relative flex flex-col flex-1 bg-white shadow-md dark:bg-slate-800 rounded-xl border border-transparent dark:border-slate-700/50 overflow-hidden">
+            <div class="relative flex flex-col flex-1  shadow-md bg-slate-800 rounded-xl border border-slate-700/50 overflow-hidden">
                 
                 <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4 shrink-0">
                     @if($table_title)
@@ -22,8 +22,8 @@
                 </div>
 
                 <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-900/60 dark:text-gray-400 border-b border-gray-200 dark:border-slate-700/50">
+                    <table class="w-full table-auto text-sm text-left text-gray-400">
+                        <thead class="text-xs  uppercase bg-slate-900/60 text-gray-400 border-b border-slate-700/50">
                             <tr>
                                 <th scope="col" class="px-4 py-3 w-14">
                                     <div class="flex items-center">
@@ -40,14 +40,14 @@
                         <tbody>
                             @forelse ( $events as $event )
                             {{-- onclick="window.location='URL'"== una volta cliccato sull'elemento spostati sulla pagina con url URL --}}
-                                <tr onclick="window.location='{{ route($showRoute, $event->id) }}'" class="cursor-pointer border-b border-gray-100 dark:border-slate-700/50 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                                <tr onclick="window.location='{{ route($showRoute, $event->id) }}'" class="cursor-pointer border-b  border-slate-700/50  hover:bg-slate-700/50 transition-colors duration-150">
                                     <td class="px-4 py-3 w-14">
                                         <div class="flex items-center">
                                             <input name="event_ids[]" form="bulk-delete-form" value="{{ $event->id }}" type="checkbox" onclick="event.stopPropagation()" class="event-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-slate-700 dark:border-gray-600">
                                             <label class="sr-only" >checkbox</label>
                                         </div>
                                     </td>
-                                    <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" class="flex items-center px-4 py-2 font-medium whitespace-nowrap text-white">
                                         <div class="flex items-center min-w-0">
                                             <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" class="mr-1"/>
                                             <span class="truncate text-sm font-semibold">
@@ -58,12 +58,12 @@
                                     <td class="px-4 py-2 w-20 hidden md:table-cell lg:w-28 align-middle">
                                        <x-event-types-badge type="{{ $event->type }}"/>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 dark:text-white align-middle">
+                                    <td class="px-4 py-2 font-medium  text-white align-middle">
                                         <div class="line-clamp-2 break-all text-sm leading-snug max-w-80">
                                             {{ $event->title}}
                                         </div>
                                     </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell w-28 align-middle">
+                                    <td class="px-4 py-2 font-medium  whitespace-nowrap text-white hidden lg:table-cell w-28 align-middle">
                                         {{ $event->created_at->format('M d, Y') }}
                                     </td>
                                 </tr>
