@@ -10,16 +10,9 @@
 
       <x-content-section>
         <x-input-text name="title" :required="true" label="Titolo" :value="$news->title"></x-input-text>
-        
-        <div>
-          <x-label :required="true">
-            Contenuto
-          </x-label>
-        </div>
 
-
-        <div class="">
-          <x-textarea-quill name="content" :value="$news->content ?? '' " :required="True"/> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
+        <div class="mt-4">
+          <x-textarea-quill name="content" label="Contenuto Della Notizia" :value="$news->content ?? '' " :required="True"/> {{-- $news->content ?? '' == se esiste content restituisce il suo valore, altrimenti una stringa vuota --}}
         </div>
         
         <div>

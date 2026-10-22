@@ -52,7 +52,11 @@ composer install
 ```
 
 3. **Configura l'ambiente**
-- duplica il file **`.env.example`** e rinominalo in **`.env`**.
+- Duplica il file **`.env.example`** e rinominalo in **`.env`**.
+- Verifica che nel file **`.env`** la lingua sia impostata su italiano (una lingua attualmente implementata):
+  ```env
+  APP_LOCALE=it
+  ```
 - Genera la chiave dell'applicazione:
 ```bash
 php artisan key:generate 

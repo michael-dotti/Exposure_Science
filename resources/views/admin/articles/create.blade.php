@@ -153,8 +153,6 @@
                             label="URL esterno"
                             value="{{ old('external_url') }}"
                         />
-
-                        <x-form-error name="external_url" />
                     </div>
 
                     <div>
@@ -162,8 +160,6 @@
                             name="file_path"
                             label="Documento"
                         />
-
-                        <x-form-error name="file_path" />
                     </div>
 
                 </div>

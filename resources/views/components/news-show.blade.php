@@ -92,4 +92,9 @@
 
     </article>
 
+    @isset($actions)
+        <div class="mx-auto max-w-4xl mt-6 flex items-center justify-end gap-3 border-t border-white/10 py-5">
+            {{ $actions }}
+        </div>
+    @endisset
 </main>

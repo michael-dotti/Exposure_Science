@@ -19,7 +19,7 @@
         </svg>
     </button>
 
-    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0 flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-900/50" aria-label="Sidenav">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0 flex flex-col bg-gray-800 border-r border-gray-900/50" aria-label="Sidenav">
         
         <div class="flex items-center justify-center h-16 bg-cordes-blue shrink-0 shadow-xl z-10">
             <div class="flex items-center justify-center h-16 bg-cordes-blue">
@@ -53,7 +53,7 @@
                 </li>
                 @can('management news')
                     <li>
-                        <x-link-with-icon href="{{ route('admin.news-management.index') }}" :active="request()->routeIs('admin.news-management.*')" iconType="fas fa-newspaper">Gestisci news</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.news-management.index') }}" :active="request()->routeIs('admin.news-management.*')" iconType="fas fa-newspaper">Gestisci News</x-link-with-icon>
                     </li>
                 @endcan
                 @can('management events')
@@ -70,22 +70,32 @@
         </div>
 
         <div class="flex justify-center p-4 w-full shrink-0">
-            <div class="bg-gray-800 rounded-lg p-3 flex flex-col gap-3 items-center">
+            <div class="bg-gray-800 rounded-lg p-3 flex flex-col gap-3 items-center w-full min-w-0">
                 
                 {{-- Sezione Nome e Foto Utente --}}
-                <div class="flex items-center space-x-3">
-                    <x-profile-foto-mini />
-                    <div>
-                        <p class="text-white text-sm font-medium">
-                            {{ Auth::user()->name }} {{ Auth::user()->surname }}
-                        </p>
+                <div class="flex items-center space-x-2 w-full min-w-0">
+                    <div class="shrink-0">
+                        <x-profile-foto-mini />
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        {{-- 1. Ruolo in alto, sempre visibile --}}
                         @role('admin')
-                            <p class="text-gray-400 text-xs">Administrator</p>
+                            <p class="text-amber-400 text-2xs font-semibold uppercase tracking-wider truncate">Administrator</p>
                         @endrole
+                        
+                        {{-- 2. Nome e Cognome con flex-wrap e troncamento indipendente --}}
+                        <div class="flex flex-wrap items-center gap-x-1.5 min-w-0 w-full">
+                            <span class="text-white text-sm font-medium truncate min-w-0" title="{{ Auth::user()->name }}">
+                                {{ Auth::user()->name }}
+                            </span>
+                            <span class="text-white text-sm font-medium truncate min-w-0" title="{{ Auth::user()->surname }}">
+                                {{ Auth::user()->surname }}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 
-                <x-dropdown align="top">
+                <x-dropdown align="top" class="w-full">
                     <x-slot name="trigger">
                         <button class="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded-md flex items-center justify-center text-xs font-bold uppercase transition-colors">
                             Opzioni account

@@ -102,10 +102,28 @@ class ArticleController extends Controller
         // 1) validazione
         $validated = request()->validate([
             'title' => ['required', 'min:3', 'max:255', 'unique:articles,title'],
-            'abstract' =>['required','max:5000'],
+            'abstract' =>['required','min:30','max:5000'],
             'users' => ['required', 'array', 'min:1'],
-            'file_path' =>['required_without:external_url','prohibits:external_url','nullable','file','mimes:pdf,doc,docx','max:51200'],
-            'external_url' =>['required_without:file_path','prohibits:file_path','nullable','url'],
+            
+            'file_path' => [
+                'required_without:external_url',
+                'prohibits:external_url',
+                Rule::when(request()->hasFile('file_path'), [
+                    'file',
+                    'mimes:pdf,doc,docx',
+                    'max:51200',
+                ]),
+            ],
+            
+            'external_url' => [
+                'required_without:file_path',
+                'prohibits:file_path',
+                Rule::when(request()->filled('external_url'), [
+                    'url',
+                    'max:1024',
+                ]),
+            ],
+
             'image_path' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
             'areas' => ['required','array','min:1'],
         ]);
@@ -120,6 +138,7 @@ class ArticleController extends Controller
 
         // 2) Creazione nuovo articolo con la data di oggi
         //preparo i dati
+        $articleData['external_url'] = request()->filled('external_url') ? request()->input('external_url') : null; // se external_url non è esplicitamente assegnato, gli assegno il valore null
         $articleData['data_pubblicazione'] = now()->toDateString();
         
         if (request()->hasFile('image_path')) {
@@ -221,8 +240,28 @@ class ArticleController extends Controller
             'abstract' => ['required','min:30', 'max:3000'],
             'users' => ['required', 'array', 'min:1'],
             'areas' => ['required', 'array', 'min:1'],
-            'file_path' => [ $hasExistingFile ? 'nullable' : 'required_without:external_url','prohibits:external_url','file','mimes:pdf,doc,docx','max:51200'],
-            'external_url' => [$hasExistingFile ? 'nullable' : 'required_without:file_path','prohibits:file_path','url', 'max:1024'],
+            
+            // Applica le regole sul file SOLO se l'utente sta effettivamente caricando un file nuovo
+            'file_path' => [
+                $hasExistingFile ? 'nullable' : 'required_without:external_url',
+                'prohibits:external_url',
+                Rule::when(request()->hasFile('file_path'), [
+                    'file',
+                    'mimes:pdf,doc,docx',
+                    'max:51200',
+                ]),
+            ],
+            
+            // Applica la regola 'url' SOLO se l'utente ha scritto qualcosa nel campo
+            'external_url' => [
+                $hasExistingFile ? 'nullable' : 'required_without:file_path',
+                'prohibits:file_path',
+                Rule::when(request()->filled('external_url'), [
+                    'url', 
+                    'max:1024',
+                ]),
+            ],
+            
             'image_path' => [$hasImage ? 'nullable' : 'required', 'image', 'max:5120', 'mimes:jpeg,png,jpg,webp'],
         ]);
 
@@ -255,17 +294,26 @@ class ArticleController extends Controller
             unset($articleData['image_path']);
         }
 
-        DB::transaction(function () use ($article, $articleData) {
-            $article->update($articleData);
-
-            if (request()->hasFile('file_path')) {
-                // Elimina il vecchio file se esiste (per non sprecare spazio)
+        // &$NomeVar == passaggio per riferimento
+        DB::transaction(function () use ($article, &$articleData) {
+            
+            // CASO 1: L'utente ha inserito un URL esterno (rimuovo l'eventuale file esistente)
+            if (request()->filled('external_url')) {
+                if ($article->document) {
+                    Storage::disk('public')->delete($article->document->file_path);
+                    $article->document()->delete();
+                }
+                $articleData['external_url'] = request()->input('external_url');
+            }
+            
+            // CASO 2: L'utente ha caricato un nuovo file (rimuovo l'eventuale file precedente e azzero l'URL)
+            elseif (request()->hasFile('file_path')) {
                 if ($article->document) {
                     Storage::disk('public')->delete($article->document->file_path);
                 }
                 
                 $file = request()->file('file_path');
-                $path = $file->store('uploads/articles/documents','public');
+                $path = $file->store('uploads/articles/documents', 'public');
 
                 $article->document()->updateOrCreate(
                     [],
@@ -277,19 +325,21 @@ class ArticleController extends Controller
                     ]
                 );
 
-                // Ricarica la relazione aggiornata per svuotare la cache in memoria
+                // L'articolo ora ha un file, quindi l'external_url deve essere null
+                $articleData['external_url'] = null;
                 $article->load('document');
             }
-            // 
-            elseif (request()->input('remove_file') == '1' || request()->filled('external_url')) {
+            
+            // CASO 3: Rimozione esplicita del file
+            elseif (request()->input('remove_file') == '1') {
                 if ($article->document) {
-                    // Elimina il file fisico dal disco
                     Storage::disk('public')->delete($article->document->file_path);
-                    // Elimina la riga dal database
                     $article->document()->delete();
                 }
             }
 
+            $article->update($articleData);
+            
             // gestione autori
             $users = request()->input('users', []);
 
@@ -302,8 +352,7 @@ class ArticleController extends Controller
 
             $article->users()->sync($users);
             $article->researchAreas()->sync(request()->input('areas', []));
-            }
-        );
+        });
 
         return redirect()->route('admin.articles.index')->with(
                 'success',
