@@ -234,7 +234,6 @@ class CoursesController extends Controller
 
         DB::transaction(function () use ($course) {
             $course->teachers()->detach();
-            $course->news()->detach();
             $course->delete();
         });
 
