@@ -176,8 +176,6 @@
                             label="URL esterno"
                             value="{{ old('external_url', $article->external_url) }}"
                         />
-
-                        <x-form-error name="external_url" />
                     </div>
 
                     <div>
@@ -192,13 +190,9 @@
                             name="remove_file"
                             value="0"
                         >
-
-                        <x-form-error name="file_path" />
                     </div>
 
                 </div>
-
-                <x-form-error name="link_or_document" />
 
             </x-content-section>
 
