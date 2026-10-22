@@ -13,6 +13,8 @@
                 :href="route('admin.news-management.index')"
             />
         </x-slot:buttonBack>
+
+        
     </x-news-show>
     
 </x-layout-private>

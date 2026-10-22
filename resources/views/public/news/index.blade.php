@@ -89,16 +89,6 @@
                     {{-- Contenuto in basso --}}
                     <div class="absolute inset-x-0 bottom-0 p-6 md:p-8">
 
-                        {{-- Data --}}
-                        <div class="flex items-center gap-2 text-sm font-semibold text-gray-200">
-                            <i
-                                class="fa-regular fa-calendar text-cyan-300"
-                                aria-hidden="true"
-                            ></i>
-
-                            {{ $news[0]->created_at->format('d/m/Y') }}
-                        </div>
-
                         {{-- Titolo --}}
                         <h2
                             class="mt-3 max-w-4xl wrap-break-word
