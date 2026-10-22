@@ -30,7 +30,7 @@ class ProjectFactory extends Factory
 		$finanziatore = (random_int(0, 100) < 75)? ProjectFactory::$finanziatori[random_int(0,sizeof(ProjectFactory::$finanziatori) - 1)] : null;
 
 		return [
-			'title' => fake()->sentence(3),
+			'title' => ucfirst(fake()->words(rand(3, 5), true)),
 			'description' => fake()->sentence(80),
 			'funding_agency' => $finanziatore,
 			'status' => fake()->randomElement(ProjectStatusType::cases())->value,

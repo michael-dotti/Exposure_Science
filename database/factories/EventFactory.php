@@ -19,7 +19,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(rand(1, 5)),
+            'title' => ucfirst(fake()->words(rand(3, 5), true)),
             'creator_user_id' => User::find(3)->id,
             'type' => fake()->randomElement(EventType::cases()),
             'content' => fake()->paragraph()

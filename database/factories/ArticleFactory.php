@@ -18,7 +18,7 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(rand(1, 5)),
+            'title' => ucfirst(fake()->words(rand(3, 5), true)),
             'abstract' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae maiores neque eaque ea odit placeat, tenetur illum distinctio nulla voluptatum a corrupti beatae tempora aperiam quia id aliquam possimus aut.',
             'data_pubblicazione' => Carbon::now()->toDateString(),
             'external_url' => fake()->url(),
