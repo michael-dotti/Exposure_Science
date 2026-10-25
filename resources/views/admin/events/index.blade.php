@@ -1,6 +1,6 @@
 <x-layout-private>
     <x-slot:title>
-        Events
+        I Tuoi Eventi
     </x-slot:title>
 
     <x-event-index 
