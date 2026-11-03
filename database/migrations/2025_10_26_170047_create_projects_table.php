@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->text('description');
             $table->string('funding_agency')->nullable();
             $table->string('status')->default(ProjectStatusType::PLANNED->value); // assegnato un valore di default a status
