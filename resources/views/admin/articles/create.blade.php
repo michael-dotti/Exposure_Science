@@ -125,6 +125,7 @@
                             <label
                                 for="area-{{ $area->id }}"
                                 class="whitespace-nowrap text-sm text-white"
+                                title="{{ $area->getEnumDescription() }}"
                             >
                                 {{ $area->name }}
                             </label>

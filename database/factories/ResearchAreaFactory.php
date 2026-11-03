@@ -17,10 +17,11 @@ class ResearchAreaFactory extends Factory
      */
     public function definition(): array
     {   
+        $areaType = $this->faker->unique()->randomElement(ResearchAreaType::cases());
+        
         return [
-            'name' => $this->faker->randomElement(ResearchAreaType::cases()),
-            'description' => 'Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias.
-                             Rem perspiciatis iure ut laborum inventore et maxime amet.',
+            'name' => $areaType->value,
+            'description' => $areaType->description(),
         ];
     }
 }

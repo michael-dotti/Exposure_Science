@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ResearchAreaType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
@@ -14,7 +15,7 @@ class ResearchArea extends Model
     /** @use HasFactory<\Database\Factories\ResearchAreaFactory> */
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'description'];
     
     // un'area di ricerca può essere associata a più project
     public function projects(): BelongsToMany
@@ -26,5 +27,11 @@ class ResearchArea extends Model
     public function articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class);
+    }
+
+    public function getEnumDescription(): string
+    {
+        return ResearchAreaType::tryFrom($this->name)?->description() 
+               ?? 'Nessuna descrizione disponibile.';
     }
 }
