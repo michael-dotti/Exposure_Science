@@ -124,9 +124,14 @@ class NewsManagementController extends Controller
 
     public function destroy(News $news)
     {
-        if($news->image_path && $news->image_path !== 'uploads/news/defaultNews.webp')
-        {
-            Storage::disk('public')->delete($news->image_path);
+        if ($news->image_path) {
+            $imageFullPath = Storage::disk('public')->path($news->image_path);
+            $defaultDirAbs = Storage::disk('public')->path('uploads/news/defaultNews/');
+
+       
+            if (!str_starts_with($imageFullPath, $defaultDirAbs)) {
+                Storage::disk('public')->delete($news->image_path);
+            }
         }
 
         $news->delete();

@@ -53,7 +53,7 @@
                 </li>
                 @can('management news')
                     <li>
-                        <x-link-with-icon href="{{ route('admin.news-management.index') }}" :active="request()->routeIs('admin.news-management.*')" iconType="fas fa-newspaper">Gestisci News</x-link-with-icon>
+                        <x-link-with-icon href="{{ route('admin.news-management.index') }}" :active="request()->routeIs('admin.news-management.*')" iconType="fas fa-newspaper">Gestisci Notizie</x-link-with-icon>
                     </li>
                 @endcan
                 @can('management events')
