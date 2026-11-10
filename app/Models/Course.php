@@ -17,7 +17,7 @@ class Course extends Model
     public function teachers(): BelongsToMany
     {
         // Un Corso APPARTIENE A UN insegnante(=user=ricercatore)
-        return $this->belongsToMany(User::class)->withTimestamps()->withTrashed();
+        return $this->belongsToMany(User::class)->using(CourseUser::class)->withTimestamps()->withTrashed();
     }
 
     /**

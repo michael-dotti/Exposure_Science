@@ -74,7 +74,7 @@ class User extends Authenticatable
     // indica la relazione tra utente e corsi
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class)->withTimestamps();
+        return $this->belongsToMany(Course::class)->using(CourseUser::class)->withTimestamps();
     }
 
 
