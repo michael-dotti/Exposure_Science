@@ -3,8 +3,8 @@
 		Visualizzazione Progetto
 	</x-slot:title>
 	
-	<div class="max-w-4xl mx-auto mt-8">
-		<article class="p-6 overflow-hidden rounded-lg border border-slate-700 bg-gray-800 shadow-md">
+	<div class="w-full max-w-4xl mx-auto mt-8">
+		<article class="p-6 overflow-hidden rounded-lg border border-slate-700 bg-gray-800 shadow-md w-full min-h">
 			<!-- titolo progetto -->
 			<div class="mb-6 text-2xl font-bold text-white">{{ $project->title }}</div>
 			<hr class="h-px my-6 bg-gray-600 border-0">
@@ -50,15 +50,31 @@
 			@endif
 
 			<!-- partecipanti -->
-			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				<div> @if(sizeof($project->users) > 1) Partecipano al progetto:
+			<div class="my-6 text-sm text-gray-300 flex flex-wrap items-center gap-2">
+				@if($project->users->isEmpty())
+					Partecipante: <span class="text-white">Nessun partecipante associato</span>
+				@else
+					@if($project->users->count() > 1) Partecipano al progetto:
 					@else Partecipa al progetto:
-					@endif <span class="text-white">@foreach($project->users as $user){{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif @endforeach</span></div>
+					@endif 
+					<span class="text-white">
+						@foreach($project->users as $user)
+							{{ $user->name }} {{ $user->surname }}@if(!$loop->last), @endif
+						@endforeach
+					</span>
+				@endif
 			</div>
 
 			<!-- creatore -->
-			<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
-				<div> Creatore al progetto: {{ $project->creator->name }} {{ $project->creator->surname }}</div>
+			<div class="my-6 text-sm text-gray-300 flex flex-wrap items-center gap-2">
+				Creatore del progetto: 
+				<span class="text-white">
+					@if($project->creator)
+						{{ $project->creator->name }} {{ $project->creator->surname }}
+					@else
+						Non specificato
+					@endif
+				</span>
 			</div>
 
 			<!-- descrizione del progetto -->

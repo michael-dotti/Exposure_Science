@@ -14,6 +14,7 @@ class ProjectController extends Controller
 
         $projects = Project::with('users')
             ->filterByStatus($selectedStatus)
+            ->latest()
             ->paginate(8)
             ->onEachSide(1)
             ->withQueryString();
