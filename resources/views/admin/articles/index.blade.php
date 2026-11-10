@@ -65,7 +65,7 @@
                                 {{ $user->name }}
                                 {{ $user->surname }}@if (!$loop->last), @endif
                             @empty
-                                Nessun autore associato
+                                Non specificato
                             @endforelse
                         </span>
 

@@ -103,7 +103,7 @@
                 <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-3 sm:col-span-2">
 
                     <p class="text-sm text-gray-400">
-                        Nessun autore associato.
+                        Non specificato
                     </p>
 
                 </div>

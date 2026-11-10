@@ -178,7 +178,9 @@
                                                     class="text-xs font-bold uppercase
                                                            tracking-wide text-gray-500"
                                                 >
-                                                    Autori
+                                                    {{ $article->users->count() === 1
+                                                        ? 'Autore:'
+                                                        : 'Autori:' }}
                                                 </p>
 
                                                 <p
@@ -189,7 +191,7 @@
                                                     @forelse ($article->users as $user)
                                                         {{ $user->name }} {{ $user->surname }}@if (! $loop->last), @endif
                                                     @empty
-                                                        Non specificati
+                                                        Non specificato
                                                     @endforelse
                                                 </p>
                                             </div>

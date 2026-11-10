@@ -66,7 +66,7 @@
                                     {{ $user->name }}
                                     {{ $user->surname }}@if (!$loop->last), @endif
                                 @empty
-                                    Non indicato
+                                    Non specificato
                                 @endforelse
                             </span>
                         </div>
