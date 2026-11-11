@@ -49,10 +49,14 @@
                                     </td>
                                     <th scope="row" class="flex items-center px-4 py-2 font-medium whitespace-nowrap text-white">
                                         <div class="flex items-center min-w-0">
-                                            <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" class="mr-1"/>
-                                            <span class="truncate text-sm font-semibold">
-                                                {{ $event->creator->name }} {{ $event->creator->surname }}
-                                            </span>
+                                            @if($event->creator)
+                                                <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" class="mr-1"/>
+                                                <span class="truncate text-sm font-semibold">
+                                                    {{ $event->creator->name }} {{ $event->creator->surname }}
+                                                </span>
+                                            @else
+                                                <x-deleted-user />
+                                            @endif
                                         </div>
                                     </th>
                                     <td class="px-4 py-2 w-20 hidden md:table-cell lg:w-28 align-middle">

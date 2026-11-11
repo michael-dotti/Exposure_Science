@@ -10,10 +10,21 @@
 
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
     <div class="flex items-center min-w-0">
-        <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" alt="{{ $event->creator->name }}" class="border border-gray-500 shrink-0"/>
+        @if($event->creator)
+            <x-profile-foto-mini src="{{ $event->creator->profilePhotoUrl }}" alt="{{ $event->creator->name }}" class="border border-gray-500 shrink-0"/>
+        @else
+            <x-deleted-user text="" />
+        @endif
+
         <div class="flex flex-col ml-3 min-w-0">
-            <span class="text-sm text-gray-100 font-semibold">{{ $event->creator->name}} {{ $event->creator->surname}}</span>
-            <span class="text-xs text-gray-400">From: {{ $event->creator->email }} </span>
+            @if($event->creator)
+                <span class="text-sm text-gray-100 font-semibold">{{ $event->creator->name}} {{ $event->creator->surname}}</span>
+                <span class="text-xs text-gray-400">From: {{ $event->creator->email }} </span>
+            @else
+                <span class="text-sm font-semibold text-gray-400 italic">Utente rimosso</span>
+                <span class="text-xs text-gray-500">From: —</span>
+            @endif
+            
             @if ($showRecipients && $event->recipients && $event->recipients->isNotEmpty()) 
             {{-- Mostra i destinatari dell'evento solo se: è concesso all'utente di vederli (indicato dal props $showRecipients che
             è reso True solo dentro a admin.events-management.show) + se ci sono destinatari ) --}}

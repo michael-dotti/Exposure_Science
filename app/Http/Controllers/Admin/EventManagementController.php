@@ -38,7 +38,9 @@ class EventManagementController extends Controller
 
     public function create()
     {
-        $users = User::select('id', 'name','profile_photo_path')->get();
+        $users = User::select('id', 'name','profile_photo_path')
+            ->where('id', '!=', auth()->id())
+            ->get();
         $types = EventType::cases();
         return view('admin.events-management.create', compact('users','types'));
     }

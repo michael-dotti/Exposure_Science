@@ -100,7 +100,7 @@ class User extends Authenticatable
     // eventi generati dall'utente
     public function events_created(): HasMany
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'creator_user_id');
     }
 
     // Eventi associati a questo user
