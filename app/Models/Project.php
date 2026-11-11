@@ -34,12 +34,6 @@ class Project extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
-    // un project può appartenere ad 1 o più aree di ricerca
-    public function researchAreas(): BelongsToMany
-    {
-        return $this->belongsToMany(ResearchArea::class);
-    }
-
     /**
      * Filtra i progetti per Creatore (solo dall'URL)
      */

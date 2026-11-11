@@ -16,12 +16,6 @@ class ResearchArea extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-    
-    // un'area di ricerca può essere associata a più project
-    public function projects(): BelongsToMany
-    {
-        return $this->belongsToMany(Project::class);
-    }
 
     // articoli di questa area di ricerca
     public function articles(): BelongsToMany
