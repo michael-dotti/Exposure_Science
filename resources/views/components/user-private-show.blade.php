@@ -24,13 +24,13 @@
         <div class="space-y-6">
             <div>
                 <p class="text-base/7 font-bold text-white">{{ $isPersonal ? 'Il tuo nominativo:' : 'Nominativo:' }}</p>
-                <p class="text-base/7 text-white ml-8"> {{ $user->name }} {{ $user->surname }} </p>
+                <p class="text-base/7 text-white ml-8">{{ $user->name }} {{ $user->surname }}</p>
                 
                 <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'La tua e-mail:' : 'E-mail:' }}</p>
-                <p class="text-base/7 text-white ml-8"> {{ $user->email }} </p>
+                <p class="text-base/7 text-white ml-8">{{ $user->email }}</p>
                 
                 <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'La tua bio:' : 'Bio:' }}</p>
-                <p class="text-base/7 text-white ml-8"> {{ $user->bio ?? '[Nessuna bio inserita]' }} </p>
+                <p class="text-base/7 text-white ml-8">{{ $user->bio ?? '[Nessuna bio inserita]' }}</p>
                 
                 <p class="text-base/7 font-bold text-white mt-2">{{ $isPersonal ? 'Il tuo sito web:' : 'Sito web:' }}</p>
                 @if ($user->website)    

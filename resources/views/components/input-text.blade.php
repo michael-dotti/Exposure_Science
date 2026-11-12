@@ -6,6 +6,7 @@
     $value    - Valore iniziale (utile per i form di modifica)
     $label    - Testo della label. Se omesso, la label non viene renderizzata
     $required - Se true, rende l'input obbligatorio e aggiunge un "*" rosso alla label 
+    $useOld   - Se true (default), usa l'old(). Se false, ignora l'old e usa solo $value
 --}}
 
 @props(['name',
@@ -13,7 +14,8 @@
     'value'=> '', // utile per il form di modifica
     'label' => null, // La label è opzionale di default
     'required' => false,
-    'validation' => true
+    'validation' => true,
+    'useOld' => true // Di default è attivo 
 ])
 
 
@@ -34,7 +36,7 @@
             ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
             sm:text-sm/6',
     ]) }} {{-- oppure con oultine al posto di ring: outline-1 -outline-offset-1 outline-white/10 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 --}}
-    value="{{ old($name, $value) }}"  {{--  se l'utente ha già inserito un valore, lo mantiene in caso di errore di validazione --}}
+    value="{{ $useOld ? old($name, $value) : $value }}"  {{--  se l'utente ha già inserito un valore, lo mantiene in caso di errore di validazione --}}
     @required($required)> {{-- @required(condizione) = rende l'input required se la condizione è True --}}
 
     @if($validation)

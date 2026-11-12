@@ -21,6 +21,7 @@
                                type="checkbox" 
                                value="{{ $user->id }}" 
                                name="{{ $name }}[]"
+                               @checked(in_array($user->id, old($name, [])))
                                class="recipient-checkbox w-4 h-4 text-brand bg-mist-800 border-gray-600 rounded focus:ring-brand focus:ring-2 cursor-pointer">
                         <label for="user-{{ $user->id }}" class="w-full ms-3 flex flex-col cursor-pointer">
                             <span class="font-medium">{{ $user->name }} {{ $user->surname }}</span>

@@ -16,8 +16,8 @@
             </div>
             <x-input-text type="email" :required="true" name="email" label="Email"/>
             <div class="grid md:grid-cols-2 md:gap-6">
-                <x-input-text type="password" :required="true" name="password" label="Password"/>
-                <x-input-text type="password" :required="true" name="password_confirmation" label="Conferma Password"/>
+                <x-input-text type="password" :required="true" :use-old="false" name="password" label="Password"/>
+                <x-input-text type="password" :required="true" :use-old="false" name="password_confirmation" label="Conferma Password"/>
             </div>
         </x-content-section>
 
