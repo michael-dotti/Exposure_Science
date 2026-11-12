@@ -60,7 +60,7 @@
                                 <option
                                     value=""
                                     class="bg-gray-800 text-gray-400"
-                                    @selected(old('language') === null)
+                                    @selected(old('language', $course->language) === null)
                                 >
                                     Seleziona una lingua
                                 </option>
@@ -69,7 +69,7 @@
                                     <option
                                         value="{{ $language->value }}"
                                         class="bg-gray-800 text-white"
-                                        @selected(old('language') === $language->value)
+                                        @selected(old('language', $course->language) === $language->value)
                                     >
                                         {{ ucfirst($language->value) }}
                                     </option>
@@ -84,7 +84,7 @@
                                 :required="true"
                                 label="Codice"
                                 name="code"
-                                value="{{ old('code') }}"
+                                value="{{ old('code', $course->code) }}"
                             />
 
                             <p class="mt-1 text-xs text-gray-400">
