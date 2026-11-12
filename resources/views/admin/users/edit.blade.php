@@ -26,9 +26,11 @@
               name="bio" 
               rows="4" 
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6">
-              {{ $user->bio }}
+              {{ old('bio', $user->bio) }}
             </textarea>
             <p class="text-xs text-gray-500 mt-1">Massimo 500 caratteri.</p>
+
+            <x-form-error name="bio" />
         </div>
 
         <div>

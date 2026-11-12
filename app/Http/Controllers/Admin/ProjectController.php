@@ -22,7 +22,7 @@ class ProjectController extends Controller
 		// Dati per i menu a tendina
     	$statuses = ProjectStatusType::cases();
 
-		$creators = User::permission('manage all projects')
+		$creators = User::permission('create projects')
 		->select('id', 'name', 'surname')
 		->orderBy('surname','asc')
 		->orderBy('name', 'asc')
@@ -104,6 +104,7 @@ class ProjectController extends Controller
 			'title' => ['required','min:3','max:128', 'unique:projects,title'],
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
+			'users.*' => ['required', 'exists:users,id'],
 			'funding_agency' => ['nullable','min:3','max:128'],
 			'status' => ['required', Rule::enum(ProjectStatusType::class)],
 			'start_date' => ['nullable','date'],
@@ -155,6 +156,7 @@ class ProjectController extends Controller
 			'title' => ['required', 'min:3', 'max:128', Rule::unique('projects')->ignore($project->id)],
 			'description' =>['required','max:60000'],
 			'users' => ['required', 'array', 'min:1'],
+			'users.*' => ['required', 'exists:users,id'],
 			'funding_agency' => ['nullable','min:3','max:128'],
 			'status' => ['required', Rule::enum(ProjectStatusType::class)],
 			'start_date' => ['nullable','date'],

@@ -217,7 +217,7 @@
 
                 </div>
 
-                <x-form-error name="teachers[]" />
+                <x-form-error name="teachers" />
 
             </x-content-section>
 

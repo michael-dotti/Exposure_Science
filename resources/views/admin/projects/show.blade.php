@@ -32,11 +32,11 @@
 			@if($project->start_date || ($project->end_date))
 				<div class="my-6 text-sm font-small text-gray-300 grid grid-cols-2">
 					@if($project->start_date)
-						<div> Data avvio: <span class="text-white"> {{ $project->start_date }} </span></div>
+						<div> Data avvio: <span class="text-white"> {{ \Illuminate\Support\Carbon::parse($project->start_date)->format('d/m/Y') }} </span></div>
 					@endif
 
 					@if($project->end_date)
-						<div> Data fine: <span class="text-white"> {{ $project->end_date }} </span> </div>
+						<div> Data fine: <span class="text-white"> {{ \Illuminate\Support\Carbon::parse($project->end_date)->format('d/m/Y') }} </span> </div>
 					@endif
 				</div>
 			@endif

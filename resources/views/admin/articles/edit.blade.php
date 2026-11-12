@@ -110,7 +110,6 @@
                 </div>
 
                 <x-form-error name="users" />
-                <x-form-error name="users.*" />
 
             </x-content-section>
 
@@ -159,7 +158,6 @@
                 </div>
 
                 <x-form-error name="areas" />
-                <x-form-error name="areas.*" />
 
             </x-content-section>
 

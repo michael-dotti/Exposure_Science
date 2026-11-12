@@ -104,6 +104,7 @@ class ArticleController extends Controller
             'title' => ['required', 'min:3', 'max:255', 'unique:articles,title'],
             'abstract' =>['required','min:30','max:5000'],
             'users' => ['required', 'array', 'min:1'],
+            'users.*' => ['required', 'exists:users,id'],
             
             'file_path' => [
                 'required_without:external_url',
@@ -126,6 +127,7 @@ class ArticleController extends Controller
 
             'image_path' =>['required','image','max:5120','mimes:jpeg,png,jpg,webp'],
             'areas' => ['required','array','min:1'],
+            'areas.*' => [Rule::enum(ResearchArea::class)],
         ]);
 
         // 1.1) Ripulire l'articolo da eventuali script malevoli

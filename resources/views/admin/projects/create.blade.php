@@ -56,13 +56,13 @@
 				<input type="date" name="start_date" id="start_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
-					sm:text-sm/6">
+					sm:text-sm/6" value="{{ old('start_date') }}">
 					
 				<span>a</span>
 				<input type="date" name="end_date" id="end_date" class="rounded-md w-fit
 					border-0 bg-white/5 px-3 py-1.5 text-white shadow-sm
 					ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 
-					sm:text-sm/6">
+					sm:text-sm/6" value="{{ old('end_date') }}">
 			</div>
 			<x-form-error name="start_date" />
 			<x-form-error name="end_date" />
