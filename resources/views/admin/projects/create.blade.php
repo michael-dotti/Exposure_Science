@@ -20,20 +20,8 @@
 
 		<x-content-section>
 			<div class="space-y-5">
-				<div>
-					<x-label name="status" :required="True">Stato</x-label>
-					<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
-						name="status" id="status">
-						@foreach($statuses as $status)
-							<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
-								class="w-max">
-									{{ $status->label() }}
-							</option>
-						@endforeach
-						<x-form-error name="users" />
-					</select>
-				</div>
-		
+				<x-project-status-dropdown :statuses="$statuses" />
+				
 				<x-input-text name="funding_agency" label="Finanziatore" />
 			</div>
 		</x-content-section>

@@ -33,25 +33,14 @@
 		</x-content-section>
 
 		<x-content-section>
-			<x-label name="status" :required="True">Stato</x-label>
-			<select class="bg-white/5 p-2 pr-8 rounded-md border border-white/10 w-max"
-				name="status" id="status">
-				@foreach($statuses as $status)
-					<option id="status-{{ $status->label() }}" name="statuses[]" value="{{ $status }}"
-						class="w-max"
-						@if($status == $project->status)
-							selected="selected"
-						@endif>
-							{{ $status->label() }}
-					</option>
-				@endforeach
-				<x-form-error name="users" />
-			</select>
+			<div class="space-y-5">
+				
+				<x-project-status-dropdown :statuses="$statuses" :selected="$project->status" />
+
+				<x-input-text name="funding_agency" label="Finanziatore" value="{{ $project->funding_agency }}" />
+			</div>
 		</x-content-section>
 
-		<x-content-section>
-			<x-input-text name="funding_agency" label="Finanziatore" value="{{ $project->funding_agency }}"></x-input-text>
-		</x-content-section>
 
 		<x-content-section>
 			<x-label name="users" :required="True">Collaboratori (minimo 1)</x-label>
