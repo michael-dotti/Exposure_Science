@@ -51,7 +51,7 @@ function isValidImageFile(file){
     // verifica se il MIME type del file inizia con 'image/'
     const isImage = file.type.startsWith('image/');
 
-    // verifoco anche l'estensione del file (opzionale)
+    // verifoco anche l'estensione del file
     const fileExtension = file.name.split('.').pop().toLowerCase();
     const validExtensions = ['jpg','jpeg','png','gif','bmp','webp'];
     const hasValidExtension = validExtensions.includes(fileExtension);

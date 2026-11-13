@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // recupera il form genitore in cui si trova il componente
         const form = checkboxes[0].closest('form');
 
-        //1) Gestisce il "Seleizona Tutti"
+        //1) Gestisce il "Seleziona Tutti"
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
                 const isSelectingAll = toggleBtn.dataset.state === 'unselected';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Mostra il bordo rosso e il messaggio
                     showError();
 
-                    // Fai uno scroll morbido verso il campo per evidenziarlo all'utente
+                    // Fa uno scroll morbido (smooth) verso il campo per evidenziarlo all'utente
                     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             });
