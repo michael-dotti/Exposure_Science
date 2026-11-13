@@ -1,6 +1,6 @@
 <x-layout-private>
     <x-slot:title>
-        Events
+        Evento
     </x-slot:title>
     <x-event-box 
         :event="$event" 
