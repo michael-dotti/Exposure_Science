@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('data_pubblicazione'); 
             $table->text('abstract');
             $table->string('external_url', 2048)->nullable(); // Salva il link per l'acquisto
