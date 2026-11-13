@@ -241,7 +241,9 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255', Rule::unique('articles', 'title')->ignore($article->id)],
             'abstract' => ['required','min:30', 'max:3000'],
             'users' => ['required', 'array', 'min:1'],
+            'users.*' => ['required', 'exists:users,id'],
             'areas' => ['required', 'array', 'min:1'],
+            'areas.*' => [Rule::enum(ResearchArea::class)],
             
             // Applica le regole sul file SOLO se l'utente sta effettivamente caricando un file nuovo
             'file_path' => [
